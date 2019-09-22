@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from "axios";
+
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
+class App extends Component {
+
+  // axios request test
+  componentDidMount() {
+    axios.get('http://localhost:3001/')
+      .then((response) => {
+        return response.data;
+      })
+      .then((data) => {
+        console.log(data);
+      })
+  }
+
+  render() {
+    return (
+      <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -19,8 +34,9 @@ function App() {
           Learn React
         </a>
       </header>
-    </div>
-  );
+      </div>
+    )
+  }
 }
 
 export default App;

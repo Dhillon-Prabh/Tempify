@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios";
 
-import logo from './logo.svg';
-import './App.css';
+import logo from '../../images/logo.svg';
+import '../../css/App.css';
 
 class App extends Component {
 

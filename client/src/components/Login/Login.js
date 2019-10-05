@@ -1,5 +1,4 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -11,6 +10,9 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
+import FormModal from '../FormModal/FormModal'
+
 
 function Copyright() {
   return (
@@ -50,17 +52,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignIn() {
+export default function Login() {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="sm">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-        </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          LOGIN WITH YOUR EMAIL ACCOUNT
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -96,13 +96,16 @@ export default function SignIn() {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            LOGIN
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+            <Grid item sm>
+              <FormModal
+                title = "Password Recovery"
+                description = "What is your email? We will send you a password reset link."
+                cancel = "Cancel"
+                reset = "Send Reset Link"
+              />
             </Grid>
             <Grid item>
               <Link href="#" variant="body2">

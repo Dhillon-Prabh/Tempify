@@ -74,9 +74,12 @@ class Navbar extends Component{
              onKeyDown={()=>{this.setState({drawer:false})}}>
 
             <List className = {this.props.classes.list}>
-               <ListItem key = {1} button divider> Option 1 </ListItem>
-               <ListItem key = {2} button divider> Option 2 </ListItem>
-               <ListItem key = {3} button divider> Option 3 </ListItem>
+               <ListItem key = {1} button divider> Home </ListItem>
+               <ListItem key = {2} button divider> About Us </ListItem>
+               <ListItem key = {3} button divider> Book Now </ListItem>
+               <ListItem key = {4} button divider> Become a Temp </ListItem>
+               <ListItem key = {5} button divider> Contact Us </ListItem>
+               <ListItem key = {6} button divider> Login </ListItem>
              </List>
 
          </div>
@@ -93,9 +96,12 @@ class Navbar extends Component{
       <AppBar>
         <Toolbar>
           <Typography variant = "headline" style={{flexGrow:1}} color="inherit" >Title</Typography>
-          <Typography variant = "subheading" className = {classes.padding} color="inherit" >OPTION 1</Typography>
-          <Typography variant = "subheading" className = {classes.padding} color="inherit" >OPTION 2</Typography>
-          <Typography variant = "subheading" className = {classes.padding} color="inherit" >OPTION 3</Typography>
+          <Typography variant = "subheading" className = {classes.padding} color="inherit" >Home</Typography>
+          <Typography variant = "subheading" className = {classes.padding} color="inherit" >About Us</Typography>
+          <Typography variant = "subheading" className = {classes.padding} color="inherit" >Book Now</Typography>
+          <Typography variant = "subheading" className = {classes.padding} color="inherit" >Become a Temp</Typography>
+          <Typography variant = "subheading" className = {classes.padding} color="inherit" >Contact Us</Typography>
+          <Typography variant = "subheading" className = {classes.padding} color="inherit" >Login</Typography>
         </Toolbar>
       </AppBar>
     )

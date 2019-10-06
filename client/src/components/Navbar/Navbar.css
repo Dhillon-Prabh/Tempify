@@ -1,0 +1,49 @@
+/* styles for the drawer */
+.list {
+    width: 15rem;
+}
+
+.item-height {
+    height: 3.5rem;
+}
+
+.sideBarIcon {
+    padding : 0 !important;
+    color : black;
+    cursor : pointer;
+}
+
+/* Logo styles */
+.logo {
+    background-color: #ffffff;
+    position: relative;
+    color: #ffffff;
+    display: block;
+    width: 11rem;
+}
+
+.logo-container{
+    width: 100%;
+}
+
+/* styles for navbar and navbar-items */
+.padding{
+    padding-right: 3rem;
+}
+
+.nav-item{
+    cursor: pointer;
+    color: black;
+    white-space: nowrap;
+    font-weight: bold;
+    position:relative;
+    z-index: 1;
+}
+
+.nav-item:hover{
+    color: #53bed5;
+}
+
+.nav-color{
+    background-color: #ffffff;
+}

@@ -56,12 +56,12 @@ class Navbar extends Component{
              onKeyDown={()=>{this.setState({drawer:false})}}>
 
             <List className = "list">
-               <ListItem key = {1} button divider> Home </ListItem>
-               <ListItem key = {2} button divider> About Us </ListItem>
-               <ListItem key = {3} button divider> Book Now </ListItem>
-               <ListItem key = {4} button divider> Become a Temp </ListItem>
-               <ListItem key = {5} button divider> Contact Us </ListItem>
-               <ListItem key = {6} button divider> Login </ListItem>
+               <ListItem key = {1} button divider className="nav-item item-height"> Home </ListItem>
+               <ListItem key = {2} button divider className="nav-item item-height"> About Us </ListItem>
+               <ListItem key = {3} button divider className="nav-item item-height"> Book Now </ListItem>
+               <ListItem key = {4} button divider className="nav-item item-height"> Become a Temp </ListItem>
+               <ListItem key = {5} button divider className="nav-item item-height"> Contact Us </ListItem>
+               <ListItem key = {6} button divider className="nav-item item-height"> Login </ListItem>
              </List>
 
          </div>

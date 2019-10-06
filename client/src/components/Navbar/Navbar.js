@@ -5,6 +5,8 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import './Navbar.css';
 import logo from '../../images/Tempify_resized.png';
+import { Link, Route, Switch} from "react-router-dom";
+import Login from '../Login/Login'
 
 class Navbar extends Component{
   constructor(props){
@@ -61,7 +63,7 @@ class Navbar extends Component{
                <ListItem key = {3} button divider className="nav-item item-height"> Book Now </ListItem>
                <ListItem key = {4} button divider className="nav-item item-height"> Become a Temp </ListItem>
                <ListItem key = {5} button divider className="nav-item item-height"> Contact Us </ListItem>
-               <ListItem key = {6} button divider className="nav-item item-height"> Login </ListItem>
+               <ListItem key = {6} button divider className="nav-item item-height" component={Link} to={'/login'}> Login </ListItem>
              </List>
 
          </div>
@@ -84,7 +86,7 @@ class Navbar extends Component{
             <Typography variant = "subheading" className = "padding nav-item">Book Now</Typography>
             <Typography variant = "subheading" className = "padding nav-item">Become a Temp</Typography>
             <Typography variant = "subheading" className = "padding nav-item">Contact Us</Typography>
-            <Typography variant = "subheading" className = "nav-item">Login</Typography>
+            <Typography variant = "subheading" className = "nav-item" component={Link} to={'/login'}>Login</Typography>
         </Toolbar>
       </AppBar>
     )
@@ -98,5 +100,9 @@ class Navbar extends Component{
     );
   }
 }
+
+<Switch>
+  <Route path="/login" component={Login} />
+</Switch>
 
 export default Navbar;

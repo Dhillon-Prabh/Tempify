@@ -32,13 +32,13 @@ class Navbar extends Component{
     return (
       <div>
         <AppBar >
-          <Toolbar>
+          <Toolbar className="nav-color">
             <Grid container direction = "row" justify = "space-between" alignItems="center">
               <MenuIcon
                 className = "sideBarIcon"
                 onClick={()=>{this.setState({drawer:true})}} />
 
-              <Typography color="inherit" variant = "headline">Title</Typography>
+              <img src={logo} className="logo" alt="logo"/>
               <Typography color="inherit" variant = "headline"></Typography>
             </Grid>
           </Toolbar>

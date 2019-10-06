@@ -4,10 +4,17 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import { Toolbar } from '@material-ui/core';
 
+const divStyle = {
+    backgroundColor: 'yellow',
+    color: 'red',
+    fontWeight: 'bold',
+    fontSize: '3rem'
+  };
+
 class Navbar extends React.Component {
     render() {
         return (
-            <AppBar position='static'>
+            <AppBar position='static' className="">
                 <Toolbar>
                     <Tabs>
                         <Tab label="Home"/>

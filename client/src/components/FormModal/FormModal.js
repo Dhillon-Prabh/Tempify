@@ -20,9 +20,10 @@ export default function FormDialog() {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button onClick={handleClickOpen}>
         Forgot your password?
       </Button>
+      
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Password Recovery</DialogTitle>
         <DialogContent>
@@ -43,7 +44,7 @@ export default function FormDialog() {
             Cancel
           </Button>
           <Button onClick={handleClose} color="primary">
-            Send Password Reset Link
+            Send Reset Link
           </Button>
         </DialogActions>
       </Dialog>

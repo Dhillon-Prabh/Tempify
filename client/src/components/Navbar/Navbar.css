@@ -38,6 +38,7 @@
     font-weight: bold;
     position:relative;
     z-index: 1;
+    text-decoration: none;
 }
 
 .nav-item:hover{

@@ -7,6 +7,7 @@ import './Navbar.css';
 import logo from '../../images/Tempify_resized.png';
 import { Link, Route, Switch} from "react-router-dom";
 import Login from '../Login/Login'
+import App from '../App/App'
 
 class Navbar extends Component{
   constructor(props){
@@ -51,24 +52,25 @@ class Navbar extends Component{
          onClose={()=>{this.setState({drawer:false})}}
          onOpen={()=>{this.setState({drawer:true})}}>
 
-           <div
-             tabIndex={0}
-             role="button"
-             onClick={()=>{this.setState({drawer:false})}}
-             onKeyDown={()=>{this.setState({drawer:false})}}>
+          <div
+            tabIndex={0}
+            role="button"
+            onClick={()=>{this.setState({drawer:false})}}
+            onKeyDown={()=>{this.setState({drawer:false})}}>
 
             <List className = "list">
-               <ListItem key = {1} button divider className="nav-item item-height"> Home </ListItem>
-               <ListItem key = {2} button divider className="nav-item item-height"> About Us </ListItem>
-               <ListItem key = {3} button divider className="nav-item item-height"> Book Now </ListItem>
-               <ListItem key = {4} button divider className="nav-item item-height"> Become a Temp </ListItem>
-               <ListItem key = {5} button divider className="nav-item item-height"> Contact Us </ListItem>
-               <ListItem key = {6} button divider className="nav-item item-height" component={Link} to={'/login'}> Login </ListItem>
-             </List>
-
-         </div>
-       </SwipeableDrawer>
-
+              <ListItem key = {1} button divider className="nav-item item-height"> Home </ListItem>
+              <ListItem key = {2} button divider className="nav-item item-height"> About Us </ListItem>
+              <ListItem key = {3} button divider className="nav-item item-height"> Book Now </ListItem>
+              <ListItem key = {4} button divider className="nav-item item-height"> Become a Temp </ListItem>
+              <ListItem key = {5} button divider className="nav-item item-height"> Contact Us </ListItem>
+              <ListItem key = {6} button divider className="nav-item item-height" component={Link} to={'/login'}> Login </ListItem>
+            </List>
+          </div>
+       </SwipeableDrawer> 
+        <Switch>
+          <Route path="/login" component={Login} />
+        </Switch>
       </div>
     );
   }
@@ -76,19 +78,24 @@ class Navbar extends Component{
   //Larger Screens
   destroyDrawer(){
     return (
-      <AppBar>
-        <Toolbar className="nav-color">
-          <div className="logo-container">
-            <img src={logo} className="logo" alt="logo"/>
-          </div>
-            <Typography variant = "subheading" className = "padding nav-item">Home</Typography>
-            <Typography variant = "subheading" className = "padding nav-item">About Us</Typography>
-            <Typography variant = "subheading" className = "padding nav-item">Book Now</Typography>
-            <Typography variant = "subheading" className = "padding nav-item">Become a Temp</Typography>
-            <Typography variant = "subheading" className = "padding nav-item">Contact Us</Typography>
-            <Typography variant = "subheading" className = "nav-item" component={Link} to={'/login'}>Login</Typography>
-        </Toolbar>
-      </AppBar>
+      <div>
+        <AppBar>
+          <Toolbar className="nav-color">
+            <div className="logo-container">
+              <img src={logo} className="logo" alt="logo"/>
+            </div>
+              <Typography variant = "subheading" className = "padding nav-item">Home</Typography>
+              <Typography variant = "subheading" className = "padding nav-item">About Us</Typography>
+              <Typography variant = "subheading" className = "padding nav-item">Book Now</Typography>
+              <Typography variant = "subheading" className = "padding nav-item">Become a Temp</Typography>
+              <Typography variant = "subheading" className = "padding nav-item">Contact Us</Typography>
+              <Typography variant = "subheading" className = "nav-item" component={Link} to={'/login'}>Login</Typography>
+          </Toolbar>
+        </AppBar>
+        <Switch>
+          <Route path="/login" component={Login} />
+        </Switch>
+      </div>
     )
   }
 
@@ -100,9 +107,5 @@ class Navbar extends Component{
     );
   }
 }
-
-<Switch>
-  <Route path="/login" component={Login} />
-</Switch>
 
 export default Navbar;

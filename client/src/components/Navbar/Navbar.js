@@ -1,42 +1,24 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import {
-  AppBar, Toolbar, Typography, List, ListItem,
-  withStyles, Grid, SwipeableDrawer
+  AppBar, Toolbar, Typography, List, ListItem, Grid, SwipeableDrawer
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-
-const styleSheet = {
-  list : {
-    width : 200,
-  },
-  padding : {
-    paddingRight : 30,
-    cursor : "pointer",
-  },
-
-  sideBarIcon : {
-    padding : 0,
-    color : "white",
-    cursor : "pointer",
-  }
-}
+import './Navbar.css';
+import logo from '../../images/Tempify_resized.png';
 
 class Navbar extends Component{
   constructor(props){
     super(props);
     this.state = {drawerActivate:false, drawer:false};
-    this.createDrawer = this.createDrawer.bind(this);
-    this.destroyDrawer = this.destroyDrawer.bind(this);
   }
 
   componentWillMount(){
-    if(window.innerWidth <= 600){
+    if(window.innerWidth <= 900){
       this.setState({drawerActivate:true});
     }
 
     window.addEventListener('resize',()=>{
-      if(window.innerWidth <= 600){
+      if(window.innerWidth <= 900){
         this.setState({drawerActivate:true});
       }
       else{
@@ -53,7 +35,7 @@ class Navbar extends Component{
           <Toolbar>
             <Grid container direction = "row" justify = "space-between" alignItems="center">
               <MenuIcon
-                className = {this.props.classes.sideBarIcon}
+                className = "sideBarIcon"
                 onClick={()=>{this.setState({drawer:true})}} />
 
               <Typography color="inherit" variant = "headline">Title</Typography>
@@ -73,7 +55,7 @@ class Navbar extends Component{
              onClick={()=>{this.setState({drawer:false})}}
              onKeyDown={()=>{this.setState({drawer:false})}}>
 
-            <List className = {this.props.classes.list}>
+            <List className = "list">
                <ListItem key = {1} button divider> Home </ListItem>
                <ListItem key = {2} button divider> About Us </ListItem>
                <ListItem key = {3} button divider> Book Now </ListItem>
@@ -91,17 +73,18 @@ class Navbar extends Component{
 
   //Larger Screens
   destroyDrawer(){
-    const {classes} = this.props
     return (
       <AppBar>
-        <Toolbar>
-          <Typography variant = "headline" style={{flexGrow:1}} color="inherit" >Title</Typography>
-          <Typography variant = "subheading" className = {classes.padding} color="inherit" >Home</Typography>
-          <Typography variant = "subheading" className = {classes.padding} color="inherit" >About Us</Typography>
-          <Typography variant = "subheading" className = {classes.padding} color="inherit" >Book Now</Typography>
-          <Typography variant = "subheading" className = {classes.padding} color="inherit" >Become a Temp</Typography>
-          <Typography variant = "subheading" className = {classes.padding} color="inherit" >Contact Us</Typography>
-          <Typography variant = "subheading" className = {classes.padding} color="inherit" >Login</Typography>
+        <Toolbar className="nav-color">
+          <div className="logo-container">
+            <img src={logo} className="logo" alt="logo"/>
+          </div>
+            <Typography variant = "subheading" className = "padding nav-item">Home</Typography>
+            <Typography variant = "subheading" className = "padding nav-item">About Us</Typography>
+            <Typography variant = "subheading" className = "padding nav-item">Book Now</Typography>
+            <Typography variant = "subheading" className = "padding nav-item">Become a Temp</Typography>
+            <Typography variant = "subheading" className = "padding nav-item">Contact Us</Typography>
+            <Typography variant = "subheading" className = "nav-item">Login</Typography>
         </Toolbar>
       </AppBar>
     )
@@ -116,10 +99,4 @@ class Navbar extends Component{
   }
 }
 
-Navbar.propTypes = {
-  classes : PropTypes.object.isRequired
-};
-
-
-
-export default withStyles(styleSheet)(Navbar);
+export default Navbar;

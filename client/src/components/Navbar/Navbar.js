@@ -5,9 +5,10 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import './Navbar.css';
 import logo from '../../images/Tempify_resized.png';
-import { Link, Route, Switch} from "react-router-dom";
-import Login from '../Login/Login'
-import App from '../App/App'
+import { NavLink, Route, Switch} from "react-router-dom";
+import Login from '../Login/Login';
+import App from '../App/App';
+import About from '../About/About';
 
 class Navbar extends Component{
   constructor(props){
@@ -59,17 +60,22 @@ class Navbar extends Component{
             onKeyDown={()=>{this.setState({drawer:false})}}>
 
             <List className = "list">
-              <ListItem key = {1} button divider className="nav-item item-height"> Home </ListItem>
-              <ListItem key = {2} button divider className="nav-item item-height"> About Us </ListItem>
+              <ListItem key = {1} button divider className="nav-item item-height"
+                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/#'}> Home </ListItem>
+              <ListItem key = {2} button divider className="nav-item item-height"
+                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}> About Us </ListItem>
               <ListItem key = {3} button divider className="nav-item item-height"> Book Now </ListItem>
               <ListItem key = {4} button divider className="nav-item item-height"> Become a Temp </ListItem>
               <ListItem key = {5} button divider className="nav-item item-height"> Contact Us </ListItem>
-              <ListItem key = {6} button divider className="nav-item item-height" component={Link} to={'/login'}> Login </ListItem>
+              <ListItem key = {6} button divider className="nav-item item-height" 
+                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}> Login </ListItem>
             </List>
           </div>
        </SwipeableDrawer> 
         <Switch>
           <Route path="/login" component={Login} />
+          <Route path="/#" component={App} />
+          <Route path="/about" component={About} />
         </Switch>
       </div>
     );
@@ -84,16 +90,21 @@ class Navbar extends Component{
             <div className="logo-container">
               <img src={logo} className="logo" alt="logo"/>
             </div>
-              <Typography variant = "subheading" className = "padding nav-item">Home</Typography>
-              <Typography variant = "subheading" className = "padding nav-item">About Us</Typography>
+              <Typography variant = "subheading" className = "padding nav-item"
+                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/#'}>Home</Typography>
+              <Typography variant = "subheading" className = "padding nav-item"
+                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>About Us</Typography>
               <Typography variant = "subheading" className = "padding nav-item">Book Now</Typography>
               <Typography variant = "subheading" className = "padding nav-item">Become a Temp</Typography>
               <Typography variant = "subheading" className = "padding nav-item">Contact Us</Typography>
-              <Typography variant = "subheading" className = "nav-item" component={Link} to={'/login'}>Login</Typography>
+              <Typography variant = "subheading" className = "nav-item" 
+                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>
           </Toolbar>
         </AppBar>
         <Switch>
           <Route path="/login" component={Login} />
+          <Route path="/#" component={App} />
+          <Route path="/about" component={About} />
         </Switch>
       </div>
     )

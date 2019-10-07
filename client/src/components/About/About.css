@@ -1,0 +1,16 @@
+.AboutHeader{
+    padding-top:5rem;
+    font-weight: bold !important;
+}
+
+.AboutContent{
+    display: block;
+    width: 80%;
+    border-bottom: 2px solid rgb(207, 205, 205);
+    padding-bottom: 2rem;
+    padding-top: 1rem;
+}
+
+.bold{
+    font-weight: bold;
+}

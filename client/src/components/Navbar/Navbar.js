@@ -43,7 +43,7 @@ class Navbar extends Component{
                 onClick={()=>{this.setState({drawer:true})}} />
 
               <img src={logo} className="logo" alt="logo"/>
-              <Typography color="inherit" variant = "headline"></Typography>
+              <Typography color="inherit"></Typography>
             </Grid>
           </Toolbar>
         </AppBar>

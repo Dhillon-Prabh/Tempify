@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
       backgroundColor: theme.palette.common.white,
-      fontFamily: 'Source Sans Pro'
     },
   },
   paper: {

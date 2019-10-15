@@ -13,23 +13,24 @@
 
 .header1 {
     padding-top: 25px;
-    padding-bottom: 46px;
+    padding-bottom: 1.65em;
     font-size: 1.75em !important;
     font-weight: bold !important;
 }
 
 .header2 {
-    padding-bottom: 42px;
+    padding-bottom: 2.625em;
     font-size: 1.75em !important;
 }
 
 .columns {
-    padding-top: 16px;
-    padding-bottom: 38px;
+    padding-top: 1em;
+    padding-bottom: 2.4em;
 }
 
 .block1Column {
     width: 50%;
+    padding-bottom: 25px;
 }
 
 .block2Column {
@@ -39,11 +40,22 @@
     padding-bottom: 10px;
 }
 
-.column {
-    width: 300px;
-    padding-left: 29px;
-    padding-right: 29px;
-    padding-bottom: 10px;
+.block3Column {
+    width: 25%;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
+}
+
+.blockRow {
+    max-width: 72em;
+}
+
+.block4Column {
+    width: 33%;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
 }
 
 .block1ColumnTitle {

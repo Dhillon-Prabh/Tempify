@@ -24,15 +24,15 @@ import './Block.css';
 class Block1 extends React.Component {
     render() {
         return (
-            <Grid container direction="column" justify='center' className="test">
+            <Grid container direction="column" align='center' className="test">
                 <Typography align='center' className='header1'>
                     Why Choose Tempify?
                 </Typography>
                 <Typography align='center' className='blueText header2' variant='h2'>
                     WE HANDLE THE ENTIRE PAYMENT PROCESS!
                 </Typography>
-                <Grid container direction='row' justify='center' className='columns'>
-                    <Grid item justify='center' direction='column' className='block1Column'>
+                <Grid container direction='row' justify='center' className='columns blockRow'>
+                    <Grid item direction='column' className='block1Column'>
                         <Typography className='block1ColumnTitle'>
                             DENTAL PROFESSIONALS
                         </Typography>
@@ -40,7 +40,7 @@ class Block1 extends React.Component {
                         <Row img={tax} content="Collect only ONE T4 at the end of the year."/>
                         <Row img={research} content="Keep track of all your payment records in one place."/>
                     </Grid>
-                    <Grid item justify='center' direction='column' className='block1Column'>
+                    <Grid item direction='column' className='block1Column'>
                         <Typography className='block1ColumnTitle'>
                             DENTAL OFFICES
                         </Typography>
@@ -69,21 +69,21 @@ const Row = (props) => {
 class Block2 extends React.Component {
     render() {
         return (
-            <Grid container direction="column" justify='center' className='blueBlock'>
-                <Typography align='center' className='header1'>
+            <Grid container direction="column" align='center' className='blueBlock'>
+                <Typography className='header1'>
                     How it Works
                 </Typography>
-                <Typography align='center' className='header2'>
+                <Typography className='header2'>
                     4 SIMPLE STEPS TO BOOK YOUR NEXT DENTAL PROFESSIONAL
                 </Typography>
-                <Grid container direction='row' justify='center' className='columns'>
-                    <Grid item justify='center' direction='column' className='block2Column'>
+                <Grid container direction='row' className='columns blockRow'>
+                    <Grid item direction='column' className='block2Column'>
                         <Typography align='center' className='columnTitle'>
                             STEP 1
                         </Typography>
                         <Col img={down} content="Select the time and date you wish to have a dental professional at your office"/>
                     </Grid>
-                    <Grid item justify='center' direction='column' className='block2Column'>
+                    <Grid item direction='column' className='block2Column'>
                         <Typography align='center' className='columnTitle'>
                             STEP 2
                         </Typography>
@@ -125,7 +125,7 @@ class Block3 extends React.Component {
                 <Typography align='center' className='header1'>
                     Dental Professionals
                 </Typography>
-                <Grid container direction='row' justify='center'>
+                <Grid container direction='row' justify='center' className='blockRow'>
                     <Col2 image={calendar} title='SCHEDULE' content='You determine how much you want to work'/>
                     <Col2 image={dollar} title='INCOME' content='Supplement your income when you need to'/>
                     <Col2 image={thumbUp} title='GET HIRED' content='Work in different settings until you find the right fit'/>
@@ -148,15 +148,15 @@ class Block4 extends React.Component {
                 <Typography align='center' className='header1'>
                     More Reasons to Choose Tempify
                 </Typography>
-                <Grid container direction='row' justify='center'>
-                    <Col2 image={ok} title='FIND THE RIGHT MATCH' content='Our dental professionals have a profile so you can find the right match'/>
-                    <Col2 image={dollar} title='COMPETITIVE PRICING' content='We offer competitive rates for all our dental professionals'/>
-                    <Col2 image={thumbUp} title='QUICK, SIMPLE, EASY' content='We made the process simple, with a few clicks you can find the perfect fit for your office'/>
+                <Grid container direction='row' className='blockRow'>
+                    <Col3 image={ok} title='FIND THE RIGHT MATCH' content='Our dental professionals have a profile so you can find the right match'/>
+                    <Col3 image={dollar} title='COMPETITIVE PRICING' content='We offer competitive rates for all our dental professionals'/>
+                    <Col3 image={thumbUp} title='QUICK, SIMPLE, EASY' content='We made the process simple, with a few clicks you can find the perfect fit for your office'/>
                 </Grid>
-                <Grid container direction='row' justify='center'>
-                    <Col2 image={marker} title='LOCATION, LOCATION, LOCATION' content='Our dental professionals are located throughout the Lower Mainland to reduce travel time to your office'/>
-                    <Col2 image={userImage} title='A PICTURE IS WORTH A THOUSAND WORDS' content='Take a look at the display pictures so you have the comfort of knowing who is coming to your office'/>
-                    <Col2 image={network} title='HIRE YOUR NEXT TEAM MEMBER' content='Like what you see? Let us know and we will make arrangements for you'/>
+                <Grid container direction='row' className='blockRow'>
+                    <Col3 image={marker} title='LOCATION, LOCATION, LOCATION' content='Our dental professionals are located throughout the Lower Mainland to reduce travel time to your office'/>
+                    <Col3 image={userImage} title='A PICTURE IS WORTH A THOUSAND WORDS' content='Take a look at the display pictures so you have the comfort of knowing who is coming to your office'/>
+                    <Col3 image={network} title='HIRE YOUR NEXT TEAM MEMBER' content='Like what you see? Let us know and we will make arrangements for you'/>
                 </Grid>
                 <Container>
                     <Button className='blueButton' color="primary" variant='contained'>
@@ -170,7 +170,21 @@ class Block4 extends React.Component {
 
 const Col2 = (props) => {
     return (
-        <Grid item justify='center' direction='column' align='center' className='column'>
+        <Grid item justify='center' direction='column' align='center' className='block3Column'>
+            <img src={props.image} className="img2" alt=""/>
+            <Typography align='center'>
+                {props.title}
+            </Typography>
+            <Typography align='center'>
+                {props.content}
+            </Typography>
+        </Grid>
+    );
+}
+
+const Col3 = (props) => {
+    return (
+        <Grid item justify='center' direction='column' align='center' className='block4Column'>
             <img src={props.image} className="img2" alt=""/>
             <Typography align='center'>
                 {props.title}

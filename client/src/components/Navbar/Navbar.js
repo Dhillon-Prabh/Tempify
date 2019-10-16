@@ -74,7 +74,7 @@ class Navbar extends Component{
           </div>
        </SwipeableDrawer> 
         <Switch>
-          <Route path='/' component={Home} />
+          <Route path='/' exact component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/home" component={Home} />
           <Route path="/about" component={About} />
@@ -104,7 +104,7 @@ class Navbar extends Component{
           </Toolbar>
         </AppBar>
         <Switch>
-          <Route path='/' component={Home} />
+          <Route path='/' exact component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/home" component={Home} />
           <Route path="/about" component={About} />

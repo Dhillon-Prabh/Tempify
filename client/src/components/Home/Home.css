@@ -12,7 +12,7 @@
 }
 
 .header1 {
-    padding-top: 25px;
+    padding-top: 5.1rem;
     padding-bottom: 1.65em;
     font-size: 1.75em !important;
     font-weight: bold !important;
@@ -79,13 +79,13 @@
     padding-right: 10px;
     padding-bottom: 10px; 
     padding-left: 25px;
-    width: 42.8px;
+    width: 43px;
+    box-sizing: content-box;
 }
 
 .block1Text {
     padding-right: 20px;
     font-size: 17px !important;
-    width: 80%;
 }
 
 .img2 {

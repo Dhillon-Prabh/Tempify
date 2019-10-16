@@ -19,7 +19,20 @@ import marker from '../../images/Marker_48px.png'
 import userImage from '../../images/User_48px.png'
 import network from '../../images/network.png'
 
-import './Block.css';
+import './Home.css';
+
+class Home extends React.Component {
+    render() {
+        return (
+            <div>
+                <Block1/>
+                <Block2/>
+                <Block3/>
+                <Block4/>
+            </div>
+        )
+    }
+}
 
 class Block1 extends React.Component {
     render() {
@@ -32,7 +45,7 @@ class Block1 extends React.Component {
                     WE HANDLE THE ENTIRE PAYMENT PROCESS!
                 </Typography>
                 <Grid container direction='row' justify='center' className='columns blockRow'>
-                    <Grid item direction='column' className='block1Column'>
+                    <Grid item direction='column' justify='center' className='block1Column'>
                         <Typography className='block1ColumnTitle'>
                             DENTAL PROFESSIONALS
                         </Typography>
@@ -56,7 +69,7 @@ class Block1 extends React.Component {
 
 const Row = (props) => {
     return (
-        <Grid container alignItems='center' direction='row'>
+        <Grid container alignItems='center' align='left' direction='row'>
             <img src={props.img} className="img" alt=""/>
             <Typography className="block1Text">
                 {props.content}
@@ -196,4 +209,4 @@ const Col3 = (props) => {
     );
 }
 
-export {Block1, Block2, Block3, Block4};
+export default Home;

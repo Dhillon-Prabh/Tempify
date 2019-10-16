@@ -1,6 +1,10 @@
 import React from 'react';
 import CookieBanner from 'react-cookie-banner';
+import {NavLink, BrowserRouter, Link, Route, Switch} from "react-router-dom";
+import Policy from '../Policy/Policy'
+
 import './Cookie.css'
+
 
 const styles = {
   link: {
@@ -19,16 +23,20 @@ const styles = {
 class Cookie extends React.Component {
   render() {
     return(
-      <CookieBanner
-        styles={styles}
-        message="Tempify uses cookies to ensure you get better experience on our website. Feel free to review our "
-        buttonMessage="That's Fine"
-        link={<span class='nomargin'><a class="link" href='http://nocookielaw.com/'>Privacy Policy</a> here</span>}
-        onAccept={() => {}}
-        cookie="user-has-accepted-cookies"
-        className="cookie">
-        
-      </CookieBanner>
+      <div>
+        <CookieBanner
+          styles={styles}
+          message="Tempify uses cookies to ensure you get better experience on our website. Feel free to review our "
+          buttonMessage="That's Fine"
+          link={<span class='nomargin'><Link to={'/policy'} className='link'>Privacy Policy</Link> here</span>}
+          onAccept={() => {}}
+          cookie="user-has-accepted-cookies"
+          className="cookie">
+        </CookieBanner>
+        <Switch>
+          <Route path='/policy' component={Policy}/>
+        </Switch>
+      </div>
     )
   }
 }

@@ -14,9 +14,9 @@ class App extends Component {
           <CssBaseline />
           <BrowserRouter>
             <Navbar />
+            <Cookie/>
           </BrowserRouter>
         </React.Fragment>
-        <Cookie/>
       </div>
     )
   }

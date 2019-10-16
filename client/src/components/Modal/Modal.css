@@ -1,8 +1,16 @@
-.modal-blueButton {
+.modal-login-blueButton {
   width: 100px;
   height: 59px;
   margin-right: 25px !important;
   background-color: #00bfff !important;
+}
+
+.modal-register-blueButton {
+  width: 100px;
+  height: 59px;
+  margin-right: 25px !important;
+  border: 1px solid gray !important;
+  background-color: white !important;
 }
 
 .modal-container {

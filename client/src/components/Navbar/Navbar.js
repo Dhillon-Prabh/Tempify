@@ -11,6 +11,7 @@ import App from '../App/App';
 import About from '../About/About';
 import Modal from '../Modal/Modal';
 
+import Home from '../Home/Home';
 
 class Navbar extends Component{
 
@@ -68,7 +69,7 @@ class Navbar extends Component{
 
             <List className = "list">
               <ListItem key = {1} button divider className="nav-item item-height"
-                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/#'}> Home </ListItem>
+                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
               <ListItem key = {2} button divider className="nav-item item-height"
                 activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}> About Us </ListItem>
               <ListItem key = {3} button divider className="nav-item item-height"> Book Now </ListItem>
@@ -80,8 +81,9 @@ class Navbar extends Component{
           </div>
        </SwipeableDrawer> 
         <Switch>
+          <Route path='/' component={Home} />
           <Route path="/login" component={Login} />
-          <Route path="/#" component={App} />
+          <Route path="/home" component={Home} />
           <Route path="/about" component={About} />
         </Switch>
       </div>
@@ -98,7 +100,7 @@ class Navbar extends Component{
               <img src={logo} className="logo" alt="logo"/>
             </div>
               <Typography variant = "subheading" className = "padding nav-item"
-                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/#'}>Home</Typography>
+                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
               <Typography variant = "subheading" className = "padding nav-item"
                 activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>About Us</Typography>
               <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now"/></Typography>
@@ -109,8 +111,9 @@ class Navbar extends Component{
           </Toolbar>
         </AppBar>
         <Switch>
+          <Route path='/' component={Home} />
           <Route path="/login" component={Login} />
-          <Route path="/#" component={App} />
+          <Route path="/home" component={Home} />
           <Route path="/about" component={About} />
         </Switch>
       </div>

@@ -3,7 +3,7 @@ import {Redirect, Route, Switch, withRouter, BrowserRouter} from "react-router-d
 import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css';
 import Navbar from '../Navbar/Navbar'
-import Policy from '../Policy/Policy'
+import Cookie from '../Cookie/Cookie'
 
 
 class App extends Component {
@@ -14,6 +14,7 @@ class App extends Component {
           <CssBaseline />
           <BrowserRouter>
             <Navbar />
+            <Cookie/>
           </BrowserRouter>
         </React.Fragment>
       </div>

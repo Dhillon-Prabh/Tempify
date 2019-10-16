@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import {
+ Typography
+} from '@material-ui/core';
+
+import './Modal.css';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -39,9 +43,8 @@ class Modal extends Component{
   render() {
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>
-          {this.props.name}
-        </Button>
+        <Typography variant = "subheading" onClick={this.handleClickOpen}>{this.props.name}</Typography>
+
         <Dialog
           open={this.state.setOpen}
           TransitionComponent={Transition}
@@ -50,13 +53,13 @@ class Modal extends Component{
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
         >
-          <DialogTitle id="alert-dialog-slide-title"> Welcome To Tempify </DialogTitle>
-          <DialogContent>
+          <DialogTitle id="alert-dialog-slide-title" className = "modal-title"> Welcome To Tempify </DialogTitle>
+          <DialogContent className = "modal-container">
             <DialogContentText id="alert-dialog-slide-description">
-            <Button onClick={this.handleClickClose} color="primary">
+            <Button onClick={this.handleClickClose} className = "modal-blueButton" m={2}>
               Login
             </Button>
-            <Button onClick={this.handleClickClose} color="primary">
+            <Button onClick={this.handleClickClose} className = "modal-blueButton" m={2}>
               Register
             </Button>
             </DialogContentText>

@@ -81,10 +81,10 @@ class Navbar extends Component{
           </div>
        </SwipeableDrawer> 
         <Switch>
-          <Route path='/' component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/home" component={Home} />
-          <Route path="/about" component={About} />
+          <Route exact path='/' component={Home} />
+          <Route exact path="/login" component={Login} />
+          {/* <Route path="/home" component={Home} /> */}
+          <Route exact path="/about" component={About} />
         </Switch>
       </div>
     );
@@ -111,10 +111,10 @@ class Navbar extends Component{
           </Toolbar>
         </AppBar>
         <Switch>
-          <Route path='/' component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/home" component={Home} />
           <Route path="/about" component={About} />
+          <Route path='/' component={Home} />
         </Switch>
       </div>
     )

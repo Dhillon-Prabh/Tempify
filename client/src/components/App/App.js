@@ -3,6 +3,7 @@ import {Redirect, Route, Switch, withRouter, BrowserRouter} from "react-router-d
 import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css';
 import Navbar from '../Navbar/Navbar'
+import Policy from '../Policy/Policy'
 
 
 class App extends Component {

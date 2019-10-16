@@ -5,9 +5,9 @@ import './App.css';
 import Navbar from '../Navbar/Navbar'
 import Cookie from '../Cookie/Cookie'
 
+
 class App extends Component {
   render() {
-
     return (
       <div className="App">
         <React.Fragment>

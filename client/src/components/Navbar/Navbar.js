@@ -111,14 +111,10 @@ class Navbar extends Component{
           </Toolbar>
         </AppBar>
         <Switch>
-<<<<<<< HEAD
-=======
           <Route path='/' exact component={Home} />
->>>>>>> 72b72ea3f9521ca32989e194ad140fabd1d7987c
           <Route path="/login" component={Login} />
           <Route path="/home" component={Home} />
           <Route path="/about" component={About} />
-          <Route path='/' component={Home} />
         </Switch>
       </div>
     )

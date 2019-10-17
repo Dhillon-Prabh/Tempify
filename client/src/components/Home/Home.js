@@ -3,6 +3,8 @@ import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import { Icon, InlineIcon } from '@iconify/react';
+import clockO from '@iconify/icons-fa/clock-o';
 
 import bank from '../../images/bank.png'
 import tax from '../../images/tax.png'
@@ -94,13 +96,13 @@ class Block2 extends React.Component {
                         <Typography align='center' className='columnTitle'>
                             STEP 1
                         </Typography>
-                        <Col img={down} content="Select the time and date you wish to have a dental professional at your office"/>
+                        <Col icon={clockO} content="Select the time and date you wish to have a dental professional at your office"/>
                     </Grid>
                     <Grid item direction='column' className='block2Column'>
                         <Typography align='center' className='columnTitle'>
                             STEP 2
                         </Typography>
-                        <Col img={down} content="Browse through the profiles and find the right person for your office"/>
+                        <Col img={} content="Browse through the profiles and find the right person for your office"/>
                     </Grid>
                     <Grid item justify='center' direction='column' className='block2Column'>
                         <Typography align='center' className='columnTitle'>
@@ -123,7 +125,7 @@ class Block2 extends React.Component {
 const Col = (props) => {
     return (
         <Grid align='center'>
-            <img src={props.img} className="img" alt=""/>
+            <Icon icon={props.icon} />
             <Typography className='verticalAlign'>
                 {props.content}
             </Typography>

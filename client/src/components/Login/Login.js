@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import './Login.css';
 
-import FormModal from '../FormModal/FormModal'
+import PasswordModal from '../PasswordModal/PasswordModal'
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -124,7 +124,7 @@ export default function Login() {
             control={<Checkbox value="remember" color="default" />}
             label="Remember me"
           />
-          <FormModal/>
+          <PasswordModal/>
           <Button
             type="submit"
             fullWidth

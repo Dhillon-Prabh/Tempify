@@ -3,13 +3,18 @@ import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faCheckCircle, faSmile } from "@fortawesome/free-regular-svg-icons";
+import Banner from '../Banner/Banner'
+import BlueButton from '../Buttons/BlueButton'
+import ClearButton from '../Buttons/ClearButton'
 
 import bank from '../../images/bank.png'
 import tax from '../../images/tax.png'
 import research from '../../images/research.png'
 import bill from '../../images/bill.png'
 import insurance from '../../images/insurance.png'
-import down from '../../images/down.png'
 import calendar from '../../images/calendar.png'
 import dollar from '../../images/US Dollar_48px_1.png'
 import thumbUp from '../../images/Thumb Up_48px.png'
@@ -25,6 +30,7 @@ class Home extends React.Component {
     render() {
         return (
             <div>
+                <Banner />
                 <Block1/>
                 <Block2/>
                 <Block3/>
@@ -94,25 +100,25 @@ class Block2 extends React.Component {
                         <Typography align='center' className='columnTitle'>
                             STEP 1
                         </Typography>
-                        <Col img={down} content="Select the time and date you wish to have a dental professional at your office"/>
+                        <Col icon={faClock} content="Select the time and date you wish to have a dental professional at your office"/>
                     </Grid>
                     <Grid item direction='column' className='block2Column'>
                         <Typography align='center' className='columnTitle'>
                             STEP 2
                         </Typography>
-                        <Col img={down} content="Browse through the profiles and find the right person for your office"/>
+                        <Col icon={faUsers} content="Browse through the profiles and find the right person for your office"/>
                     </Grid>
                     <Grid item justify='center' direction='column' className='block2Column'>
                         <Typography align='center' className='columnTitle'>
                             STEP 3
                         </Typography>
-                        <Col img={down} content="Confirmation will be made after the dental professional accepts the request"/>
+                        <Col icon={faCheckCircle} content="Confirmation will be made after the dental professional accepts the request"/>
                     </Grid>
                     <Grid item justify='center' direction='column' className='block2Column'>
                         <Typography align='center' className='columnTitle'>
                             STEP 4
                         </Typography>
-                        <Col img={down} content="Enjoy the satisfaction of knowing your patients are taken care of by our qualified dental professionals"/>
+                        <Col icon={faSmile} content="Enjoy the satisfaction of knowing your patients are taken care of by our qualified dental professionals"/>
                     </Grid>
                 </Grid>
             </Grid>
@@ -123,7 +129,7 @@ class Block2 extends React.Component {
 const Col = (props) => {
     return (
         <Grid align='center'>
-            <img src={props.img} className="img" alt=""/>
+            <FontAwesomeIcon icon={props.icon} className="fIcons"/>
             <Typography className='verticalAlign'>
                 {props.content}
             </Typography>
@@ -145,9 +151,7 @@ class Block3 extends React.Component {
                     <Col2 image={free} title="IT'S FREE" content="It's always free for all Dental Professionals"/>
                 </Grid>
                 <Container>
-                    <Button className='blueButton' color="primary" variant='contained'>
-                        BECOME A TEMP
-                    </Button>
+                    <BlueButton/>
                 </Container>
             </Grid>
         );
@@ -172,9 +176,7 @@ class Block4 extends React.Component {
                     <Col3 image={network} title='HIRE YOUR NEXT TEAM MEMBER' content='Like what you see? Let us know and we will make arrangements for you'/>
                 </Grid>
                 <Container>
-                    <Button className='blueButton' color="primary" variant='contained'>
-                        BOOK NOW
-                    </Button>
+                    <BlueButton/>
                 </Container>
             </Grid>
         );

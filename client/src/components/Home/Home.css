@@ -95,7 +95,7 @@
 
 .blueButton {
     width: 210px;
-    height: 59px;
+    height: 3.4375em !important;
     background-color: #00bfff !important;
 }
 

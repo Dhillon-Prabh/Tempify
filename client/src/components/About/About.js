@@ -3,7 +3,6 @@ import Typography from '@material-ui/core/Typography';
 import './About.css'
 import { Grid } from '@material-ui/core';
 
-
 const AboutContent = (props) => {
     return (
         <Typography align="left" display="block" variant="body1" className="AboutContent">

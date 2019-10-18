@@ -4,18 +4,17 @@ import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Icon, InlineIcon } from '@iconify/react';
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { faClock, faCheckCircle, faSmile } from "@fortawesome/free-regular-svg-icons";
-import clockO from '@iconify/icons-fa/clock-o';
 import Banner from '../Banner/Banner'
+import BlueButton from '../Buttons/BlueButton'
+import ClearButton from '../Buttons/ClearButton'
 
 import bank from '../../images/bank.png'
 import tax from '../../images/tax.png'
 import research from '../../images/research.png'
 import bill from '../../images/bill.png'
 import insurance from '../../images/insurance.png'
-import down from '../../images/down.png'
 import calendar from '../../images/calendar.png'
 import dollar from '../../images/US Dollar_48px_1.png'
 import thumbUp from '../../images/Thumb Up_48px.png'
@@ -152,9 +151,7 @@ class Block3 extends React.Component {
                     <Col2 image={free} title="IT'S FREE" content="It's always free for all Dental Professionals"/>
                 </Grid>
                 <Container>
-                    <Button className='blueButton' color="primary" variant='contained'>
-                        BECOME A TEMP
-                    </Button>
+                    <BlueButton/>
                 </Container>
             </Grid>
         );
@@ -179,9 +176,7 @@ class Block4 extends React.Component {
                     <Col3 image={network} title='HIRE YOUR NEXT TEAM MEMBER' content='Like what you see? Let us know and we will make arrangements for you'/>
                 </Grid>
                 <Container>
-                    <Button className='blueButton' color="primary" variant='contained'>
-                        BOOK NOW
-                    </Button>
+                    <BlueButton/>
                 </Container>
             </Grid>
         );

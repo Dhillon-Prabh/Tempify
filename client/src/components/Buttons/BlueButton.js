@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
         marginLeft: "7px",
         marginRight: "7px",
         border: "0",
+        fontSize: "0.8rem",
         fontWeight: "900",
         "&:hover": {
           backgroundColor: "#00bfff",
@@ -70,7 +71,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function() {
+const BlueButton = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -123,3 +124,5 @@ export default function() {
     </div>
   );
 }
+
+export default BlueButton;

@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: "7px",
     marginRight: "7px",
     fontWeight: "900",
+    fontSize: "0.8rem",
     "&:hover": {
       backgroundColor: "rgba(255, 255, 255, 0.1)",
       boxShadow: "none"
@@ -69,7 +70,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function() {
+const ClearButton = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -122,3 +123,5 @@ export default function() {
     </div>
   );
 }
+
+export default ClearButton;

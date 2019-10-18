@@ -1,10 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import bannerImage from "./original.jpg";
+import bannerImage from "../../images/original.jpg";
 import Button from "@material-ui/core/Button";
 import { NavLink, Route, Switch } from "react-router-dom";
-import ModalBtnLeft from "./ModalBtnLeft";
-import ModalBtnRight from "./ModalBtnRight";
+import BlueButton from "../Buttons/BlueButton";
+import ClearButton from "../Buttons/ClearButton";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -77,8 +77,8 @@ export default function() {
           The easiest way to book an ideal temp for your office.
         </div>
         <div className={classes.buttonContainer}>
-          <ModalBtnLeft />
-          <ModalBtnRight />
+          <BlueButton />
+          <ClearButton />
         </div>
       </div>
       <div className={classes.overlay}></div>

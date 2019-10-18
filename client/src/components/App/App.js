@@ -20,7 +20,6 @@ class App extends Component {
         <React.Fragment>
           <CssBaseline />
           <BrowserRouter>
-            <Banner />
             <Navbar />
             <ContactSection />
             <Cookie />

@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import Banner from '../Banner/Banner'
 
 import bank from '../../images/bank.png'
 import tax from '../../images/tax.png'
@@ -25,6 +26,7 @@ class Home extends React.Component {
     render() {
         return (
             <div>
+                <Banner />
                 <Block1/>
                 <Block2/>
                 <Block3/>

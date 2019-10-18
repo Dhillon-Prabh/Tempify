@@ -5,6 +5,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import {Link} from 'react-router-dom';
 import {
  Typography
 } from '@material-ui/core';
@@ -56,7 +57,7 @@ class Modal extends Component{
           <DialogTitle id="alert-dialog-slide-title" className = "modal-title"> Welcome To Tempify </DialogTitle>
           <DialogContent className = "modal-container">
             <DialogContentText id="alert-dialog-slide-description">
-            <Button onClick={this.handleClickClose} className = "modal-login-blueButton" m={2}>
+            <Button onClick={this.handleClickClose} className = "modal-login-blueButton" m={2} component={Link} to="/login">
               Login
             </Button>
             <Button onClick={this.handleClickClose} className = "modal-register-blueButton" m={2}>

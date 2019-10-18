@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -20,9 +20,9 @@ const useStyles = makeStyles(theme => ({
     borderColor: "#dbdbdb"
   },
 
-  nameEmailContainer:{
+  nameEmailContainer: {
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   messageContaienr: {
     display: "flex",
@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: "none",
     padding: "10px 20px",
     borderRadius: "0",
-    '&:hover': {
+    "&:hover": {
       backgroundColor: "rgba(144, 144, 144, 0.075)",
       boxShadow: "none"
     }
@@ -80,9 +80,9 @@ export default function TextFields() {
   };
 
   return (
-      <form className={classes.container} noValidate autoComplete="off">
+    <form className={classes.container} noValidate autoComplete="off">
       <div className={classes.nameEmailContainer}>
-      <TextField
+        <TextField
           id="outlined-name"
           className={classes.contactName}
           margin="normal"
@@ -96,8 +96,8 @@ export default function TextFields() {
           placeholder="E-mail Address"
           variant="outlined"
         />
-        </div>
-        <div className={classes.messageContaienr}>
+      </div>
+      <div className={classes.messageContaienr}>
         <TextField
           multiline="true"
           rows="5"
@@ -107,12 +107,12 @@ export default function TextFields() {
           placeholder="Enter Message"
           variant="outlined"
         />
-        </div>
-        <div className={classes.buttonContainer}>
+      </div>
+      <div className={classes.buttonContainer}>
         <Button variant="contained" className={classes.button}>
-        Send Message
+          Send Message
         </Button>
-        </div>
-      </form>
+      </div>
+    </form>
   );
 }

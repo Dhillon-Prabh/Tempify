@@ -1,12 +1,17 @@
-import React, { Component } from 'react';
-import {Redirect, Route, Switch, withRouter, BrowserRouter} from "react-router-dom";
-import CssBaseline from '@material-ui/core/CssBaseline';
-import './App.css';
-import Navbar from '../Navbar/Navbar'
-import Cookie from '../Cookie/Cookie'
-import Banner from '../Banner/Banner'
-import ContactSection from '../Contact/ContactSection'
-
+import React, { Component } from "react";
+import {
+  Redirect,
+  Route,
+  Switch,
+  withRouter,
+  BrowserRouter
+} from "react-router-dom";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import "./App.css";
+import Navbar from "../Navbar/Navbar";
+import Cookie from "../Cookie/Cookie";
+import Banner from "../Banner/Banner";
+import ContactSection from "../Contact/ContactSection";
 
 class App extends Component {
   render() {
@@ -15,14 +20,14 @@ class App extends Component {
         <React.Fragment>
           <CssBaseline />
           <BrowserRouter>
-          <Banner />
+            <Banner />
             <Navbar />
             <ContactSection />
-            <Cookie/>
+            <Cookie />
           </BrowserRouter>
         </React.Fragment>
       </div>
-    )
+    );
   }
 }
 

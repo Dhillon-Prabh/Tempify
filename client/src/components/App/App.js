@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { BrowserRouter } from "react-router-dom";
+import React, { Component, useEffect } from "react";
+import { BrowserRouter, useLocation } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import "./App.css";
 import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
 import ContactSection from "../Contact/ContactSection";
-import ScrollToTop from "./ScrollToTop";
+
 
 class App extends Component {
   render() {
@@ -23,6 +23,16 @@ class App extends Component {
       </div>
     );
   }
+}
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
 }
 
 export default App;

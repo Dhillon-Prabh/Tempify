@@ -7,12 +7,9 @@ import './Navbar.css';
 import logo from '../../images/Tempify_resized.png';
 import { NavLink, Route, Switch} from "react-router-dom";
 import Login from '../Login/Login';
-import App from '../App/App';
 import About from '../About/About';
 import Modal from '../Modal/Modal';
-import { makeStyles } from "@material-ui/core/styles";
 import Home from '../Home/Home';
-import zIndex from '@material-ui/core/styles/zIndex';
 
 class Navbar extends Component{
 

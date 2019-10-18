@@ -4,6 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css';
 import Navbar from '../Navbar/Navbar'
 import Cookie from '../Cookie/Cookie'
+import ContactSection from '../Contact/ContactSection'
 
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
           <CssBaseline />
           <BrowserRouter>
             <Navbar />
+            <ContactSection />
             <Cookie/>
           </BrowserRouter>
         </React.Fragment>

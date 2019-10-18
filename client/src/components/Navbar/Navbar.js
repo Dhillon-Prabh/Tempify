@@ -9,12 +9,19 @@ import { NavLink, Route, Switch} from "react-router-dom";
 import Login from '../Login/Login';
 import App from '../App/App';
 import About from '../About/About';
+import Modal from '../Modal/Modal';
+
 import Home from '../Home/Home';
 
 class Navbar extends Component{
+
   constructor(props){
     super(props);
-    this.state = {drawerActivate:false, drawer:false};
+    this.state = {
+      drawerActivate:false, 
+      drawer:false,
+      name: "Book Now"
+    };
   }
 
   componentWillMount(){
@@ -96,8 +103,8 @@ class Navbar extends Component{
                 activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
               <Typography variant = "subheading" className = "padding nav-item"
                 activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>About Us</Typography>
-              <Typography variant = "subheading" className = "padding nav-item">Book Now</Typography>
-              <Typography variant = "subheading" className = "padding nav-item">Become a Temp</Typography>
+              <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now"/></Typography>
+              <Typography variant = "subheading" className = "padding nav-item"><Modal name = "Become a Temp"/></Typography>
               <Typography variant = "subheading" className = "padding nav-item">Contact Us</Typography>
               <Typography variant = "subheading" className = "nav-item" 
                 activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>

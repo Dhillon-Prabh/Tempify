@@ -3,8 +3,12 @@ import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Icon, InlineIcon } from '@iconify/react';
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faCheckCircle, faSmile } from "@fortawesome/free-regular-svg-icons";
 import clockO from '@iconify/icons-fa/clock-o';
+import Banner from '../Banner/Banner'
 
 import bank from '../../images/bank.png'
 import tax from '../../images/tax.png'
@@ -27,6 +31,7 @@ class Home extends React.Component {
     render() {
         return (
             <div>
+                <Banner />
                 <Block1/>
                 <Block2/>
                 <Block3/>
@@ -96,25 +101,25 @@ class Block2 extends React.Component {
                         <Typography align='center' className='columnTitle'>
                             STEP 1
                         </Typography>
-                        <Col icon={clockO} content="Select the time and date you wish to have a dental professional at your office"/>
+                        <Col icon={faClock} content="Select the time and date you wish to have a dental professional at your office"/>
                     </Grid>
                     <Grid item direction='column' className='block2Column'>
                         <Typography align='center' className='columnTitle'>
                             STEP 2
                         </Typography>
-                        <Col img={} content="Browse through the profiles and find the right person for your office"/>
+                        <Col icon={faUsers} content="Browse through the profiles and find the right person for your office"/>
                     </Grid>
                     <Grid item justify='center' direction='column' className='block2Column'>
                         <Typography align='center' className='columnTitle'>
                             STEP 3
                         </Typography>
-                        <Col img={down} content="Confirmation will be made after the dental professional accepts the request"/>
+                        <Col icon={faCheckCircle} content="Confirmation will be made after the dental professional accepts the request"/>
                     </Grid>
                     <Grid item justify='center' direction='column' className='block2Column'>
                         <Typography align='center' className='columnTitle'>
                             STEP 4
                         </Typography>
-                        <Col img={down} content="Enjoy the satisfaction of knowing your patients are taken care of by our qualified dental professionals"/>
+                        <Col icon={faSmile} content="Enjoy the satisfaction of knowing your patients are taken care of by our qualified dental professionals"/>
                     </Grid>
                 </Grid>
             </Grid>
@@ -125,7 +130,7 @@ class Block2 extends React.Component {
 const Col = (props) => {
     return (
         <Grid align='center'>
-            <Icon icon={props.icon} />
+            <FontAwesomeIcon icon={props.icon} className="fIcons"/>
             <Typography className='verticalAlign'>
                 {props.content}
             </Typography>

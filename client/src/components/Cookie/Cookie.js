@@ -1,6 +1,6 @@
 import React from 'react';
 import CookieBanner from 'react-cookie-banner';
-import {NavLink, BrowserRouter, Link, Route, Switch} from "react-router-dom";
+import { Link, Route, Switch} from "react-router-dom";
 import Policy from '../Policy/Policy'
 
 import './Cookie.css'

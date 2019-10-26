@@ -77,7 +77,7 @@ export default function() {
           The easiest way to book an ideal temp for your office.
         </div>
         <div className={classes.buttonContainer}>
-          <BlueButton />
+          <BlueButton content="Book Now"/>
           <ClearButton />
         </div>
       </div>

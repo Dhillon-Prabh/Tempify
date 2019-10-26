@@ -151,7 +151,7 @@ class Block3 extends React.Component {
                     <Col2 image={free} title="IT'S FREE" content="It's always free for all Dental Professionals"/>
                 </Grid>
                 <Container>
-                    <BlueButton/>
+                    <BlueButton content="Become Temp"/>
                 </Container>
             </Grid>
         );
@@ -176,7 +176,7 @@ class Block4 extends React.Component {
                     <Col3 image={network} title='HIRE YOUR NEXT TEAM MEMBER' content='Like what you see? Let us know and we will make arrangements for you'/>
                 </Grid>
                 <Container>
-                    <BlueButton/>
+                    <BlueButton content="Book Now"/>
                 </Container>
             </Grid>
         );

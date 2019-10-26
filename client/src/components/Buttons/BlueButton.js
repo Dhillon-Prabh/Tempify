@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const BlueButton = () => {
+const BlueButton = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -91,7 +91,7 @@ const BlueButton = () => {
         variant="contained"
         onClick={handleClickOpen}
       >
-        Book Now
+        {props.content}
       </Button>
       <Dialog
         open={open}

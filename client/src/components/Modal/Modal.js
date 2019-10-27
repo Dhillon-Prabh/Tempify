@@ -56,7 +56,10 @@ class Modal extends Component{
         </Button>
           )
       case 'typography':
-        return <Typography variant = "subheading" onClick={this.handleClickOpen}>{this.props.name}</Typography>;
+        return (
+          <Typography variant = "subheading" onClick={this.handleClickOpen}>
+            {this.props.name}
+          </Typography>);
     }
   }
     

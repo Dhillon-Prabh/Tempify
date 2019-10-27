@@ -47,8 +47,8 @@ class Navbar extends Component{
               <MenuIcon
                 className = "sideBarIcon"
                 onClick={()=>{this.setState({drawer:true})}} />
+              <NavLink to={'/'} className="logo"><img src={logo} className="logo" alt="logo"/></NavLink>
 
-              <img src={logo} className="logo" alt="logo"/>
               <Typography color="inherit"></Typography>
             </Grid>
           </Toolbar>
@@ -97,7 +97,7 @@ class Navbar extends Component{
         <AppBar >
           <Toolbar className="nav-color">
             <div className="logo-container">
-              <img src={logo} className="logo" alt="logo"/>
+              <NavLink to={'/'} className="logo"><img src={logo} className="logo" alt="logo"/></NavLink>
             </div>
               <Typography variant = "subheading" className = "padding nav-item"
                 activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>

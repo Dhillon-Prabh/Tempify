@@ -18,7 +18,6 @@ class Navbar extends Component{
     this.state = {
       drawerActivate:false, 
       drawer:false,
-      name: "Book Now"
     };
   }
 
@@ -101,8 +100,8 @@ class Navbar extends Component{
                 activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
               <Typography variant = "subheading" className = "padding nav-item"
                 activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>About Us</Typography>
-              <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now"/></Typography>
-              <Typography variant = "subheading" className = "padding nav-item"><Modal name = "Become a Temp"/></Typography>
+              <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now" idType="typography"/></Typography>
+              <Typography variant = "subheading" className = "padding nav-item"><Modal name = "Become a Temp" idType="typography"/></Typography>
               <Typography variant = "subheading" className = "padding nav-item">Contact Us</Typography>
               <Typography variant = "subheading" className = "nav-item" 
                 activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>

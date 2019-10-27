@@ -5,6 +5,7 @@ import "./App.css";
 import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
 import ContactSection from "../Contact/ContactSection";
+import ProfileCard from "../ProfileCard/ProfileCard";
 
 
 class App extends Component {
@@ -12,13 +13,7 @@ class App extends Component {
     return (
       <div className="App">
         <React.Fragment>
-          <CssBaseline />
-          <BrowserRouter>
-            <ScrollToTop/>
-            <Navbar />
-            <ContactSection />
-            <Cookie />
-          </BrowserRouter>
+          <ProfileCard/>
         </React.Fragment>
       </div>
     );

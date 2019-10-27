@@ -75,10 +75,10 @@ class Modal extends Component{
             <div> 
               <p className= "modal-title"> Welcome To Tempify</p>
             </div>
-            <Button onClick={this.handleClickClose} className = "modal-login-blueButton" m={2} component={Link} to="/login">
+            <Button onClick={this.handleClickClose} className = "modal-login-blueButton" component={Link} to="/login">
               Login
             </Button>
-            <Button onClick={this.handleClickClose} className = "modal-register-blueButton" m={2} component={Link} to="/register">
+            <Button onClick={this.handleClickClose} className = "modal-register-blueButton" component={Link} to="/register">
               Register
             </Button>
           </DialogContent>

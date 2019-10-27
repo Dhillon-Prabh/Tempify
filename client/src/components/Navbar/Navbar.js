@@ -10,6 +10,7 @@ import Login from '../Login/Login';
 import About from '../About/About';
 import Modal from '../Modal/Modal';
 import Home from '../Home/Home';
+import Register from '../Register/Register';
 
 class Navbar extends Component{
 
@@ -70,7 +71,8 @@ class Navbar extends Component{
               <ListItem key = {2} button divider className="nav-item item-height"
                 activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}> About Us </ListItem>
               <ListItem key = {3} button divider className="nav-item item-height"> Book Now </ListItem>
-              <ListItem key = {4} button divider className="nav-item item-height"> Become a Temp </ListItem>
+              <ListItem key = {4} button divider className="nav-item item-height"
+                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/register'}> Become a Temp </ListItem>
               <ListItem key = {5} button divider className="nav-item item-height"> Contact Us </ListItem>
               <ListItem key = {6} button divider className="nav-item item-height" 
                 activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}> Login </ListItem>
@@ -82,6 +84,7 @@ class Navbar extends Component{
           <Route path="/login" component={Login} />
           <Route path="/home" component={Home} />
           <Route path="/about" component={About} />
+          <Route path="/register" component={Register} />
         </Switch>
       </div>
     );
@@ -112,6 +115,7 @@ class Navbar extends Component{
           <Route path="/login" component={Login} />
           <Route path="/home" component={Home} />
           <Route path="/about" component={About} />
+          <Route path="/register" component={Register} />
         </Switch>
       </div>
     )

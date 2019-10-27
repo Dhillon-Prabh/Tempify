@@ -78,7 +78,7 @@ class Modal extends Component{
             <Button onClick={this.handleClickClose} className = "modal-login-blueButton" m={2} component={Link} to="/login">
               Login
             </Button>
-            <Button onClick={this.handleClickClose} className = "modal-register-blueButton" m={2}>
+            <Button onClick={this.handleClickClose} className = "modal-register-blueButton" m={2} component={Link} to="/register">
               Register
             </Button>
           </DialogContent>

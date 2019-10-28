@@ -5,7 +5,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import './Navbar.css';
 import logo from '../../images/Tempify_resized.png';
-import { NavLink, Route, Switch} from "react-router-dom";
+import { NavLink, Link, Route, Switch} from "react-router-dom";
 import Login from '../Login/Login';
 import About from '../About/About';
 import Modal from '../Modal/Modal';
@@ -48,8 +48,9 @@ class Navbar extends Component{
               <MenuIcon
                 className = "sideBarIcon"
                 onClick={()=>{this.setState({drawer:true})}} />
-
-              <img src={logo} className="logo" alt="logo"/>
+              <Link to="/home">
+                <img src={logo} className="logo" component={NavLink} to={'/home'} alt="logo"/>
+              </Link>
               <Typography color="inherit"></Typography>
             </Grid>
           </Toolbar>
@@ -96,9 +97,9 @@ class Navbar extends Component{
       <div>
         <AppBar >
           <Toolbar className="nav-color">
-            <div className="logo-container">
+            <Link to="/home" className="logo-container">
               <img src={logo} className="logo" alt="logo"/>
-            </div>
+            </Link>
               <Typography variant = "subheading" className = "padding nav-item"
                 activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
               <Typography variant = "subheading" className = "padding nav-item"

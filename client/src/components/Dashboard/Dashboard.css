@@ -1,6 +1,10 @@
-.options{
+.options {
     padding-top: 5rem;
-    margin:3% !important;
+}
+
+.optionsLink {
+    position: absolute;
+    transform: translateX(-25rem);
 }
 
 .buttons{

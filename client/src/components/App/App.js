@@ -16,7 +16,7 @@ class App extends Component {
           <BrowserRouter>
             <ScrollToTop/>
             <Navbar />
-            <ContactSection />
+            {/* <ContactSection /> */}
             <Cookie />
           </BrowserRouter>
         </React.Fragment>

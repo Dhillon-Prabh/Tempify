@@ -1,0 +1,14 @@
+.options{
+    padding-top: 5rem;
+    margin:3% !important;
+}
+
+.buttons{
+    height: 3rem;
+}
+
+.button {
+    font-weight: bold !important;
+    background-color: #00bfff !important;
+    color: white !important;
+}

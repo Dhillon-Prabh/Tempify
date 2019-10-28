@@ -10,6 +10,7 @@ import Login from '../Login/Login';
 import About from '../About/About';
 import Modal from '../Modal/Modal';
 import Home from '../Home/Home';
+import Dashboard from '../Dashboard/Dashboard'
 
 class Navbar extends Component{
 
@@ -83,6 +84,7 @@ class Navbar extends Component{
           <Route path="/login" component={Login} />
           <Route path="/home" component={Home} />
           <Route path="/about" component={About} />
+          <Route path="/dashboard" component={Dashboard} />
         </Switch>
       </div>
     );
@@ -113,6 +115,7 @@ class Navbar extends Component{
           <Route path="/login" component={Login} />
           <Route path="/home" component={Home} />
           <Route path="/about" component={About} />
+          <Route path="/dashboard" component={Dashboard} />
         </Switch>
       </div>
     )

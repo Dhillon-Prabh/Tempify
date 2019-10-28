@@ -13,7 +13,13 @@ class App extends Component {
     return (
       <div className="App">
         <React.Fragment>
-          <ProfileCard/>
+        <CssBaseline />
+          <BrowserRouter>
+            <ScrollToTop/>
+            <Navbar />
+            <ContactSection />
+            <Cookie />
+          </BrowserRouter>
         </React.Fragment>
       </div>
     );

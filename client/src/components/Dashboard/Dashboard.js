@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import FindFit from '../BookNow/BookNow';
+import BookNow from '../BookNow/BookNow';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -45,7 +45,7 @@ const DashboardOptions = () => {
                     </ButtonGroup>
                 </Grid>
             </Grid>
-            <FindFit/>
+            <BookNow/>
         </React.Fragment>
     );
 }

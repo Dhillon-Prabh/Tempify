@@ -2,13 +2,12 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { faClock, faCheckCircle, faSmile } from "@fortawesome/free-regular-svg-icons";
 import Banner from '../Banner/Banner'
-import BlueButton from '../Buttons/BlueButton'
-import ClearButton from '../Buttons/ClearButton'
+import Modal from '../Modal/Modal'
+
 
 import bank from '../../images/bank.png'
 import tax from '../../images/tax.png'
@@ -151,7 +150,7 @@ class Block3 extends React.Component {
                     <Col2 image={free} title="IT'S FREE" content="It's always free for all Dental Professionals"/>
                 </Grid>
                 <Container>
-                    <BlueButton/>
+                    <Modal name="Book Now" idType = "blueButton" name="BOOK NOW"/>
                 </Container>
             </Grid>
         );
@@ -176,7 +175,7 @@ class Block4 extends React.Component {
                     <Col3 image={network} title='HIRE YOUR NEXT TEAM MEMBER' content='Like what you see? Let us know and we will make arrangements for you'/>
                 </Grid>
                 <Container>
-                    <BlueButton/>
+                    <Modal name="Book Now" idType = "blueButton" name="BOOK NOW"/>
                 </Container>
             </Grid>
         );

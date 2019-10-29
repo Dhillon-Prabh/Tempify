@@ -3,24 +3,65 @@
   height: 59px;
   margin-right: 25px !important;
   background-color: #00bfff !important;
+  border: 1px solid lightgray; 
+  color:white !important;
 }
 
 .modal-register-blueButton {
   width: 100px;
   height: 59px;
   margin-right: 25px !important;
-  border: 1px solid gray !important;
+  border: 1px solid lightgray !important;
   background-color: white !important;
 }
 
 .modal-container {
   width: 500px; 
-  height: 100px;
+  height: 100%;
   text-align:center;
+  padding: 20px !important;
 }
 
 .modal-title {
   text-align:center;
-  border: 1px solid gray;
-  margin-bottom:10px !important;
+  padding-bottom: 10px;
+  color:gray;
+  font-size:14pt;
+  border-bottom: 1px solid lightgray; 
+  border-radius:2px !important;
+  margin-bottom:20px !important;
+}
+.MuiDialog-root {
+  bottom:350px !important;
+}
+
+.modal-blueButton {
+  background-color: #00bfff !important;
+  border: 1px solid lightgray;
+  color: white !important;
+  box-shadow: none;
+  padding: 10px 20px;
+  border-radius: 0px !important;
+  width: 170px;
+  height: 44px;
+  margin-left: 7px !important;
+  margin-right: 7px !important ;
+  border: 0px;
+  font-size: 0.8rem;
+  font-weight: 900px;
+}
+
+.modal-clearButton {
+  border: 1px solid white !important;
+  color:white !important;
+  box-shadow: none;
+  padding: 10px 20px;
+  border-radius: 0px !important ;
+  background-color: transparent;
+  width: 170px;
+  height: 44px;
+  margin-left: 7px !important;
+  margin-right: 7px !important ;
+  font-weight: 900px;
+  font-size: 0.8rem;
 }

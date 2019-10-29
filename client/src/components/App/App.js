@@ -5,8 +5,6 @@ import "./App.css";
 import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
 import ContactSection from "../Contact/ContactSection";
-import ProfileCard from "../ProfileCard/ProfileCard";
-
 
 class App extends Component {
   render() {

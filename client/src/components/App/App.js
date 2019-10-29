@@ -6,13 +6,12 @@ import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
 import ContactSection from "../Contact/ContactSection";
 
-
 class App extends Component {
   render() {
     return (
       <div className="App">
         <React.Fragment>
-          <CssBaseline />
+        <CssBaseline />
           <BrowserRouter>
             <ScrollToTop/>
             <Navbar />

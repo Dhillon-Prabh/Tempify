@@ -11,6 +11,7 @@ import About from '../About/About';
 import Modal from '../Modal/Modal';
 import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard'
+import Register from '../Register/Register';
 
 class Navbar extends Component{
 
@@ -19,7 +20,6 @@ class Navbar extends Component{
     this.state = {
       drawerActivate:false, 
       drawer:false,
-      name: "Book Now"
     };
   }
 
@@ -73,7 +73,8 @@ class Navbar extends Component{
               <ListItem key = {2} button divider className="nav-item item-height"
                 activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}> About Us </ListItem>
               <ListItem key = {3} button divider className="nav-item item-height"> Book Now </ListItem>
-              <ListItem key = {4} button divider className="nav-item item-height"> Become a Temp </ListItem>
+              <ListItem key = {4} button divider className="nav-item item-height"
+                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/register'}> Become a Temp </ListItem>
               <ListItem key = {5} button divider className="nav-item item-height"> Contact Us </ListItem>
               <ListItem key = {6} button divider className="nav-item item-height" 
                 activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}> Login </ListItem>
@@ -86,6 +87,7 @@ class Navbar extends Component{
           <Route path="/home" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/register" component={Register} />
         </Switch>
       </div>
     );
@@ -100,15 +102,15 @@ class Navbar extends Component{
             <Link to="/home" className="logo-container">
               <img src={logo} className="logo" alt="logo"/>
             </Link>
-              <Typography variant = "subheading" className = "padding nav-item"
-                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
-              <Typography variant = "subheading" className = "padding nav-item"
-                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>About Us</Typography>
-              <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now"/></Typography>
-              <Typography variant = "subheading" className = "padding nav-item"><Modal name = "Become a Temp"/></Typography>
-              <Typography variant = "subheading" className = "padding nav-item">Contact Us</Typography>
-              <Typography variant = "subheading" className = "nav-item" 
-                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>
+            <Typography variant = "subheading" className = "padding nav-item"
+              activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
+            <Typography variant = "subheading" className = "padding nav-item"
+              activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>About Us</Typography>
+            <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now" idType="typography"/></Typography>
+            <Typography variant = "subheading" className = "padding nav-item"><Modal name = "Become a Temp" idType="typography"/></Typography>
+            <Typography variant = "subheading" className = "padding nav-item">Contact Us</Typography>
+            <Typography variant = "subheading" className = "nav-item" 
+              activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>
           </Toolbar>
         </AppBar>
         <Switch>
@@ -117,6 +119,7 @@ class Navbar extends Component{
           <Route path="/home" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/register" component={Register} />
         </Switch>
       </div>
     )

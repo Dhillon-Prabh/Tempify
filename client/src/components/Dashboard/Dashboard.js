@@ -24,7 +24,7 @@ const DashboardOptions = () => {
     return(
         <React.Fragment>
             <Grid container direction="row" justify="center" alignItems="center" className="options">
-                <Grid item className="optionsLink">
+                <Grid item xs={12} md={3}>
                     <Breadcrumbs aria-label="breadcrumb">
                         <Link to="/home" style={{textDecoration:'none', color: 'inherit'}}>
                             <ListItem button>

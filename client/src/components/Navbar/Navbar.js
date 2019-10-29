@@ -5,11 +5,12 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import './Navbar.css';
 import logo from '../../images/Tempify_resized.png';
-import { NavLink, Route, Switch} from "react-router-dom";
+import { NavLink, Link, Route, Switch} from "react-router-dom";
 import Login from '../Login/Login';
 import About from '../About/About';
 import Modal from '../Modal/Modal';
 import Home from '../Home/Home';
+import Dashboard from '../Dashboard/Dashboard'
 import Register from '../Register/Register';
 
 class Navbar extends Component{
@@ -19,7 +20,6 @@ class Navbar extends Component{
     this.state = {
       drawerActivate:false, 
       drawer:false,
-      name: "Book Now"
     };
   }
 
@@ -48,8 +48,9 @@ class Navbar extends Component{
               <MenuIcon
                 className = "sideBarIcon"
                 onClick={()=>{this.setState({drawer:true})}} />
-
-              <img src={logo} className="logo" alt="logo"/>
+              <Link to="/home">
+                <img src={logo} className="logo" component={NavLink} to={'/home'} alt="logo"/>
+              </Link>
               <Typography color="inherit"></Typography>
             </Grid>
           </Toolbar>
@@ -85,6 +86,7 @@ class Navbar extends Component{
           <Route path="/login" component={Login} />
           <Route path="/home" component={Home} />
           <Route path="/about" component={About} />
+          <Route path="/dashboard" component={Dashboard} />
           <Route path="/register" component={Register} />
         </Switch>
       </div>
@@ -97,18 +99,18 @@ class Navbar extends Component{
       <div>
         <AppBar >
           <Toolbar className="nav-color">
-            <div className="logo-container">
+            <Link to="/home" className="logo-container">
               <img src={logo} className="logo" alt="logo"/>
-            </div>
-              <Typography variant = "subheading" className = "padding nav-item"
-                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
-              <Typography variant = "subheading" className = "padding nav-item"
-                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>About Us</Typography>
-              <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now"/></Typography>
-              <Typography variant = "subheading" className = "padding nav-item"><Modal name = "Become a Temp"/></Typography>
-              <Typography variant = "subheading" className = "padding nav-item">Contact Us</Typography>
-              <Typography variant = "subheading" className = "nav-item" 
-                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>
+            </Link>
+            <Typography variant = "subheading" className = "padding nav-item"
+              activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
+            <Typography variant = "subheading" className = "padding nav-item"
+              activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>About Us</Typography>
+            <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now" idType="typography"/></Typography>
+            <Typography variant = "subheading" className = "padding nav-item"><Modal name = "Become a Temp" idType="typography"/></Typography>
+            <Typography variant = "subheading" className = "padding nav-item">Contact Us</Typography>
+            <Typography variant = "subheading" className = "nav-item" 
+              activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>
           </Toolbar>
         </AppBar>
         <Switch>
@@ -116,6 +118,7 @@ class Navbar extends Component{
           <Route path="/login" component={Login} />
           <Route path="/home" component={Home} />
           <Route path="/about" component={About} />
+          <Route path="/dashboard" component={Dashboard} />
           <Route path="/register" component={Register} />
         </Switch>
       </div>

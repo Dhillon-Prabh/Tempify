@@ -11,7 +11,6 @@ import './PasswordModal.css';
 
 export default function FormDialog() {
 
-
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {

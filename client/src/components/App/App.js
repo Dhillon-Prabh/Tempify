@@ -5,7 +5,7 @@ import "./App.css";
 import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
 import ContactSection from "../Contact/ContactSection";
-
+import Schedule from "../Schedule/schedule";
 
 class App extends Component {
   render() {

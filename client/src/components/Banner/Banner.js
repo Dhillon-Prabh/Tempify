@@ -1,10 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import bannerImage from "../../images/original.jpg";
-import Button from "@material-ui/core/Button";
-import { NavLink, Route, Switch } from "react-router-dom";
-import BlueButton from "../Buttons/BlueButton";
-import ClearButton from "../Buttons/ClearButton";
+import Modal from '../Modal/Modal';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -48,23 +45,6 @@ const useStyles = makeStyles(theme => ({
     marginTop: "12px",
     display: "flex"
   },
-  buttonRight: {
-    backgroundColor: "white",
-    border: "1px solid lightgray",
-    boxShadow: "none",
-    padding: "10px 20px",
-    borderRadius: "0",
-    backgroundColor: "transparent",
-    width: "170px",
-    height: "44px",
-    marginLeft: "7px",
-    marginRight: "7px",
-    fontWeight: "900",
-    "&:hover": {
-      backgroundColor: "rgba(255, 255, 255, 0.1)",
-      boxShadow: "none"
-    }
-  }
 }));
 
 export default function() {
@@ -76,9 +56,10 @@ export default function() {
         <div className={classes.botMessage}>
           The easiest way to book an ideal temp for your office.
         </div>
+
         <div className={classes.buttonContainer}>
-          <BlueButton />
-          <ClearButton />
+          <Modal idType = "blueButton" name="BOOK NOW"/>
+          <Modal idType = "clearButton" name="BECOME A TEMP"/>
         </div>
       </div>
       <div className={classes.overlay}></div>

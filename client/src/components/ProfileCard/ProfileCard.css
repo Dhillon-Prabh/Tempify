@@ -1,0 +1,34 @@
+.profileCard {
+    width: 25% !important;
+    height: 500px !important;
+    position: relative;
+    border-radius: 0.28571429rem 0.28571429rem 0em 0em !important;
+    border: solid 1px gray;
+}
+
+.profileCardBorder {
+    border-top: solid 1px gray;
+}
+
+.profileCardImage {
+    padding: 5px !important;
+}
+
+.boldText {
+    font-weight: bold !important;
+}
+
+.rightAlign {
+    text-align: right !important;
+    width: 90%;
+}
+
+.flexGrow {
+    flex-grow: 1;
+}
+
+.profileCardBottom {
+    width: 100% !important;
+    position: absolute;
+    bottom: 0;
+}

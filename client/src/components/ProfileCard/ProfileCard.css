@@ -4,6 +4,10 @@
     position: relative;
     border-radius: 0.28571429rem 0.28571429rem 0em 0em !important;
     border: solid 1px gray;
+    margin-top: 0.85em;
+    margin-bottom: 0.85em;
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
 .profileCardBorder {

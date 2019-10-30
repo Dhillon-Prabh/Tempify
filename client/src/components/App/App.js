@@ -5,16 +5,13 @@ import "./App.css";
 import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
 import ContactSection from "../Contact/ContactSection";
-import ProfileCard from "../ProfileCard/ProfileCard";
-import History from "../History/History";
-
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         {/* <React.Fragment>
-        <CssBaseline />
+          <CssBaseline />
           <BrowserRouter>
             <ScrollToTop/>
             <Navbar />
@@ -22,7 +19,6 @@ class App extends Component {
             <Cookie />
           </BrowserRouter>
         </React.Fragment> */}
-        <History/>
       </div>
     );
   }

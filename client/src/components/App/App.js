@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <React.Fragment>
+        <React.Fragment>
           <CssBaseline />
           <BrowserRouter>
             <ScrollToTop/>
@@ -18,7 +18,7 @@ class App extends Component {
             <ContactSection />
             <Cookie />
           </BrowserRouter>
-        </React.Fragment> */}
+        </React.Fragment>
       </div>
     );
   }

@@ -1,10 +1,24 @@
 const express = require('express');
 const helmet = require('helmet')
 const bodyParser = require('body-parser');
-
+const mysql = require('mysql');
 const app = express();
-
 const PORT = 3001; 
+
+// includes db configuration info
+let dbconfig = require(__dirname + '/config/db-config.json');
+
+// mysql connection
+let connection = mysql.createConnection(dbconfig);
+
+connection.connect(function (err) {
+  if (err) throw err;
+  connection.query("SELECT * FROM test", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+  });
+  console.log('Database connected!');
+});
 
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: true }));

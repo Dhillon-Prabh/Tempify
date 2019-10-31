@@ -1,0 +1,17 @@
+.options {
+    padding-top: 5rem;
+}
+
+.optionsLink {
+    margin-right: 3rem;
+}
+
+.buttons{
+    height: 3rem;
+}
+
+.button {
+    font-weight: bold !important;
+    background-color: #00bfff !important;
+    color: white !important;
+}

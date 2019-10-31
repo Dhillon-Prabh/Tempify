@@ -1,0 +1,105 @@
+.blueBlock {
+    background-color: #6fa7d8;
+    color: #ffffff;
+}
+
+.box3 {
+    padding-bottom: 52px;
+}
+
+.blueText {
+    color: #6fa7d8;
+}
+
+.header1 {
+    padding-top: 5.1rem;
+    padding-bottom: 1.65em;
+    font-size: 1.75em !important;
+    font-weight: bold !important;
+}
+
+.header2 {
+    padding-bottom: 2.625em;
+    font-size: 1.75em !important;
+}
+
+.columns {
+    padding-top: 1em;
+    padding-bottom: 2.4em;
+}
+
+.block1Column {
+    width: 50%;
+    padding-bottom: 25px;
+}
+
+.block2Column {
+    width: 25%;
+    padding-left: 29px;
+    padding-right: 29px;
+    padding-bottom: 10px;
+}
+
+.block3Column {
+    width: 25%;
+    padding-left: 1.375em;
+    padding-right: 1.375em;
+    padding-bottom: 25px;
+}
+
+.blockRow {
+    max-width: 84em;
+}
+
+.block4Column {
+    width: 33%;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
+}
+
+.block1ColumnTitle {
+    padding-left: 83px;
+    padding-bottom: 15px;
+    font-weight: bold !important;
+    font-size: 18px !important;
+}
+
+.columnTitle {
+    padding-bottom: 10px;
+    font-weight: bold !important;
+    font-size: 18px !important;
+}
+
+.verticalAlign {
+    vertical-align: middle;
+}
+
+.img {
+    padding-right: 10px;
+    padding-bottom: 10px; 
+    padding-left: 25px;
+    width: 43px;
+    box-sizing: content-box;
+}
+
+.block1Text {
+    padding-right: 20px;
+    font-size: 17px !important;
+}
+
+.img2 {
+    width: 48px;
+    height: 48px;
+}
+
+.blueButton {
+    width: 210px;
+    height: 3.4375em !important;
+    background-color: #00bfff !important;
+}
+
+.fIcons {
+    font-size: 17px !important;
+    margin-bottom: 5px;
+}

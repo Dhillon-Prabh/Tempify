@@ -1,0 +1,15 @@
+.title {
+    font-weight: bold !important;
+    margin-top: 3rem !important;
+}
+
+.inputBox {
+    width: 14rem !important;
+}
+
+.button {
+    font-weight: bold !important;
+    background-color: #00bfff !important;
+    color: white !important;
+    height: 3rem;
+}

@@ -4,28 +4,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import './Login.css';
 
-import FormModal from '../FormModal/FormModal'
-
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Tempify
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import PasswordModal from '../PasswordModal/PasswordModal'
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -48,18 +32,41 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(3, 0, 1),
+    backgroundColor: "#00bfff",
+    display: 'block',
+    marginTop: '20px',
+    '&:hover': {
+      background: "#404040",
+    }
   },
+  textField: {
+    marginLeft: theme.spacing.unit * 3,
+    marginBottom: '0px',
+  },
+  label: {
+    '&$focused': {
+      color: '#00bfff'
+    },
+  },
+  focused: {},
+  outlinedInput: {
+    '&$focused $notchedOutline': {
+      border: '1px solid #00bfff'
+    },
+  },
+  notchedOutline: {},
+
 }));
 
 export default function Login() {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component="main" maxWidth="sm" className="login_container">
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" className="login_title">
           LOGIN WITH YOUR EMAIL ACCOUNT
         </Typography>
         <form className={classes.form} noValidate>
@@ -73,6 +80,20 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            className ="classes.loginEmail"
+            InputLabelProps={{
+              classes: {
+                root: classes.label,
+                focused: classes.focused,
+              },
+            }}
+            InputProps={{
+              classes: {
+                root: classes.outlinedInput,
+                focused: classes.focused,
+                notchedOutline: classes.notchedOutline,
+              },
+            }}
           />
           <TextField
             variant="outlined"
@@ -84,11 +105,26 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            className ="loginPassword"
+            InputLabelProps={{
+              classes: {
+                root: classes.label,
+                focused: classes.focused,
+              },
+            }}
+            InputProps={{
+              classes: {
+                root: classes.outlinedInput,
+                focused: classes.focused,
+                notchedOutline: classes.notchedOutline,
+              },
+            }}
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
+            control={<Checkbox value="remember" color="default" />}
             label="Remember me"
           />
+          <PasswordModal/>
           <Button
             type="submit"
             fullWidth
@@ -98,26 +134,9 @@ export default function Login() {
           >
             LOGIN
           </Button>
-          <Grid container>
-            <Grid item sm>
-              <FormModal
-                title = "Password Recovery"
-                description = "What is your email? We will send you a password reset link."
-                cancel = "Cancel"
-                reset = "Send Reset Link"
-              />
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
+
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
     </Container>
   );
 }

@@ -6,7 +6,7 @@ import Modal from '../Modal/Modal';
 const useStyles = makeStyles(theme => ({
   container: {
     width: "100%",
-    height: "550px",
+    height: "650px",
     overflow: "hidden"
   },
   image: {
@@ -17,12 +17,12 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "black",
     opacity: "0.6",
     width: "100%",
-    height: "550px",
+    height: "650px",
     position: "absolute"
   },
   bannerMessage: {
     width: "100%",
-    height: "550px",
+    height: "650px",
     position: "absolute",
     zIndex: "1000",
     display: "flex",

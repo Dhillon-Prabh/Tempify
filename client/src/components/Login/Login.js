@@ -61,27 +61,56 @@ class LoginTemp extends Component {
 
   constructor(props){
     super(props);
+
+    this.state = {
+      email: '',
+      password: ''
+    }
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateInputValue = this.updateInputValue.bind(this);
+  }
+
+  handleSubmit(e) {
+    this.setState({ 
+      message: 'Sending...',
+      submitted: true
+    }, 
+      this.submitFormData);
+  }
+
+  updateInputValue(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   }
 
   render(){
-    
-    const { classes } = this.props;
 
+    const { classes } = this.props;
     return (
       <Container component="main" maxWidth="sm" className="login_container">
         <div className={classes.paper}>
           <Typography component="h1" variant="h5" className="login_title">
             LOGIN WITH YOUR EMAIL ACCOUNT
           </Typography>
-          <form className={classes.form} noValidate>
+          <form 
+            className={classes.form}        
+            onSubmit = {e => 
+                this.props.onLogin(e, {
+                  email: this.state.email,
+                  password: this.state.password
+                }) 
+              }>
             <TextField
+              onChange= {this.updateInputValue}
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="email"
               label="Email Address"
-              name="email"
+              type = "text" 
+              name = "email"
               autoComplete="email"
               autoFocus
               className ="classes.loginEmail"
@@ -100,13 +129,14 @@ class LoginTemp extends Component {
               }}
             />
             <TextField
+              onChange= {this.updateInputValue}
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              name="password"
+              type = "password" 
+              name = "password"
               label="Password"
-              type="password"
               id="password"
               autoComplete="current-password"
               className ="loginPassword"
@@ -138,12 +168,10 @@ class LoginTemp extends Component {
             >
               LOGIN
             </Button>
-  
           </form>
         </div>
       </Container>
     );
-
   }
 }
 

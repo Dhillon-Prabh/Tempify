@@ -63,7 +63,7 @@ export default function() {
         </div>
       </div>
       <div className={classes.overlay}></div>
-      <img className={classes.image} src={bannerImage} />
+      <img className={classes.image} src={bannerImage} alt="banner" />
     </div>
   );
 }

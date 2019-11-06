@@ -60,6 +60,8 @@ class Modal extends Component{
           <Typography variant = "subheading" onClick={this.handleClickOpen}>
             {this.props.name}
           </Typography>);
+      default: 
+          console.log("error");
     }
   }
     

@@ -1,7 +1,6 @@
 import React from "react";
 import Contact from "./Contact";
 import SocialMedia from "./SocialMedia";
-import { mergeClasses } from "@material-ui/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import Footer from "./Footer";
 

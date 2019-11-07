@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import './Register.css'
 
 const useStyles = theme => ({
@@ -59,7 +60,7 @@ const city = [
   },
 ];
 
-const youdo = [
+const role = [
   {
     value: 'none',
     label: '- What do you do? -',
@@ -129,23 +130,30 @@ class Register extends React.Component {
       experience: '',
       expectedRate: '',
       city: '',
-      youdo: '',
+      role: '',
       license: '',
       practice: '',
       dentalsw: '',
+      accept: false,
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleConfirmPassword = (event) => {
-    this.setState({confirmPassword: event.target.value});
-    if (event.target.value !== this.state.password) {
-      console.log("This is an error");
-    }
+  componentDidMount() {
+    ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+      if(value !== this.state.password) {
+        return false;
+      } 
+      return true;
+    })
+  }
+
+  componentWillUnmount() {
+    ValidatorForm.removeValidationRule('isPasswordMatch');
   }
 
   submitForm = (event) => {
-    event.preventdefault();
+    event.preventDefault();
     var data = {
       name: this.state.name,
       email: this.state.email,
@@ -153,7 +161,7 @@ class Register extends React.Component {
       experience: this.state.experience,
       expectedRate: this.state.expectedRate,
       city: this.state.city,
-      youdo: this.state.youdo,
+      role: this.state.role,
       license: this.state.license,
       practice: this.state.practice,
       dentalsw: this.state.dentalsw
@@ -182,15 +190,14 @@ class Register extends React.Component {
     const { classes } = this.props;
     return (
       <div className="register">
-        <React.Fragment>
-
+        <ValidatorForm ref="form" onSubmit={(e) => this.submitForm(e)}>
           <Typography align="center" className="header1">
             TEMP REGISTRATION
           </Typography>
 
           <Grid container spacing={6} className="container1">
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 id="name"
@@ -202,6 +209,8 @@ class Register extends React.Component {
                 margin="normal"
                 variant="outlined"
                 autoComplete="name"
+                validators={['required']}
+                errorMessages={['This field is required']}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
@@ -221,7 +230,7 @@ class Register extends React.Component {
               />
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 id="email"
@@ -233,6 +242,8 @@ class Register extends React.Component {
                 margin="normal"
                 variant="outlined"
                 autoComplete="email"
+                validators={['required', 'isEmail']}
+                errorMessages={['This field is required', 'This is not a valid email']}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
@@ -253,7 +264,7 @@ class Register extends React.Component {
             </Grid>
 
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 id="password"
@@ -265,6 +276,8 @@ class Register extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
+                validators={['required']}
+                errorMessages={['This field is required']}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
@@ -284,11 +297,11 @@ class Register extends React.Component {
               />
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
-                id="cPassword"
-                name="cPassword"
+                id="confirmPassword"
+                name="confirmPassword"
                 value={this.state.confirmPassword}
                 type="password"
                 label="Required"
@@ -296,7 +309,9 @@ class Register extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                onChange={(e) => {this.handleConfirmPassword(e);}}
+                validators={['required', 'isPasswordMatch']}
+                errorMessages={['This field is required', 'Passwords do not match']}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -316,7 +331,7 @@ class Register extends React.Component {
             </Grid>
 
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 id="experience"
@@ -327,7 +342,9 @@ class Register extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                value={this.state.exp}
+                value={this.state.experience}
+                validators={['required']}
+                errorMessages={['This field is required']}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
@@ -347,7 +364,7 @@ class Register extends React.Component {
               />
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 id="expRate"
@@ -358,6 +375,8 @@ class Register extends React.Component {
                 margin="normal"
                 variant="outlined"
                 value={this.state.expectedRate}
+                validators={['required', 'minNumber:20', 'maxNumber:60']}
+                errorMessages={['This field is required', 'Value should be between 20 and 60', 'Value should be between 20 and 60']}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
@@ -378,7 +397,7 @@ class Register extends React.Component {
             </Grid>
             
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 select
@@ -390,6 +409,8 @@ class Register extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.city}
+                validators={['required']}
+                errorMessages={['This field is required']}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
@@ -412,21 +433,23 @@ class Register extends React.Component {
                     {option.label}
                   </MenuItem>
                 ))}
-              </TextField>
+              </TextValidator>
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 select
-                id="youdo"
-                name="youdo"
+                id="role"
+                name="role"
                 label="Required"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
                 defaultValue="none"
-                value={this.state.youdo}
+                value={this.state.role}
+                validators={['required']}
+                errorMessages={['This field is required']}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
@@ -444,16 +467,16 @@ class Register extends React.Component {
                   },
                 }}
               >
-                {youdo.map(option => (
+                {role.map(option => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>
                 ))}
-              </TextField>
+              </TextValidator>
             </Grid>
 
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 id="license"
@@ -464,6 +487,8 @@ class Register extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
+                validators={['required']}
+                errorMessages={['This field is required']}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
@@ -483,7 +508,7 @@ class Register extends React.Component {
               />
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 select
@@ -495,6 +520,8 @@ class Register extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.practice}
+                validators={['required']}
+                errorMessages={['This field is required']}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
@@ -517,11 +544,11 @@ class Register extends React.Component {
                     {option.label}
                   </MenuItem>
                 ))}
-              </TextField>
+              </TextValidator>
             </Grid>
 
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 select
@@ -533,6 +560,8 @@ class Register extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.dentalsw}
+                validators={['required']}
+                errorMessages={['This field is required']}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
@@ -555,7 +584,7 @@ class Register extends React.Component {
                     {option.label}
                   </MenuItem>
                 ))}
-              </TextField>
+              </TextValidator>
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
               <input
@@ -568,7 +597,7 @@ class Register extends React.Component {
 
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
+                control={<Checkbox color="secondary" name="accept" value={this.state.accept} onChange={this.handleChange} />}
                 label="I Accept"
               />
               <Link
@@ -581,12 +610,12 @@ class Register extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={12} align="center">
-              <Button className="blueButton" color="primary" variant="contained" onClick={(e) => {this.submitForm(e);}}>
+              <Button className="blueButton" color="primary" variant="contained" type="submit">
                 SUBMIT FORM
               </Button>
             </Grid>
           </Grid>
-        </React.Fragment>
+        </ValidatorForm>
       </div>
     )
   }

@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import './Register.css'
+import CheckboxValidatorElement from '../CheckboxValidatorElement/CheckboxValidatorElement';
 
 const useStyles = theme => ({
   textField: {
@@ -145,15 +146,18 @@ class Register extends React.Component {
         return false;
       } 
       return true;
-    })
+    });
+    ValidatorForm.addValidationRule('isTruthy', value => value);
   }
 
   componentWillUnmount() {
     ValidatorForm.removeValidationRule('isPasswordMatch');
+    ValidatorForm.removeValidationRule('isTruthy');
   }
 
   submitForm = (event) => {
     event.preventDefault();
+
     var data = {
       name: this.state.name,
       email: this.state.email,
@@ -597,7 +601,10 @@ class Register extends React.Component {
 
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox color="secondary" name="accept" value={this.state.accept} onChange={this.handleChange} />}
+                control={<CheckboxValidatorElement color="secondary" name="accept" validators={['isTruthy']}
+                errorMessages={['This field is required']}
+                checked={this.state.accept}
+                value={this.state.accept} />}
                 label="I Accept"
               />
               <Link

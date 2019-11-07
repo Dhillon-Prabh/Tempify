@@ -5,7 +5,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import './Navbar.css';
 import logo from '../../images/Tempify_resized.png';
-import { NavLink, Link, Route, Switch} from "react-router-dom";
+import { NavLink, Link, Route, Switch, withRouter} from "react-router-dom";
 import Login from '../Login/Login';
 import About from '../About/About';
 import Modal from '../Modal/Modal';
@@ -20,7 +20,11 @@ class Navbar extends Component{
     this.state = {
       drawerActivate:false, 
       drawer:false,
+      isAuth: false, 
     };
+
+    this.loginHandler = this.loginHandler.bind(this);
+
   }
 
   componentWillMount(){
@@ -36,6 +40,55 @@ class Navbar extends Component{
         this.setState({drawerActivate:false})
       }
     });
+  }
+
+  loginHandler = (event, authData) => {
+    event.preventDefault();
+    fetch("http://localhost:3001/login", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: authData.email,
+        password: authData.password,
+      })
+    }
+    )
+    .then(res => {
+      if(res.status === 422) {
+        throw new Error(
+          "Validation failed!"
+        );
+      }
+      if(res.status !== 200 && res.status !== 201) {
+        console.log('Error!');
+        throw new Error('Authentication failed!');
+      }
+      return res.json();
+    })
+    .then(resData => {
+      this.setState({
+        isAuth: true, 
+        userId: resData.userId
+      });  
+      if(this.state.isAuth){
+        this.props.history.push("/dashboard");
+      }
+    })
+    .catch(err => {
+      this.setState({
+        isAuth: false,
+        error: err
+      });
+    });
+  };
+
+  logoutHandler() {
+    this.setState({
+      isAuth: false, 
+      token: null
+    })
   }
 
   //Small Screens
@@ -81,14 +134,6 @@ class Navbar extends Component{
             </List>
           </div>
        </SwipeableDrawer> 
-        <Switch>
-          <Route path='/' exact component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/home" component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/register" component={Register} />
-        </Switch>
       </div>
     );
   }
@@ -113,25 +158,48 @@ class Navbar extends Component{
               activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>
           </Toolbar>
         </AppBar>
-        <Switch>
-          <Route path='/' exact component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/home" component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/register" component={Register} />
-        </Switch>
+      
       </div>
     )
   }
 
   render(){
+
+    let routes = (
+      <Switch>
+      <Route path='/' exact component={Home} />
+      <Route
+        path="/login"
+        exact
+        render={props => (
+          <Login
+            {...props}
+            onLogin = { this.loginHandler }
+          />
+        )}
+      />
+      <Route path="/home" component={Home} />
+      <Route path="/about" component={About} />
+      <Route path="/register" component={Register} />
+
+    </Switch>
+    );
+
+    if(this.state.isAuth) {
+      routes = (
+        <Switch>
+          <Route path="/dashboard" component={Dashboard} />
+        </Switch>
+      )
+    }
+
     return(
       <div>
         {this.state.drawerActivate ? this.createDrawer() : this.destroyDrawer()}
+        { routes }
       </div>
     );
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);

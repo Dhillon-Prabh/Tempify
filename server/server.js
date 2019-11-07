@@ -36,6 +36,13 @@ app.use('/', routes);
 
 // *************************************************************** //
 
+app.post('/register', function(req, res, next) {
+  connection.query('INSERT INTO temps values(2+req.body.name+'',''+req.body.email+'')', function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 })

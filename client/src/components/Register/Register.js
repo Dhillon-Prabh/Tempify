@@ -122,42 +122,60 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      exp: '',
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      experience: '',
+      expectedRate: '',
       city: '',
       youdo: '',
+      license: '',
       practice: '',
       dentalsw: '',
     }
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleExpChange = (changeEvent) => {
-    this.setState({
-      exp: changeEvent.target.value
+  handleConfirmPassword = (event) => {
+    this.setState({confirmPassword: event.target.value});
+    if (event.target.value !== this.state.password) {
+      console.log("This is an error");
+    }
+  }
+
+  submitForm = (event) => {
+    event.preventdefault();
+    var data = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      experience: this.state.experience,
+      expectedRate: this.state.expectedRate,
+      city: this.state.city,
+      youdo: this.state.youdo,
+      license: this.state.license,
+      practice: this.state.practice,
+      dentalsw: this.state.dentalsw
+    }
+    console.log(data);
+    fetch("/register", {
+      method: 'POST',
+      body: JSON.stringify(data)
+    }).then(function(response) {
+
+    }).then(function(data) {
+      console.log(data)
+      if (data == "success") {
+        console.log("success it is")
+      }
+    }).catch(function(err) {
+        console.log(err);
     });
   }
 
-  handleCityChange = (changeEvent) => {
-    this.setState({
-      city: changeEvent.target.value
-    });
-  }
-
-  handleYoudoChange = (changeEvent) => {
-    this.setState({
-      youdo: changeEvent.target.value
-    });
-  }
-
-  handlePracticeChange = (changeEvent) => {
-    this.setState({
-      practice: changeEvent.target.value
-    });
-  }
-
-  handleDentalSWChange = (changeEvent) => {
-    this.setState({
-      dentalsw: changeEvent.target.value
-    });
+  handleChange = (e) => {
+    this.setState({[e.target.name]: e.target.value});
   }
 
   render() {
@@ -177,12 +195,14 @@ class Register extends React.Component {
                 fullWidth
                 id="name"
                 name="name"
+                value={this.state.name}
                 label="Required"
                 placeholder="Your name?"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
                 autoComplete="name"
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -206,12 +226,14 @@ class Register extends React.Component {
                 fullWidth
                 id="email"
                 name="email"
+                value={this.state.email}
                 label="Required"
                 placeholder="Email address"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
                 autoComplete="email"
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -236,12 +258,14 @@ class Register extends React.Component {
                 fullWidth
                 id="password"
                 name="password"
+                value={this.state.password}
                 type="password"
                 label="Required"
                 placeholder="Password"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -265,12 +289,14 @@ class Register extends React.Component {
                 fullWidth
                 id="cPassword"
                 name="cPassword"
+                value={this.state.confirmPassword}
                 type="password"
                 label="Required"
                 placeholder="Confirm password"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
+                onChange={(e) => {this.handleConfirmPassword(e);}}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -302,7 +328,7 @@ class Register extends React.Component {
                 margin="normal"
                 variant="outlined"
                 value={this.state.exp}
-                onChange={(e) => {this.handleExpChange(e);}}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -325,14 +351,14 @@ class Register extends React.Component {
                 required
                 fullWidth
                 id="expRate"
-                name="expRate"
+                name="expectedRate"
                 label="Required"
                 placeholder="Expected rate [$]"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                value={this.state.exp}
-                onChange={(e) => {this.handleExpChange(e);}}
+                value={this.state.expectedRate}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -364,7 +390,7 @@ class Register extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.city}
-                onChange={(e) => {this.handleCityChange(e);}}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -401,7 +427,7 @@ class Register extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.youdo}
-                onChange={(e) => {this.handleYoudoChange(e);}}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -432,11 +458,13 @@ class Register extends React.Component {
                 fullWidth
                 id="license"
                 name="license"
+                value={this.state.license}
                 label="Required"
                 placeholder="License number?"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -467,7 +495,7 @@ class Register extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.practice}
-                onChange={(e) => {this.handlePracticeChange(e);}}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -505,7 +533,7 @@ class Register extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.dentalsw}
-                onChange={(e) => {this.handleDentalSWChange(e);}}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -553,7 +581,7 @@ class Register extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={12} align="center">
-              <Button className="blueButton" color="primary" variant="contained">
+              <Button className="blueButton" color="primary" variant="contained" onClick={(e) => {this.submitForm(e);}}>
                 SUBMIT FORM
               </Button>
             </Grid>

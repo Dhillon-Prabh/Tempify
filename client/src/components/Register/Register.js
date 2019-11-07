@@ -44,11 +44,6 @@ const useStyles = theme => ({
 
 const city = [
   {
-    value: 'none',
-    label: '- Select city? -',
-    disabled: 'true',
-  },
-  {
     value: 'Vancouver',
     label: 'Vancouver',
   },
@@ -85,7 +80,6 @@ const practice = [
   {
     value: 'none',
     label: '- Type of Practice? -',
-    disabled: 'true',
   },
   {
     value: 'General',
@@ -105,7 +99,6 @@ const dentalsw = [
   {
     value: 'none',
     label: '- Dental Software Used -',
-    disabled: 'true',
   },
   {
     value: 'Dentrix',
@@ -126,7 +119,7 @@ class Register extends React.Component {
     super(props);
     this.state = {
       exp: '',
-      city: '',
+      city: city[0].value,
       youdo: '',
       practice: '',
       dentalsw: '',
@@ -180,8 +173,8 @@ class Register extends React.Component {
                 fullWidth
                 id="name"
                 name="name"
-                label="Required"
-                placeholder="Your name?"
+                label="Your name"
+                //placeholder="Your name?"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -209,8 +202,8 @@ class Register extends React.Component {
                 fullWidth
                 id="email"
                 name="email"
-                label="Required"
-                placeholder="Email address"
+                label="Email address"
+                //placeholder="Email address"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -240,8 +233,8 @@ class Register extends React.Component {
                 id="password"
                 name="password"
                 type="password"
-                label="Required"
-                placeholder="Password"
+                label="Password"
+                //placeholder="Password"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -269,8 +262,8 @@ class Register extends React.Component {
                 id="cPassword"
                 name="cPassword"
                 type="password"
-                label="Required"
-                placeholder="Confirm password"
+                label="Confirm password"
+                //placeholder="Confirm password"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -299,8 +292,8 @@ class Register extends React.Component {
                 id="experience"
                 name="experience"
                 type="number"
-                label="Required"
-                placeholder="Years of experience"
+                label="Years of experience"
+                //placeholder="Years of experience"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -329,8 +322,8 @@ class Register extends React.Component {
                 fullWidth
                 id="expRate"
                 name="expRate"
-                label="Required"
-                placeholder="Expected rate [$]"
+                label="Expected rate [$]"
+                //placeholder="Expected rate [$]"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -361,7 +354,7 @@ class Register extends React.Component {
                 select
                 id="city"
                 name="city"
-                label="Required"
+                label="Select city"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -385,7 +378,7 @@ class Register extends React.Component {
                 }}
               >
                 {city.map(option => (
-                  <MenuItem key={option.value} value={option.value} disabled={option.disabled}>
+                  <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>
                 ))}
@@ -488,7 +481,7 @@ class Register extends React.Component {
                 }}
               >
                 {practice.map(option => (
-                  <MenuItem key={option.value} value={option.value} disabled={option.disabled}>
+                  <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>
                 ))}

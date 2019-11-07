@@ -170,7 +170,6 @@ class Register extends React.Component {
       practice: this.state.practice,
       dentalsw: this.state.dentalsw
     }
-    console.log(data);
     fetch("http://localhost:3001/register", {
       method: 'POST',
       headers: {

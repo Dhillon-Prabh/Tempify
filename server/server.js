@@ -24,6 +24,7 @@ app.use((req, res, next) => {
 
 app.use('/', routes);
 
+
 // **************************************************************************** //
 
 // *************************************************************** //
@@ -37,12 +38,16 @@ app.use('/', routes);
 // *************************************************************** //
 
 app.post('/register', function(req, res, next) {
+  console.log("inside register", req);
   var user = req.body;
-  console.log(JSON.parse(user));
-  // connection.query('INSERT INTO temps values(2+req.body.name+'',''+req.body.email+'')', function (err, result, fields) {
-  //   if (err) throw err;
-  //   console.log(result);
-  // });
+  connection.query('INSERT INTO users(name, email, password, remember_token, created_at, updated_at,' +
+    'server_response, role, current_login_time,' +
+    'last_login_time, status, unsubscribe_from_emails, unsubscribe_modules)  VALUES ("' +
+    user.name + '""' +
+    user.name + '"', function (err, result, fields) {
+    if (err) throw err;
+      console.log(result);
+  });
 });
 
 app.listen(PORT, () => {

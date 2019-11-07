@@ -5,13 +5,12 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import './Register.css'
+import CheckboxValidatorElement from '../CheckboxValidatorElement/CheckboxValidatorElement';
 
 const useStyles = theme => ({
   textField: {
@@ -52,12 +51,32 @@ const city = [
     label: 'North Vancouver',
   },
   {
-    value: 'Burnaby',
-    label: 'Burnaby',
+    value: 'New Westminster',
+    label: 'New Westminster',
+  },
+  {
+    value: 'Tri-Cities',
+    label: 'Tri-Cities',
+  },
+  {
+    value: 'Surrey',
+    label: 'Surrey',
+  },
+  {
+    value: 'Richmond',
+    label: 'Richmond',
+  },
+  {
+    value: 'White Rock',
+    label: 'White Rock',
+  },
+  {
+    value: 'Langley(Fraser Valley)',
+    label: 'Langley(Fraser Valley)',
   },
 ];
 
-const youdo = [
+const role = [
   {
     value: 'none',
     label: '- What do you do? -',
@@ -77,10 +96,6 @@ const youdo = [
 ];
 
 const practice = [
-  {
-    value: 'none',
-    label: '- Type of Practice? -',
-  },
   {
     value: 'General',
     label: 'General',
@@ -112,73 +127,114 @@ const dentalsw = [
     value: 'Tracker',
     label: 'Tracker',
   },
+  {
+    value: 'Other',
+    label: 'Other',
+  },
+  {
+    value: 'None',
+    label: 'None',
+  },
 ];
 
 class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      exp: '',
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      experience: '',
+      expectedRate: '',
       city: city[0].value,
-      youdo: '',
-      practice: '',
-      dentalsw: '',
+      role: role[0].value,
+      license: '',
+      practice: practice[0].value,
+      dentalsw: dentalsw[0].value,
+      accept: false,
     }
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleExpChange = (changeEvent) => {
-    this.setState({
-      exp: changeEvent.target.value
+  componentDidMount() {
+    ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+      if(value !== this.state.password) {
+        return false;
+      } 
+      return true;
+    });
+    ValidatorForm.addValidationRule('isTruthy', value => value);
+  }
+
+  componentWillUnmount() {
+    ValidatorForm.removeValidationRule('isPasswordMatch');
+    ValidatorForm.removeValidationRule('isTruthy');
+  }
+
+  submitForm = (event) => {
+    event.preventDefault();
+
+    var data = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      experience: this.state.experience,
+      expectedRate: this.state.expectedRate,
+      city: this.state.city,
+      role: this.state.role,
+      license: this.state.license,
+      practice: this.state.practice,
+      dentalsw: this.state.dentalsw
+    }
+    fetch("http://localhost:3001/register", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(function(response) {
+      console.log(response);
+    }).then(function(data) {
+      console.log(data)
+      if (data == "success") {
+        console.log("success it is")
+      }
+    }).catch(function(err) {
+        console.log(err);
     });
   }
 
-  handleCityChange = (changeEvent) => {
-    this.setState({
-      city: changeEvent.target.value
-    });
-  }
-
-  handleYoudoChange = (changeEvent) => {
-    this.setState({
-      youdo: changeEvent.target.value
-    });
-  }
-
-  handlePracticeChange = (changeEvent) => {
-    this.setState({
-      practice: changeEvent.target.value
-    });
-  }
-
-  handleDentalSWChange = (changeEvent) => {
-    this.setState({
-      dentalsw: changeEvent.target.value
-    });
+  handleChange = (e) => {
+    var value = e.target.value !== '' ? e.target.value : e.target.checked;
+    this.setState({[e.target.name]: value});
   }
 
   render() {
     const { classes } = this.props;
     return (
       <div className="register">
-        <React.Fragment>
-
+        <ValidatorForm ref="form" onSubmit={(e) => this.submitForm(e)}>
           <Typography align="center" className="header1">
             TEMP REGISTRATION
           </Typography>
 
           <Grid container spacing={6} className="container1">
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 id="name"
                 name="name"
+                value={this.state.name}
                 label="Your name"
-                //placeholder="Your name?"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
                 autoComplete="name"
+                validators={['required']}
+                errorMessages={['This field is required']}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -197,17 +253,20 @@ class Register extends React.Component {
               />
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 id="email"
                 name="email"
+                value={this.state.email}
                 label="Email address"
-                //placeholder="Email address"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
                 autoComplete="email"
+                validators={['required', 'isEmail']}
+                errorMessages={['This field is required', 'This is not a valid email']}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -227,17 +286,20 @@ class Register extends React.Component {
             </Grid>
 
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 id="password"
                 name="password"
+                value={this.state.password}
                 type="password"
                 label="Password"
-                //placeholder="Password"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
+                validators={['required']}
+                errorMessages={['This field is required']}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -256,17 +318,20 @@ class Register extends React.Component {
               />
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
-                id="cPassword"
-                name="cPassword"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={this.state.confirmPassword}
                 type="password"
                 label="Confirm password"
-                //placeholder="Confirm password"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
+                validators={['required', 'isPasswordMatch']}
+                errorMessages={['This field is required', 'Passwords do not match']}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -286,19 +351,20 @@ class Register extends React.Component {
             </Grid>
 
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 id="experience"
                 name="experience"
                 type="number"
                 label="Years of experience"
-                //placeholder="Years of experience"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                value={this.state.exp}
-                onChange={(e) => {this.handleExpChange(e);}}
+                value={this.state.experience}
+                validators={['required']}
+                errorMessages={['This field is required']}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -317,18 +383,19 @@ class Register extends React.Component {
               />
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 id="expRate"
-                name="expRate"
+                name="expectedRate"
                 label="Expected rate [$]"
-                //placeholder="Expected rate [$]"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                value={this.state.exp}
-                onChange={(e) => {this.handleExpChange(e);}}
+                value={this.state.expectedRate}
+                validators={['required', 'minNumber:20', 'maxNumber:60']}
+                errorMessages={['This field is required', 'Value should be between 20 and 60', 'Value should be between 20 and 60']}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -348,7 +415,7 @@ class Register extends React.Component {
             </Grid>
             
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 select
@@ -360,7 +427,9 @@ class Register extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.city}
-                onChange={(e) => {this.handleCityChange(e);}}
+                validators={['required']}
+                errorMessages={['This field is required']}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -382,22 +451,24 @@ class Register extends React.Component {
                     {option.label}
                   </MenuItem>
                 ))}
-              </TextField>
+              </TextValidator>
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 select
-                id="youdo"
-                name="youdo"
+                id="role"
+                name="role"
                 label="Required"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
                 defaultValue="none"
-                value={this.state.youdo}
-                onChange={(e) => {this.handleYoudoChange(e);}}
+                value={this.state.role}
+                validators={['required']}
+                errorMessages={['This field is required']}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -414,25 +485,29 @@ class Register extends React.Component {
                   },
                 }}
               >
-                {youdo.map(option => (
+                {role.map(option => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>
                 ))}
-              </TextField>
+              </TextValidator>
             </Grid>
 
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 id="license"
                 name="license"
+                value={this.state.license}
                 label="Required"
                 placeholder="License number?"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
+                validators={['required']}
+                errorMessages={['This field is required']}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -451,7 +526,7 @@ class Register extends React.Component {
               />
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 select
@@ -463,7 +538,9 @@ class Register extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.practice}
-                onChange={(e) => {this.handlePracticeChange(e);}}
+                validators={['required']}
+                errorMessages={['This field is required']}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -485,11 +562,11 @@ class Register extends React.Component {
                     {option.label}
                   </MenuItem>
                 ))}
-              </TextField>
+              </TextValidator>
             </Grid>
 
             <Grid item xs={12} sm={6} className="container2">
-              <TextField
+              <TextValidator
                 required
                 fullWidth
                 select
@@ -501,7 +578,9 @@ class Register extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.dentalsw}
-                onChange={(e) => {this.handleDentalSWChange(e);}}
+                validators={['required']}
+                errorMessages={['This field is required']}
+                onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
@@ -523,7 +602,7 @@ class Register extends React.Component {
                     {option.label}
                   </MenuItem>
                 ))}
-              </TextField>
+              </TextValidator>
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
               <input
@@ -536,7 +615,11 @@ class Register extends React.Component {
 
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
+                control={<CheckboxValidatorElement color="primary" name="accept" validators={['isTruthy']}
+                errorMessages={['This field is required']}
+                onChange={this.handleChange}
+                checked={this.state.accept}
+                value={this.state.accept} />}
                 label="I Accept"
               />
               <Link
@@ -549,12 +632,12 @@ class Register extends React.Component {
               </Link>
             </Grid>
             <Grid item xs={12} align="center">
-              <Button className="blueButton" color="primary" variant="contained">
+              <Button className="blueButton" color="primary" variant="contained" type="submit">
                 SUBMIT FORM
               </Button>
             </Grid>
           </Grid>
-        </React.Fragment>
+        </ValidatorForm>
       </div>
     )
   }

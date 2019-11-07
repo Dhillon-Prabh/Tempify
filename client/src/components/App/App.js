@@ -11,11 +11,11 @@ class App extends Component {
     return (
       <div className="App">
         <React.Fragment>
-        <CssBaseline />
+          <CssBaseline />
           <BrowserRouter>
             <ScrollToTop/>
             <Navbar />
-            {/* <ContactSection /> */}
+            <ContactSection />
             <Cookie />
           </BrowserRouter>
         </React.Fragment>

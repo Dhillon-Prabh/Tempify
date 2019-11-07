@@ -12,15 +12,9 @@ const office = true;
 class ProfileCard extends React.Component {
     
     render() {
-        if (office) {
-            return (
-                <OfficeCard status="Completed" practice="General" software="Dentrix" experience="10 years" location="Vancouver" wage="50" bookingId="TMPSKD3O123"/>
-            );
-        } else {
-            return (
-                <TempCard/>
-            );
-        }
+        return (
+            <OfficeCard status="Completed" practice="General" software="Dentrix" experience="10 years" location="Vancouver" wage="50" bookingId="TMPSKD3O123"/>
+        )
     }
 }
 
@@ -62,13 +56,6 @@ const OfficeCard = (props) => {
                     </Typography>
                 </Grid>
             </Grid>
-        </Grid>
-    );
-}
-
-const TempCard = (props) => {
-    return (
-        <Grid>
         </Grid>
     );
 }

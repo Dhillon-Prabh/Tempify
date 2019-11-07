@@ -1,29 +1,15 @@
 const express = require('express');
 const helmet = require('helmet')
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
 const app = express();
-const PORT = 3001; 
-
-// includes db configuration info
-let dbconfig = require(__dirname + '/config/db-config.json');
-
-// mysql connection
-let connection = mysql.createConnection(dbconfig);
-
-connection.connect(function (err) {
-  if (err) throw err;
-  connection.query("SELECT * FROM test", function (err, result, fields) {
-    if (err) throw err;
-    console.log(result);
-  });
-  console.log('Database connected!');
-});
+const PORT = 3001;
+const routes = require('./routes/routes');
 
 app.use(helmet());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
-
 
 // **************************************************************************** //
 //                    Gets Around CORS ISSUE                                    // 
@@ -36,13 +22,10 @@ app.use((req, res, next) => {
   next();
 })
 
-// **************************************************************************** //
+app.use('/', routes);
 
-app.get('/', (req,res,next) => {
-  res.send({
-    temp: "five guys - json data"
-  });
-})
+
+// **************************************************************************** //
 
 // *************************************************************** //
 //                    Serving Our Build File                       //  
@@ -54,8 +37,19 @@ app.get('/', (req,res,next) => {
 
 // *************************************************************** //
 
+// app.post('/register', function(req, res, next) {
+//   console.log("inside register", req);
+//   var user = req.body;
+//   connection.query('INSERT INTO users(name, email, password, remember_token, created_at, updated_at,' +
+//     'server_response, role, current_login_time,' +
+//     'last_login_time, status, unsubscribe_from_emails, unsubscribe_modules)  VALUES ("' +
+//     user.name + '""' +
+//     user.name + '"', function (err, result, fields) {
+//     if (err) throw err;
+//       console.log(result);
+//   });
+// });
+
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 })
-
-//

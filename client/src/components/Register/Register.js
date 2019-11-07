@@ -171,11 +171,14 @@ class Register extends React.Component {
       dentalsw: this.state.dentalsw
     }
     console.log(data);
-    fetch("/register", {
+    fetch("http://localhost:3001/register", {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(data)
     }).then(function(response) {
-
+      console.log(response);
     }).then(function(data) {
       console.log(data)
       if (data == "success") {
@@ -187,7 +190,8 @@ class Register extends React.Component {
   }
 
   handleChange = (e) => {
-    this.setState({[e.target.name]: e.target.value});
+    var value = e.target.value !== '' ? e.target.value : e.target.checked;
+    this.setState({[e.target.name]: value});
   }
 
   render() {
@@ -433,7 +437,7 @@ class Register extends React.Component {
                 }}
               >
                 {city.map(option => (
-                  <MenuItem key={option.value} value={option.value} disabled={option.disabled}>
+                  <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>
                 ))}
@@ -601,8 +605,9 @@ class Register extends React.Component {
 
             <Grid item xs={12}>
               <FormControlLabel
-                control={<CheckboxValidatorElement color="secondary" name="accept" validators={['isTruthy']}
+                control={<CheckboxValidatorElement color="primary" name="accept" validators={['isTruthy']}
                 errorMessages={['This field is required']}
+                onChange={this.handleChange}
                 checked={this.state.accept}
                 value={this.state.accept} />}
                 label="I Accept"

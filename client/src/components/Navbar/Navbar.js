@@ -66,8 +66,7 @@ class Navbar extends Component{
       this.setAutoLogout(remainingMilliseconds);
   }
 
-  loginHander(event, authData) {
-
+  loginHandler = (event, authData) => {
     event.preventDefault();
     fetch("http://localhost:3001/login", {
       method: 'POST',
@@ -114,6 +113,7 @@ class Navbar extends Component{
       if(this.state.isAuth){
         this.props.history.push("/dashboard");
       }
+
     })
     .catch(err => {
       this.setState({

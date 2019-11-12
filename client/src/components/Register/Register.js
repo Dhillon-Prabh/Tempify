@@ -43,11 +43,6 @@ const useStyles = theme => ({
 
 const city = [
   {
-    value: 'none',
-    label: '- Select city? -',
-    disabled: 'true',
-  },
-  {
     value: 'Vancouver',
     label: 'Vancouver',
   },
@@ -56,8 +51,28 @@ const city = [
     label: 'North Vancouver',
   },
   {
-    value: 'Burnaby',
-    label: 'Burnaby',
+    value: 'New Westminster',
+    label: 'New Westminster',
+  },
+  {
+    value: 'Tri-Cities',
+    label: 'Tri-Cities',
+  },
+  {
+    value: 'Surrey',
+    label: 'Surrey',
+  },
+  {
+    value: 'Richmond',
+    label: 'Richmond',
+  },
+  {
+    value: 'White Rock',
+    label: 'White Rock',
+  },
+  {
+    value: 'Langley(Fraser Valley)',
+    label: 'Langley(Fraser Valley)',
   },
 ];
 
@@ -82,11 +97,6 @@ const role = [
 
 const practice = [
   {
-    value: 'none',
-    label: '- Type of Practice? -',
-    disabled: 'true',
-  },
-  {
     value: 'General',
     label: 'General',
   },
@@ -104,7 +114,6 @@ const dentalsw = [
   {
     value: 'none',
     label: '- Dental Software Used -',
-    disabled: 'true',
   },
   {
     value: 'Dentrix',
@@ -118,6 +127,14 @@ const dentalsw = [
     value: 'Tracker',
     label: 'Tracker',
   },
+  {
+    value: 'Other',
+    label: 'Other',
+  },
+  {
+    value: 'None',
+    label: 'None',
+  },
 ];
 
 class Register extends React.Component {
@@ -130,11 +147,11 @@ class Register extends React.Component {
       confirmPassword: '',
       experience: '',
       expectedRate: '',
-      city: '',
-      role: '',
+      city: city[0].value,
+      role: role[0].value,
       license: '',
-      practice: '',
-      dentalsw: '',
+      practice: practice[0].value,
+      dentalsw: dentalsw[0].value,
       accept: false,
     }
     this.handleChange = this.handleChange.bind(this);
@@ -210,8 +227,7 @@ class Register extends React.Component {
                 id="name"
                 name="name"
                 value={this.state.name}
-                label="Required"
-                placeholder="Your name?"
+                label="Your name"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -243,8 +259,7 @@ class Register extends React.Component {
                 id="email"
                 name="email"
                 value={this.state.email}
-                label="Required"
-                placeholder="Email address"
+                label="Email address"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -278,8 +293,7 @@ class Register extends React.Component {
                 name="password"
                 value={this.state.password}
                 type="password"
-                label="Required"
-                placeholder="Password"
+                label="Password"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -311,8 +325,7 @@ class Register extends React.Component {
                 name="confirmPassword"
                 value={this.state.confirmPassword}
                 type="password"
-                label="Required"
-                placeholder="Confirm password"
+                label="Confirm password"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -344,8 +357,7 @@ class Register extends React.Component {
                 id="experience"
                 name="experience"
                 type="number"
-                label="Required"
-                placeholder="Years of experience"
+                label="Years of experience"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -376,8 +388,7 @@ class Register extends React.Component {
                 fullWidth
                 id="expRate"
                 name="expectedRate"
-                label="Required"
-                placeholder="Expected rate [$]"
+                label="Expected rate [$]"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -410,7 +421,7 @@ class Register extends React.Component {
                 select
                 id="city"
                 name="city"
-                label="Required"
+                label="Select city"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -547,7 +558,7 @@ class Register extends React.Component {
                 }}
               >
                 {practice.map(option => (
-                  <MenuItem key={option.value} value={option.value} disabled={option.disabled}>
+                  <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>
                 ))}

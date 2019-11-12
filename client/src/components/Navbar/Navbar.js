@@ -24,7 +24,8 @@ class Navbar extends Component{
     };
 
     this.loginHandler = this.loginHandler.bind(this);
-
+    this.setAutoLogout = this.setAutoLogout.bind(this);
+    this.logoutHandler = this.logoutHandler.bind(this);
   }
 
   componentWillMount(){
@@ -40,6 +41,29 @@ class Navbar extends Component{
         this.setState({drawerActivate:false})
       }
     });
+
+    const token = localStorage.getItem('token');
+    const expiryDate = localStorage.getItem('expiryDate');
+
+    if(!token || !expiryDate) {
+      return; 
+    }
+
+    if(new Date(expiryDate <= new Date())) {
+      this.logoutHandler();
+      return; 
+    }
+
+    const userId = localStorage.getItem('userId');
+    const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
+    
+      this.setState({
+        isAuth: true, 
+        token: token,
+        userId: userId
+      });
+
+      this.setAutoLogout(remainingMilliseconds);
   }
 
   loginHandler = (event, authData) => {
@@ -62,19 +86,34 @@ class Navbar extends Component{
         );
       }
       if(res.status !== 200 && res.status !== 201) {
-        console.log('Error!');
         throw new Error('Authentication failed!');
       }
       return res.json();
     })
     .then(resData => {
+
+      console.log(resData);
       this.setState({
         isAuth: true, 
         userId: resData.userId
       });  
+
+      localStorage.setItem('token', resData.token);
+      localStorage.setItem('userId', resData.userId);
+
+      console.log(localStorage);
+
+      const remainingMilliseconds = 60 * 60 * 1000;
+      const expiryDate = new Date(
+        new Date().getTime() + remainingMilliseconds
+      );
+      localStorage.setItem('expiryDate', expiryDate.toISOString());
+      this.setAutoLogout(remainingMilliseconds);
+            
       if(this.state.isAuth){
         this.props.history.push("/dashboard");
       }
+
     })
     .catch(err => {
       this.setState({
@@ -89,7 +128,17 @@ class Navbar extends Component{
       isAuth: false, 
       token: null
     })
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiryDate');
+    localStorage.removeItem('userId');
   }
+
+  setAutoLogout(milliseconds) {
+    setTimeout(() => {
+      this.logoutHandler();
+    }, milliseconds);
+  };
 
   //Small Screens
   createDrawer(){
@@ -171,7 +220,7 @@ class Navbar extends Component{
       <Route
         path="/login"
         exact
-        render={props => (
+        render= {props => (
           <Login
             {...props}
             onLogin = { this.loginHandler }
@@ -181,7 +230,6 @@ class Navbar extends Component{
       <Route path="/home" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/register" component={Register} />
-
     </Switch>
     );
 

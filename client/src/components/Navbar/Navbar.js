@@ -21,6 +21,7 @@ class Navbar extends Component{
       drawerActivate:false, 
       drawer:false,
       isAuth: false, 
+      role: -1,
     };
 
     this.loginHandler = this.loginHandler.bind(this);
@@ -95,7 +96,8 @@ class Navbar extends Component{
       console.log(resData);
       this.setState({
         isAuth: true, 
-        userId: resData.userId
+        userId: resData.userId,
+        role: resData.role,
       });  
 
       localStorage.setItem('token', resData.token);
@@ -168,19 +170,45 @@ class Navbar extends Component{
             role="button"
             onClick={()=>{this.setState({drawer:false})}}
             onKeyDown={()=>{this.setState({drawer:false})}}>
-
-            <List className = "list">
-              <ListItem key = {1} button divider className="nav-item item-height"
-                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
-              <ListItem key = {2} button divider className="nav-item item-height"
-                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}> About Us </ListItem>
-              <ListItem key = {3} button divider className="nav-item item-height"> Book Now </ListItem>
-              <ListItem key = {4} button divider className="nav-item item-height"
-                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/register'}> Become a Temp </ListItem>
-              <ListItem key = {5} button divider className="nav-item item-height"> Contact Us </ListItem>
-              <ListItem key = {6} button divider className="nav-item item-height" 
-                activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}> Login </ListItem>
-            </List>
+            { this.state.role == -1 && (
+              <List className = "list">
+                <ListItem key = {1} button divider className="nav-item item-height"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
+                <ListItem key = {2} button divider className="nav-item item-height"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}> About Us </ListItem>
+                <ListItem key = {3} button divider className="nav-item item-height"> Book Now </ListItem>
+                <ListItem key = {4} button divider className="nav-item item-height"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/register'}> Become a Temp </ListItem>
+                <ListItem key = {5} button divider className="nav-item item-height"> Contact Us </ListItem>
+                <ListItem key = {6} button divider className="nav-item item-height" 
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}> Login </ListItem>
+              </List>)
+            }
+            { this.state.role == 1 && (
+              <List className = "list">
+                <ListItem key = {1} button divider className="nav-item item-height"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
+                <ListItem key = {2} button divider className="nav-item item-height"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Profile </ListItem>
+                <ListItem key = {3} button divider className="nav-item item-height"> Dashboard </ListItem>
+                <ListItem key = {6} button divider className="nav-item item-height" 
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Logout </ListItem>
+              </List>)
+            }
+            { this.state.role == 2 && (
+              <List className = "list">
+                <ListItem key = {1} button divider className="nav-item item-height"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
+                <ListItem key = {2} button divider className="nav-item item-height"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Profile </ListItem>
+                <ListItem key = {3} button divider className="nav-item item-height"> Dashboard </ListItem>
+                <ListItem key = {4} button divider className="nav-item item-height"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Job Postings </ListItem>
+                <ListItem key = {5} button divider className="nav-item item-height"> My Availability </ListItem>
+                <ListItem key = {6} button divider className="nav-item item-height" 
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Logout </ListItem>
+              </List>)
+            }
           </div>
        </SwipeableDrawer> 
       </div>
@@ -196,15 +224,44 @@ class Navbar extends Component{
             <Link to="/home" className="logo-container">
               <img src={logo} className="logo" alt="logo"/>
             </Link>
-            <Typography variant = "subheading" className = "padding nav-item"
-              activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
-            <Typography variant = "subheading" className = "padding nav-item"
-              activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>About Us</Typography>
-            <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now" idType="typography"/></Typography>
-            <Typography variant = "subheading" className = "padding nav-item"><Modal name = "Become a Temp" idType="typography"/></Typography>
-            <Typography variant = "subheading" className = "padding nav-item">Contact Us</Typography>
-            <Typography variant = "subheading" className = "nav-item" 
-              activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>
+            { this.state.role == -1 && (
+              <React.Fragment>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>About Us</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now" idType="typography"/></Typography>
+                <Typography variant = "subheading" className = "padding nav-item"><Modal name = "Become a Temp" idType="typography"/></Typography>
+                <Typography variant = "subheading" className = "padding nav-item">Contact Us</Typography>
+                <Typography variant = "subheading" className = "nav-item" 
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>
+              </React.Fragment>)
+            }
+            { this.state.role == 1 && (
+              <React.Fragment>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>Profile</Typography>
+                <Typography variant = "subheading" className = "padding nav-item">Dashboard</Typography>
+                <Typography variant = "subheading" className = "nav-item" 
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Logout</Typography>
+              </React.Fragment>)
+            }
+            { this.state.role == 2 && (
+              <React.Fragment>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>Profile</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dashboard'}>Dashboard</Typography>
+                <Typography variant = "subheading" className = "padding nav-item">Job Postings</Typography>
+                <Typography variant = "subheading" className = "padding nav-item">My Availability</Typography>
+                <Typography variant = "subheading" className = "nav-item" 
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Logout</Typography>
+              </React.Fragment>)
+            }
           </Toolbar>
         </AppBar>
       

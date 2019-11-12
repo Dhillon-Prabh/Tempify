@@ -43,16 +43,14 @@ exports.postLogin = (req, res, next) => {
 
 
 exports.tempRegister = (req, res, next) => {
+  
   const user = req.body;
   console.log("Inside tempRegister");
   db((err, con) => {
-
     if(err){
       console.log(err);
       throw err;
     }
-
-    function addUser() {
       return new Promise(function (resolve, reject) {
         var userQuery = 'INSERT INTO users(name, email, password, remember_token, created_at, updated_at,' +
         'server_response, role, current_login_time,' +
@@ -66,28 +64,28 @@ exports.tempRegister = (req, res, next) => {
             reject(err);
           }
         });
+      })
+      
+      .then(function(result) {
+        var tempQuery = 'INSERT INTO temps(`type_of_practice`, `imagename`, `email`, `expected_rate`, `license_number`,' +
+        '`temp_name`, `designation`, `is_assistant`, `is_hygienist`, `is_receptionist`, `experience`, `is_approved`,' +
+        ' `dental_software`, `city`, `user_id`, `updated_at`, `created_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
+        valuesTemp=[user.practice, null, user.email, user.expectedRate, user.license, user.name, user.role, 1, 1, 1, user.experience, 0, user.dentalsw,
+            user.city, result.insertId, new Date(), new Date()];
+          con.query(tempQuery, valuesTemp, (err, result, fields) => {
+            if(!err) {
+              console.log("no error proceeding to success");
+              res.status(300).send({ message: "success" });
+              con.release();
+            } else {
+              reject(err);
+            }
+          })
+      })
+      .catch(function(err) {
+        console.log("Error:" + err);
+        res.status(401).send({error: "unable to complete request"});
+        con.release();
       });
     }
-    addUser().then(function(result) {
-      var tempQuery = 'INSERT INTO temps(`type_of_practice`, `imagename`, `email`, `expected_rate`, `license_number`,' +
-      '`temp_name`, `designation`, `is_assistant`, `is_hygienist`, `is_receptionist`, `experience`, `is_approved`,' +
-      ' `dental_software`, `city`, `user_id`, `updated_at`, `created_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
-      valuesTemp=[user.practice, null, user.email, user.expectedRate, user.license, user.name, user.role, 1, 1, 1, user.experience, 0, user.dentalsw,
-          user.city, result.insertId, new Date(), new Date()];
-        con.query(tempQuery, valuesTemp, (err, result, fields) => {
-          if(!err) {
-            console.log("no error proceeding to success");
-            res.status(300).send({ message: "success" });
-            con.release();
-          } else {
-            reject(err);
-          }
-        })
-    });
-    addUser().catch(function(err) {
-      console.log("Error:" + err);
-      res.status(401).send({error: "unable to complete request"});
-      con.release();
-    })
-  }
-)}
+  )} 

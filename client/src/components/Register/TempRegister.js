@@ -201,6 +201,7 @@ class Register extends React.Component {
     }).catch(function(err) {
         console.log(err);
     });
+    this.props.history.push("/");
   }
 
   handleChange = (e) => {

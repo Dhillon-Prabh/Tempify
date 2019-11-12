@@ -154,7 +154,6 @@ class Register extends React.Component {
       practice: practice[0].value,
       dentalsw: dentalsw[0].value,
       accept: false,
-      redirect: false,
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -198,7 +197,6 @@ class Register extends React.Component {
     }).then(function(response) {
       console.log(response);
     }).then(function(data) {
-      this.setState({redirect: true});
       console.log(data);
     }).catch(function(err) {
         console.log(err);
@@ -215,11 +213,6 @@ class Register extends React.Component {
 
   render() {
     const { classes } = this.props;
-
-    if (this.state.redirect) {
-      return <Redirect to='/home'/>;
-    }
-
     return (
       <div className="register">
         <ValidatorForm ref="form" onSubmit={(e) => this.submitForm(e)}>

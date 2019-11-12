@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet')
 const bodyParser = require('body-parser');
+const Promise = require('promise');
 const app = express();
 const PORT = 3001;
 const routes = require('./routes/routes');
@@ -36,19 +37,6 @@ app.use('/', routes);
 // })
 
 // *************************************************************** //
-
-// app.post('/register', function(req, res, next) {
-//   console.log("inside register", req);
-//   var user = req.body;
-//   connection.query('INSERT INTO users(name, email, password, remember_token, created_at, updated_at,' +
-//     'server_response, role, current_login_time,' +
-//     'last_login_time, status, unsubscribe_from_emails, unsubscribe_modules)  VALUES ("' +
-//     user.name + '""' +
-//     user.name + '"', function (err, result, fields) {
-//     if (err) throw err;
-//       console.log(result);
-//   });
-// });
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);

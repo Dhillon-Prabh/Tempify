@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet')
 const bodyParser = require('body-parser');
+const Promise = require('promise');
 const app = express();
 const PORT = 3001;
 const routes = require('./routes/routes');

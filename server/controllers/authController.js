@@ -10,7 +10,7 @@ exports.postLogin = (req, res, next) => {
       console.log(err);
       throw err;
     }
-
+  
     var userQuery = "SELECT * FROM users";
 
     con.query(userQuery, (err, result, fields) => {
@@ -35,16 +35,29 @@ exports.tempRegister = (req, res, next) => {
       console.log(err);
       throw err;
     }
-    var userQuery = 'INSERT INTO users(name, email, password, remember_token, created_at, updated_at,' +
-    'server_response, role, current_login_time,' +
-    'last_login_time, status, unsubscribe_from_emails, unsubscribe_modules)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    values=[user.name, user.email, user.password, null, new Date(), new Date(), null, 2, null, null, 1, 0, null];
-    con.query(userQuery, values, (err, result, fields) => {
-      if(!err) {
-        res.status(200).send(result);
-      } else {
-        res.status(300).send("Error occured");
-      }
+
+    function addUser() {
+      return new Promise(function (resolve, reject) {
+        var userQuery = 'INSERT INTO users(name, email, password, remember_token, created_at, updated_at,' +
+        'server_response, role, current_login_time,' +
+        'last_login_time, status, unsubscribe_from_emails, unsubscribe_modules) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);' +
+        'SELECT LAST_INSERT_ID();';
+        values=[user.name, user.email, user.password, null, new Date(), new Date(), null, 2, null, null, 1, 0, null];
+        con.query(userQuery, values, (err, result, fields) => {
+          if(!err) {
+            console.log("no error proceeding to resolve");
+            resolve(result);
+          } else {
+            reject(err);
+          }
+        })
+      })
+    }
+    addUser().then(function(result) {
+      console.log("this witll and shall og");
+    });
+    addUser().catch(function(err) {
+      console.log("Error:" + err);
       con.release();
     })
   }

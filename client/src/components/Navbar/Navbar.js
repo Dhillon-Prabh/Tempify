@@ -11,7 +11,8 @@ import About from '../About/About';
 import Modal from '../Modal/Modal';
 import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard'
-import Register from '../Register/Register';
+import TempRegister from '../Register/TempRegister';
+import DentalRegister from '../Register/DentalRegister';
 
 class Navbar extends Component{
 
@@ -230,8 +231,8 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>About Us</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now" idType="typography"/></Typography>
-                <Typography variant = "subheading" className = "padding nav-item"><Modal name = "Become a Temp" idType="typography"/></Typography>
+                <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now" idType="typography" link="/dentalregister"/></Typography>
+                <Typography variant = "subheading" className = "padding nav-item"><Modal name = "Become a Temp" idType="typography" link="/tempregister"/></Typography>
                 <Typography variant = "subheading" className = "padding nav-item">Contact Us</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>
@@ -286,7 +287,8 @@ class Navbar extends Component{
       />
       <Route path="/home" component={Home} />
       <Route path="/about" component={About} />
-      <Route path="/register" component={Register} />
+      <Route path="/tempregister" component={TempRegister} />
+      <Route path="/dentalregister" component={DentalRegister} />
     </Switch>
     );
 

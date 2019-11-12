@@ -9,7 +9,6 @@ const style = {
     right: 0,
     fontSize: '12px',
     color: red300,
-    position: 'absolute',
 
 };
  

@@ -17,7 +17,7 @@ exports.postLogin = (req, res, next) => {
       res.send(result);
 
       if(result[0].email == email && result[0].password == password){
-        res.status(200)
+        res.status(200);
       }
 
       con.release();
@@ -26,4 +26,26 @@ exports.postLogin = (req, res, next) => {
 )}
 
 
+exports.tempRegister = (req, res, next) => {
+  const user = req.body;
+  console.log("Inside tempRegister");
+  db((err, con) => {
 
+    if(err){
+      console.log(err);
+      throw err;
+    }
+    var userQuery = 'INSERT INTO users(name, email, password, remember_token, created_at, updated_at,' +
+    'server_response, role, current_login_time,' +
+    'last_login_time, status, unsubscribe_from_emails, unsubscribe_modules)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    values=[user.name, user.email, user.password, null, new Date(), new Date(), null, 2, null, null, 1, 0, null];
+    con.query(userQuery, values, (err, result, fields) => {
+      if(!err) {
+        res.status(200).send(result);
+      } else {
+        res.status(300).send("Error occured");
+      }
+      con.release();
+    })
+  }
+)}

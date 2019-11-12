@@ -170,7 +170,7 @@ class Register extends React.Component {
       practice: this.state.practice,
       dentalsw: this.state.dentalsw
     }
-    fetch("http://localhost:3001/register", {
+    fetch("http://localhost:3001/tempRegister", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -179,18 +179,18 @@ class Register extends React.Component {
     }).then(function(response) {
       console.log(response);
     }).then(function(data) {
-      console.log(data)
-      if (data == "success") {
-        console.log("success it is")
-      }
+      console.log(data);
     }).catch(function(err) {
         console.log(err);
     });
   }
 
   handleChange = (e) => {
-    var value = e.target.value !== '' ? e.target.value : e.target.checked;
-    this.setState({[e.target.name]: value});
+    this.setState({[e.target.name]: e.target.value});
+  }
+
+  handleCheckboxChange = (e) => {
+    this.setState({accept: e.target.checked})
   }
 
   render() {
@@ -606,7 +606,7 @@ class Register extends React.Component {
               <FormControlLabel
                 control={<CheckboxValidatorElement color="primary" name="accept" validators={['isTruthy']}
                 errorMessages={['This field is required']}
-                onChange={this.handleChange}
+                onChange={this.handleCheckboxChange}
                 checked={this.state.accept}
                 value={this.state.accept} />}
                 label="I Accept"

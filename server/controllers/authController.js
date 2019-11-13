@@ -39,7 +39,6 @@ exports.postLogin = (req, res, next) => {
       con.release();
     })
   })
-  next();
 }
 
 

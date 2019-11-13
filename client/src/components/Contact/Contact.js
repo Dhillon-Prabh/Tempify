@@ -69,15 +69,33 @@ const useStyles = makeStyles(theme => ({
 export default function TextFields() {
   const classes = useStyles();
   const [values, setValues] = React.useState({
-    name: "Cat in the Hat",
-    age: "",
-    multiline: "Controlled",
-    currency: "EUR"
+    cuName: "",
+    cuEmail: "",
+    cuMessage: ""
   });
 
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
   };
+
+  function sendMessageContactUs() {
+    fetch("http://localhost:3001/email", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        cuName: values.cuName,
+        cuEmail: values.cuEmail,
+        cuMessage: values.cuMessage,
+      })
+    });
+    setValues({
+      cuName: "",
+      cuEmail: "",
+      cuMessage: ""
+    });
+  }
 
   return (
     <form className={classes.container} noValidate autoComplete="off">
@@ -88,6 +106,8 @@ export default function TextFields() {
           margin="normal"
           placeholder="Your Name"
           variant="outlined"
+          value={values.cuName}
+          onChange={handleChange('cuName')}
         />
         <TextField
           id="standard-name"
@@ -95,6 +115,8 @@ export default function TextFields() {
           margin="normal"
           placeholder="E-mail Address"
           variant="outlined"
+          value={values.cuEmail}
+          onChange={handleChange('cuEmail')}
         />
       </div>
       <div className={classes.messageContaienr}>
@@ -106,10 +128,12 @@ export default function TextFields() {
           margin="normal"
           placeholder="Enter Message"
           variant="outlined"
+          value={values.cuMessage}
+          onChange={handleChange('cuMessage')}
         />
       </div>
       <div className={classes.buttonContainer}>
-        <Button variant="contained" className={classes.button}>
+        <Button variant="contained" className={classes.button} onClick={sendMessageContactUs}>
           Send Message
         </Button>
       </div>

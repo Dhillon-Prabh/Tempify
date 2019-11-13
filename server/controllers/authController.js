@@ -5,7 +5,6 @@ exports.postLogin = (req, res, next) => {
 
   const email = req.body.email;
   const password = req.body.password; 
-
   db((err, con) => {
 
     if(err){
@@ -39,8 +38,9 @@ exports.postLogin = (req, res, next) => {
 
       con.release();
     })
-  }
-)}
+  })
+  next();
+}
 
 
 exports.tempRegister = (req, res, next) => {
@@ -103,8 +103,9 @@ exports.tempRegister = (req, res, next) => {
         }
         con.release();
       });
-    }
-  )} 
+    })
+    next();
+  } 
 
   exports.dentalRegister = (req, res, next) => {
     const user = req.body;
@@ -152,5 +153,6 @@ exports.tempRegister = (req, res, next) => {
           res.status(401).send({error: "unable to complete request"});
           con.release();
         });
-      }
-    )} 
+      })
+      next();
+    } 

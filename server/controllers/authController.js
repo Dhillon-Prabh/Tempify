@@ -3,7 +3,6 @@ const db = require('../database/database');
 exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password; 
-
   db((err, con) => {
 
     if(err){
@@ -22,8 +21,9 @@ exports.postLogin = (req, res, next) => {
 
       con.release();
     })
-  }
-)}
+  })
+  next();
+}
 
 
 

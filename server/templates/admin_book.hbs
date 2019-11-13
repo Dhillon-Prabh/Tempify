@@ -8,11 +8,12 @@
     <div style='background: #EEE; font-family: verdana; font-size: 13px; color: #333; padding: 15px; line-height: 25px; border-top: 1px solid #B6B6B6; border-bottom: 1px solid #6fd4e3;'>
         <p>Hi there,<p>
 
-        <p>Office Name : {{$data['officeName']}}<p>
-        <p>Dentist Name : {{$data['dentistName']}}<p>
-        <p>Email Id : {{$data['email']}}<p>
-        <p>Contact Number :{{$data['phoneNumber']}} <p>
-        <p>Address : {{$data['officeAddress']}}<p>
+        <p>Office Name : {{data['officeName']}}<p>
+        <p>Dentist Name : {{data['name']}}<p>
+        <p>Email Id : {{data['email']}}<p>
+        <p>Contact Number : {{data['phone']}} <p>
+        <p>Address : {{data['streetNo']}} {{data['streetName']}}, unit {{data['unit']}}<p>
+        <p>          {{data['city']}}, {{data['province']}}, {{data['postalCode']}}</p>
         <p></p>
         <p>Thank you!<p>
         <p>The Tempify Team<p>

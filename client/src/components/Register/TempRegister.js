@@ -154,7 +154,6 @@ class Register extends React.Component {
       practice: practice[0].value,
       dentalsw: dentalsw[0].value,
       accept: false,
-      error: '',
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -196,6 +195,9 @@ class Register extends React.Component {
       },
       body: JSON.stringify(data)
     }).then(function(response) {
+      if (response.status === 401) {
+        console.log("this user already exists");
+      }
       console.log(response);
     }).then(function(data) {
       console.log(data);

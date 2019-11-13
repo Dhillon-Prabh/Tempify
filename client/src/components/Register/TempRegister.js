@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router';
 import './Register.css'
 import CheckboxValidatorElement from '../CheckboxValidatorElement/CheckboxValidatorElement';
 
@@ -154,6 +154,7 @@ class Register extends React.Component {
       practice: practice[0].value,
       dentalsw: dentalsw[0].value,
       accept: false,
+      error: '',
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -220,7 +221,9 @@ class Register extends React.Component {
           <Typography align="center" className="header1">
             TEMP REGISTRATION
           </Typography>
-
+          <Typography align="center" style={{color: 'red'}}>
+            {this.state.error}
+          </Typography>
           <Grid container spacing={6} className="container1">
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator

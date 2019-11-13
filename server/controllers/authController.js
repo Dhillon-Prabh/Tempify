@@ -52,31 +52,29 @@ exports.tempRegister = (req, res, next) => {
       console.log(err);
       throw err;
     }
-      return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
         var validate = 'SELECT id FROM users WHERE email = ?';
         con.query(validate, [user.email], (err, result, fields) => {
           if (result.length > 0) {
             reject(401);
           } else {
-            resolve();
+            var userQuery = 'INSERT INTO users(name, email, password, remember_token, created_at, updated_at,' +
+              'server_response, role, current_login_time,' +
+              'last_login_time, status, unsubscribe_from_emails, unsubscribe_modules) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
+            values=[user.name, user.email, user.password, null, new Date(), new Date(), null, 2, null, null, 1, 0, null];
+            con.query(userQuery, values, (err, result, fields) => {
+              if(!err) {
+                console.log("no error proceeding to resolve");
+                resolve(result);
+              } else {
+                reject(err);
+              }
+            });
           }
         })
       })
-      .then(function() {
-        var userQuery = 'INSERT INTO users(name, email, password, remember_token, created_at, updated_at,' +
-        'server_response, role, current_login_time,' +
-        'last_login_time, status, unsubscribe_from_emails, unsubscribe_modules) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
-        values=[user.name, user.email, user.password, null, new Date(), new Date(), null, 2, null, null, 1, 0, null];
-        con.query(userQuery, values, (err, result, fields) => {
-          if(!err) {
-            console.log("no error proceeding to resolve");
-            resolve(result);
-          } else {
-            reject(err);
-          }
-        });
-      })
       .then(function(result) {
+        console.log(result);
         var tempQuery = 'INSERT INTO temps(`type_of_practice`, `imagename`, `email`, `expected_rate`, `license_number`,' +
         '`temp_name`, `designation`, `is_assistant`, `is_hygienist`, `is_receptionist`, `experience`, `is_approved`,' +
         ' `dental_software`, `city`, `user_id`, `updated_at`, `created_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
@@ -89,18 +87,14 @@ exports.tempRegister = (req, res, next) => {
               con.release();
             } else {
               console.log("Error:" + err);
-              res.status(401).send({error: "unable to complete request"});
+              res.status(400).send({error: "unable to complete request"});
               con.release();
             }
           })
       })
       .catch(function(err) {
         console.log("Error:" + err);
-        if (err == 401) {
-          res.status(401).send({error: "User already exists."})
-        } else {
-          res.status(400).send({error: "unable to complete request."});
-        }
+        res.status(err).send({error: "There was an error"})
         con.release();
       });
     }
@@ -115,20 +109,26 @@ exports.tempRegister = (req, res, next) => {
         throw err;
       }
         return new Promise(function (resolve, reject) {
-          var userQuery = 'INSERT INTO users(name, email, password, remember_token, created_at, updated_at,' +
-          'server_response, role, current_login_time,' +
-          'last_login_time, status, unsubscribe_from_emails, unsubscribe_modules) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
-          values=[user.name, user.email, user.password, null, new Date(), new Date(), null, 1, null, null, 1, 0, null];
-          con.query(userQuery, values, (err, result, fields) => {
-            if(!err) {
-              console.log("no error proceeding to resolve");
-              resolve(result);
+          var validate = 'SELECT id FROM users WHERE email = ?';
+          con.query(validate, [user.email], (err, result, fields) => {
+            if (result.length > 0) {
+              reject(401);
             } else {
-              reject(err);
-            }
-          });
+              var userQuery = 'INSERT INTO users(name, email, password, remember_token, created_at, updated_at,' +
+                'server_response, role, current_login_time,' +
+                'last_login_time, status, unsubscribe_from_emails, unsubscribe_modules) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
+              values=[user.name, user.email, user.password, null, new Date(), new Date(), null, 1, null, null, 1, 0, null];
+              con.query(userQuery, values, (err, result, fields) => {
+                if(!err) {
+                  console.log("no error proceeding to resolve");
+                  resolve(result);
+                } else {
+                  reject(err);
+                }
+            });
+          }
         })
-        
+      })
         .then(function(result) {
           var dentalQuery = 'INSERT INTO dentists(`created_at`, `updated_at`, `user_id`, `phone_number`, `email`, ' +
            ' `office_name`, `dentist_name`, `street_number`, `street_name`, `unit_number`, `city`, `province`, `postalcode`, ' + 
@@ -142,14 +142,14 @@ exports.tempRegister = (req, res, next) => {
                 con.release();
               } else {
                 console.log("Error:" + err);
-                res.status(401).send({error: "unable to complete request"});
+                res.status(400).send({error: "unable to complete request"});
                 con.release();
               }
             })
         })
         .catch(function(err) {
           console.log("Error:" + err);
-          res.status(401).send({error: "unable to complete request"});
+          res.status(err).send({error: "unable to complete request"});
           con.release();
         });
       }

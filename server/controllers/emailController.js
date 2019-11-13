@@ -11,11 +11,11 @@ let transporter = nodemailer.createTransport({
 transporter.use('compile', hbs({
     viewEngine: {
         extName: '.hbs',
-        layoutsDir: './templates/',
-        partialsDir: './templates/',
-        defaultLayout: 'contact.hbs'
+        layoutsDir: 'templates/',
+        partialsDir: 'templates/',
+        defaultLayout: 'default.hbs'
     },
-    viewPath: './templates/',
+    viewPath: 'templates/',
     extName: '.hbs'
 }));
 
@@ -23,8 +23,7 @@ exports.tempRegisterEmail = async (req, res, next) => {
     // const email = req.body.email;
     // const adminEmail = contact@tempify.co
     const email = 'bcitfiveguys@gmail.com';
-    const adminEmail = 'bcitfiveguys@gmail.com';
-
+    const adminEmail = 'fiveguysbcit@gmail.com';
     let adminEmailOption = {
         to: adminEmail,
         subject: 'Temp Registration',
@@ -62,7 +61,7 @@ exports.dentalRegisterEmail = async (req, res, next) => {
     // const email = req.body.email;
     // const adminEmail = contact@tempify.co
     const email = 'bcitfiveguys@gmail.com';
-    const adminEmail = 'bcitfiveguys@gmail.com';
+    const adminEmail = 'fiveguysbcit@gmail.com';
 
     let adminEmailOption = {
         to: adminEmail,

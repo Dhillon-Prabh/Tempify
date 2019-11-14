@@ -14,6 +14,7 @@ import Dashboard from '../Dashboard/Dashboard'
 import TempRegister from '../Register/TempRegister';
 import DentalRegister from '../Register/DentalRegister';
 import TempProfile from '../Profile/TempProfile';
+import ContactSection from "../Contact/ContactSection";
 
 class Navbar extends Component{
 
@@ -24,11 +25,13 @@ class Navbar extends Component{
       drawer:false,
       isAuth: false, 
       role: -1,
+      loginError: false
     };
 
     this.loginHandler = this.loginHandler.bind(this);
     this.setAutoLogout = this.setAutoLogout.bind(this);
     this.logoutHandler = this.logoutHandler.bind(this);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
   }
 
   componentWillMount(){
@@ -94,12 +97,12 @@ class Navbar extends Component{
       return res.json();
     })
     .then(resData => {
-
       console.log(resData);
       this.setState({
         isAuth: true, 
         userId: resData.userId,
         role: resData.role,
+        loginError: false
       });  
 
       localStorage.setItem('token', resData.token);
@@ -115,13 +118,18 @@ class Navbar extends Component{
       if(this.state.isAuth){
         this.props.history.push("/dashboard");
       }
-
     })
     .catch(err => {
       this.setState({
         isAuth: false,
-        error: err
-      });
+        loginError: true
+      }); 
+
+      setTimeout(() =>{
+        this.setState({
+          loginError: false
+        })
+      }, 2000);
     });
   };
 
@@ -142,6 +150,10 @@ class Navbar extends Component{
       this.logoutHandler();
     }, milliseconds);
   };
+  
+  scrollToBottom(){
+    window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
+  }
 
   //Small Screens
   createDrawer(){
@@ -181,7 +193,7 @@ class Navbar extends Component{
                 <ListItem key = {3} button divider className="nav-item item-height"> Book Now </ListItem>
                 <ListItem key = {4} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/register'}> Become a Temp </ListItem>
-                <ListItem key = {5} button divider className="nav-item item-height"> Contact Us </ListItem>
+                <ListItem key = {5} button divider className="nav-item item-height" onClick = {this.scrollToBottom}> Contact Us </ListItem>
                 <ListItem key = {6} button divider className="nav-item item-height" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}> Login </ListItem>
               </List>)
@@ -234,7 +246,7 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>About Us</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now" idType="typography" link="/dentalregister"/></Typography>
                 <Typography variant = "subheading" className = "padding nav-item"><Modal name = "Become a Temp" idType="typography" link="/tempregister"/></Typography>
-                <Typography variant = "subheading" className = "padding nav-item">Contact Us</Typography>
+                <Typography variant = "subheading" className = "padding nav-item" onClick = {this.scrollToBottom}>Contact Us</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>
               </React.Fragment>)
@@ -247,7 +259,7 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}>Profile</Typography>
                 <Typography variant = "subheading" className = "padding nav-item">Dashboard</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Logout</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink}  onClick ={this.logoutHandler} to={'/login'}>Logout</Typography>
               </React.Fragment>)
             }
             { this.state.role == 2 && (
@@ -269,19 +281,21 @@ class Navbar extends Component{
       </div>
     )
   }
+  
 
   render(){
-
+    
     let routes = (
       <Switch>
       <Route path='/' exact component={Home} />
       <Route
         path="/login"
         exact
-        render= {props => (
+        render = {props => (
           <Login
             {...props}
             onLogin = { this.loginHandler }
+            loginError = {this.state.loginError}
           />
         )}
       />
@@ -313,9 +327,11 @@ class Navbar extends Component{
       <div>
         {this.state.drawerActivate ? this.createDrawer() : this.destroyDrawer()}
         { routes }
+        {!this.state.isAuth ? <ContactSection /> : null}
       </div>
     );
   }
 }
+
 
 export default withRouter(Navbar);

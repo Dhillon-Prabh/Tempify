@@ -65,7 +65,7 @@ class LoginTemp extends Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -85,95 +85,95 @@ class LoginTemp extends Component {
       [e.target.name]: e.target.value
     });
   }
-
+  
   render(){
+
     const { classes } = this.props;
     return (
-      <React.Fragment>
-        <Container component="main" maxWidth="sm" className="login_container">
-          <div className={classes.paper}>
-            <Typography component="h1" variant="h5" className="login_title">
-              LOGIN WITH YOUR EMAIL ACCOUNT
-            </Typography>
-            <form 
-              className={classes.form}        
-              onSubmit = {e => 
-                  this.props.onLogin(e, {
-                    email: this.state.email,
-                    password: this.state.password
-                  }) 
-                }>
-              <TextField
-                onChange= {this.updateInputValue}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                label="Email Address"
-                type = "text" 
-                name = "email"
-                autoComplete="email"
-                autoFocus
-                className ="classes.loginEmail"
-                InputLabelProps={{
-                  classes: {
-                    root: classes.label,
-                    focused: classes.focused,
-                  },
-                }}
-                InputProps={{
-                  classes: {
-                    root: classes.outlinedInput,
-                    focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
-                }}
-              />
-              <TextField
-                onChange= {this.updateInputValue}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                type = "password" 
-                name = "password"
-                label="Password"
-                id="password"
-                autoComplete="current-password"
-                className ="loginPassword"
-                InputLabelProps={{
-                  classes: {
-                    root: classes.label,
-                    focused: classes.focused,
-                  },
-                }}
-                InputProps={{
-                  classes: {
-                    root: classes.outlinedInput,
-                    focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
-                }}
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="default" />}
-                label="Remember me"
-              />
-              <PasswordModal/>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                LOGIN
-              </Button>
-            </form>
-          </div>
-        </Container>
-        <ContactSection/>
-      </React.Fragment>
+      <Container component="main" maxWidth="sm" className="login_container">
+        <div className={classes.paper}>
+          <Typography component="h1" variant="h5" className="login_title">
+            LOGIN WITH YOUR EMAIL ACCOUNT
+          </Typography>
+          <form 
+            className={classes.form}        
+            onSubmit = {e => 
+                this.props.onLogin(e, {
+                  email: this.state.email,
+                  password: this.state.password
+                }) 
+              }>
+            <TextField
+              onChange= {this.updateInputValue}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label="Email Address"
+              type = "text" 
+              name = "email"
+              autoComplete="email"
+              autoFocus
+              className ="classes.loginEmail"
+              error={this.props.loginError}
+              InputLabelProps={{
+                classes: {
+                  root: classes.label,
+                  focused: classes.focused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  root: classes.outlinedInput,
+                  focused: classes.focused,
+                  notchedOutline: classes.notchedOutline,
+                },
+              }}
+            />
+            <TextField
+              onChange= {this.updateInputValue}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              type = "password" 
+              name = "password"
+              label="Password"
+              id="password"
+              autoComplete="current-password"
+              className ="loginPassword"
+              error={this.props.loginError}
+              InputLabelProps={{
+                classes: {
+                  root: classes.label,
+                  focused: classes.focused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  root: classes.outlinedInput,
+                  focused: classes.focused,
+                  notchedOutline: classes.notchedOutline,
+                },
+              }}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="default" />}
+              label="Remember me"
+            />
+            <PasswordModal/>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              LOGIN
+            </Button>
+          </form>
+        </div>
+      </Container>
     );
   }
 }

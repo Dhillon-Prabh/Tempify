@@ -27,3 +27,12 @@
 .container2 {
     height: 6rem;
 }
+
+.temp-register-asterisk {
+    color: red;
+}
+
+.temp-register-upload {
+    margin-top: 30px;
+    margin-left: 10px;
+}

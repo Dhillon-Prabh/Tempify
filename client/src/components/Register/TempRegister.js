@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +9,12 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
+import ListItemText from '@material-ui/core/ListItemText';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
 import { Redirect } from 'react-router'
 import './Register.css'
 import CheckboxValidatorElement from '../CheckboxValidatorElement/CheckboxValidatorElement';
@@ -24,6 +30,7 @@ const useStyles = theme => ({
       color: '#00bfff'
     },
   },
+  inputlabel: {},
   labelAsterisk: {
     color: '#ff0000'
   },
@@ -32,6 +39,9 @@ const useStyles = theme => ({
     '&$focused $notchedOutline': {
       border: '1px solid #00bfff'
     },
+  },
+  oulinedSelect: {
+    border: '1px solid #00bfff'
   },
   notchedOutline: {},
   button: {
@@ -79,10 +89,6 @@ const city = [
 
 const role = [
   {
-    value: 'none',
-    label: '- What do you do? -',
-  },
-  {
     value: 'Assistant',
     label: 'Assistant',
   },
@@ -109,13 +115,17 @@ const practice = [
     value: 'Endo',
     label: 'Endo',
   },
+  {
+    value: 'Pedo',
+    label: 'Pedo',
+  },
+  {
+    value: 'Oral Surgery',
+    label: 'Oral Surgery',
+  },
 ];
 
 const dentalsw = [
-  {
-    value: 'none',
-    label: '- Dental Software Used -',
-  },
   {
     value: 'Dentrix',
     label: 'Dentrix',
@@ -149,10 +159,10 @@ class Register extends React.Component {
       experience: '',
       expectedRate: '',
       city: city[0].value,
-      role: role[0].value,
+      role: [],
       license: '',
       practice: practice[0].value,
-      dentalsw: dentalsw[0].value,
+      dentalsw: [],
       accept: false,
     }
     this.handleChange = this.handleChange.bind(this);
@@ -199,7 +209,7 @@ class Register extends React.Component {
     }).then(function(data) {
       console.log(data);
     }).catch(function(err) {
-        console.log(err);
+      console.log(err);
     });
   }
 
@@ -426,7 +436,6 @@ class Register extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                defaultValue="none"
                 value={this.state.city}
                 validators={['required']}
                 errorMessages={['This field is required']}
@@ -455,43 +464,40 @@ class Register extends React.Component {
               </TextValidator>
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
-              <TextValidator
+              <InputLabel shrink={true}
+                classes={{
+                  root: classes.inputlabel,
+                  focused: classes.focused,
+                  asterisk: classes.labelAsterisk,
+                }}
+              >
+                What do you do? <span className="temp-register-asterisk">*</span>
+              </InputLabel>
+              <Select
                 required
+                multiple
                 fullWidth
-                select
                 id="role"
                 name="role"
-                label="Required"
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                defaultValue="none"
                 value={this.state.role}
-                validators={['required']}
-                errorMessages={['This field is required']}
-                onChange={this.handleChange}
-                InputLabelProps={{
-                  shrink: true,
-                  classes: {
-                    root: classes.label,
-                    focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
-                }}
-                InputProps={{
-                  classes: {
+                className={classes.textField}
+                input={<OutlinedInput
+                  classes={{
                     root: classes.outlinedInput,
                     focused: classes.focused,
                     notchedOutline: classes.notchedOutline,
-                  },
-                }}
+                  }}
+                />}
+                renderValue={selected => selected.join(', ')}
+                onChange={this.handleChange}
               >
                 {role.map(option => (
                   <MenuItem key={option.value} value={option.value}>
-                    {option.label}
+                    <Checkbox checked={this.state.role.indexOf(option.value) > -1} />
+                    <ListItemText primary={option.label} />
                   </MenuItem>
                 ))}
-              </TextValidator>
+              </Select>
             </Grid>
 
             <Grid item xs={12} sm={6} className="container2">
@@ -501,8 +507,7 @@ class Register extends React.Component {
                 id="license"
                 name="license"
                 value={this.state.license}
-                label="Required"
-                placeholder="License number?"
+                label="License number"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -533,7 +538,7 @@ class Register extends React.Component {
                 select
                 id="practice"
                 name="practice"
-                label="Required"
+                label="practice"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -567,43 +572,40 @@ class Register extends React.Component {
             </Grid>
 
             <Grid item xs={12} sm={6} className="container2">
-              <TextValidator
+              <InputLabel shrink={true}
+                classes={{
+                  root: classes.inputlabel,
+                  focused: classes.focused,
+                  asterisk: classes.labelAsterisk,
+                }}
+              >
+                Dental Software Used <span className="temp-register-asterisk">*</span>
+              </InputLabel>
+              <Select
                 required
+                multiple
                 fullWidth
-                select
                 id="dentalsw"
                 name="dentalsw"
-                label="Required"
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                defaultValue="none"
                 value={this.state.dentalsw}
-                validators={['required']}
-                errorMessages={['This field is required']}
-                onChange={this.handleChange}
-                InputLabelProps={{
-                  shrink: true,
-                  classes: {
-                    root: classes.label,
-                    focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
-                }}
-                InputProps={{
-                  classes: {
+                className={classes.textField}
+                input={<OutlinedInput
+                  classes={{
                     root: classes.outlinedInput,
                     focused: classes.focused,
                     notchedOutline: classes.notchedOutline,
-                  },
-                }}
+                  }}
+                />}
+                renderValue={selected => selected.join(', ')}
+                onChange={this.handleChange}
               >
                 {dentalsw.map(option => (
-                  <MenuItem key={option.value} value={option.value} disabled={option.disabled}>
-                    {option.label}
+                  <MenuItem key={option.value} value={option.value}>
+                    <Checkbox checked={this.state.dentalsw.indexOf(option.value) > -1} />
+                    <ListItemText primary={option.label} />
                   </MenuItem>
                 ))}
-              </TextValidator>
+              </Select>
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
               <input
@@ -611,13 +613,14 @@ class Register extends React.Component {
                 id="image-upload"
                 multiple
                 type="file"
+                className="temp-register-upload"
               />
             </Grid>
 
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <FormControlLabel
                 control={<CheckboxValidatorElement color="primary" name="accept" validators={['isTruthy']}
-                errorMessages={['This field is required']}
+                //errorMessages={['This field is required']}
                 onChange={this.handleCheckboxChange}
                 checked={this.state.accept}
                 value={this.state.accept} />}
@@ -631,7 +634,7 @@ class Register extends React.Component {
                 }}>
                 Terms and Conditions
               </Link>
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} align="center">
               <Button className="blueButton" color="primary" variant="contained" type="submit">
                 SUBMIT FORM

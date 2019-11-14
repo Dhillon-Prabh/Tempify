@@ -14,7 +14,6 @@ import Dashboard from '../Dashboard/Dashboard'
 import TempRegister from '../Register/TempRegister';
 import DentalRegister from '../Register/DentalRegister';
 import TempProfile from '../Profile/TempProfile';
-import ContactSection from "../Contact/ContactSection";
 
 class Navbar extends Component{
 
@@ -317,6 +316,8 @@ class Navbar extends Component{
     if(this.state.isAuth) {
       routes = (
         <Switch>
+          <Route path="/home" component={Home} />
+
           <Route path="/profile" component={TempProfile} />
           <Route path="/dashboard" component={Dashboard} />
         </Switch>
@@ -327,7 +328,6 @@ class Navbar extends Component{
       <div>
         {this.state.drawerActivate ? this.createDrawer() : this.destroyDrawer()}
         { routes }
-        {!this.state.isAuth ? <ContactSection /> : null}
       </div>
     );
   }

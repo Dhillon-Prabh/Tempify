@@ -13,6 +13,7 @@ import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard'
 import TempRegister from '../Register/TempRegister';
 import DentalRegister from '../Register/DentalRegister';
+import TempProfile from '../Profile/TempProfile';
 
 class Navbar extends Component{
 

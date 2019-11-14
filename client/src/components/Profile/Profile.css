@@ -1,0 +1,38 @@
+.header1 {
+    padding-top: 5rem;
+    padding-bottom: 1.65em;
+    letter-spacing: 0.1rem !important;
+    font-weight: 800 !important;
+    font-size: 1.8rem !important;
+}
+
+.register {
+    width: 60%;
+    margin: auto;
+}
+
+.textfield {
+    width: 100%;
+}
+
+.blueButton {
+    width: 210px;
+    height: 59px;
+    background-color: #00bfff !important;
+}
+
+.container1 {
+}
+
+.container2 {
+    height: 6rem;
+}
+
+.temp-register-asterisk {
+    color: red;
+}
+
+.temp-register-upload {
+    margin-top: 30px;
+    margin-left: 10px;
+}

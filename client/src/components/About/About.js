@@ -33,7 +33,7 @@ const AboutHeader = () => {
                 <AboutContent 
                 content="Our priority is to put the dental health of patients first.
                 We achieve this by ensuring that offices around the Lower Mainland are completely staffed with highly qualified dental professionals.Enjoy."/>
-                <Typography align="left" display="block" variant="body1" className="">
+                <Typography align="left" display="block" variant="body1" className="bottomAboutContent">
                     Pricing : <span className="bold">15% Surcharge</span>
                 </Typography>
             </Grid>

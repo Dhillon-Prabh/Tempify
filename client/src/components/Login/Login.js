@@ -64,7 +64,8 @@ class LoginTemp extends Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      loginError: this.props.error
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -85,7 +86,10 @@ class LoginTemp extends Component {
     });
   }
 
+
+
   render(){
+
     const { classes } = this.props;
     return (
       <Container component="main" maxWidth="sm" className="login_container">
@@ -113,6 +117,7 @@ class LoginTemp extends Component {
               autoComplete="email"
               autoFocus
               className ="classes.loginEmail"
+              error={this.props.loginError}
               InputLabelProps={{
                 classes: {
                   root: classes.label,
@@ -139,6 +144,7 @@ class LoginTemp extends Component {
               id="password"
               autoComplete="current-password"
               className ="loginPassword"
+              error={this.props.loginError}
               InputLabelProps={{
                 classes: {
                   root: classes.label,

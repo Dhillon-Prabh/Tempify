@@ -23,6 +23,7 @@ class Navbar extends Component{
       drawer:false,
       isAuth: false, 
       role: -1,
+      loginError: false
     };
 
     this.loginHandler = this.loginHandler.bind(this);
@@ -93,12 +94,12 @@ class Navbar extends Component{
       return res.json();
     })
     .then(resData => {
-
       console.log(resData);
       this.setState({
         isAuth: true, 
         userId: resData.userId,
         role: resData.role,
+        loginError: false
       });  
 
       localStorage.setItem('token', resData.token);
@@ -119,7 +120,7 @@ class Navbar extends Component{
     .catch(err => {
       this.setState({
         isAuth: false,
-        error: err
+        loginError: true
       });
     });
   };
@@ -246,7 +247,7 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>Profile</Typography>
                 <Typography variant = "subheading" className = "padding nav-item">Dashboard</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Logout</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink}  onClick ={this.logoutHandler} to={'/login'}>Logout</Typography>
               </React.Fragment>)
             }
             { this.state.role == 2 && (
@@ -268,19 +269,21 @@ class Navbar extends Component{
       </div>
     )
   }
+  
 
   render(){
-
+    
     let routes = (
       <Switch>
       <Route path='/' exact component={Home} />
       <Route
         path="/login"
         exact
-        render= {props => (
+        render = {props => (
           <Login
             {...props}
             onLogin = { this.loginHandler }
+            loginError = {this.state.loginError}
           />
         )}
       />

@@ -58,8 +58,8 @@ export default function() {
         </div>
 
         <div className={classes.buttonContainer}>
-          <Modal idType = "blueButton" name="BOOK NOW"/>
-          <Modal idType = "clearButton" name="BECOME A TEMP"/>
+          <Modal idType = "blueButton" name="BOOK NOW" link="/dentalregister"/>
+          <Modal idType = "clearButton" name="BECOME A TEMP" link="/tempregister"/>
         </div>
       </div>
       <div className={classes.overlay}></div>

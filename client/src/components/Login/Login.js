@@ -6,6 +6,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import './Login.css';
 import PasswordModal from '../PasswordModal/PasswordModal'
 
@@ -94,7 +95,7 @@ class LoginTemp extends Component {
           <Typography component="h1" variant="h5" className="login_title">
             LOGIN WITH YOUR EMAIL ACCOUNT
           </Typography>
-          <form 
+          <ValidatorForm ref="form"
             className={classes.form}        
             onSubmit = {e => 
                 this.props.onLogin(e, {
@@ -102,18 +103,21 @@ class LoginTemp extends Component {
                   password: this.state.password
                 }) 
               }>
-            <TextField
+            <TextValidator
               onChange= {this.updateInputValue}
               variant="outlined"
               margin="normal"
               required
               fullWidth
+              value= {this.state.email}
               label="Email Address"
               type = "text" 
               name = "email"
               autoComplete="email"
               autoFocus
               className ="classes.loginEmail"
+              validators={['required', 'isEmail']}
+              errorMessages={['This field is required', 'This is not a valid email']}
               error={this.props.loginError}
               InputLabelProps={{
                 classes: {
@@ -129,18 +133,21 @@ class LoginTemp extends Component {
                 },
               }}
             />
-            <TextField
+            <TextValidator
               onChange= {this.updateInputValue}
               variant="outlined"
               margin="normal"
               required
               fullWidth
+              value={this.state.password}
               type = "password" 
               name = "password"
               label="Password"
               id="password"
               autoComplete="current-password"
               className ="loginPassword"
+              validators={['required']}
+              errorMessages={['This field is required']}
               error={this.props.loginError}
               InputLabelProps={{
                 classes: {
@@ -170,7 +177,7 @@ class LoginTemp extends Component {
             >
               LOGIN
             </Button>
-          </form>
+          </ValidatorForm>
         </div>
       </Container>
     );

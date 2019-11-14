@@ -86,7 +86,6 @@ class LoginTemp extends Component {
   }
 
   render(){
-
     const { classes } = this.props;
     return (
       <Container component="main" maxWidth="sm" className="login_container">

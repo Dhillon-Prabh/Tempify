@@ -65,7 +65,7 @@ exports.dentalRegisterEmail = async (req, res, next) => {
 
     let adminEmailOption = {
         to: adminEmail,
-        subject: 'Temp Registration',
+        subject: 'Dental Office Registration',
         template: 'admin_book',
         context: {
             data: req.body,

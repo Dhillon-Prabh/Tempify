@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import './Login.css';
 import PasswordModal from '../PasswordModal/PasswordModal'
+import ContactSection from '../Contact/ContactSection'
 
 const styles = theme => ({
   '@global': {

@@ -65,7 +65,6 @@ class LoginTemp extends Component {
     this.state = {
       email: '',
       password: '',
-      loginError: this.props.error
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -85,9 +84,7 @@ class LoginTemp extends Component {
       [e.target.name]: e.target.value
     });
   }
-
-
-
+  
   render(){
 
     const { classes } = this.props;

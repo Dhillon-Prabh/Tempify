@@ -121,7 +121,13 @@ class Navbar extends Component{
       this.setState({
         isAuth: false,
         loginError: true
-      });
+      }); 
+
+      setTimeout(() =>{
+        this.setState({
+          loginError: false
+        })
+      }, 2000);
     });
   };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import './About.css'
 import { Grid } from '@material-ui/core';
+import ContactSection from '../Contact/ContactSection'
 
 const AboutContent = (props) => {
     return (
@@ -36,6 +37,7 @@ const AboutHeader = () => {
                     Pricing : <span className="bold">15% Surcharge</span>
                 </Typography>
             </Grid>
+            <ContactSection/>
         </React.Fragment>
     );
 }

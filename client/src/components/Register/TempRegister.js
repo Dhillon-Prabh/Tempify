@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router';
 import './Register.css'
 import CheckboxValidatorElement from '../CheckboxValidatorElement/CheckboxValidatorElement';
 
@@ -195,6 +195,9 @@ class Register extends React.Component {
       },
       body: JSON.stringify(data)
     }).then(function(response) {
+      if (response.status === 401) {
+        console.log("this user already exists");
+      }
       console.log(response);
     }).then(function(data) {
       console.log(data);
@@ -220,7 +223,9 @@ class Register extends React.Component {
           <Typography align="center" className="header1">
             TEMP REGISTRATION
           </Typography>
-
+          <Typography align="center" style={{color: 'red'}}>
+            {this.state.error}
+          </Typography>
           <Grid container spacing={6} className="container1">
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator

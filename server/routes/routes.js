@@ -9,4 +9,6 @@ router.post('/email', emailController.contactUsEmail);
 
 router.post('/tempRegister', authController.tempRegister, emailController.tempRegisterEmail);
 router.post('/dentalRegister', authController.dentalRegister, emailController.dentalRegisterEmail);
+
+router.get('/tempProfile', authController.tempProfile, emailController.tempRegisterEmail);
 module.exports = router;

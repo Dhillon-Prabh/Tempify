@@ -168,12 +168,9 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
-      if(value !== this.state.password) {
-        return false;
-      } 
-      return true;
-    });
+    fetch("http://localhost:3001/tempProfile")
+    .then(res => res.json())
+    .then(result => this.setstate({name: result.temp_name}));
     ValidatorForm.addValidationRule('isTruthy', value => value);
   }
 
@@ -187,17 +184,15 @@ class Profile extends React.Component {
 
     var data = {
       name: this.state.name,
-      email: this.state.email,
-      password: this.state.password,
       experience: this.state.experience,
       expectedRate: this.state.expectedRate,
       city: this.state.city,
       role: this.state.role,
-      license: this.state.license,
       practice: this.state.practice,
-      dentalsw: this.state.dentalsw
+      dentalsw: this.state.dentalsw,
+      phone: this.state.phone,
     }
-    fetch("http://localhost:3001/tempRegister", {
+    fetch("http://localhost:3001/tempUpdateProfile", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

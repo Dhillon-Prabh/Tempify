@@ -191,7 +191,7 @@ class Navbar extends Component{
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
                 <ListItem key = {2} button divider className="nav-item item-height"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Profile </ListItem>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}> Profile </ListItem>
                 <ListItem key = {3} button divider className="nav-item item-height"> Dashboard </ListItem>
                 <ListItem key = {6} button divider className="nav-item item-height" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Logout </ListItem>
@@ -202,7 +202,7 @@ class Navbar extends Component{
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
                 <ListItem key = {2} button divider className="nav-item item-height"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Profile </ListItem>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}> Profile </ListItem>
                 <ListItem key = {3} button divider className="nav-item item-height"> Dashboard </ListItem>
                 <ListItem key = {4} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Job Postings </ListItem>
@@ -244,7 +244,7 @@ class Navbar extends Component{
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>Profile</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}>Profile</Typography>
                 <Typography variant = "subheading" className = "padding nav-item">Dashboard</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Logout</Typography>
@@ -255,7 +255,7 @@ class Navbar extends Component{
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>Profile</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}>Profile</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dashboard'}>Dashboard</Typography>
                 <Typography variant = "subheading" className = "padding nav-item">Job Postings</Typography>
@@ -303,6 +303,7 @@ class Navbar extends Component{
     if(this.state.isAuth) {
       routes = (
         <Switch>
+          <Route path="/profile" component={TempProfile} />
           <Route path="/dashboard" component={Dashboard} />
         </Switch>
       )

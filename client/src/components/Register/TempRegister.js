@@ -623,10 +623,10 @@ class Register extends React.Component {
               />
             </Grid>
 
-            {/* <Grid item xs={12}>
+            <Grid item xs={12}>
               <FormControlLabel
                 control={<CheckboxValidatorElement color="primary" name="accept" validators={['isTruthy']}
-                //errorMessages={['This field is required']}
+                errorMessages={['This field is required']}
                 onChange={this.handleCheckboxChange}
                 checked={this.state.accept}
                 value={this.state.accept} />}
@@ -640,7 +640,7 @@ class Register extends React.Component {
                 }}>
                 Terms and Conditions
               </Link>
-            </Grid> */}
+            </Grid>
             <Grid item xs={12} align="center">
               <Button className="blueButton" color="primary" variant="contained" type="submit">
                 SUBMIT FORM

@@ -1,15 +1,16 @@
 const express = require('express');
 const helmet = require('helmet')
 const bodyParser = require('body-parser');
-
+const Promise = require('promise');
 const app = express();
-
-const PORT = 3001; 
+const PORT = 3001;
+const routes = require('./routes/routes');
 
 app.use(helmet());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
-
 
 // **************************************************************************** //
 //                    Gets Around CORS ISSUE                                    // 
@@ -22,13 +23,10 @@ app.use((req, res, next) => {
   next();
 })
 
-// **************************************************************************** //
+app.use('/', routes);
 
-app.get('/', (req,res,next) => {
-  res.send({
-    temp: "five guys - json data"
-  });
-})
+
+// **************************************************************************** //
 
 // *************************************************************** //
 //                    Serving Our Build File                       //  
@@ -43,5 +41,3 @@ app.get('/', (req,res,next) => {
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 })
-
-//

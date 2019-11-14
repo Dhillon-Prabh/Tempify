@@ -85,6 +85,7 @@ class Register extends React.Component {
       return true;
     });
     ValidatorForm.addValidationRule('isTruthy', value => value);
+
   }
 
   componentWillUnmount() {
@@ -122,6 +123,7 @@ class Register extends React.Component {
     }).catch(function(err) {
         console.log(err);
     });
+    this.props.history.push("/");
   }
 
   handleChange = (e) => {
@@ -133,6 +135,7 @@ class Register extends React.Component {
   }
 
   render() {
+
     const { classes } = this.props;
     return (
       <div className="register">

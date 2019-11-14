@@ -205,12 +205,16 @@ class Register extends React.Component {
       },
       body: JSON.stringify(data)
     }).then(function(response) {
+      if (response.status === 401) {
+        console.log("this user already exists");
+      }
       console.log(response);
     }).then(function(data) {
       console.log(data);
     }).catch(function(err) {
       console.log(err);
     });
+    this.props.history.push("/");
   }
 
   handleChange = (e) => {
@@ -229,7 +233,9 @@ class Register extends React.Component {
           <Typography align="center" className="header1">
             TEMP REGISTRATION
           </Typography>
-
+          <Typography align="center" style={{color: 'red'}}>
+            {this.state.error}
+          </Typography>
           <Grid container spacing={6} className="container1">
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator

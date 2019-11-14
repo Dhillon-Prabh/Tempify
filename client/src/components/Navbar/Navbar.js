@@ -105,8 +105,6 @@ class Navbar extends Component{
       localStorage.setItem('token', resData.token);
       localStorage.setItem('userId', resData.userId);
 
-      console.log(localStorage);
-
       const remainingMilliseconds = 60 * 60 * 1000;
       const expiryDate = new Date(
         new Date().getTime() + remainingMilliseconds
@@ -130,7 +128,8 @@ class Navbar extends Component{
   logoutHandler() {
     this.setState({
       isAuth: false, 
-      token: null
+      token: null,
+      role: -1
     })
 
     localStorage.removeItem('token');
@@ -172,6 +171,7 @@ class Navbar extends Component{
             role="button"
             onClick={()=>{this.setState({drawer:false})}}
             onKeyDown={()=>{this.setState({drawer:false})}}>
+            
             { this.state.role == -1 && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
@@ -261,12 +261,11 @@ class Navbar extends Component{
                 <Typography variant = "subheading" className = "padding nav-item">Job Postings</Typography>
                 <Typography variant = "subheading" className = "padding nav-item">My Availability</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Logout</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'} onClick ={this.logoutHandler}>Logout</Typography>
               </React.Fragment>)
             }
           </Toolbar>
         </AppBar>
-      
       </div>
     )
   }
@@ -289,7 +288,15 @@ class Navbar extends Component{
       <Route path="/home" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/tempregister" component={TempRegister} />
-      <Route path="/dentalregister" component={DentalRegister} />
+      <Route
+        path="/dentalregister"
+        exact
+        render= {props => (
+          <DentalRegister
+            {...props}
+          />
+        )}
+      />
     </Switch>
     );
 

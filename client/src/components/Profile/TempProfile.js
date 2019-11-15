@@ -166,10 +166,8 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    // fetch("http://localhost:3001/tempProfile")
-    // .then(res => res.json())
-    // .then(result => this.setstate({name: result.temp_name}));
-    // ValidatorForm.addValidationRule('isTruthy', value => value);
+    
+    //ValidatorForm.addValidationRule('isTruthy', value => value);
     console.log("TempProfile - userId: " + this.state.userId);
     var data = {
       userId: this.state.userId,
@@ -185,14 +183,33 @@ class Profile extends React.Component {
     //   imageName: '',
     //   phone: '',
     // }
-    fetch("http://localhost:3001/tempProfile", {
+
+    fetch("http://localhost:3001/tempUpdateProfile", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-    }).then(res => res.json())
-      .then(console.log("data: " + data));  //data => this.setState({name: data.tempName})
+    }).then(function(response) {
+      console.log(response);
+    }).then(function(data) {
+      console.log(data);
+    }).catch(function(err) {
+      console.log(err);
+    });
+
+    // fetch("http://localhost:3001/tempProfile")
+    // .then(res => res.json())
+    // .then(console.log("data: " + data));  //data => this.setstate({name: data.temp_name})
+
+    // fetch("http://localhost:3001/tempProfile", {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(data)
+    // }).then(res => res.json())
+    //   .then(console.log("data: " + data));  //data => this.setState({name: data.tempName})
   }
 
   componentWillUnmount() {

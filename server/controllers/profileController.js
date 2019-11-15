@@ -15,7 +15,7 @@ exports.tempProfile = (req, res, next) => {
       'dental_software, city, imagename, phone FROM temps WHERE user_id = ? LIMIT 1';
     values=[user.userId];
     con.query(userQuery, values, (err, result, fields) => {
-      console.log("query result: " + result);
+      console.log(result);
       if(!result.length) {
         return res.status(401).send({ error : "error message",});
       } else {

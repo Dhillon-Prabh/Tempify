@@ -191,8 +191,14 @@ class Profile extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-    }).then(res => res.json())
-      .then(console.log(data));  //data => this.setState({name: data.tempName})
+    }).then(function(response) {
+      console.log(response);
+      return response.json();
+    }).then(function(data) {
+      console.log(data);
+    }).catch(function(err) {
+      console.log(err);
+    });//data => this.setState({name: data.tempName})
   }
 
   componentWillUnmount() {

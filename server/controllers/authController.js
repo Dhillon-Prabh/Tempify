@@ -131,9 +131,9 @@ exports.dentalRegister = (req, res, next) => {
         if (result.length > 0) {
           reject(401);
         } else {
-          var userQuery = 'INSERT INTO users(name, email, password, remember_token, created_at, updated_at,' +
-            'server_response, role, current_login_time,' +
-            'last_login_time, status, unsubscribe_from_emails, unsubscribe_modules) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
+          var userQuery = 'INSERT INTO users(name, email, password, remember_token, created_at, updated_at, ' +
+            'server_response, role, current_login_time, last_login_time, status, ' +
+            'unsubscribe_from_emails, unsubscribe_modules) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
           values=[user.name, user.email, user.password, null, new Date(), new Date(), null, 1, null, null, 1, 0, null];
           con.query(userQuery, values, (err, result, fields) => {
             if(!err) {
@@ -147,9 +147,9 @@ exports.dentalRegister = (req, res, next) => {
     })
   })
     .then(function(result) {
-      var dentalQuery = 'INSERT INTO dentists(`created_at`, `updated_at`, `user_id`, `phone_number`, `email`, ' +
-        ' `office_name`, `dentist_name`, `street_number`, `street_name`, `unit_number`, `city`, `province`, `postalcode`, ' + 
-        ' `parking_options`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
+      var dentalQuery = 'INSERT INTO dentists(created_at, updated_at, user_id, phone_number, email, ' +
+        'office_name, dentist_name, street_number, street_name, unit_number, city, province, postalcode, ' + 
+        'parking_options) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
       values=[new Date(), new Date(), result.insertId, user.phone, user.email, user.officeName, user.name, user.streetNo,
         user.streetName, user.unit, user.city, user.province, user.postalCode, user.parking];
         con.query(dentalQuery, values, (err, result, fields) => {

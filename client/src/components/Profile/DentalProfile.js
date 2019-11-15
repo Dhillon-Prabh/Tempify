@@ -54,14 +54,12 @@ const parking = [
   },
 ];
 
-class Register extends React.Component {
+class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: this.props.userId,
       officeName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
       name: '',
       phone: '',
       streetNo: '',
@@ -76,14 +74,44 @@ class Register extends React.Component {
   }
 
   componentDidMount() {
-    ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
-      if(value !== this.state.password) {
-        return false;
-      } 
-      return true;
+    // ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+    //   if(value !== this.state.password) {
+    //     return false;
+    //   } 
+    //   return true;
+    // });
+    //ValidatorForm.addValidationRule('isTruthy', value => value);
+    let currentComponent = this;
+    var data = {
+      userId: this.state.userId
+    }
+    
+    fetch("http://localhost:3001/dentalProfile", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(function(response) {
+      console.log(response);
+      return response.json();
+    }).then(function(data) {
+      console.log(data);
+      currentComponent.setState({
+        name: data[0].dentist_name,
+        officeName: data[0].office_name,
+        phone: data[0].phone_number,
+        streetNo: data[0].street_number,
+        streetName: data[0].street_name,
+        unit: data[0].unit_number,
+        city: data[0].city,
+        province: data[0].province,
+        postalCode: data[0].postalcode,
+        parking: data[0].parking_options,
+      });
+    }).catch(function(err) {
+      console.log(err);
     });
-    ValidatorForm.addValidationRule('isTruthy', value => value);
-
   }
 
   componentWillUnmount() {
@@ -95,20 +123,20 @@ class Register extends React.Component {
     event.preventDefault();
 
     var data = {
-        officeName: this.state.officeName,
-        email: this.state.email,
-        password: this.state.password,
-        name: this.state.name,
-        phone: this.state.phone,
-        streetNo: this.state.streetNo,
-        streetName: this.state.streetName,
-        unit: this.state.unit,
-        city: this.state.city,
-        province: this.state.province,
-        postalCode: this.state.postalCode,
-        parking: this.state.parking,
+      userId: this.props.userId,
+      officeName: this.state.officeName,
+      name: this.state.name,
+      phone: this.state.phone,
+      streetNo: this.state.streetNo,
+      streetName: this.state.streetName,
+      unit: this.state.unit,
+      city: this.state.city,
+      province: this.state.province,
+      postalCode: this.state.postalCode,
+      parking: this.state.parking,
     }
-    fetch("http://localhost:3001/dentalRegister", {
+
+    fetch("http://localhost:3001/dentalUpdateProfile", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -119,9 +147,9 @@ class Register extends React.Component {
     }).then(function(data) {
       console.log(data);
     }).catch(function(err) {
-        console.log(err);
+      console.log(err);
     });
-    this.props.history.push("/");
+    this.props.history.push("/home");
   }
 
   handleChange = (e) => {
@@ -136,143 +164,13 @@ class Register extends React.Component {
 
     const { classes } = this.props;
     return (
-      <div className="register">
+      <div className="profile">
         <ValidatorForm ref="form" onSubmit={(e) => this.submitForm(e)}>
           <Typography align="center" className="header1">
-            DENTAL OFFICE REGISTRATION
+            MY PROFILE
           </Typography>
 
           <Grid container spacing={6} className="container1">
-            <Grid item xs={12} sm={6} className="container2">
-              <TextValidator
-                required
-                fullWidth
-                id="officeName"
-                name="officeName"
-                value={this.state.officeName}
-                label="Office Name"
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                autoComplete="name"
-                validators={['required']}
-                errorMessages={['This field is required']}
-                onChange={this.handleChange}
-                InputLabelProps={{
-                  shrink: true,
-                  classes: {
-                    root: classes.label,
-                    focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
-                }}
-                InputProps={{
-                  classes: {
-                    root: classes.outlinedInput,
-                    focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} className="container2">
-              <TextValidator
-                required
-                fullWidth
-                id="email"
-                name="email"
-                value={this.state.email}
-                label="Email address"
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                autoComplete="email"
-                validators={['required', 'isEmail']}
-                errorMessages={['This field is required', 'This is not a valid email']}
-                onChange={this.handleChange}
-                InputLabelProps={{
-                  shrink: true,
-                  classes: {
-                    root: classes.label,
-                    focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
-                }}
-                InputProps={{
-                  classes: {
-                    root: classes.outlinedInput,
-                    focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
-                }}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6} className="container2">
-              <TextValidator
-                required
-                fullWidth
-                id="password"
-                name="password"
-                value={this.state.password}
-                type="password"
-                label="Password"
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                validators={['required']}
-                errorMessages={['This field is required']}
-                onChange={this.handleChange}
-                InputLabelProps={{
-                  shrink: true,
-                  classes: {
-                    root: classes.label,
-                    focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
-                }}
-                InputProps={{
-                  classes: {
-                    root: classes.outlinedInput,
-                    focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} className="container2">
-              <TextValidator
-                required
-                fullWidth
-                id="confirmPassword"
-                name="confirmPassword"
-                value={this.state.confirmPassword}
-                type="password"
-                label="Confirm password"
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                validators={['required', 'isPasswordMatch']}
-                errorMessages={['This field is required', 'Passwords do not match']}
-                onChange={this.handleChange}
-                InputLabelProps={{
-                  shrink: true,
-                  classes: {
-                    root: classes.label,
-                    focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
-                }}
-                InputProps={{
-                  classes: {
-                    root: classes.outlinedInput,
-                    focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
-                }}
-              />
-            </Grid>
-
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
                 required
@@ -309,6 +207,39 @@ class Register extends React.Component {
               <TextValidator
                 required
                 fullWidth
+                id="officeName"
+                name="officeName"
+                value={this.state.officeName}
+                label="Office Name"
+                className={classes.textField}
+                margin="normal"
+                variant="outlined"
+                autoComplete="name"
+                validators={['required']}
+                errorMessages={['This field is required']}
+                onChange={this.handleChange}
+                InputLabelProps={{
+                  shrink: true,
+                  classes: {
+                    root: classes.label,
+                    focused: classes.focused,
+                    asterisk: classes.labelAsterisk,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.outlinedInput,
+                    focused: classes.focused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
+            </Grid>
+            
+            <Grid item xs={12} sm={6} className="container2">
+              <TextValidator
+                required
+                fullWidth
                 id="phone"
                 name="phone"
                 label="Phone"
@@ -336,7 +267,6 @@ class Register extends React.Component {
                 }}
               />
             </Grid>
-            
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
                 required
@@ -370,6 +300,7 @@ class Register extends React.Component {
               >
               </TextValidator>
             </Grid>
+
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
                 required
@@ -403,7 +334,6 @@ class Register extends React.Component {
               >
               </TextValidator>
             </Grid>
-
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
                 required
@@ -435,6 +365,7 @@ class Register extends React.Component {
                 }}
               />
             </Grid>
+
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
                 required
@@ -468,7 +399,6 @@ class Register extends React.Component {
               >
               </TextValidator>
             </Grid>
-
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
                 required
@@ -501,8 +431,9 @@ class Register extends React.Component {
                 }}
               >
               </TextValidator>
-              </Grid>
-              <Grid item xs={12} sm={6} className="container2">
+            </Grid>
+
+            <Grid item xs={12} sm={6} className="container2">
               <TextValidator
                 required
                 fullWidth
@@ -575,24 +506,6 @@ class Register extends React.Component {
               </TextValidator>
             </Grid>
 
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<CheckboxValidatorElement color="primary" name="accept" validators={['isTruthy']}
-                errorMessages={['This field is required']}
-                onChange={this.handleCheckboxChange}
-                checked={this.state.accept}
-                value={this.state.accept} />}
-                label="I Accept"
-              />
-              <Link
-                component="button"
-                variant="body2"
-                onClick={() => {
-                  alert("Hi, I'm Terms and conditions.");
-                }}>
-                Terms and Conditions
-              </Link>
-            </Grid>
             <Grid item xs={12} align="center">
               <Button className="blueButton" color="primary" variant="contained" type="submit">
                 UPDATE DETAILS
@@ -605,4 +518,4 @@ class Register extends React.Component {
   }
 }
 
-export default withStyles(useStyles)(Register);
+export default withStyles(useStyles)(Profile);

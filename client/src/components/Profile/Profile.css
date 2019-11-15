@@ -11,6 +11,11 @@
     margin: auto;
 }
 
+.profile {
+    width: 60%;
+    margin: auto;
+}
+
 .textfield {
     width: 100%;
 }

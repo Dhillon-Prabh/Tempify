@@ -13,4 +13,6 @@ router.post('/dentalRegister', authController.dentalRegister, emailController.de
 
 router.post('/tempProfile', profileController.tempProfile);
 router.post('/tempUpdateProfile', profileController.tempUpdateProfile);
+router.post('/dentalProfile', profileController.dentalProfile);
+router.post('/dentalUpdateProfile', profileController.dentalUpdateProfile);
 module.exports = router;

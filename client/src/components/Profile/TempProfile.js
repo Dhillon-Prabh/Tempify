@@ -161,7 +161,6 @@ class Profile extends React.Component {
 
   componentDidMount() {
     let currentComponent = this;
-    //console.log("TempProfile - userId: " + this.state.userId);
     var data = {
       userId: this.state.userId
     }
@@ -242,7 +241,7 @@ class Profile extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className="register">
+      <div className="profile">
         <ValidatorForm ref="form" onSubmit={(e) => this.submitForm(e)}>
           <Typography align="center" className="header1">
             MY PROFILE

@@ -323,7 +323,14 @@ class Navbar extends Component{
       routes = (
         <Switch>
           <Route path="/home" component={Home} />
-          <Route path="/dentalprofile" component={DentalProfile} />
+          <Route
+            path="/dentalprofile"
+            render= {props => (
+              <DentalProfile
+                {...props} userId = {userId}
+              />
+            )}
+          />
           <Route
             path="/tempprofile"
             render= {props => (

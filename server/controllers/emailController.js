@@ -3,7 +3,7 @@ const hbs = require('nodemailer-express-handlebars');
 let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: "fiveguysbcit@gmail.com",
+        user: "contacttempify@gmail.com",
         pass: "Ab123456!"
     }
 });
@@ -23,7 +23,7 @@ exports.tempRegisterEmail = async (req, res, next) => {
     // const email = req.body.email;
     // const adminEmail = contact@tempify.co
     const email = 'bcitfiveguys@gmail.com';
-    const adminEmail = 'fiveguysbcit@gmail.com';
+    const adminEmail = 'contacttempify@gmail.com';
     let adminEmailOption = {
         to: adminEmail,
         subject: 'Temp Registration',
@@ -60,12 +60,12 @@ exports.dentalRegisterEmail = async (req, res, next) => {
 
     // const email = req.body.email;
     // const adminEmail = contact@tempify.co
-    const email = 'bcitfiveguys@gmail.com';
-    const adminEmail = 'fiveguysbcit@gmail.com';
+    const email = 'fiveguysbcit@gmail.com';
+    const adminEmail = 'contacttempify@gmail.com';
 
     let adminEmailOption = {
         to: adminEmail,
-        subject: 'Temp Registration',
+        subject: 'Dental Office Registration',
         template: 'admin_book',
         context: {
             data: req.body,
@@ -101,7 +101,7 @@ exports.contactUsEmail = async (req, res, next) => {
     const message = req.body.cuMessage; 
     
     let emailOption = {
-        to: 'bcitfiveguys@gmail.com', // list of receivers
+        to: 'contacttempify@gmail.com', // list of receivers
         subject: 'New contact from website', // Subject line
         template: 'contact',
         context: {

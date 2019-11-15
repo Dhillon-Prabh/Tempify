@@ -14,7 +14,6 @@ import Dashboard from '../Dashboard/Dashboard'
 import TempRegister from '../Register/TempRegister';
 import DentalRegister from '../Register/DentalRegister';
 import TempProfile from '../Profile/TempProfile';
-import ContactSection from "../Contact/ContactSection";
 
 class Navbar extends Component{
 
@@ -259,7 +258,8 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}>Profile</Typography>
-                <Typography variant = "subheading" className = "padding nav-item">Dashboard</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dashboard'}>Dashboard</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink}  onClick ={this.logoutHandler} to={'/login'}>Logout</Typography>
               </React.Fragment>)
@@ -320,6 +320,7 @@ class Navbar extends Component{
       console.log("Navber - userId: " + this.state.userId);
       routes = (
         <Switch>
+          <Route path="/home" component={Home} />
           <Route
             path="/profile"
             render= {props => (
@@ -337,7 +338,6 @@ class Navbar extends Component{
       <div>
         {this.state.drawerActivate ? this.createDrawer() : this.destroyDrawer()}
         { routes }
-        {!this.state.isAuth ? <ContactSection /> : null}
       </div>
     );
   }

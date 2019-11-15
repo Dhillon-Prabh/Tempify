@@ -7,6 +7,7 @@ import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { faClock, faCheckCircle, faSmile } from "@fortawesome/free-regular-svg-icons";
 import Banner from '../Banner/Banner'
 import Modal from '../Modal/Modal'
+import ContactSection from '../Contact/ContactSection'
 
 
 import bank from '../../images/bank.png'
@@ -34,6 +35,7 @@ class Home extends React.Component {
                 <Block2/>
                 <Block3/>
                 <Block4/>
+                <ContactSection/>
             </div>
         )
     }

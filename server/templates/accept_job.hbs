@@ -10,16 +10,16 @@
         <p>The temp you selected for the job placement has accepted the job.<p>
         <p></p>
         <p><b><u>Temp Details</u></b></p>
-        <p>Temp Name : {{$data['temp_name']}}<p>
-        <p>Designation : {{implode(', ',json_decode($data['designation'],1))}}<p>
-        <p>Type of practice :{{$data['type_of_practice']}}<p>
-        <p>Experience : {{$data['experience']}}<p>
+        <p>Temp Name : {{temp.temp_name}}<p>
+        <p>Designation : {{data.designation}}<p>
+        <p>Type of practice :{{data.type_of_practice}}<p>
+        <p>Experience : {{data.experience}}<p>
 
-        <p>Software Used: {{implode(', ',json_decode($data['dental_software'],1))}}<p>
-        <p>City :{{$data['city']}}<p>
-        <p>Rate : {{$data['expected_rate']}}<p>
+        <p>Software Used: {{data.dental_software}}<p>
+        <p>City :{{data.city}}<p>
+        <p>Rate : {{data.expected_rate}}<p>
         <p><b>Booking Details</b></p>
-        <p>Booked Date and Time:{{$data['booking_times']}}</p>
+        <p>Booked Date and Time:{{data.booking_times}}</p>
         <p></p>
         <p>Thank you!<p>
         <p>The Tempify Team<p>
@@ -44,14 +44,12 @@
         </tr>
         </tbody></table>
 
-
-    @if(isset($to))
     <div style='width: 100%; text-align: center'>
 
         <div style='background: #EEE; font-family: verdana; font-size: 13px; color: #333; padding: 15px; line-height: 25px; border-top: 1px solid #B6B6B6; border-bottom: 1px solid #6fd4e3;'>
             <p>
-                This email was sent to {{$to}}, because your email preferences are set to receive  Tempify updates. Click to
-                <a href="http://tempify.co/emailPreferences?q={{base64_encode(base64_encode(base64_encode($to)))}}"> unsubscribe</a>
+                This email was sent to {{to}}, because your email preferences are set to receive  Tempify updates. Click to
+                <a href="http://tempify.co/emailPreferences?q={{to}}"> unsubscribe</a>
                 .
             </p>
             <p>
@@ -61,5 +59,4 @@
             </p>
         </div>
     </div>
-    @endif
 </div>

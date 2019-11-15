@@ -11,6 +11,11 @@
     margin: auto;
 }
 
+.profile {
+    width: 60%;
+    margin: auto;
+}
+
 .textfield {
     width: 100%;
 }
@@ -33,6 +38,6 @@
 }
 
 .temp-register-upload {
-    margin-top: 30px;
+    margin-top: 20px;
     margin-left: 10px;
 }

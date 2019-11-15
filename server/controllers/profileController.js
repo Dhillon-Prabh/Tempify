@@ -11,8 +11,8 @@ exports.tempProfile = (req, res, next) => {
       throw err;
     }
     
-    var userQuery = 'SELECT temp_name, type_of_practice, expected_rate, experience, designation,' +
-      'dental_software, city, imagename, phone FROM temps WHERE user_id = ? LIMIT 1';
+    var userQuery = 'SELECT temp_name, experience, expected_rate, city, designation, type_of_practice, ' +
+      'dental_software, imagename, phone FROM temps WHERE user_id = ? LIMIT 1';
     values=[user.userId];
     con.query(userQuery, values, (err, result, fields) => {
       console.log(result);
@@ -29,37 +29,17 @@ exports.tempProfile = (req, res, next) => {
 exports.tempUpdateProfile = (req, res, next) => {
   
   const user = req.body;
-  console.log("Inside tempProfile");
+  console.log("Inside tempUpdateProfile");
   db((err, con) => {
     if(err){
       console.log(err);
       throw err;
     }
     return new Promise(function (resolve, reject) {
-      var validate = 'SELECT id FROM users WHERE email = ?';
-      con.query(validate, [user.email], (err, result, fields) => {
-        if (result.length > 0) {
-          reject(401);
-        } else {
-          var userQuery = 'INSERT INTO users(name, email, password, remember_token, created_at, updated_at,' +
-            'server_response, role, current_login_time,' +
-            'last_login_time, status, unsubscribe_from_emails, unsubscribe_modules) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
-          values=[user.name, user.email, user.password, null, new Date(), new Date(), null, 2, null, null, 1, 0, null];
-          con.query(userQuery, values, (err, result, fields) => {
-            if(!err) {
-              console.log("no error proceeding to resolve");
-              resolve(result);
-            } else {
-              reject(err);
-            }
-          });
-        }
-      })
-    })
-    .then(function(result) {
-      var tempQuery = 'INSERT INTO temps(type_of_practice, imagename, email, expected_rate, license_number,' +
-      'temp_name, designation, is_assistant, is_hygienist, is_receptionist, experience, is_approved,' +
-      'dental_software, city, user_id, updated_at, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
+      var userQuery = 'UPDATE temps SET updated_at = ?, type_of_practice = ?, imagename = ?, ' +
+        'expected_rate = ?, temp_name = ?, designation = ?, is_assistant = ?, is_hygienist = ?, ' +
+        'is_receptionist = ?, experience = ?, dental_software = ?, city = ?, phone = ? ' +
+        'WHERE user_id = ?;';
       var role = '[\"' + user.role[0] + '\"';
       var dentalsw = '[\"' + user.dentalsw[0] + '\"';
       var assistant = 0;
@@ -76,8 +56,21 @@ exports.tempUpdateProfile = (req, res, next) => {
       }
       role += ']';
       dentalsw += ']';
-      valuesTemp=[user.practice, null, user.email, user.expectedRate, user.license, user.name, role, assistant, hygienist, receptionist, user.experience, 0, dentalsw,
-          user.city, result.insertId, new Date(), new Date()];
+      values=[new Date(), user.practice, user.imageName, user.expectedRate, user.name, role, assistant, hygienist,
+        receptionist, user.experience, dentalsw, user.city, user.phone, Number(user.userId)];
+      con.query(userQuery, values, (err, result, fields) => {
+        console.log(result);
+        if(!err) {
+          console.log("no error proceeding to resolve");
+          resolve(result);
+        } else {
+          reject(err);
+        }
+      });
+    })
+    .then(function(result) {
+      var tempQuery = 'UPDATE users SET name = ?, updated_at = ? WHERE id = ?;';
+      valuesTemp=[user.name, new Date(), Number(user.userId)];
         con.query(tempQuery, valuesTemp, (err, result, fields) => {
           //console.log(this.valuesTemp);
           if(!err) {
@@ -97,5 +90,4 @@ exports.tempUpdateProfile = (req, res, next) => {
       con.release();
     });
   })
-  next();
 }

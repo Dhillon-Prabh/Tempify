@@ -58,8 +58,8 @@ exports.tempRegister = (req, res, next) => {
           reject(401);
         } else {
           var userQuery = 'INSERT INTO users(name, email, password, remember_token, created_at, updated_at,' +
-            'server_response, role, current_login_time,' +
-            'last_login_time, status, unsubscribe_from_emails, unsubscribe_modules) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
+            'server_response, role, current_login_time, last_login_time, status, unsubscribe_from_emails, ' +
+            'unsubscribe_modules) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
           values=[user.name, user.email, user.password, null, new Date(), new Date(), null, 2, null, null, 1, 0, null];
           con.query(userQuery, values, (err, result, fields) => {
             if(!err) {

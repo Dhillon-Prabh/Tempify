@@ -1,22 +1,16 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import ListItemText from '@material-ui/core/ListItemText';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import { Redirect } from 'react-router'
 import './Profile.css'
-import CheckboxValidatorElement from '../CheckboxValidatorElement/CheckboxValidatorElement';
 
 const useStyles = theme => ({
   textField: {
@@ -157,34 +151,22 @@ class Profile extends React.Component {
       expectedRate: '',
       city: city[0].value,
       role: [],
-      license: '',
       practice: practice[0].value,
       dentalsw: [],
-      accept: false,
+      imageName: '',
+      phone: '',
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    
-    //ValidatorForm.addValidationRule('isTruthy', value => value);
-    console.log("TempProfile - userId: " + this.state.userId);
+    let currentComponent = this;
+    //console.log("TempProfile - userId: " + this.state.userId);
     var data = {
-      userId: this.state.userId,
+      userId: this.state.userId
     }
-    //   userId: this.state.userId,
-    //   name: '',
-    //   practice: '',
-    //   expectedRate: '',
-    //   experience: '',
-    //   role: [],
-    //   dentalsw: [],
-    //   city: '',
-    //   imageName: '',
-    //   phone: '',
-    // }
-
-    fetch("http://localhost:3001/tempUpdateProfile", {
+    
+    fetch("http://localhost:3001/tempProfile", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -195,9 +177,21 @@ class Profile extends React.Component {
       return response.json();
     }).then(function(data) {
       console.log(data);
+      //let str = data[0].dental_software; //.replace("\',"");
+      currentComponent.setState({
+        name: data[0].temp_name,
+        experience: data[0].experience,
+        expectedRate: data[0].expected_rate,
+        city: data[0].city,
+        role: Array.from(["Assistant","Receptionist"]),//data[0].designation,
+        practice: data[0].type_of_practice,
+        dentalsw: Array.from(["Dentrix","Tracker"]),//JSON.stringify(data[0].dental_software),
+        imageName: data[0].imagename,
+        phone: data[0].phone
+      });
     }).catch(function(err) {
       console.log(err);
-    });//data => this.setState({name: data.tempName})
+    });
   }
 
   componentWillUnmount() {
@@ -208,29 +202,33 @@ class Profile extends React.Component {
   submitForm = (event) => {
     event.preventDefault();
 
-    // var data = {
-    //   name: this.state.name,
-    //   experience: this.state.experience,
-    //   expectedRate: this.state.expectedRate,
-    //   city: this.state.city,
-    //   role: this.state.role,
-    //   practice: this.state.practice,
-    //   dentalsw: this.state.dentalsw,
-    //   phone: this.state.phone,
-    // }
-    // fetch("http://localhost:3001/tempUpdateProfile", {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(data)
-    // }).then(function(response) {
-    //   console.log(response);
-    // }).then(function(data) {
-    //   console.log(data);
-    // }).catch(function(err) {
-    //   console.log(err);
-    // });
+    var data = {
+      userId: this.props.userId,
+      name: this.state.name,
+      experience: this.state.experience,
+      expectedRate: this.state.expectedRate,
+      city: this.state.city,
+      role: this.state.role,
+      practice: this.state.practice,
+      dentalsw: this.state.dentalsw,
+      imageName: this.state.imageName,
+      phone: this.state.phone,
+    }
+
+    fetch("http://localhost:3001/tempUpdateProfile", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(function(response) {
+      console.log(response);
+    }).then(function(data) {
+      console.log(data);
+    }).catch(function(err) {
+      console.log(err);
+    });
+    this.props.history.push("/home");
   }
 
   handleChange = (e) => {
@@ -455,37 +453,6 @@ class Profile extends React.Component {
               <TextValidator
                 required
                 fullWidth
-                id="license"
-                name="license"
-                value={this.state.license}
-                label="License number"
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                validators={['required']}
-                errorMessages={['This field is required']}
-                onChange={this.handleChange}
-                InputLabelProps={{
-                  shrink: true,
-                  classes: {
-                    root: classes.label,
-                    focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
-                }}
-                InputProps={{
-                  classes: {
-                    root: classes.outlinedInput,
-                    focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} className="container2">
-              <TextValidator
-                required
-                fullWidth
                 select
                 id="practice"
                 name="practice"
@@ -521,7 +488,6 @@ class Profile extends React.Component {
                 ))}
               </TextValidator>
             </Grid>
-
             <Grid item xs={12} sm={6} className="container2">
               <InputLabel shrink={true}
                 classes={{
@@ -558,6 +524,7 @@ class Profile extends React.Component {
                 ))}
               </Select>
             </Grid>
+
             <Grid item xs={12} sm={6} className="container2">
               <input
                 accept="./image/*"

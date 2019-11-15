@@ -61,6 +61,8 @@ class Navbar extends Component{
     }
 
     const userId = localStorage.getItem('userId');
+
+
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
     
       this.setState({
@@ -315,9 +317,17 @@ class Navbar extends Component{
     );
 
     if(this.state.isAuth) {
+      console.log("Navber - userId: " + this.state.userId);
       routes = (
         <Switch>
-          <Route path="/profile" component={TempProfile} />
+          <Route
+            path="/profile"
+            render= {props => (
+              <TempProfile
+                {...props} userId={this.state.userId}
+              />
+            )}
+          />
           <Route path="/dashboard" component={Dashboard} />
         </Switch>
       )

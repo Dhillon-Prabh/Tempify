@@ -151,10 +151,8 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: this.props.userId,
       name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
       experience: '',
       expectedRate: '',
       city: city[0].value,
@@ -168,10 +166,33 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3001/tempProfile")
-    .then(res => res.json())
-    .then(result => this.setstate({name: result.temp_name}));
-    ValidatorForm.addValidationRule('isTruthy', value => value);
+    // fetch("http://localhost:3001/tempProfile")
+    // .then(res => res.json())
+    // .then(result => this.setstate({name: result.temp_name}));
+    // ValidatorForm.addValidationRule('isTruthy', value => value);
+    console.log("TempProfile - userId: " + this.state.userId);
+    var data = {
+      userId: this.state.userId,
+    }
+    //   userId: this.state.userId,
+    //   name: '',
+    //   practice: '',
+    //   expectedRate: '',
+    //   experience: '',
+    //   role: [],
+    //   dentalsw: [],
+    //   city: '',
+    //   imageName: '',
+    //   phone: '',
+    // }
+    fetch("http://localhost:3001/tempProfile", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(res => res.json())
+      .then(console.log("data: " + data));  //data => this.setState({name: data.tempName})
   }
 
   componentWillUnmount() {
@@ -182,29 +203,29 @@ class Profile extends React.Component {
   submitForm = (event) => {
     event.preventDefault();
 
-    var data = {
-      name: this.state.name,
-      experience: this.state.experience,
-      expectedRate: this.state.expectedRate,
-      city: this.state.city,
-      role: this.state.role,
-      practice: this.state.practice,
-      dentalsw: this.state.dentalsw,
-      phone: this.state.phone,
-    }
-    fetch("http://localhost:3001/tempUpdateProfile", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }).then(function(response) {
-      console.log(response);
-    }).then(function(data) {
-      console.log(data);
-    }).catch(function(err) {
-      console.log(err);
-    });
+    // var data = {
+    //   name: this.state.name,
+    //   experience: this.state.experience,
+    //   expectedRate: this.state.expectedRate,
+    //   city: this.state.city,
+    //   role: this.state.role,
+    //   practice: this.state.practice,
+    //   dentalsw: this.state.dentalsw,
+    //   phone: this.state.phone,
+    // }
+    // fetch("http://localhost:3001/tempUpdateProfile", {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(data)
+    // }).then(function(response) {
+    //   console.log(response);
+    // }).then(function(data) {
+    //   console.log(data);
+    // }).catch(function(err) {
+    //   console.log(err);
+    // });
   }
 
   handleChange = (e) => {

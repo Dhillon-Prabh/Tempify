@@ -1,51 +1,35 @@
 const db = require('../database/database');
 const jwt = require('jsonwebtoken');
 
-exports.postLogin = (req, res, next) => {
+exports.tempProfile = (req, res, next) => {
 
-  const email = req.body.email;
-  const password = req.body.password; 
+  const user = req.body;
+  console.log("Inside tempProfile");
   db((err, con) => {
-
     if(err){
+      console.log(err);
       throw err;
-    }    
-
-    const query = "SELECT email, password, id, role FROM `users` WHERE `email` = ? AND `password` = ?";
-    con.query(query, [email, password], (err, result, fields) => {     
+    }
+    
+    var userQuery = 'SELECT temp_name, type_of_practice, expected_rate, experience, designation,' +
+      'dental_software, city, imagename, phone FROM temps WHERE user_id = ? LIMIT 1';
+    values=[user.userId];
+    con.query(userQuery, values, (err, result, fields) => {
+      console.log("query result: " + result);
       if(!result.length) {
         return res.status(401).send({ error : "error message",});
+      } else {
+        return res.status(200).json(result);
       }
-
-      let loadedUser = result[0];
-        const token = jwt.sign(
-          {
-            email: loadedUser.email, 
-            userId: loadedUser.id
-          }, 'secret', { 
-            expiresIn: '1h' 
-          }
-        );
-  
-        res
-          .status(200)
-          .json({
-            token: token,
-            userId: loadedUser.id,
-            role: loadedUser.role
-            }
-          )
-
-      con.release();
-    })
+    });
   })
 }
 
 
-exports.tempRegister = (req, res, next) => {
+exports.tempUpdateProfile = (req, res, next) => {
   
   const user = req.body;
-  console.log("Inside tempRegister");
+  console.log("Inside tempProfile");
   db((err, con) => {
     if(err){
       console.log(err);
@@ -114,61 +98,4 @@ exports.tempRegister = (req, res, next) => {
     });
   })
   next();
-} 
-
-exports.dentalRegister = (req, res, next) => {
-
-  const user = req.body;
-  console.log("Inside dentalRegister");
-  db((err, con) => {
-    if(err){
-      console.log(err);
-      throw err;
-    }
-    return new Promise(function (resolve, reject) {
-      var validate = 'SELECT id FROM users WHERE email = ?';
-      con.query(validate, [user.email], (err, result, fields) => {
-        if (result.length > 0) {
-          reject(401);
-        } else {
-          var userQuery = 'INSERT INTO users(name, email, password, remember_token, created_at, updated_at,' +
-            'server_response, role, current_login_time,' +
-            'last_login_time, status, unsubscribe_from_emails, unsubscribe_modules) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
-          values=[user.name, user.email, user.password, null, new Date(), new Date(), null, 1, null, null, 1, 0, null];
-          con.query(userQuery, values, (err, result, fields) => {
-            if(!err) {
-              console.log("no error proceeding to resolve");
-              resolve(result);
-            } else {
-              reject(err);
-            }
-        });
-      }
-    })
-  })
-    .then(function(result) {
-      var dentalQuery = 'INSERT INTO dentists(`created_at`, `updated_at`, `user_id`, `phone_number`, `email`, ' +
-        ' `office_name`, `dentist_name`, `street_number`, `street_name`, `unit_number`, `city`, `province`, `postalcode`, ' + 
-        ' `parking_options`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
-      values=[new Date(), new Date(), result.insertId, user.phone, user.email, user.officeName, user.name, user.streetNo,
-        user.streetName, user.unit, user.city, user.province, user.postalCode, user.parking];
-        con.query(dentalQuery, values, (err, result, fields) => {
-          if(!err) {
-            console.log("no error proceeding to success");
-            res.status(300).send({ message: "success" });
-            con.release();
-          } else {
-            console.log("Error:" + err);
-            res.status(400).send({error: "unable to complete request"});
-            con.release();
-          }
-        })
-    })
-    .catch(function(err) {
-      console.log("Error:" + err);
-      res.status(err).send({error: "unable to complete request"});
-      con.release();
-    });
-  })
-  next();
-} 
+}

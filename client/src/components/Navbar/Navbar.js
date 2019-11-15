@@ -319,7 +319,7 @@ class Navbar extends Component{
 
     if(this.state.isAuth) {
       const userId = localStorage.getItem('userId');
-      console.log("Navber - userId: " + userId);
+      console.log("Navbar - userId: " + userId);
       routes = (
         <Switch>
           <Route path="/home" component={Home} />

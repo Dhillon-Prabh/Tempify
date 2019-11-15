@@ -10,40 +10,18 @@ exports.tempProfile = (req, res, next) => {
       console.log(err);
       throw err;
     }
-    return new Promise(function (resolve, reject) {
-      var validate = 'SELECT id FROM users WHERE email = ?';
-      con.query(validate, [user.email], (err, result, fields) => {
-        if (result.length > 0) {
-          reject(401);
-        } else {
-          var userQuery = 'SELECT temp_name, type_of_practice, expected_rate, experience, designation,' +
-            'dental_software, city, imagename, phone FROM temps WHERE user_id = ? LIMIT 1;';
-          values=[result.userId];
-          console.log("result.userId: " + result.userId);
-          con.query(userQuery, values, (err, result, fields) => {
-            console.log("query result: " + result);
-            if(!err) {
-              console.log("no error proceeding to resolve");
-              resolve(result);
-            } else {
-              reject(err);
-            }
-          });
-        }
-      })
-    })
     
-    // var userQuery = 'SELECT temp_name, type_of_practice, expected_rate, experience, designation,' +
-    //   'dental_software, city, imagename, phone FROM temps WHERE user_id = ? LIMIT 1';
-    // values=[user.userId];
-    // con.query(userQuery, values, (err, result, fields) => {
-    //   console.log("query result: " + result);
-    //   if(!result.length) {
-    //     return res.status(401).send({ error : "error message",});
-    //   } else {
-    //     return res.status(200).json(result);
-    //   }
-    // });
+    var userQuery = 'SELECT temp_name, type_of_practice, expected_rate, experience, designation,' +
+      'dental_software, city, imagename, phone FROM temps WHERE user_id = ? LIMIT 1';
+    values=[user.userId];
+    con.query(userQuery, values, (err, result, fields) => {
+      console.log(result);
+      if(!result.length) {
+        return res.status(401).send({ error : "error message",});
+      } else {
+        return res.status(200).json(result);
+      }
+    });
   })
 }
 

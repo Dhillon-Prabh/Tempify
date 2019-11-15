@@ -192,24 +192,12 @@ class Profile extends React.Component {
       body: JSON.stringify(data)
     }).then(function(response) {
       console.log(response);
+      return response.json();
     }).then(function(data) {
       console.log(data);
     }).catch(function(err) {
       console.log(err);
-    });
-
-    // fetch("http://localhost:3001/tempProfile")
-    // .then(res => res.json())
-    // .then(console.log("data: " + data));  //data => this.setstate({name: data.temp_name})
-
-    // fetch("http://localhost:3001/tempProfile", {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(data)
-    // }).then(res => res.json())
-    //   .then(console.log("data: " + data));  //data => this.setState({name: data.tempName})
+    });//data => this.setState({name: data.tempName})
   }
 
   componentWillUnmount() {

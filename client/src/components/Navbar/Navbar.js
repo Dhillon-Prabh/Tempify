@@ -318,7 +318,8 @@ class Navbar extends Component{
     );
 
     if(this.state.isAuth) {
-      console.log("Navber - userId: " + this.state.userId);
+      const userId = localStorage.getItem('userId');
+      console.log("Navber - userId: " + userId);
       routes = (
         <Switch>
           <Route path="/home" component={Home} />
@@ -327,7 +328,7 @@ class Navbar extends Component{
             path="/tempprofile"
             render= {props => (
               <TempProfile
-                {...props} userId={this.state.userId}
+                {...props} userId = {userId}
               />
             )}
           />

@@ -192,7 +192,7 @@ class Profile extends React.Component {
       },
       body: JSON.stringify(data)
     }).then(res => res.json())
-      .then(console.log("data: " + data));  //data => this.setState({name: data.tempName})
+      .then(console.log(data));  //data => this.setState({name: data.tempName})
   }
 
   componentWillUnmount() {

@@ -14,6 +14,7 @@ import Dashboard from '../Dashboard/Dashboard'
 import TempRegister from '../Register/TempRegister';
 import DentalRegister from '../Register/DentalRegister';
 import TempProfile from '../Profile/TempProfile';
+import DentalProfile from '../Profile/DentalProfile';
 
 class Navbar extends Component{
 
@@ -60,6 +61,8 @@ class Navbar extends Component{
     }
 
     const userId = localStorage.getItem('userId');
+
+
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
     
       this.setState({
@@ -255,7 +258,7 @@ class Navbar extends Component{
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}>Profile</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dentalprofile'}>Profile</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dashboard'}>Dashboard</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
@@ -267,9 +270,9 @@ class Navbar extends Component{
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}>Profile</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempprofile'}>Profile</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dashboard'}>Dashboard</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempdashboard'}>Dashboard</Typography>
                 <Typography variant = "subheading" className = "padding nav-item">Job Postings</Typography>
                 <Typography variant = "subheading" className = "padding nav-item">My Availability</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
@@ -315,11 +318,27 @@ class Navbar extends Component{
     );
 
     if(this.state.isAuth) {
+      const userId = localStorage.getItem('userId');
+      console.log("Navbar - userId: " + userId);
       routes = (
         <Switch>
           <Route path="/home" component={Home} />
-
-          <Route path="/profile" component={TempProfile} />
+          <Route
+            path="/dentalprofile"
+            render= {props => (
+              <DentalProfile
+                {...props} userId = {userId}
+              />
+            )}
+          />
+          <Route
+            path="/tempprofile"
+            render= {props => (
+              <TempProfile
+                {...props} userId = {userId}
+              />
+            )}
+          />
           <Route path="/dashboard" component={Dashboard} />
         </Switch>
       )

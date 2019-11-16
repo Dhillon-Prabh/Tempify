@@ -18,23 +18,23 @@ exports.postLogin = (req, res, next) => {
       }
 
       let loadedUser = result[0];
-        const token = jwt.sign(
-          {
-            email: loadedUser.email, 
-            userId: loadedUser.id
-          }, 'secret', { 
-            expiresIn: '1h' 
-          }
-        );
+      const token = jwt.sign(
+        {
+          email: loadedUser.email, 
+          userId: loadedUser.id
+        }, 'secret', { 
+          expiresIn: '1h' 
+        }
+      );
   
-        res
-          .status(200)
-          .json({
-            token: token,
-            userId: loadedUser.id,
-            role: loadedUser.role
-            }
-          )
+      res
+        .status(200)
+        .json({
+          token: token,
+          userId: loadedUser.id,
+          role: loadedUser.role
+          }
+        )
 
       con.release();
     })

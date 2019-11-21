@@ -11,6 +11,12 @@
     padding-top: 1rem;
 }
 
+.bottomAboutContent{
+    width: 80%;
+    padding-bottom: 5rem;
+    padding-top: 1rem;
+}
+
 .bold{
     font-weight: bold;
 }

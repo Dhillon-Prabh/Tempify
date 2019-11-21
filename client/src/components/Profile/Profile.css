@@ -9,7 +9,11 @@
 .register {
     width: 60%;
     margin: auto;
-    padding-bottom: 5rem;
+}
+
+.profile {
+    width: 60%;
+    margin: auto;
 }
 
 .textfield {
@@ -34,6 +38,6 @@
 }
 
 .temp-register-upload {
-    margin-top: 30px;
+    margin-top: 20px;
     margin-left: 10px;
 }

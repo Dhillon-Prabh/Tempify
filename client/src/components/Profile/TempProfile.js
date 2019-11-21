@@ -176,15 +176,15 @@ class Profile extends React.Component {
       return response.json();
     }).then(function(data) {
       console.log(data);
-      //let str = data[0].dental_software; //.replace("\',"");
+      
       currentComponent.setState({
         name: data[0].temp_name,
         experience: data[0].experience,
         expectedRate: data[0].expected_rate,
         city: data[0].city,
-        role: Array.from(["Assistant","Receptionist"]),//data[0].designation,
+        role: Array.from(JSON.parse(data[0].designation)),
         practice: data[0].type_of_practice,
-        dentalsw: Array.from(["Dentrix","Tracker"]),//JSON.stringify(data[0].dental_software),
+        dentalsw: Array.from(JSON.parse(data[0].dental_software)),
         imageName: data[0].imagename,
         phone: data[0].phone
       });

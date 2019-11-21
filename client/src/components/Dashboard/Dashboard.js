@@ -1,12 +1,11 @@
 import React from 'react';
 import './Dashboard.css';
 import { Grid } from '@material-ui/core';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import BookNow from '../BookNow/BookNow';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -24,9 +23,9 @@ const DashboardOptions = () => {
     return(
         <React.Fragment>
             <Grid container direction="row" justify="center" alignItems="center" className="options">
-                <Grid item xs={12} md={3}>
+                <Grid item xs={2}>
                     <Breadcrumbs aria-label="breadcrumb">
-                        <Link to="/dashboard" style={{textDecoration:'none', color: 'inherit'}}>
+                        <Link to="/" style={{textDecoration:'none', color: 'inherit'}}>
                             <ListItem button>
                                 <ListItemIcon>
                                     <HomeIcon />
@@ -37,15 +36,17 @@ const DashboardOptions = () => {
                         <Typography color="textPrimary">dashboard</Typography>
                     </Breadcrumbs>
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6}>
                     <ButtonGroup fullWidth aria-label="full width outlined button group" className="buttons">
-                        <Button className="button">Book Now</Button>
-                        <Button className="button">Schedule</Button>
-                        <Button className="button">History</Button>
+                        <Button className="button" activeStyle={{ backgroundColor: "#FFFFFF !important"}} 
+                            component={NavLink} to={'/bookNow'}>Book Now</Button>
+                        <Button className="button" activeStyle={{ backgroundColor: '#000000 !important' }} 
+                            component={NavLink} to={'/schedule'}>Schedule</Button>
+                        <Button className="button"  activeStyle={{ backgroundColor: '#000000 !important'}} 
+                            component={NavLink} to={'/history'}>History</Button>
                     </ButtonGroup>
                 </Grid>
             </Grid>
-            <BookNow/>
         </React.Fragment>
     );
 }

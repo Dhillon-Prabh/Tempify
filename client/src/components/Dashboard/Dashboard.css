@@ -8,6 +8,7 @@
 
 .buttons{
     height: 3rem;
+    width: 30rem !important;
 }
 
 .button {

@@ -1,16 +1,14 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
-import ListItemText from '@material-ui/core/ListItemText';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
+import Link from '@material-ui/core/Link';
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import './Profile.css'
+import CheckboxValidatorElement from '../CheckboxValidatorElement/CheckboxValidatorElement';
 
 const useStyles = theme => ({
   textField: {
@@ -23,7 +21,6 @@ const useStyles = theme => ({
       color: '#00bfff'
     },
   },
-  inputlabel: {},
   labelAsterisk: {
     color: '#ff0000'
   },
@@ -32,9 +29,6 @@ const useStyles = theme => ({
     '&$focused $notchedOutline': {
       border: '1px solid #00bfff'
     },
-  },
-  oulinedSelect: {
-    border: '1px solid #00bfff'
   },
   notchedOutline: {},
   button: {
@@ -45,99 +39,18 @@ const useStyles = theme => ({
   },
 });
 
-const city = [
+const parking = [
   {
-    value: 'Vancouver',
-    label: 'Vancouver',
+    value: 'Free',
+    label: 'Free',
   },
   {
-    value: 'North Vancouver',
-    label: 'North Vancouver',
+    value: 'Paid/Street',
+    label: 'Paid/Street',
   },
   {
-    value: 'New Westminster',
-    label: 'New Westminster',
-  },
-  {
-    value: 'Tri-Cities',
-    label: 'Tri-Cities',
-  },
-  {
-    value: 'Surrey',
-    label: 'Surrey',
-  },
-  {
-    value: 'Richmond',
-    label: 'Richmond',
-  },
-  {
-    value: 'White Rock',
-    label: 'White Rock',
-  },
-  {
-    value: 'Langley(Fraser Valley)',
-    label: 'Langley(Fraser Valley)',
-  },
-];
-
-const role = [
-  {
-    value: 'Assistant',
-    label: 'Assistant',
-  },
-  {
-    value: 'Registered Dental Hygienist',
-    label: 'Registered Dental Hygienist',
-  },
-  {
-    value: 'Receptionist',
-    label: 'Receptionist',
-  },
-];
-
-const practice = [
-  {
-    value: 'General',
-    label: 'General',
-  },
-  {
-    value: 'Ortho',
-    label: 'Ortho',
-  },
-  {
-    value: 'Endo',
-    label: 'Endo',
-  },
-  {
-    value: 'Pedo',
-    label: 'Pedo',
-  },
-  {
-    value: 'Oral Surgery',
-    label: 'Oral Surgery',
-  },
-];
-
-const dentalsw = [
-  {
-    value: 'Dentrix',
-    label: 'Dentrix',
-  },
-  {
-    value: 'Cleardent',
-    label: 'Cleardent',
-  },
-  {
-    value: 'Tracker',
-    label: 'Tracker',
-  },
-  {
-    value: 'Other',
-    label: 'Other',
-  },
-  {
-    value: 'None',
-    label: 'None',
+    value: 'No Parking',
+    label: 'No Parking',
   },
 ];
 
@@ -146,46 +59,55 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       userId: this.props.userId,
+      officeName: '',
       name: '',
-      experience: '',
-      expectedRate: '',
-      city: city[0].value,
-      role: [],
-      practice: practice[0].value,
-      dentalsw: [],
-      imageName: '',
       phone: '',
+      streetNo: '',
+      streetName: '',
+      unit: '',
+      city: '',
+      province: '',
+      postalCode: '',
+      parking: parking[0].value,
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    
+    // ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+    //   if(value !== this.state.password) {
+    //     return false;
+    //   } 
+    //   return true;
+    // });
+    //ValidatorForm.addValidationRule('isTruthy', value => value);
     let currentComponent = this;
     var data = {
       userId: this.state.userId
     }
     
-    fetch("http://localhost:3001/tempProfile", {
+    fetch("http://localhost:3001/dentalProfile", {
       method: 'POST',
       headers: {
-        'Authorization': 'Bearer ' + this.props.token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     }).then(function(response) {
+      console.log(response);
       return response.json();
-    }).then(function(data) {      
+    }).then(function(data) {
+      console.log(data);
       currentComponent.setState({
-        name: data[0].temp_name,
-        experience: data[0].experience,
-        expectedRate: data[0].expected_rate,
+        name: data[0].dentist_name,
+        officeName: data[0].office_name,
+        phone: data[0].phone_number,
+        streetNo: data[0].street_number,
+        streetName: data[0].street_name,
+        unit: data[0].unit_number,
         city: data[0].city,
-        role: Array.from(JSON.parse(data[0].designation)),
-        practice: data[0].type_of_practice,
-        dentalsw: Array.from(JSON.parse(data[0].dental_software)),
-        imageName: data[0].imagename,
-        phone: data[0].phone
+        province: data[0].province,
+        postalCode: data[0].postalcode,
+        parking: data[0].parking_options,
       });
     }).catch(function(err) {
       console.log(err);
@@ -202,21 +124,21 @@ class Profile extends React.Component {
 
     var data = {
       userId: this.props.userId,
+      officeName: this.state.officeName,
       name: this.state.name,
-      experience: this.state.experience,
-      expectedRate: this.state.expectedRate,
-      city: this.state.city,
-      role: this.state.role,
-      practice: this.state.practice,
-      dentalsw: this.state.dentalsw,
-      imageName: this.state.imageName,
       phone: this.state.phone,
+      streetNo: this.state.streetNo,
+      streetName: this.state.streetName,
+      unit: this.state.unit,
+      city: this.state.city,
+      province: this.state.province,
+      postalCode: this.state.postalCode,
+      parking: this.state.parking,
     }
 
-    fetch("http://localhost:3001/tempUpdateProfile", {
+    fetch("http://localhost:3001/dentalUpdateProfile", {
       method: 'POST',
       headers: {
-        Authorization: 'Bearer ' + this.props.token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -239,6 +161,7 @@ class Profile extends React.Component {
   }
 
   render() {
+
     const { classes } = this.props;
     return (
       <div className="profile">
@@ -282,45 +205,16 @@ class Profile extends React.Component {
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
-                fullWidth
-                id="phone"
-                name="phone"
-                value={this.state.phone}
-                label="Phone Number"
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                onChange={this.handleChange}
-                InputLabelProps={{
-                  shrink: true,
-                  classes: {
-                    root: classes.label,
-                    focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
-                }}
-                InputProps={{
-                  classes: {
-                    root: classes.outlinedInput,
-                    focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
-                }}
-              />
-            </Grid>
-            
-            <Grid item xs={12} sm={6} className="container2">
-              <TextValidator
                 required
                 fullWidth
-                id="experience"
-                name="experience"
-                type="number"
-                label="Years of experience"
+                id="officeName"
+                name="officeName"
+                value={this.state.officeName}
+                label="Office Name"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                value={this.state.experience}
+                autoComplete="name"
                 validators={['required']}
                 errorMessages={['This field is required']}
                 onChange={this.handleChange}
@@ -341,19 +235,20 @@ class Profile extends React.Component {
                 }}
               />
             </Grid>
+            
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
                 required
                 fullWidth
-                id="expRate"
-                name="expectedRate"
-                label="Expected rate [$]"
+                id="phone"
+                name="phone"
+                label="Phone"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                value={this.state.expectedRate}
-                validators={['required', 'minNumber:20', 'maxNumber:60']}
-                errorMessages={['This field is required', 'Value should be between 20 and 60', 'Value should be between 20 and 60']}
+                value={this.state.phone}
+                validators={['required', 'minStringLength:10', 'minStringLength:10', 'isNumber']}
+                errorMessages={['This field is required', 'Value should be 10 digits', 'Value should be 10 digits', 'Must be a number']}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
@@ -372,18 +267,116 @@ class Profile extends React.Component {
                 }}
               />
             </Grid>
-            
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
                 required
                 fullWidth
-                select
-                id="city"
-                name="city"
-                label="Select city"
+                id="streetNo"
+                name="streetNo"
+                label="Street Number"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
+                defaultValue="none"
+                value={this.state.streetNo}
+                validators={['required']}
+                errorMessages={['This field is required']}
+                onChange={this.handleChange}
+                InputLabelProps={{
+                  shrink: true,
+                  classes: {
+                    root: classes.label,
+                    focused: classes.focused,
+                    asterisk: classes.labelAsterisk,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.outlinedInput,
+                    focused: classes.focused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              >
+              </TextValidator>
+            </Grid>
+
+            <Grid item xs={12} sm={6} className="container2">
+              <TextValidator
+                required
+                fullWidth
+                id="streetName"
+                name="streetName"
+                label="Street Name"
+                className={classes.textField}
+                margin="normal"
+                variant="outlined"
+                defaultValue="none"
+                value={this.state.streetName}
+                validators={['required']}
+                errorMessages={['This field is required']}
+                onChange={this.handleChange}
+                InputLabelProps={{
+                  shrink: true,
+                  classes: {
+                    root: classes.label,
+                    focused: classes.focused,
+                    asterisk: classes.labelAsterisk,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.outlinedInput,
+                    focused: classes.focused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              >
+              </TextValidator>
+            </Grid>
+            <Grid item xs={12} sm={6} className="container2">
+              <TextValidator
+                required
+                fullWidth
+                id="unit"
+                name="unit"
+                value={this.state.unit}
+                label="Unit"
+                className={classes.textField}
+                margin="normal"
+                variant="outlined"
+                validators={['required']}
+                errorMessages={['This field is required']}
+                onChange={this.handleChange}
+                InputLabelProps={{
+                  shrink: true,
+                  classes: {
+                    root: classes.label,
+                    focused: classes.focused,
+                    asterisk: classes.labelAsterisk,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.outlinedInput,
+                    focused: classes.focused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6} className="container2">
+              <TextValidator
+                required
+                fullWidth
+                id="city"
+                name="city"
+                label="City"
+                className={classes.textField}
+                margin="normal"
+                variant="outlined"
+                defaultValue="none"
                 value={this.state.city}
                 validators={['required']}
                 errorMessages={['This field is required']}
@@ -404,62 +397,20 @@ class Profile extends React.Component {
                   },
                 }}
               >
-                {city.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
               </TextValidator>
-            </Grid>
-            <Grid item xs={12} sm={6} className="container2">
-              <InputLabel shrink={true}
-                classes={{
-                  root: classes.inputlabel,
-                  focused: classes.focused,
-                  asterisk: classes.labelAsterisk,
-                }}
-              >
-                What do you do? <span className="temp-register-asterisk">*</span>
-              </InputLabel>
-              <Select
-                required
-                multiple
-                fullWidth
-                id="role"
-                name="role"
-                value={this.state.role}
-                className={classes.textField}
-                input={<OutlinedInput
-                  classes={{
-                    root: classes.outlinedInput,
-                    focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  }}
-                />}
-                renderValue={selected => selected.join(', ')}
-                onChange={this.handleChange}
-              >
-                {role.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    <Checkbox checked={this.state.role.indexOf(option.value) > -1} />
-                    <ListItemText primary={option.label} />
-                  </MenuItem>
-                ))}
-              </Select>
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
                 required
                 fullWidth
-                select
-                id="practice"
-                name="practice"
-                label="practice"
+                id="province"
+                name="province"
+                label="Province"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
                 defaultValue="none"
-                value={this.state.practice}
+                value={this.state.province}
                 validators={['required']}
                 errorMessages={['This field is required']}
                 onChange={this.handleChange}
@@ -479,57 +430,80 @@ class Profile extends React.Component {
                   },
                 }}
               >
-                {practice.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
               </TextValidator>
             </Grid>
+
             <Grid item xs={12} sm={6} className="container2">
-              <InputLabel shrink={true}
-                classes={{
-                  root: classes.inputlabel,
-                  focused: classes.focused,
-                  asterisk: classes.labelAsterisk,
-                }}
-              >
-                Dental Software Used <span className="temp-register-asterisk">*</span>
-              </InputLabel>
-              <Select
+              <TextValidator
                 required
-                multiple
                 fullWidth
-                id="dentalsw"
-                name="dentalsw"
-                value={this.state.dentalsw}
+                id="postalCode"
+                name="postalCode"
+                label="Postal Code"
                 className={classes.textField}
-                input={<OutlinedInput
-                  classes={{
+                margin="normal"
+                variant="outlined"
+                defaultValue="none"
+                value={this.state.postalCode}
+                validators={['required']}
+                errorMessages={['This field is required']}
+                onChange={this.handleChange}
+                InputLabelProps={{
+                  shrink: true,
+                  classes: {
+                    root: classes.label,
+                    focused: classes.focused,
+                    asterisk: classes.labelAsterisk,
+                  },
+                }}
+                InputProps={{
+                  classes: {
                     root: classes.outlinedInput,
                     focused: classes.focused,
                     notchedOutline: classes.notchedOutline,
-                  }}
-                />}
-                renderValue={selected => selected.join(', ')}
-                onChange={this.handleChange}
+                  },
+                }}
               >
-                {dentalsw.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    <Checkbox checked={this.state.dentalsw.indexOf(option.value) > -1} />
-                    <ListItemText primary={option.label} />
-                  </MenuItem>
-                ))}
-              </Select>
+              </TextValidator>
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
-              <input
-                accept="./image/*"
-                id="image-upload"
-                multiple
-                type="file"
-                className="temp-register-upload"
-              />
+              <TextValidator
+                required
+                fullWidth
+                select
+                id="parking"
+                name="parking"
+                label="Parking"
+                className={classes.textField}
+                margin="normal"
+                variant="outlined"
+                defaultValue="none"
+                value={this.state.parking}
+                validators={['required']}
+                errorMessages={['This field is required']}
+                onChange={this.handleChange}
+                InputLabelProps={{
+                  shrink: true,
+                  classes: {
+                    root: classes.label,
+                    focused: classes.focused,
+                    asterisk: classes.labelAsterisk,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.outlinedInput,
+                    focused: classes.focused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              >
+              {parking.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+              </TextValidator>
             </Grid>
 
             <Grid item xs={12} align="center">

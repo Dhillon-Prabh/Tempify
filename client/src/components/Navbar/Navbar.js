@@ -14,6 +14,7 @@ import Dashboard from '../Dashboard/Dashboard'
 import TempRegister from '../Register/TempRegister';
 import DentalRegister from '../Register/DentalRegister';
 import TempProfile from '../Profile/TempProfile';
+import DentalProfile from '../Profile/DentalProfile';
 
 class Navbar extends Component{
 
@@ -24,7 +25,8 @@ class Navbar extends Component{
       drawer:false,
       isAuth: false, 
       role: -1,
-      loginError: false
+      loginError: false,
+      token: null
     };
 
     this.loginHandler = this.loginHandler.bind(this);
@@ -48,8 +50,10 @@ class Navbar extends Component{
     }
 
     const userId = localStorage.getItem('userId');
+
+
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
-    
+  
       this.setState({
         isAuth: true, 
         token: token,
@@ -100,12 +104,11 @@ class Navbar extends Component{
       return res.json();
     })
     .then(resData => {
-      // console.log(resData);
       this.setState({
         isAuth: true, 
         userId: resData.userId,
-        role: resData.role,
         token: resData.token,
+        role: resData.role,
         loginError: false
       });  
 
@@ -122,6 +125,7 @@ class Navbar extends Component{
       if(this.state.isAuth){
         this.props.history.push("/dashboard");
       }
+
     })
     .catch(err => {
       this.setState({
@@ -260,7 +264,7 @@ class Navbar extends Component{
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}>Profile</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dentalprofile'}>Profile</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dashboard'}>Dashboard</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
@@ -272,9 +276,9 @@ class Navbar extends Component{
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}>Profile</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempprofile'}>Profile</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dashboard'}>Dashboard</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempdashboard'}>Dashboard</Typography>
                 <Typography variant = "subheading" className = "padding nav-item">Job Postings</Typography>
                 <Typography variant = "subheading" className = "padding nav-item">My Availability</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
@@ -286,10 +290,8 @@ class Navbar extends Component{
       </div>
     )
   }
-  
 
-  render(){
-    
+  render(){    
     let routes = (
       <Switch>
       <Route path='/' exact component={Home} />
@@ -320,21 +322,27 @@ class Navbar extends Component{
     );
 
     if(this.state.isAuth) {
+      const userId = localStorage.getItem('userId');
       routes = (
         <Switch>
           <Route path="/home" component={Home} />
-          {/* <Route path="/profile" component={TempProfile} /> */}
           <Route
-            path="/profile"
-            exact
-            render={props => (
-              <TempProfile
-                {...props}
-                userId={this.state.userId} token={this.state.token} />
+            path="/dentalprofile"
+            render= {props => (
+              <DentalProfile
+                {...props} userId = {userId}
+              />
             )}
           />
-
-
+          <Route
+            path="/tempprofile"
+            render= {props => (
+              <TempProfile
+                {...props}
+                token = {this.state.token}
+              />
+            )}
+          />
           <Route path="/dashboard" component={Dashboard} />
         </Switch>
       )

@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme => ({
     height: "100%",
     justifyContent: "center",
     flexDirection: "column",
+    borderTop: "1px solid lightgray",
     borderBottom: "1px solid lightgray"
   },
   textField: {

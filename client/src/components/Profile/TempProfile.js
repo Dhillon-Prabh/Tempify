@@ -1,22 +1,16 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import ListItemText from '@material-ui/core/ListItemText';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import { Redirect } from 'react-router'
 import './Profile.css'
-import CheckboxValidatorElement from '../CheckboxValidatorElement/CheckboxValidatorElement';
 
 const useStyles = theme => ({
   textField: {
@@ -151,6 +145,7 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+
       name: '',
       email: '',
       password: '',
@@ -163,19 +158,13 @@ class Profile extends React.Component {
       practice: practice[0].value,
       dentalsw: [],
       accept: false,
+
     }
+
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-
-    // fetch("http://localhost:3001/tempProfile")
-    // .then(res => res.json())
-    // .then(result => {
-    //   this.setstate({name: result.temp_name})
-    // });
-    // ValidatorForm.addValidationRule('isTruthy', value => value);
-
     fetch('http://localhost:3001/tempProfile', {
       headers: {
         Authorization: 'Bearer ' + this.props.token
@@ -184,9 +173,24 @@ class Profile extends React.Component {
     .then(res=>{
       return res.json();
     })
+
     .then(result => {
       const currentUser = result.result[0];
       console.log(currentUser);
+      this.setState({
+        name: currentUser.temp_name,
+        email: '',
+        password: currentUser.phone,
+        confirmPassword: '',
+        experience: currentUser.experience,
+        expectedRate: currentUser.expected_rate,
+        city: currentUser.city,
+        role: Array.from(JSON.parse(currentUser.designation)),
+        license: '',
+        practice: currentUser.type_of_practice,
+        dentalsw: Array.from(JSON.parse(currentUser.dental_software)),
+        accept: false,
+      })
     })
     .catch(err => {
       if(err){
@@ -215,7 +219,7 @@ class Profile extends React.Component {
       phone: this.state.phone,
     }
     fetch("http://localhost:3001/tempUpdateProfile", {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -435,7 +439,7 @@ class Profile extends React.Component {
                     notchedOutline: classes.notchedOutline,
                   }}
                 />}
-                renderValue={selected => selected.join(', ')}
+                renderValue={selected => selected.join(',')}  
                 onChange={this.handleChange}
               >
                 {role.map(option => (
@@ -445,38 +449,6 @@ class Profile extends React.Component {
                   </MenuItem>
                 ))}
               </Select>
-            </Grid>
-
-            <Grid item xs={12} sm={6} className="container2">
-              <TextValidator
-                required
-                fullWidth
-                id="license"
-                name="license"
-                value={this.state.license}
-                label="License number"
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                validators={['required']}
-                errorMessages={['This field is required']}
-                onChange={this.handleChange}
-                InputLabelProps={{
-                  shrink: true,
-                  classes: {
-                    root: classes.label,
-                    focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
-                }}
-                InputProps={{
-                  classes: {
-                    root: classes.outlinedInput,
-                    focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
-                }}
-              />
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
@@ -543,7 +515,7 @@ class Profile extends React.Component {
                     notchedOutline: classes.notchedOutline,
                   }}
                 />}
-                renderValue={selected => selected.join(', ')}
+                renderValue={selected => selected.join(',')}
                 onChange={this.handleChange}
               >
                 {dentalsw.map(option => (

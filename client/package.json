@@ -48,9 +48,9 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3001/",
   "devDependencies": {
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0"
-  }
+  },
+  "proxy": "http://localhost:3001/"
 }

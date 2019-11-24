@@ -86,7 +86,7 @@ class Profile extends React.Component {
       userId: this.state.userId
     }
     
-    fetch("/dentalProfile", {
+    fetch("/auth/dentalProfile", {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,

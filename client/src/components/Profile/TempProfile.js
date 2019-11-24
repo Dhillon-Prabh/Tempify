@@ -212,7 +212,7 @@ class Profile extends React.Component {
       phone: this.state.phone,
     }
 
-    fetch("/tempUpdateProfile", {
+    fetch("/auth/tempUpdateProfile", {
       method: 'POST',
       headers: {
         Authorization: 'Bearer ' + this.props.token,

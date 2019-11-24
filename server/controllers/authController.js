@@ -91,7 +91,6 @@ exports.tempRegister = (req, res, next) => {
           user.city, result.insertId, new Date(), new Date()
         ];
         con.query(tempQuery, valuesTemp, (err, result, fields) => {
-          //console.log(this.valuesTemp);
           if (!err) {
             console.log("no error proceeding to success");
             res.status(300).send({

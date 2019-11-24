@@ -15,6 +15,7 @@ import TempRegister from '../Register/TempRegister';
 import DentalRegister from '../Register/DentalRegister';
 import TempProfile from '../Profile/TempProfile';
 import DentalProfile from '../Profile/DentalProfile';
+import Dashboard from '../Dashboard/Dashboard';
 import TempDashboard from '../TempDashboard/TempDashboard';
 import SuccessAlert from '../Alert/SuccessAlert';
 
@@ -126,16 +127,12 @@ class Navbar extends Component{
       localStorage.setItem('expiryDate', expiryDate.toISOString());
       this.setAutoLogout(remainingMilliseconds);     
             
-<<<<<<< HEAD
       if(this.state.isAuth && this.state.userType == "temp"){
         this.props.history.push("/tempdashboard");
-      } else {
-        this.props.history.push("/dashboard");
-=======
-      if(this.state.isAuth){
+      } else  {
         this.props.history.push("/bookNow");
->>>>>>> 405ba7dffc20d496f48f80b4a996ca76aed7c47d
       }
+
       setTimeout(() =>{
         this.setState({
           loginSuccess: false
@@ -362,8 +359,8 @@ class Navbar extends Component{
               />
             )}
           />
-<<<<<<< HEAD
           <Route path="/dashboard" component={Dashboard} />
+
           <Route
             path="/tempdashboard"
             render= {props => (
@@ -373,9 +370,7 @@ class Navbar extends Component{
               />
             )}
           />
-=======
           <Route path="/bookNow" component={BookNow} />
->>>>>>> 405ba7dffc20d496f48f80b4a996ca76aed7c47d
         </Switch>
       )
     }

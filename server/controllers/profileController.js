@@ -1,18 +1,13 @@
 const db = require('../database/database');
-const jwt = require('jsonwebtoken');
 
 exports.tempProfile = (req, res, next) => {
-
-  const user = req.body;
-
-  console.log(req);
-  console.log("Inside tempProfile");
+  const user = req.decodedToken;
   db((err, con) => {
     if(err){
       console.log(err);
       throw err;
     }
-    
+  
     var userQuery = 'SELECT temp_name, experience, expected_rate, city, designation, type_of_practice, ' +
       'dental_software, imagename, phone FROM temps WHERE user_id = ? LIMIT 1';
     values=[user.userId];
@@ -26,11 +21,10 @@ exports.tempProfile = (req, res, next) => {
   })
 }
 
-
 exports.tempUpdateProfile = (req, res, next) => {
   
   const user = req.body;
-  console.log("Inside tempUpdateProfile");
+  const userId = req.decodedToken.userId;
   db((err, con) => {
     if(err){
       console.log(err);
@@ -58,7 +52,7 @@ exports.tempUpdateProfile = (req, res, next) => {
       role += ']';
       dentalsw += ']';
       values=[new Date(), user.practice, user.imageName, user.expectedRate, user.name, role, assistant, hygienist,
-        receptionist, user.experience, dentalsw, user.city, user.phone, Number(user.userId)];
+        receptionist, user.experience, dentalsw, user.city, user.phone, Number(userId)];
       con.query(userQuery, values, (err, result, fields) => {
         console.log(result);
         if(!err) {
@@ -95,7 +89,7 @@ exports.tempUpdateProfile = (req, res, next) => {
 
 exports.dentalProfile = (req, res, next) => {
 
-  const user = req.body;
+  const user = req.decodedToken
   console.log("Inside dentalProfile");
   db((err, con) => {
     if(err){
@@ -121,6 +115,9 @@ exports.dentalProfile = (req, res, next) => {
 exports.dentalUpdateProfile = (req, res, next) => {
   
   const user = req.body;
+  const userId = req.decodedToken.userId;
+  console.log(user); 
+  console.log(userId);
   console.log("Inside dentalUpdateProfile");
   db((err, con) => {
     if(err){
@@ -132,7 +129,7 @@ exports.dentalUpdateProfile = (req, res, next) => {
         'dentist_name = ?, street_number = ?, street_name = ?, unit_number = ?, city = ?, ' +
         'province = ?, postalcode = ?, parking_options = ? WHERE user_id = ?;';
       values=[new Date(), user.phone, user.officeName, user.name, user.streetNo, user.streetName,
-        user.unit, user.city, user.province, user.postalCode, user.parking, Number(user.userId)];
+        user.unit, user.city, user.province, user.postalCode, user.parking, Number(userId)];
       con.query(userQuery, values, (err, result, fields) => {
         console.log(result);
         if(!err) {
@@ -145,7 +142,7 @@ exports.dentalUpdateProfile = (req, res, next) => {
     })
     .then(function(result) {
       var dentalQuery = 'UPDATE users SET name = ?, updated_at = ? WHERE id = ?;';
-      valuesTemp=[user.name, new Date(), Number(user.userId)];
+      valuesTemp=[user.name, new Date(), Number(userId)];
         con.query(dentalQuery, valuesTemp, (err, result, fields) => {
           //console.log(this.valuesTemp);
           if(!err) {

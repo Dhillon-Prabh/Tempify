@@ -40,13 +40,10 @@ exports.postLogin = (req, res, next) => {
   })
 }
 
-
 exports.tempRegister = (req, res, next) => {
-
   const user = req.body;
   db((err, con) => {
     if (err) {
-      console.log(err);
       throw err;
     }
     return new Promise(function (resolve, reject) {
@@ -173,7 +170,6 @@ exports.dentalRegister = (req, res, next) => {
       valuesTemp=[user.practice, null, user.email, user.expectedRate, user.license, user.name, role, assistant, hygienist, receptionist, user.experience, 0, dentalsw,
           user.city, result.insertId, new Date(), new Date()];
         con.query(tempQuery, valuesTemp, (err, result, fields) => {
-          //console.log(this.valuesTemp);
           if(!err) {
             console.log("no error proceeding to success");
             res.status(300).send({ message: "success" });

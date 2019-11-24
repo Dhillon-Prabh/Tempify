@@ -25,7 +25,8 @@ class Navbar extends Component{
       drawer:false,
       isAuth: false, 
       role: -1,
-      loginError: false
+      loginError: false,
+      token: null
     };
 
     this.loginHandler = this.loginHandler.bind(this);
@@ -34,6 +35,34 @@ class Navbar extends Component{
     this.scrollToBottom = this.scrollToBottom.bind(this);
   }
 
+  componentDidMount() {
+
+    const token = localStorage.getItem('token');
+    const expiryDate = localStorage.getItem('expiryDate');
+
+    if(!token || !expiryDate) {
+      return; 
+    }
+
+    if(new Date(expiryDate <= new Date())) {
+      this.logoutHandler();
+      return; 
+    }
+
+  
+    
+    const userId = localStorage.getItem('userId');
+    const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
+  
+      this.setState({
+        isAuth: true,
+        token: token,
+        userId: userId
+      });
+
+      this.setAutoLogout(remainingMilliseconds);
+
+  }
   componentWillMount(){
     if(window.innerWidth <= 900){
       this.setState({drawerActivate:true});
@@ -48,30 +77,6 @@ class Navbar extends Component{
       }
     });
 
-    const token = localStorage.getItem('token');
-    const expiryDate = localStorage.getItem('expiryDate');
-
-    if(!token || !expiryDate) {
-      return; 
-    }
-
-    if(new Date(expiryDate <= new Date())) {
-      this.logoutHandler();
-      return; 
-    }
-
-    const userId = localStorage.getItem('userId');
-
-
-    const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
-    
-      this.setState({
-        isAuth: true, 
-        token: token,
-        userId: userId
-      });
-
-      this.setAutoLogout(remainingMilliseconds);
   }
 
   loginHandler = (event, authData) => {
@@ -99,16 +104,17 @@ class Navbar extends Component{
       return res.json();
     })
     .then(resData => {
-      console.log(resData);
       this.setState({
         isAuth: true, 
         userId: resData.userId,
+        token: resData.token,
         role: resData.role,
         loginError: false
       });  
 
       localStorage.setItem('token', resData.token);
       localStorage.setItem('userId', resData.userId);
+
 
       const remainingMilliseconds = 60 * 60 * 1000;
       const expiryDate = new Date(
@@ -120,6 +126,7 @@ class Navbar extends Component{
       if(this.state.isAuth){
         this.props.history.push("/dashboard");
       }
+
     })
     .catch(err => {
       this.setState({
@@ -145,6 +152,8 @@ class Navbar extends Component{
     localStorage.removeItem('token');
     localStorage.removeItem('expiryDate');
     localStorage.removeItem('userId');
+    localStorage.removeItem('loggedIn');
+
   }
 
   setAutoLogout(milliseconds) {
@@ -200,7 +209,7 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}> Login </ListItem>
               </List>)
             }
-            { this.state.role == 1 && (
+            { this.state.role == 1 && this.state.isAuth && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
@@ -211,7 +220,7 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Logout </ListItem>
               </List>)
             }
-            { this.state.role == 2 && (
+            { this.state.role == 2 && this.state.isAuth && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
@@ -253,7 +262,7 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>
               </React.Fragment>)
             }
-            { this.state.role == 1 && (
+            { this.state.role == 1 && this.state.isAuth && (
               <React.Fragment>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
@@ -265,7 +274,7 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink}  onClick ={this.logoutHandler} to={'/login'}>Logout</Typography>
               </React.Fragment>)
             }
-            { this.state.role == 2 && (
+            { this.state.role == 2 && this.state.isAuth && (
               <React.Fragment>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
@@ -284,10 +293,8 @@ class Navbar extends Component{
       </div>
     )
   }
-  
 
-  render(){
-    
+  render(){    
     let routes = (
       <Switch>
       <Route path='/' exact component={Home} />
@@ -318,8 +325,6 @@ class Navbar extends Component{
     );
 
     if(this.state.isAuth) {
-      const userId = localStorage.getItem('userId');
-      console.log("Navbar - userId: " + userId);
       routes = (
         <Switch>
           <Route path="/home" component={Home} />
@@ -327,7 +332,8 @@ class Navbar extends Component{
             path="/dentalprofile"
             render= {props => (
               <DentalProfile
-                {...props} userId = {userId}
+                {...props} 
+                token = {this.state.token}
               />
             )}
           />
@@ -335,7 +341,8 @@ class Navbar extends Component{
             path="/tempprofile"
             render= {props => (
               <TempProfile
-                {...props} userId = {userId}
+                {...props}
+                token = {this.state.token}
               />
             )}
           />

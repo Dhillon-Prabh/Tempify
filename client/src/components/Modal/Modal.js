@@ -71,7 +71,6 @@ class Modal extends Component{
     return (
       <div >
         {this.renderButton(this.props.idType)}
-
         <Dialog
           open={this.state.setOpen}
           keepMounted

@@ -166,7 +166,7 @@ class Profile extends React.Component {
       userId: this.state.userId
     }
     
-    fetch("http://localhost:3001/tempProfile", {
+    fetch("/tempProfile", {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,
@@ -212,7 +212,7 @@ class Profile extends React.Component {
       phone: this.state.phone,
     }
 
-    fetch("http://localhost:3001/tempUpdateProfile", {
+    fetch("/tempUpdateProfile", {
       method: 'POST',
       headers: {
         Authorization: 'Bearer ' + this.props.token,

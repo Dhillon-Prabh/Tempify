@@ -16,7 +16,8 @@ class Modal extends Component{
 
     this.state = {
       setOpen: false,
-      open: false
+      open: false,
+      link: this.props.link,
     }
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClickClose = this.handleClickClose.bind(this);
@@ -60,6 +61,8 @@ class Modal extends Component{
           <Typography variant = "subheading" onClick={this.handleClickOpen}>
             {this.props.name}
           </Typography>);
+      default: 
+          console.log("error");
     }
   }
     
@@ -68,7 +71,6 @@ class Modal extends Component{
     return (
       <div >
         {this.renderButton(this.props.idType)}
-
         <Dialog
           open={this.state.setOpen}
           keepMounted
@@ -78,10 +80,10 @@ class Modal extends Component{
             <div> 
               <p className= "modal-title"> Welcome To Tempify</p>
             </div>
-            <Button onClick={this.handleClickClose} className = "modal-login-blueButton" component={Link} to="/login">
+            <Button onClick={this.handleClickClose} className = "modal-login-blueButton" component={Link} to='login'>
               Login
             </Button>
-            <Button onClick={this.handleClickClose} className = "modal-register-blueButton" component={Link} to="/register">
+            <Button onClick={this.handleClickClose} className = "modal-register-blueButton" component={Link} to={this.state.link}>
               Register
             </Button>
           </DialogContent>

@@ -1,29 +1,16 @@
 const express = require('express');
 const helmet = require('helmet')
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
+const Promise = require('promise');
 const app = express();
-const PORT = 3001; 
-
-// includes db configuration info
-let dbconfig = require(__dirname + '/config/db-config.json');
-
-// mysql connection
-let connection = mysql.createConnection(dbconfig);
-
-connection.connect(function (err) {
-  if (err) throw err;
-  connection.query("SELECT * FROM test", function (err, result, fields) {
-    if (err) throw err;
-    console.log(result);
-  });
-  console.log('Database connected!');
-});
+const PORT = 3001;
+const routes = require('./routes/routes');
 
 app.use(helmet());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
-
 
 // **************************************************************************** //
 //                    Gets Around CORS ISSUE                                    // 
@@ -33,16 +20,14 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('preflightContinue', 'false');
   next();
 })
 
-// **************************************************************************** //
+app.use('/', routes);
 
-app.get('/', (req,res,next) => {
-  res.send({
-    temp: "five guys - json data"
-  });
-})
+
+// **************************************************************************** //
 
 // *************************************************************** //
 //                    Serving Our Build File                       //  
@@ -57,5 +42,3 @@ app.get('/', (req,res,next) => {
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 })
-
-//

@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme =>({
         justifyContent: "center",
         height: "100%",
         marginLeft: "5%",
+        borderTop: "1px solid lightgray",
         borderRight: "1px solid lightgray",
         borderBottom: "1px solid lightgray"
     },

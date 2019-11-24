@@ -10,9 +10,7 @@
     "client": "cd client && npm start",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
-  "keywords": [
-    
-  ],
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {

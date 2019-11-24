@@ -3,6 +3,7 @@ const isAuth = require('../middleware/is-auth');
 const authController = require('../controllers/authController');
 const profileController = require('../controllers/profileController');
 const emailController = require('../controllers/emailController');
+const gigController = require('../controllers/gigController')
 
 const router = express.Router();
 
@@ -16,4 +17,5 @@ router.get('/tempProfile', isAuth, profileController.tempProfile);
 router.post('/tempUpdateProfile',isAuth, profileController.tempUpdateProfile);
 router.get('/dentalProfile', isAuth, profileController.dentalProfile);
 router.post('/dentalUpdateProfile', isAuth, profileController.dentalUpdateProfile);
+router.post('/postGig', gigController.postGig);
 module.exports = router;

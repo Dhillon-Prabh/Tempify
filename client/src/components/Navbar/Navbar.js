@@ -10,7 +10,7 @@ import Login from '../Login/Login';
 import About from '../About/About';
 import Modal from '../Modal/Modal';
 import Home from '../Home/Home';
-import Dashboard from '../Dashboard/Dashboard'
+import BookNow from '../BookNow/BookNow';
 import TempRegister from '../Register/TempRegister';
 import DentalRegister from '../Register/DentalRegister';
 import TempProfile from '../Profile/TempProfile';
@@ -124,7 +124,7 @@ class Navbar extends Component{
       this.setAutoLogout(remainingMilliseconds);
             
       if(this.state.isAuth){
-        this.props.history.push("/dashboard");
+        this.props.history.push("/bookNow");
       }
 
     })
@@ -269,7 +269,7 @@ class Navbar extends Component{
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dentalprofile'}>Profile</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dashboard'}>Dashboard</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/bookNow'}>Dashboard</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink}  onClick ={this.logoutHandler} to={'/login'}>Logout</Typography>
               </React.Fragment>)
@@ -346,7 +346,7 @@ class Navbar extends Component{
               />
             )}
           />
-          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/bookNow" component={BookNow} />
         </Switch>
       )
     }

@@ -13,109 +13,229 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import Dashboard from '../Dashboard/Dashboard';
+import {format} from 'date-fns'
 
-const PostGig = () => {
-    const [values, setValues] = React.useState({
-        date: new Date(),
-        designation: '',
-      });
-    
-    const inputLabel = React.useRef(null);
 
-    const [labelWidth, setLabelWidth] = React.useState(0);
-    React.useEffect(() => {
-        setLabelWidth(inputLabel.current.offsetWidth);
-    }, []);
-    
-    const handleDateChange = date => {
-        setValues(oldValues => ({
-            ...oldValues,
-            date : date,
-        }));
+const useStyles = theme => ({
+    textField: {
+        width: '100%',
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+      },
+      label: {
+        '&$focused': {
+          color: '#00bfff'
+        },
+      },
+      inputlabel: {},
+      labelAsterisk: {
+        color: '#ff0000'
+      },
+      focused: {},
+      outlinedInput: {
+        '&$focused $notchedOutline': {
+          border: '1px solid #00bfff'
+        },
+      },
+      oulinedSelect: {
+        border: '1px solid #00bfff'
+      },
+      notchedOutline: {},
+      button: {
+        margin: theme.spacing(1),
+      },
+      input: {
+        display: 'none',
+      },
+});
+
+const designations = [
+    {
+      value: 'Assistant',
+      label: 'Assitant',
+    },
+    {
+      value: 'Registered Dental Hygienist',
+      label: 'Registered Dental Hygienist',
+    },
+    {
+      value: 'Receptionist',
+      label: 'Receptionist',
+    },
+  ];
+
+class PostGig extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            date: new Date(),
+            fromTime: "07:30",
+            toTime: "05:00",
+            designation: '',
+            dateError: false,
+            timeError: false,
+        }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
     }
-    const handleChange = (event, index, value) => {
-        setValues(oldValues => ({
-        ...oldValues,
-        designation: value,
-        }));
+
+    handleChange = (e) => {
+        this.setState({[e.target.name]: e.target.value});
     };
 
-    return(
-        <React.Fragment>
-            <Typography variant="h6" align="center" display="block" className="title">POST A GIG</Typography>
-            <Grid container direction="row" justify="center" alignItems="center" spacing={1} >
-                <Grid item xs={12} md={2}>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <KeyboardDatePicker
-                        className="inputBox"
-                        disableToolbar
-                        variant="inline"
-                        inputVariant="outlined"
-                        format="MM/dd/yyyy"
-                        margin="normal"
-                        id="date-picker-inline"
-                        label="Date"
-                        value={values.date}
-                        onChange={handleDateChange}
-                        KeyboardButtonProps={{
-                            'aria-label': 'change date',
-                        }}
+    handleDateChange = (date) => {
+        this.setState({date: date});
+    }
+    
+    submitForm = (event) => {
+        var self = this;
+        self.setState({
+          dateError: false,
+          timeError: false,
+        })
+        event.preventDefault();
+        const userId = localStorage.getItem('userId');
+        var data = {
+            date: format(this.state.date, 'yyyy-MM-dd'),
+            time: this.state.fromTime + ' - ' + this.state.toTime,
+            designation: this.state.designation,
+            userId: userId
+          }
+          fetch("http://localhost:3001/postGig", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          }).then(function(response) {
+            if (response.status == 422) {
+              console.log("validation error");
+            }
+            return response.json();
+          }).then(function(data) {
+            for (var i = 0; i < data.length; i++) {
+              if (data[i].param == 'date') {
+                console.log("date error");
+                self.setState({dateError: true});
+              } else if (data[i].param == 'time') {
+                self.setState({timeError: true});
+              }
+            }
+            console.log(data);
+          }).catch(function(err) {
+            console.log(err);
+          });
+    }
+
+    render () {
+        const classes = this.props.withStyles;
+        return(
+            <React.Fragment>
+                <Typography variant="h6" align="center" display="block" className="title">POST A GIG</Typography>
+                <ValidatorForm ref="form" onSubmit={(e) => this.submitForm(e)}>
+                    <Grid container direction="row" justify="center" alignItems="center" spacing={1} >
+                        <Grid item xs={12} md={2}>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <KeyboardDatePicker
+                                    className="inputBox"
+                                    name="date"
+                                    disableToolbar
+                                    variant="inline"
+                                    inputVariant="outlined"
+                                    margin="normal"
+                                    id="date-picker-inline"
+                                    label="Date"
+                                    value={this.state.date}
+                                    error={this.state.dateError}
+                                    onChange={this.handleDateChange}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                    }}
+                                />
+                            </MuiPickersUtilsProvider>
+                        </Grid>
+                        <Grid item xs={12} md={1}>
+                        <TextValidator
+                            label="From"
+                            type="time"
+                            name="fromTime"
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            onChange={this.handleChange}
+                            value={this.state.fromTime}
+                            error={this.state.timeError}
+                            InputLabelProps={{
+                            shrink: true,
+                            }}
+                            inputProps={{
+                            step: 900, // 15 min
+                            }}
                         />
-                     </MuiPickersUtilsProvider>
-                </Grid>
-                <Grid item xs={12} md={1}>
-                <TextField
-                    label="From"
-                    type="time"
-                    defaultValue="07:30"
-                    InputLabelProps={{
-                    shrink: true,
-                    }}
-                    inputProps={{
-                    step: 900, // 15 min
-                    }}
-                />
-                </Grid>
-                <Grid item xs={12} md={1}>
-                <TextField
-                    label="To"
-                    type="time"
-                    defaultValue="07:30"
-                    InputLabelProps={{
-                    shrink: true,
-                    }}
-                    inputProps={{
-                    step: 900, //15 min
-                    }}
-                />
-                </Grid>
-                <Grid item xs={12} md={2}>
-                    <FormControl variant="outlined" className="inputBox">
-                        <InputLabel ref={inputLabel}>
-                            Designation
-                        </InputLabel>
-                        <Select
-                        value={values.designation}
-                        onChange={handleChange}
-                        labelWidth={labelWidth}
-                        inputProps={{
-                            name: 'Designation',
-                            id: 'outlined-age-simple',
-                        }}
-                        >
-                            <MenuItem value={1}>Assistant</MenuItem>
-                            <MenuItem value={2}>Registered Dental Hygienist</MenuItem>
-                            <MenuItem value={3}>Receptionist</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12} md={2}>
-                    <Button className="button">POST A GIG</Button>
-                </Grid>
-            </Grid>
-        </React.Fragment>
-    );
+                        </Grid>
+                        <Grid item xs={12} md={1}>
+                        <TextValidator
+                            label="To"
+                            type="time"
+                            name="toTime"
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            onChange={this.handleChange}
+                            value={this.state.toTime}
+                            error={this.state.timeError}
+                            InputLabelProps={{
+                            shrink: true,
+                            }}
+                            inputProps={{
+                            step: 900, //15 min
+                            }}
+                        />
+                        </Grid>
+                        <Grid item xs={12} md={2}>
+                        <TextValidator
+                            required
+                            fullWidth
+                            select
+                            name="designation"
+                            label="Designation"
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            margin="normal"
+                            variant="outlined"
+                            value={this.state.designation}
+                            onChange={this.handleChange}
+                            InputLabelProps={{
+                                shrink: true,
+                                classes: {
+                                root: classes.label,
+                                focused: classes.focused,
+                                asterisk: classes.labelAsterisk,
+                                },
+                            }}
+                            InputProps={{
+                                classes: {
+                                root: classes.outlinedInput,
+                                focused: classes.focused,
+                                notchedOutline: classes.notchedOutline,
+                                },
+                            }}
+                            >
+                            {designations.map(option => (
+                                <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                                </MenuItem>
+                            ))}
+                        </TextValidator>
+                        </Grid>
+                        <Grid item xs={12} md={2}>
+                            <Button className="button" type="submit">POST A GIG</Button>
+                        </Grid>
+                    </Grid>
+                </ValidatorForm>
+            </React.Fragment>
+        );
+    }
 }
 
 const FindFit = () => {
@@ -196,7 +316,8 @@ const FindFit = () => {
 const BookNow = () => {
     return (
         <React.Fragment>
-            <PostGig/>
+            <Dashboard/>
+            <PostGig withStyles={useStyles}/>
             <Divider/>
             <FindFit/>
         </React.Fragment>

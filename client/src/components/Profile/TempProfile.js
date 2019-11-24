@@ -167,25 +167,24 @@ class Profile extends React.Component {
     }
     
     fetch("http://localhost:3001/tempProfile", {
-      method: 'POST',
+      method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,
-        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
-    }).then(function(response) {
-      return response.json();
-    }).then(function(data) {      
+    }).then(res => {
+      return res.json();
+    }).then(result => {     
+
       currentComponent.setState({
-        name: data[0].temp_name,
-        experience: data[0].experience,
-        expectedRate: data[0].expected_rate,
-        city: data[0].city,
-        role: Array.from(JSON.parse(data[0].designation)),
-        practice: data[0].type_of_practice,
-        dentalsw: Array.from(JSON.parse(data[0].dental_software)),
-        imageName: data[0].imagename,
-        phone: data[0].phone
+        name: result[0].temp_name,
+        experience: result[0].experience,
+        expectedRate: result[0].expected_rate,
+        city: result[0].city,
+        role: Array.from(JSON.parse(result[0].designation)),
+        practice: result[0].type_of_practice,
+        dentalsw: Array.from(JSON.parse(result[0].dental_software)),
+        imageName: result[0].imagename,
+        phone: result[0].phone
       });
     }).catch(function(err) {
       console.log(err);

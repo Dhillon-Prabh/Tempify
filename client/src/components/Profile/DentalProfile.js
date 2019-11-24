@@ -87,27 +87,24 @@ class Profile extends React.Component {
     }
     
     fetch("http://localhost:3001/dentalProfile", {
-      method: 'POST',
+      method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Authorization': 'Bearer ' + this.props.token,
       },
-      body: JSON.stringify(data)
-    }).then(function(response) {
-      console.log(response);
-      return response.json();
-    }).then(function(data) {
-      console.log(data);
+    }).then(res =>  {
+      return res.json();
+    }).then(result => {
       currentComponent.setState({
-        name: data[0].dentist_name,
-        officeName: data[0].office_name,
-        phone: data[0].phone_number,
-        streetNo: data[0].street_number,
-        streetName: data[0].street_name,
-        unit: data[0].unit_number,
-        city: data[0].city,
-        province: data[0].province,
-        postalCode: data[0].postalcode,
-        parking: data[0].parking_options,
+        name: result[0].dentist_name,
+        officeName: result[0].office_name,
+        phone: result[0].phone_number,
+        streetNo: result[0].street_number,
+        streetName: result[0].street_name,
+        unit: result[0].unit_number,
+        city: result[0].city,
+        province: result[0].province,
+        postalCode: result[0].postalcode,
+        parking: result[0].parking_options,
       });
     }).catch(function(err) {
       console.log(err);
@@ -139,6 +136,7 @@ class Profile extends React.Component {
     fetch("http://localhost:3001/dentalUpdateProfile", {
       method: 'POST',
       headers: {
+        Authorization: 'Bearer ' + this.props.token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)

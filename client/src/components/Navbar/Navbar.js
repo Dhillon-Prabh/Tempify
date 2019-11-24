@@ -15,6 +15,7 @@ import TempRegister from '../Register/TempRegister';
 import DentalRegister from '../Register/DentalRegister';
 import TempProfile from '../Profile/TempProfile';
 import DentalProfile from '../Profile/DentalProfile';
+import TermsAndConditions from '../Terms/TermsAndConditions';
 
 class Navbar extends Component{
 
@@ -198,6 +199,8 @@ class Navbar extends Component{
                 <ListItem key = {5} button divider className="nav-item item-height" onClick = {this.scrollToBottom}> Contact Us </ListItem>
                 <ListItem key = {6} button divider className="nav-item item-height" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}> Login </ListItem>
+                <ListItem key = {7} button divider className="nav-item item-height" 
+                  component={NavLink} to={'/termsAndConditions'} />
               </List>)
             }
             { this.state.role == 1 && (
@@ -209,6 +212,8 @@ class Navbar extends Component{
                 <ListItem key = {3} button divider className="nav-item item-height"> Dashboard </ListItem>
                 <ListItem key = {6} button divider className="nav-item item-height" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Logout </ListItem>
+                <ListItem key = {7} button divider className="nav-item item-height" 
+                  component={NavLink} to={'/termsAndConditions'} />
               </List>)
             }
             { this.state.role == 2 && (
@@ -223,6 +228,8 @@ class Navbar extends Component{
                 <ListItem key = {5} button divider className="nav-item item-height"> My Availability </ListItem>
                 <ListItem key = {6} button divider className="nav-item item-height" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Logout </ListItem>
+                <ListItem key = {7} button divider className="nav-item item-height" 
+                  component={NavLink} to={'/termsAndConditions'} />
               </List>)
             }
           </div>
@@ -251,6 +258,8 @@ class Navbar extends Component{
                 <Typography variant = "subheading" className = "padding nav-item" onClick = {this.scrollToBottom}>Contact Us</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  component={NavLink} to={'/termsAndConditions'} />
               </React.Fragment>)
             }
             { this.state.role == 1 && (
@@ -263,6 +272,8 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dashboard'}>Dashboard</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink}  onClick ={this.logoutHandler} to={'/login'}>Logout</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  component={NavLink} to={'/termsAndConditions'} />
               </React.Fragment>)
             }
             { this.state.role == 2 && (
@@ -277,6 +288,8 @@ class Navbar extends Component{
                 <Typography variant = "subheading" className = "padding nav-item">My Availability</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'} onClick ={this.logoutHandler}>Logout</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  component={NavLink} to={'/termsAndConditions'} />
               </React.Fragment>)
             }
           </Toolbar>
@@ -304,6 +317,7 @@ class Navbar extends Component{
       />
       <Route path="/home" component={Home} />
       <Route path="/about" component={About} />
+      <Route path="/termsAndConditions" component={TermsAndConditions} />
       <Route path="/tempregister" component={TempRegister} />
       <Route
         path="/dentalregister"
@@ -340,6 +354,7 @@ class Navbar extends Component{
             )}
           />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/termsAndConditions" component={TermsAndConditions} />
         </Switch>
       )
     }

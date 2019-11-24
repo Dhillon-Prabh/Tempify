@@ -5,16 +5,17 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
+import { NavLink, Link, Route, Switch, withRouter} from "react-router-dom";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import ListItemText from '@material-ui/core/ListItemText';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import Checkbox from '@material-ui/core/Checkbox'
-import './Register.css'
+import Checkbox from '@material-ui/core/Checkbox';
+import './Register.css';
 import CheckboxValidatorElement from '../CheckboxValidatorElement/CheckboxValidatorElement';
-import ContactSection from '../Contact/ContactSection'
+import ContactSection from '../Contact/ContactSection';
+import TermsAndConditions from '../Terms/TermsAndConditions';
 
 const useStyles = theme => ({
   textField: {
@@ -27,7 +28,17 @@ const useStyles = theme => ({
       color: '#00bfff'
     },
   },
-  inputlabel: {},
+  inputlabel: {
+    zIndex: '1001 !important',
+    display: 'inline-block',
+    position: 'relative',
+    top: '11px',
+    left: '20px',
+    background: '#ffffff',
+    margin: '0',
+    paddingLeft: '4px',
+    paddingRight: '4px',
+  },
   labelAsterisk: {
     color: '#ff0000'
   },
@@ -468,7 +479,8 @@ class Register extends React.Component {
                 </TextValidator>
               </Grid>
               <Grid item xs={12} sm={6} className="container2">
-                <InputLabel shrink={true}
+                <InputLabel
+                  shrink={true}
                   classes={{
                     root: classes.inputlabel,
                     focused: classes.focused,
@@ -478,7 +490,6 @@ class Register extends React.Component {
                   What do you do? <span className="temp-register-asterisk">*</span>
                 </InputLabel>
                 <Select
-                  required
                   multiple
                   fullWidth
                   id="role"
@@ -486,6 +497,7 @@ class Register extends React.Component {
                   value={this.state.role}
                   className={classes.textField}
                   input={<OutlinedInput
+                    required={true}
                     classes={{
                       root: classes.outlinedInput,
                       focused: classes.focused,
@@ -576,7 +588,8 @@ class Register extends React.Component {
               </Grid>
 
               <Grid item xs={12} sm={6} className="container2">
-                <InputLabel shrink={true}
+                <InputLabel
+                  shrink={true}
                   classes={{
                     root: classes.inputlabel,
                     focused: classes.focused,
@@ -630,14 +643,18 @@ class Register extends React.Component {
                   value={this.state.accept} />}
                   label="I Accept"
                 />
-                <Link
-                  component="button"
-                  variant="body2"
-                  onClick={() => {
-                    alert("Hi, I'm Terms and conditions.");
-                  }}>
-                  Terms and Conditions
-                </Link>
+                <nav>
+                  <Link
+                    variant="body2"
+                    to="/termsAndConditions"
+                    >
+                    Terms and Conditions
+                  </Link>
+                </nav>
+                <Route
+                  path="/termsAndConditions"
+                  component={TermsAndConditions}
+                />
               </Grid>
               <Grid item xs={12} align="center">
                 <Button className="blueButton" color="primary" variant="contained" type="submit">

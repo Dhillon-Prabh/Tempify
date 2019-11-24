@@ -81,7 +81,7 @@ class Navbar extends Component{
 
   loginHandler = (event, authData) => {
     event.preventDefault();
-    fetch("/login", {
+    fetch("/auth/login", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

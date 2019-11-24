@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet')
 const bodyParser = require('body-parser');
+const path = require('path');
 const app = express();
 const path = require('path');
 const PORT = 3001;
@@ -33,7 +34,7 @@ app.use('/', routes);
 //                    Serving Our Build File                       //  
 
 app.use(express.static(path.join(__dirname, './client/build')));
-app.get('/', (req, res) => {
+app.get('/auth', (req, res) => {
   res.sendfile(path.join(__dirname = './client/build/index.html'));
 })
 

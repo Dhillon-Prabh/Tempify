@@ -174,7 +174,6 @@ class Profile extends React.Component {
     }).then(res => {
       return res.json();
     }).then(result => {     
-
       currentComponent.setState({
         name: result[0].temp_name,
         experience: result[0].experience,

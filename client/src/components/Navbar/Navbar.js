@@ -15,6 +15,9 @@ import TempRegister from '../Register/TempRegister';
 import DentalRegister from '../Register/DentalRegister';
 import TempProfile from '../Profile/TempProfile';
 import DentalProfile from '../Profile/DentalProfile';
+import Dashboard from '../Dashboard/Dashboard';
+import TempDashboard from '../TempDashboard/TempDashboard';
+import SuccessAlert from '../Alert/SuccessAlert';
 
 class Navbar extends Component{
 
@@ -26,6 +29,7 @@ class Navbar extends Component{
       isAuth: false, 
       role: -1,
       loginError: false,
+      loginSuccess: false,
       token: null
     };
 
@@ -49,8 +53,6 @@ class Navbar extends Component{
       return; 
     }
 
-  
-    
     const userId = localStorage.getItem('userId');
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
   
@@ -106,26 +108,36 @@ class Navbar extends Component{
     .then(resData => {
       this.setState({
         isAuth: true, 
+        loginSuccess: true,
         userId: resData.userId,
         token: resData.token,
         role: resData.role,
+        userType: resData.userType,
         loginError: false
       });  
 
       localStorage.setItem('token', resData.token);
       localStorage.setItem('userId', resData.userId);
-
+      localStorage.setItem('userType', resData.type);
 
       const remainingMilliseconds = 60 * 60 * 1000;
       const expiryDate = new Date(
         new Date().getTime() + remainingMilliseconds
       );
       localStorage.setItem('expiryDate', expiryDate.toISOString());
-      this.setAutoLogout(remainingMilliseconds);
+      this.setAutoLogout(remainingMilliseconds);     
             
-      if(this.state.isAuth){
+      if(this.state.isAuth && this.state.userType == "temp"){
+        this.props.history.push("/tempdashboard");
+      } else  {
         this.props.history.push("/bookNow");
       }
+
+      setTimeout(() =>{
+        this.setState({
+          loginSuccess: false
+        })
+      }, 2000);
 
     })
     .catch(err => {
@@ -146,13 +158,14 @@ class Navbar extends Component{
     this.setState({
       isAuth: false, 
       token: null,
-      role: -1
+      role: -1,
+      userType: ""
     })
 
     localStorage.removeItem('token');
     localStorage.removeItem('expiryDate');
     localStorage.removeItem('userId');
-    localStorage.removeItem('loggedIn');
+    localStorage.removeItem('userType');
 
   }
 
@@ -346,6 +359,17 @@ class Navbar extends Component{
               />
             )}
           />
+          <Route path="/dashboard" component={Dashboard} />
+
+          <Route
+            path="/tempdashboard"
+            render= {props => (
+              <TempDashboard
+                {...props}
+                token = {this.state.token}
+              />
+            )}
+          />
           <Route path="/bookNow" component={BookNow} />
         </Switch>
       )
@@ -354,11 +378,11 @@ class Navbar extends Component{
     return(
       <div>
         {this.state.drawerActivate ? this.createDrawer() : this.destroyDrawer()}
+        {this.state.loginSuccess ? <SuccessAlert/> : null}
         { routes }
       </div>
     );
   }
 }
-
 
 export default withRouter(Navbar);

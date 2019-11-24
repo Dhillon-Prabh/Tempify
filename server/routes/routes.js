@@ -16,4 +16,7 @@ router.get('/tempProfile', isAuth, profileController.tempProfile);
 router.post('/tempUpdateProfile',isAuth, profileController.tempUpdateProfile);
 router.get('/dentalProfile', isAuth, profileController.dentalProfile);
 router.post('/dentalUpdateProfile', isAuth, profileController.dentalUpdateProfile);
+
+router.get('/tempDashboard', isAuth, authController.getTempDashboardInformation);
+
 module.exports = router;

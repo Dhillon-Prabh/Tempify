@@ -3,7 +3,6 @@ const helmet = require('helmet')
 const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
-const PORT = 3001;
 const routes = require('./routes/routes');
 
 app.use(helmet());
@@ -24,7 +23,7 @@ app.use(bodyParser.json());
 //   next();
 // })
 
-app.use('/', routes);
+app.use('/auth', routes);
 
 
 // **************************************************************************** //
@@ -39,6 +38,6 @@ app.get('/auth', (req, res) => {
 
 // *************************************************************** //
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log(`listening on port ${PORT}`);
 })

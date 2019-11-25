@@ -87,7 +87,7 @@ class Dashboard extends React.Component {
                 <Grid container direction="row" justify="center" alignItems="center" className="options">
                     <Grid item xs={2}>
                         <Breadcrumbs aria-label="breadcrumb">
-                            <Link to="/" style={{textDecoration:'none', color: 'inherit'}}>
+                            <Link to="/dashboard" style={{textDecoration:'none', color: 'inherit'}}>
                                 <ListItem button>
                                     <ListItemIcon>
                                         <HomeIcon />

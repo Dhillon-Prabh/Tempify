@@ -297,7 +297,8 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempdashboard'}>Dashboard</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}>Job Postings</Typography>
-                <Typography variant = "subheading" className = "padding nav-item">My Availability</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  component={NavLink} to={'/tempdashboard'}>My Availability</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'} onClick ={this.logoutHandler}>Logout</Typography>
               </React.Fragment>)

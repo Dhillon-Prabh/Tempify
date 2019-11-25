@@ -1,63 +1,90 @@
-import React from 'react'
+import React, {Component} from 'react'
 import Grid from '@material-ui/core/Grid'
-import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
-import ok from '../../images/Ok_48px_1.png'
+import ok from '../../images/user.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import './ProfileCard.css'
 
-const office = true;
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
-class ProfileCard extends React.Component {
+
+const styles = theme => ({
+    card: {
+      maxWidth: 275,
+      height:430,
+    },
+    media: {
+      height: 100,
+    },
+  });
+
+
+class ProfileCard extends Component {
+
+    constructor(props) {
+        super(props);
+    }
     
     render() {
+        const { classes } = this.props;
+
         return (
-            <OfficeCard status="Completed" practice="General" software="Dentrix" experience="10 years" location="Vancouver" wage="50" bookingId="TMPSKD3O123"/>
+            <div>
+            <Card className={classes.card}>
+               
+                <CardMedia
+                className={classes.media}
+                image={ok}
+                title="Temp"
+                />
+                <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                    TEMP
+                </Typography>
+                <Typography>
+                    <span className="boldText">3700, Willingdon ave, 327</span>
+                </Typography>
+                <Typography>
+                    <span className="boldText">Burnaby BC Canada</span>
+                </Typography>
+                <Typography>
+                    <span className="boldText">Parking option: Free</span>
+                </Typography>
+                <Typography>
+                    <span className="boldText">Status: {this.props.status}</span>
+                </Typography>
+                </CardContent>
+                <CardContent className="profileCard-section2">
+                    <Typography>
+                        <span className="boldText">7788836754</span>
+                    </Typography>
+                    <Typography>
+                        <span className="boldText">fiveguysbcit@gmail.com</span>
+                    </Typography>
+                    <Typography>
+                        <span className="ProfileCard-bookingdate">Booking Dates</span>
+                    </Typography>
+                    <Typography>
+                        <span className="boldText">2019-10-16 6:00am-8:45pm</span>
+                    </Typography>
+                </CardContent>             
+                <CardActionArea>
+                    <Typography>
+                        <span className="ProfileCard-bookingID">BOOKING ID: {this.props.bookingId}</span>
+                    </Typography>
+                </CardActionArea>
+            </Card>
+        </div>
         )
     }
 }
+export default withStyles(styles, { withTheme: true })(ProfileCard);
 
-const OfficeCard = (props) => {
-    return (
-        <Grid className="profileCard" justify="space-between" direction="column">
-            <Grid container direction="row" alignItems="center">
-                <img src={ok} className="profileCardImage" alt=""/>
-                <Typography className="flexGrow boldText" align="center">
-                    TEMP
-                </Typography>
-            </Grid>
-            <Grid className="profileCardBorder" align="center">
-                <Typography>
-                    Status : <span className="boldText">{props.status}</span>
-                </Typography>
-                <Typography>
-                    Practice : <span className="boldText">{props.practice}</span>
-                </Typography>
-                <Typography>
-                    Software : <span className="boldText">{props.software}</span>
-                </Typography>
-                <Typography>
-                    Experience : <span className="boldText">{props.experience}</span>
-                </Typography>
-            </Grid>
-            <Grid className="profileCardBottom" direction="column">
-                <Grid container direction="row" justify="space-between" className="profileCardBorder">
-                    <Typography className="boldText">
-                        <FontAwesomeIcon icon={faMapMarkerAlt}/> {props.location}
-                    </Typography>
-                    <Typography>
-                        ${props.wage}/hr
-                    </Typography>
-                </Grid>
-                <Grid container justify="center" className="profileCardBorder">
-                    <Typography className="boldText">
-                        Booking ID: {props.bookingId}
-                    </Typography>
-                </Grid>
-            </Grid>
-        </Grid>
-    );
-}
 
-export default ProfileCard;

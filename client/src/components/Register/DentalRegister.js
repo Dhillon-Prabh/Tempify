@@ -109,6 +109,7 @@ class Register extends React.Component {
         postalCode: this.state.postalCode,
         parking: this.state.parking,
     }
+
     fetch("http://localhost:3001/dentalRegister", {
       method: 'POST',
       headers: {

@@ -93,19 +93,18 @@ exports.tempRegister = (req, res, next) => {
       role += ']';
       dentalsw += ']';
       valuesTemp=[user.practice, null, user.email, user.expectedRate, user.license, user.name, role, assistant, hygienist, receptionist, user.experience, 0, dentalsw,
-          user.city, result.insertId, new Date(), new Date()];
-        con.query(tempQuery, valuesTemp, (err, result, fields) => {
-          //console.log(this.valuesTemp);
-          if(!err) {
-            console.log("no error proceeding to success");
-            res.status(300).send({ message: "success" });
-            con.release();
-          } else {
-            console.log("Error:" + err);
-            res.status(400).send({error: "unable to complete request"});
-            con.release();
-          }
-        })
+        user.city, result.insertId, new Date(), new Date()];
+      con.query(tempQuery, valuesTemp, (err, result, fields) => {
+        if(!err) {
+          console.log("no error proceeding to success");
+          res.status(300).send({ message: "success" });
+          con.release();
+        } else {
+          console.log("Error:" + err);
+          res.status(400).send({error: "unable to complete request"});
+          con.release();
+        }
+      })
     })
     .catch(function(err) {
       console.log("Error:" + err);
@@ -140,29 +139,43 @@ exports.dentalRegister = (req, res, next) => {
               console.log("no error proceeding to resolve");
               resolve(result);
             } else {
+              console.log("Error:" + err);
               reject(err);
             }
-        });
-      }
+          });
+        }
+      })
     })
-  })
     .then(function(result) {
-      var dentalQuery = 'INSERT INTO dentists(created_at, updated_at, user_id, phone_number, email, ' +
+      var officeGroupQuery = 'INSERT INTO office_group(created_at, user_id) VALUES (?, ?);';
+      values=[new Date(), result.insertId];
+      con.query(officeGroupQuery, values, (err, result, fields) => {
+        if(!err) {
+          console.log("no error proceeding to success");
+          return result;
+        } else {
+          console.log("Error:" + err);
+          return err;
+        }
+      })
+    })
+    .then(function(result) {
+      var dentalQuery = 'INSERT INTO dentists(created_at, updated_at, group_id, phone_number, email, ' +
         'office_name, dentist_name, street_number, street_name, unit_number, city, province, postalcode, ' + 
-        'parking_options) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
-      values=[new Date(), new Date(), result.insertId, user.phone, user.email, user.officeName, user.name, user.streetNo,
+        'parking_options) VALUES (?, ?, (SELECT max(id) FROM office_group), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
+      values=[new Date(), new Date(), user.phone, user.email, user.officeName, user.name, user.streetNo,
         user.streetName, user.unit, user.city, user.province, user.postalCode, user.parking];
-        con.query(dentalQuery, values, (err, result, fields) => {
-          if(!err) {
-            console.log("no error proceeding to success");
-            res.status(300).send({ message: "success" });
-            con.release();
-          } else {
-            console.log("Error:" + err);
-            res.status(400).send({error: "unable to complete request"});
-            con.release();
-          }
-        })
+      con.query(dentalQuery, values, (err, result, fields) => {
+        if(!err) {
+          console.log("no error proceeding to success");
+          res.status(300).send({ message: "success" });
+          con.release();
+        } else {
+          console.log("Error:" + err);
+          res.status(400).send({error: "unable to complete request"});
+          con.release();
+        }
+      })
     })
     .catch(function(err) {
       console.log("Error:" + err);

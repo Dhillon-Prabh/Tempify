@@ -5,7 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import ListItemText from '@material-ui/core/ListItemText';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Select from '@material-ui/core/Select';
@@ -23,7 +23,17 @@ const useStyles = theme => ({
       color: '#00bfff'
     },
   },
-  inputlabel: {},
+  inputlabel: {
+    zIndex: '1001 !important',
+    display: 'inline-block',
+    position: 'relative',
+    top: '11px',
+    left: '20px',
+    background: '#ffffff',
+    margin: '0',
+    paddingLeft: '4px',
+    paddingRight: '4px',
+  },
   labelAsterisk: {
     color: '#ff0000'
   },
@@ -419,10 +429,9 @@ class Profile extends React.Component {
                   asterisk: classes.labelAsterisk,
                 }}
               >
-                What do you do? <span className="temp-register-asterisk">*</span>
+                What do you do? <span className="temp-profile-asterisk">*</span>
               </InputLabel>
               <Select
-                required
                 multiple
                 fullWidth
                 id="role"
@@ -488,17 +497,17 @@ class Profile extends React.Component {
               </TextValidator>
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
-              <InputLabel shrink={true}
+              <InputLabel
+                shrink={true}
                 classes={{
                   root: classes.inputlabel,
                   focused: classes.focused,
                   asterisk: classes.labelAsterisk,
                 }}
               >
-                Dental Software Used <span className="temp-register-asterisk">*</span>
+                Dental Software Used <span className="temp-profile-asterisk">*</span>
               </InputLabel>
               <Select
-                required
                 multiple
                 fullWidth
                 id="dentalsw"
@@ -530,7 +539,7 @@ class Profile extends React.Component {
                 id="image-upload"
                 multiple
                 type="file"
-                className="temp-register-upload"
+                className="temp-profile-upload"
               />
             </Grid>
 

@@ -6,41 +6,74 @@ exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password; 
   db((err, con) => {
-
     if(err){
       throw err;
     }    
 
     const query = "SELECT email, password, id, role FROM `users` WHERE `email` = ? AND `password` = ?";
-    con.query(query, [email, password], (err, result, fields) => {     
+    con.query(query, [email, password], (err, result, fields) => {
       if(!result.length) {
         return res.status(401).send({ error : "error message",});
-      }
-
-      let loadedUser = result[0];
-        const token = jwt.sign(
-          {
-            email: loadedUser.email, 
-            userId: loadedUser.id
-          }, 'secret', { 
-            expiresIn: '1h' 
+      } else if(result[0].role == 1) {
+        var userQuery = 'SELECT d.id FROM office_group o INNER JOIN dentists d ON o.id = d.group_id ' +
+          'WHERE o.user_id = ? LIMIT 1;';
+        values=[result[0].id];
+        con.query(userQuery, values, (err, row, fields) => {
+          if(!err) {
+            console.log("no error proceeding to resolve");
+            let loadedUser = result[0];
+            let office = row[0];
+            const token = jwt.sign(
+              {
+                email: loadedUser.email, 
+                userId: loadedUser.id,
+                officeId: office.id 
+              }, 'secret', { 
+                expiresIn: '1h' 
+              }
+            );
+      
+            res
+              .status(200)
+              .json({
+                token: token,
+                userId: loadedUser.id,
+                role: loadedUser.role,
+                officeId: office.id
+                }
+              )
+            con.release();
+          } else {
+            console.log("error fetching office id");
+            con.release();
           }
-        );
-  
-        res
-          .status(200)
-          .json({
-            token: token,
-            userId: loadedUser.id,
-            role: loadedUser.role
+        });
+      } else {
+        let loadedUser = result[0];
+          const token = jwt.sign(
+            {
+              email: loadedUser.email, 
+              userId: loadedUser.id,
+              officeId: -1
+            }, 'secret', { 
+              expiresIn: '1h' 
             }
-          )
-
-      con.release();
+          );
+    
+          res
+            .status(200)
+            .json({
+              token: token,
+              userId: loadedUser.id,
+              role: loadedUser.role,
+              officeId: -1
+              }
+            )
+        con.release();
+      }
     })
   })
 }
-
 
 exports.tempRegister = (req, res, next) => {
   

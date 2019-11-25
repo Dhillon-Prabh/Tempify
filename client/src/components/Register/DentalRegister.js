@@ -42,15 +42,15 @@ const useStyles = theme => ({
 
 const parking = [
   {
-    value: 'Free',
+    value: 'yes',
     label: 'Free',
   },
   {
-    value: 'Paid/Street',
+    value: 'paid',
     label: 'Paid/Street',
   },
   {
-    value: 'No Parking',
+    value: 'no',
     label: 'No Parking',
   },
 ];

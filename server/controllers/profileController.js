@@ -15,7 +15,6 @@ exports.tempProfile = (req, res, next) => {
       'dental_software, imagename, phone FROM temps WHERE user_id = ? LIMIT 1';
     values=[user.userId];
     con.query(userQuery, values, (err, result, fields) => {
-      console.log(result);
       if(!result.length) {
         return res.status(401).send({ error : "error message",});
       } else {
@@ -101,10 +100,11 @@ exports.dentalProfile = (req, res, next) => {
       console.log(err);
       throw err;
     }
-    
-    var userQuery = 'SELECT dentist_name, office_name, phone_number, street_number, street_name, unit_number, ' +
-      'city, province, postalcode, parking_options FROM dentists WHERE user_id = ? LIMIT 1';
-    values=[user.userId];
+
+    var userQuery = 'SELECT d.id, d.dentist_name, d.email, d.office_name, d.phone_number, d.street_number, ' +
+      'd.street_name, d.unit_number, d.city, d.province, d.postalcode, d.parking_options FROM dentists d ' +
+      'INNER JOIN office_group o ON d.group_id = o.id WHERE o.user_id = ? AND d.id = ? LIMIT 1';
+    values=[user.userId, user.officeId];
     con.query(userQuery, values, (err, result, fields) => {
       console.log(result);
       if(!result.length) {
@@ -116,7 +116,6 @@ exports.dentalProfile = (req, res, next) => {
   })
 }
 
-
 exports.dentalUpdateProfile = (req, res, next) => {
   
   const user = req.body;
@@ -127,13 +126,12 @@ exports.dentalUpdateProfile = (req, res, next) => {
       throw err;
     }
     return new Promise(function (resolve, reject) {
-      var userQuery = 'UPDATE dentists SET updated_at = ?, phone_number = ?, office_name = ?, ' +
+      var userQuery = 'UPDATE dentists SET updated_at = ?, phone_number = ?, email = ?, office_name = ?, ' +
         'dentist_name = ?, street_number = ?, street_name = ?, unit_number = ?, city = ?, ' +
-        'province = ?, postalcode = ?, parking_options = ? WHERE user_id = ?;';
-      values=[new Date(), user.phone, user.officeName, user.name, user.streetNo, user.streetName,
-        user.unit, user.city, user.province, user.postalCode, user.parking, Number(user.userId)];
+        'province = ?, postalcode = ?, parking_options = ? WHERE id = ?;';
+      values=[new Date(), user.phone, user.officeEmail, user.officeName, user.name, user.streetNo, user.streetName,
+        user.unit, user.city, user.province, user.postalCode, user.parking, user.officeId];
       con.query(userQuery, values, (err, result, fields) => {
-        console.log(result);
         if(!err) {
           console.log("no error proceeding to resolve");
           resolve(result);
@@ -146,7 +144,6 @@ exports.dentalUpdateProfile = (req, res, next) => {
       var dentalQuery = 'UPDATE users SET name = ?, updated_at = ? WHERE id = ?;';
       valuesTemp=[user.name, new Date(), Number(user.userId)];
         con.query(dentalQuery, valuesTemp, (err, result, fields) => {
-          //console.log(this.valuesTemp);
           if(!err) {
             console.log("no error proceeding to success");
             res.status(300).send({ message: "success" });

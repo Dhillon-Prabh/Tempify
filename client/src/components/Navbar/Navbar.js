@@ -26,6 +26,7 @@ class Navbar extends Component{
       drawer:false,
       isAuth: false, 
       role: -1,
+      officeId: -1,
       loginError: false
     };
 
@@ -62,6 +63,7 @@ class Navbar extends Component{
     }
 
     const userId = localStorage.getItem('userId');
+    const officeId = localStorage.getItem('officeId');
 
 
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
@@ -69,7 +71,8 @@ class Navbar extends Component{
       this.setState({
         isAuth: true, 
         token: token,
-        userId: userId
+        userId: userId,
+        officeId: officeId
       });
 
       this.setAutoLogout(remainingMilliseconds);
@@ -105,11 +108,13 @@ class Navbar extends Component{
         isAuth: true, 
         userId: resData.userId,
         role: resData.role,
+        officeId: resData.officeId,
         loginError: false
       });  
 
       localStorage.setItem('token', resData.token);
       localStorage.setItem('userId', resData.userId);
+      localStorage.setItem('officeId', resData.officeId);
 
       const remainingMilliseconds = 60 * 60 * 1000;
       const expiryDate = new Date(
@@ -140,12 +145,14 @@ class Navbar extends Component{
     this.setState({
       isAuth: false, 
       token: null,
-      role: -1
+      role: -1,
+      officeId: -1
     })
 
     localStorage.removeItem('token');
     localStorage.removeItem('expiryDate');
     localStorage.removeItem('userId');
+    localStorage.removeItem('officeId');
   }
 
   setAutoLogout(milliseconds) {
@@ -333,7 +340,9 @@ class Navbar extends Component{
 
     if(this.state.isAuth) {
       const userId = localStorage.getItem('userId');
+      const officeId = localStorage.getItem('officeId');
       console.log("Navbar - userId: " + userId);
+      console.log("Navbar - officeId: " + officeId);
       routes = (
         <Switch>
           <Route path="/home" component={Home} />
@@ -341,7 +350,7 @@ class Navbar extends Component{
             path="/dentalprofile"
             render= {props => (
               <DentalProfile
-                {...props} userId = {userId}
+                {...props} userId = {userId} officeId = {officeId}
               />
             )}
           />

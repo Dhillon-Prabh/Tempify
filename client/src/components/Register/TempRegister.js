@@ -5,7 +5,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import { NavLink, Link, Route, Switch, withRouter} from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import ListItemText from '@material-ui/core/ListItemText';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -497,7 +497,6 @@ class Register extends React.Component {
                   value={this.state.role}
                   className={classes.textField}
                   input={<OutlinedInput
-                    required={true}
                     classes={{
                       root: classes.outlinedInput,
                       focused: classes.focused,
@@ -599,7 +598,6 @@ class Register extends React.Component {
                   Dental Software Used <span className="temp-register-asterisk">*</span>
                 </InputLabel>
                 <Select
-                  required
                   multiple
                   fullWidth
                   id="dentalsw"

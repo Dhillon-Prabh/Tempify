@@ -6,11 +6,6 @@
     font-size: 1.8rem !important;
 }
 
-.register {
-    width: 60%;
-    margin: auto;
-}
-
 .profile {
     width: 60%;
     margin: auto;
@@ -24,6 +19,8 @@
     width: 210px;
     height: 59px;
     background-color: #00bfff !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
 }
 
 .container1 {
@@ -31,13 +28,29 @@
 
 .container2 {
     height: 6rem;
+    line-height: normal;
 }
 
-.temp-register-asterisk {
+.temp-profile-asterisk {
     color: red;
 }
 
-.temp-register-upload {
+.temp-profile-upload {
     margin-top: 20px;
     margin-left: 10px;
 }
+
+.dental-modal-clearButton {
+    border: 1px solid white !important;
+    color:white !important;
+    box-shadow: none;
+    padding: 10px 20px;
+    border-radius: 0px !important ;
+    background-color: transparent;
+    width: 170px;
+    height: 44px;
+    margin-left: 7px !important;
+    margin-right: 7px !important ;
+    font-weight: 900px;
+    font-size: 0.8rem;
+  }

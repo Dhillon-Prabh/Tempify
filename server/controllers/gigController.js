@@ -69,6 +69,7 @@ exports.postGig = [
         });
       })
     }
+    next();
   }
 ]
 

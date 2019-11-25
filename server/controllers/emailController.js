@@ -1,5 +1,7 @@
 const nodemailer = require('nodemailer');
 const hbs = require('nodemailer-express-handlebars');
+const db = require('../database/database');
+
 let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -18,6 +20,69 @@ transporter.use('compile', hbs({
     viewPath: 'templates/',
     extName: '.hbs'
 }));
+
+exports.gigPostedEmail = async (req, res, next) => {
+    const email = 'bcitfiveguys@gmail.com';
+    var emails = "";
+    var dentalInfo;
+    var job = req.body;
+    var gigEmailOption = {};
+    await db((err, con) => {
+
+        if (err) {
+          throw err;
+        }
+    
+        var query = "SELECT email FROM `temps` WHERE `is_approved` = 1";
+        con.query(query, (err, result, fields) => {
+          if (!result.length) {
+            return res.status(401).send({
+              error: "error message",
+            });
+          } else {
+            for (var s of result) {
+                emails += s.email;
+                emails += ", "
+            }
+          }
+        });
+
+        query = 'SELECT office_name, dentist_name, street_number, street_name, unit_number, city, province, parking_options FROM dentists WHERE user_id = ?;';
+        values=[job.userId];
+        con.query(query, values, (err, result, fields) => {
+            if(!err) {
+                dentalInfo = result[0];
+            }
+        });
+        con.release();
+    });
+
+        console.log("DENTAL" + dentalInfo);
+        gigEmailOption = {
+            to: email, // list of receivers
+            subject: 'New Gig posted in Tempify', // Subject line
+            template: 'gig_posted_by_dental',
+            context: {
+                office_name: dentalInfo.office_name,
+                dentist_name: dentalInfo.dentist_name,
+                address: dentalInfo.street_number + " " + dentalInfo.street_name + ", " + dentalInfo.unit_number,
+                city_state: dentalInfo.city + ", " + dentalInfo.province,
+                dates: job.date + " " + job.time,
+                designation: job.designation,
+                parking: dentalInfo.parking_options
+            }
+        }
+        console.log("GIG " + gigEmailOption);
+    
+
+    await transporter.sendMail(gigEmailOption, function(err, info) {
+        console.log("IN" + gigEmailOption);
+
+        if (err) {
+            console.log(err);
+        }
+    });
+}
 
 exports.tempRegisterEmail = async (req, res, next) => {
     // const email = req.body.email;

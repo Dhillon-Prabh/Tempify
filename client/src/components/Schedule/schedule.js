@@ -8,15 +8,22 @@ import ProfileCard from "../ProfileCard/ProfileCard";
 import "./main.scss";
 
 export default class Calendar extends React.Component {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      events: []
+    }
+}
   componentDidMount() {
-    let currentComponent = this;
+    let self = this;
     var data = {
-      userId: localStorage.getItem("userId")
+      userId: localStorage.getItem("userId"),
+      role: localStorage.getItem("role")
     }
 
-    fetch("http://localhost:3001/getTempEvent", {
-      method: 'GET',
+    fetch("http://localhost:3001/getEvents", {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -26,6 +33,32 @@ export default class Calendar extends React.Component {
       return response.json();
     }).then(function(data) {
       console.log(data);
+      var dataEvents = [];
+      for (var i = 0; i < data.length; i++) {
+        if(data[i].temp_status == "ACCEPTED" && data[i].dental_status == "POSTED") {
+          var title = data[i].office_name;
+          var date = data[i].dates;
+          var backgroundColor = "#06a170";
+          var row = {};
+          row.title = title;
+          row.date = date;
+          row.backgroundColor = backgroundColor;
+
+          dataEvents.push(row)
+        } else if(data[i].temp_status == "COMPLETED" && data[i].dental_status == "POSTED") {
+          var title = data[i].office_name;
+          var date = data[i].dates;
+          var backgroundColor = "#a10628";
+          var row = {};
+          row.title = title;
+          row.date = date;
+          row.backgroundColor = backgroundColor;
+
+          dataEvents.push(row);
+        }
+      }
+      console.log(dataEvents);
+      self.setState({events: dataEvents});
     }).catch(function(err) {
       console.log(err);
     });
@@ -52,7 +85,7 @@ export default class Calendar extends React.Component {
         <FullCalendar
           defaultView="dayGridMonth"
           plugins={[dayGridPlugin, interactionPlugin]}
-          events={[{ title: "event 1", date: "2019-11-25" }]}
+          events={this.state.events}
           eventClick={eventClick}
         />
         {

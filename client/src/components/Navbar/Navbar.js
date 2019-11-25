@@ -119,6 +119,7 @@ class Navbar extends Component{
       localStorage.setItem('token', resData.token);
       localStorage.setItem('userId', resData.userId);
       localStorage.setItem('userType', resData.type);
+      localStorage.setItem('role', resData.role);
 
       const remainingMilliseconds = 60 * 60 * 1000;
       const expiryDate = new Date(

@@ -10,15 +10,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <React.Fragment>
+        <React.Fragment>
           <CssBaseline />
           <BrowserRouter>
             <ScrollToTop/>
             <Navbar />
             <Cookie />
           </BrowserRouter>
-        </React.Fragment> */}
-        <Schedule />
+        </React.Fragment> 
       </div>
     );
   }

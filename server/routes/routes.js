@@ -18,4 +18,6 @@ router.post('/tempUpdateProfile',isAuth, profileController.tempUpdateProfile);
 router.get('/dentalProfile', isAuth, profileController.dentalProfile);
 router.post('/dentalUpdateProfile', isAuth, profileController.dentalUpdateProfile);
 router.post('/postGig', gigController.postGig);
+router.get('/jobPosting', gigController.jobPosting);
+router.post('/acceptGig', gigController.acceptGig);
 module.exports = router;

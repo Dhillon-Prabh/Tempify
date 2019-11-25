@@ -5,7 +5,8 @@ var pool  = mysql.createPool({
   "user"      : "EKTr45LdT9",
   "password"  : "rG5VwhZk8Z",
   "database"  : "EKTr45LdT9",
-  "port"      : 3306
+  "port"      : 3306,
+  multipleStatements: true
 });
  
 var getConnection = (cb) => {

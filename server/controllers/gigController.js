@@ -71,3 +71,51 @@ exports.postGig = [
     }
   }
 ]
+
+exports.jobPosting = (req, res, next) => {
+  db((err, con) => {
+    if(err){
+      console.log(err);
+      throw err;
+    }
+    var query = "SELECT g.id, g.dentist_id, d.office_name, g.designation, g.date, g.time, d.street_number, d.street_name, d.unit_number, d.city, d.parking_options " +
+     "FROM gigs g JOIN dentists d on g.dentist_id = d.id WHERE g.status LIKE 'POSTED';";
+    con.query(query, (err, result, fields) => {
+      if(!result.length) {
+        res.status(401).send({ error : "error message",});
+        con.release();
+      } else {
+        res.status(200).json(result);
+        con.release();
+      }
+    });
+  })
+}
+
+exports.acceptGig = (req, res, next) => {
+  var value = req.body;
+  console.log(value.acceptData);
+  db((err, con) => {
+    if(err){
+      console.log(err);
+      throw err;
+    }
+    var query = "UPDATE gigs SET status = ? where id = ?;" +
+      "INSERT INTO bookings (`created_at`, `updated_at`, `temp_id`, `temp_status`," + 
+      "`dentist_id`, `dental_status`, `reference_number`, `dates`, `is_from_gig`, `timings`," +
+      "`designation`)" + 
+      " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    values=["ACCEPTED", value.gigId, new Date(), new Date(), value.userId, "ACCEPTED", value.acceptData.dentist_id, "POSTED", 
+      "TMPFY"+ value.gigId, value.acceptData.date, value.gigId, value.acceptData.time, value.acceptData.designation];
+    con.query(query, values, (err, result, fields) => {
+      if (!err) {
+        res.status(300).send("Success");
+        con.release();
+      } else {
+        console.log(err);
+        res.status(401).send('Error Occurred');
+        con.release();
+      }
+    });
+  })
+}

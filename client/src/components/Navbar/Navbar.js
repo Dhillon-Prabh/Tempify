@@ -15,6 +15,7 @@ import TempRegister from '../Register/TempRegister';
 import DentalRegister from '../Register/DentalRegister';
 import TempProfile from '../Profile/TempProfile';
 import DentalProfile from '../Profile/DentalProfile';
+import JobPosting from '../JobPosting/JobPosting';
 
 class Navbar extends Component{
 
@@ -228,7 +229,7 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}> Profile </ListItem>
                 <ListItem key = {3} button divider className="nav-item item-height"> Dashboard </ListItem>
                 <ListItem key = {4} button divider className="nav-item item-height"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Job Postings </ListItem>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}> Job Postings </ListItem>
                 <ListItem key = {5} button divider className="nav-item item-height"> My Availability </ListItem>
                 <ListItem key = {6} button divider className="nav-item item-height" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Logout </ListItem>
@@ -282,7 +283,8 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempprofile'}>Profile</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempdashboard'}>Dashboard</Typography>
-                <Typography variant = "subheading" className = "padding nav-item">Job Postings</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}>Job Postings</Typography>
                 <Typography variant = "subheading" className = "padding nav-item">My Availability</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'} onClick ={this.logoutHandler}>Logout</Typography>
@@ -347,6 +349,7 @@ class Navbar extends Component{
             )}
           />
           <Route path="/bookNow" component={BookNow} />
+          <Route path="/jobPosting" component={JobPosting} />
         </Switch>
       )
     }

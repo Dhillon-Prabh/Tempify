@@ -4,6 +4,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import "./App.css";
 import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
+import Payment from "../Payment/Braintree";
+import PayButton from "../Payment/PayButton";
 
 class App extends Component {
   render() {
@@ -17,6 +19,7 @@ class App extends Component {
             <Cookie />
           </BrowserRouter>
         </React.Fragment>
+        <PayButton/>
       </div>
     );
   }

@@ -113,7 +113,7 @@ class TempDashboard extends Component {
             <Grid item xs={12} md={3}>
               <Grid item xs={12}>
                 <div className = "tempdashboard-username">
-                  {this.state.user}
+                  Hi, {this.state.user}!
                 </div>
               </Grid>
               <Breadcrumbs aria-label="breadcrumb">

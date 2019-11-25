@@ -10,7 +10,6 @@ import Login from '../Login/Login';
 import About from '../About/About';
 import Modal from '../Modal/Modal';
 import Home from '../Home/Home';
-import BookNow from '../BookNow/BookNow';
 import TempRegister from '../Register/TempRegister';
 import DentalRegister from '../Register/DentalRegister';
 import TempProfile from '../Profile/TempProfile';
@@ -131,7 +130,7 @@ class Navbar extends Component{
       if(this.state.isAuth && this.state.userType == "temp"){
         this.props.history.push("/tempdashboard");
       } else  {
-        this.props.history.push("/bookNow");
+        this.props.history.push("/dashboard");
       }
 
       setTimeout(() =>{
@@ -283,7 +282,7 @@ class Navbar extends Component{
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dentalprofile'}>Profile</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/bookNow'}>Dashboard</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dashboard'}>Dashboard</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink}  onClick ={this.logoutHandler} to={'/login'}>Logout</Typography>
               </React.Fragment>)
@@ -372,7 +371,6 @@ class Navbar extends Component{
               />
             )}
           />
-          <Route path="/bookNow" component={BookNow} />
           <Route path="/jobPosting" component={JobPosting} />
         </Switch>
       )
@@ -381,7 +379,7 @@ class Navbar extends Component{
     return(
       <div>
         {this.state.drawerActivate ? this.createDrawer() : this.destroyDrawer()}
-        {this.state.loginSuccess ? <SuccessAlert/> : null}
+        {this.state.loginSuccess ? <SuccessAlert type="login"/> : null}
         { routes }
       </div>
     );

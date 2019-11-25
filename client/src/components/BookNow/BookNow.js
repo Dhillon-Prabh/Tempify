@@ -14,8 +14,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Divider from '@material-ui/core/Divider';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import Dashboard from '../Dashboard/Dashboard';
-import {format} from 'date-fns'
+import {format} from 'date-fns';
+import SuccessAlert from '../Alert/SuccessAlert';
 
 
 const useStyles = theme => ({
@@ -76,6 +76,7 @@ class PostGig extends React.Component {
             designation: '',
             dateError: false,
             timeError: false,
+            success: false,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
@@ -112,6 +113,8 @@ class PostGig extends React.Component {
           }).then(function(response) {
             if (response.status == 422) {
               console.log("validation error");
+            } else if (response.status == 300) {
+              self.setState({success: true});
             }
             return response.json();
           }).then(function(data) {
@@ -233,6 +236,7 @@ class PostGig extends React.Component {
                         </Grid>
                     </Grid>
                 </ValidatorForm>
+                {this.state.success ? <SuccessAlert type="postGig"/> : null}
             </React.Fragment>
         );
     }
@@ -316,7 +320,6 @@ const FindFit = () => {
 const BookNow = () => {
     return (
         <React.Fragment>
-            <Dashboard/>
             <PostGig withStyles={useStyles}/>
             <Divider/>
             <FindFit/>

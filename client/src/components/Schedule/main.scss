@@ -3,5 +3,11 @@
 // @import '~@fullcalendar/timegrid/main.css';
 
 .fc {
-    width: 60%
+    width: 60%;
+}
+
+.container {
+    display: flex;
+    flex-Direction: row;
+    justify-content: center;
 }

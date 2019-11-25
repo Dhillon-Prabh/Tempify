@@ -152,7 +152,7 @@ class Block3 extends React.Component {
                     <Col2 image={free} title="IT'S FREE" content="It's always free for all Dental Professionals"/>
                 </Grid>
                 <Container>
-                    <Modal idType = "blueButton" name="BECOME A TEMP"/>
+                    <Modal idType = "blueButton" name="BECOME A TEMP" link="/tempregister"/>
                 </Container>
             </Grid>
         );
@@ -177,7 +177,7 @@ class Block4 extends React.Component {
                     <Col3 image={network} title='HIRE YOUR NEXT TEAM MEMBER' content='Like what you see? Let us know and we will make arrangements for you'/>
                 </Grid>
                 <Container>
-                    <Modal idType = "blueButton" name="BOOK NOW"/>
+                    <Modal idType = "blueButton" name="BOOK NOW" link="/dentalregister"/>
                 </Container>
             </Grid>
         );

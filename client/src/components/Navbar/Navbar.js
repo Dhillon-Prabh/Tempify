@@ -10,11 +10,11 @@ import Login from '../Login/Login';
 import About from '../About/About';
 import Modal from '../Modal/Modal';
 import Home from '../Home/Home';
-import BookNow from '../BookNow/BookNow';
 import TempRegister from '../Register/TempRegister';
 import DentalRegister from '../Register/DentalRegister';
 import TempProfile from '../Profile/TempProfile';
 import DentalProfile from '../Profile/DentalProfile';
+import JobPosting from '../JobPosting/JobPosting';
 import Dashboard from '../Dashboard/Dashboard';
 import TempDashboard from '../TempDashboard/TempDashboard';
 import SuccessAlert from '../Alert/SuccessAlert';
@@ -130,7 +130,7 @@ class Navbar extends Component{
       if(this.state.isAuth && this.state.userType == "temp"){
         this.props.history.push("/tempdashboard");
       } else  {
-        this.props.history.push("/bookNow");
+        this.props.history.push("/dashboard");
       }
 
       setTimeout(() =>{
@@ -241,7 +241,7 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}> Profile </ListItem>
                 <ListItem key = {3} button divider className="nav-item item-height"> Dashboard </ListItem>
                 <ListItem key = {4} button divider className="nav-item item-height"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Job Postings </ListItem>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}> Job Postings </ListItem>
                 <ListItem key = {5} button divider className="nav-item item-height"> My Availability </ListItem>
                 <ListItem key = {6} button divider className="nav-item item-height" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Logout </ListItem>
@@ -282,7 +282,7 @@ class Navbar extends Component{
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dentalprofile'}>Profile</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/bookNow'}>Dashboard</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dashboard'}>Dashboard</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink}  onClick ={this.logoutHandler} to={'/login'}>Logout</Typography>
               </React.Fragment>)
@@ -295,7 +295,8 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempprofile'}>Profile</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempdashboard'}>Dashboard</Typography>
-                <Typography variant = "subheading" className = "padding nav-item">Job Postings</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}>Job Postings</Typography>
                 <Typography variant = "subheading" className = "padding nav-item">My Availability</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'} onClick ={this.logoutHandler}>Logout</Typography>
@@ -370,7 +371,7 @@ class Navbar extends Component{
               />
             )}
           />
-          <Route path="/bookNow" component={BookNow} />
+          <Route path="/jobPosting" component={JobPosting} />
         </Switch>
       )
     }
@@ -378,7 +379,7 @@ class Navbar extends Component{
     return(
       <div>
         {this.state.drawerActivate ? this.createDrawer() : this.destroyDrawer()}
-        {this.state.loginSuccess ? <SuccessAlert/> : null}
+        {this.state.loginSuccess ? <SuccessAlert type="login"/> : null}
         { routes }
       </div>
     );

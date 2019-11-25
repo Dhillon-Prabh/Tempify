@@ -20,4 +20,6 @@ router.post('/dentalUpdateProfile', isAuth, profileController.dentalUpdateProfil
 
 router.get('/tempDashboard', isAuth, authController.getTempDashboardInformation);
 router.post('/postGig', gigController.postGig);
+router.get('/jobPosting', gigController.jobPosting);
+router.post('/acceptGig', gigController.acceptGig);
 module.exports = router;

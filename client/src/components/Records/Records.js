@@ -8,9 +8,9 @@ import SuccessAlert from '../Alert/SuccessAlert';
 
 const columns = [
     {name:"office", label:"Dental Office", className:"column"},
-    {name:"details", label:"Details", className:"column"},
     {name:"address", label:"Office Address", className:"column"},
-    {name:"action", label:"Action", className:"column"}
+    {name:"action", label:"Action", className:"column"},
+    {name:"joeco", label:"joeco", className:"column"}
 ];
 
 const options = {

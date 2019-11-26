@@ -1,5 +1,4 @@
-.header1 {
-  padding-top: 5rem;
+.dental-modal-header {
   padding-bottom: 1.65em;
   letter-spacing: 0.1rem !important;
   font-weight: 800 !important;
@@ -15,12 +14,11 @@
   width: 100%;
 }
 
-.blueButton {
-  width: 210px;
+.dental-modal-blueButton {
+  width: 150px;
   height: 59px;
   background-color: #00bfff !important;
-  margin-left: 10px !important;
-  margin-right: 10px !important;
+  margin: 1rem 1rem !important;
 }
 
 .container1 {
@@ -33,11 +31,6 @@
 
 .temp-profile-asterisk {
   color: red;
-}
-
-.temp-profile-upload {
-  margin-top: 20px;
-  margin-left: 10px;
 }
 
 .dental-modal-clearButton {

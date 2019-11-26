@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import {Link} from 'react-router-dom';
 import './DentalModal.css'
 
 const useStyles = theme => ({
@@ -37,9 +36,6 @@ const useStyles = theme => ({
   input: {
     display: 'none',
   },
-  window: {
-    maxWidth: 'lg',
-  }
 });
 
 const parking = [
@@ -158,7 +154,7 @@ class DentalModal extends React.Component {
       parking: this.state.parking,
     }
 
-    fetch("http://localhost:3001/dentalUpdateProfile", {
+    fetch("http://localhost:3001/dentalInsertProfile", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -171,7 +167,8 @@ class DentalModal extends React.Component {
     }).catch(function(err) {
       console.log(err);
     });
-    this.props.history.push("/home");
+    //this.props.history.push("/home");
+    this.setState({setOpen: true});//handleClickClose();
   }
 
   handleChange = (e) => {
@@ -196,10 +193,10 @@ class DentalModal extends React.Component {
           maxWidth={'lg'}
           className="dental-modal-container1"
         >
-          <DialogContent className = "dental-modal-container1">
+          <DialogContent>
             <div className="dental-modal-container2"> 
               <ValidatorForm ref="form" onSubmit={(e) => this.submitForm(e)}>
-                <Typography align="center" className="header1">
+                <Typography align="center" className="dental-modal-header">
                   ADD NEW OFFICE
                 </Typography>
 
@@ -540,10 +537,10 @@ class DentalModal extends React.Component {
                   </Grid>
 
                   <Grid item xs={12} align="center">
-                    <Button className="blueButton" color="primary" variant="contained" type="submit">
+                    <Button className="dental-modal-blueButton" color="primary" variant="contained" type="submit">
                       ADD
                     </Button>
-                    <Button className="blueButton" color="primary" variant="contained" onClick={this.handleClickClose}>
+                    <Button className="dental-modal-blueButton" color="primary" variant="contained" onClick={this.handleClickClose}>
                       CLOSE
                     </Button>
                   </Grid>

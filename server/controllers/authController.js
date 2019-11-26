@@ -8,7 +8,7 @@ exports.postLogin = (req, res, next) => {
   db((err, con) => {
     if(err){
       throw err;
-    }    
+    }
 
     const query = "SELECT email, password, id, role FROM `users` WHERE `email` = ? AND `password` = ?";
     con.query(query, [email, password], (err, result, fields) => {

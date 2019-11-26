@@ -257,7 +257,7 @@ class Register extends React.Component {
                   className={classes.textField}
                   margin="normal"
                   variant="outlined"
-                  autoComplete="name"
+                  //autoComplete="name"
                   validators={['required']}
                   errorMessages={['This field is required']}
                   onChange={this.handleChange}
@@ -289,7 +289,7 @@ class Register extends React.Component {
                   className={classes.textField}
                   margin="normal"
                   variant="outlined"
-                  autoComplete="email"
+                  //autoComplete="email"
                   validators={['required', 'isEmail']}
                   errorMessages={['This field is required', 'This is not a valid email']}
                   onChange={this.handleChange}
@@ -487,7 +487,7 @@ class Register extends React.Component {
                     asterisk: classes.labelAsterisk,
                   }}
                 >
-                  What do you do? <span className="temp-register-asterisk">*</span>
+                  What do you do? <span className="asterisk">*</span>
                 </InputLabel>
                 <Select
                   multiple
@@ -595,7 +595,7 @@ class Register extends React.Component {
                     asterisk: classes.labelAsterisk,
                   }}
                 >
-                  Dental Software Used <span className="temp-register-asterisk">*</span>
+                  Dental Software Used <span className="asterisk">*</span>
                 </InputLabel>
                 <Select
                   multiple
@@ -626,9 +626,10 @@ class Register extends React.Component {
                 <input
                   accept="./image/*"
                   id="image-upload"
+                  name="image-upload"
                   multiple
                   type="file"
-                  className="temp-register-upload"
+                  className="upload"
                 />
               </Grid>
 

@@ -121,7 +121,7 @@ class Profile extends React.Component {
       userId: this.props.userId,
       officeId: this.props.officeId,
       officeEmail: this.state.officeEmail,
-      officeName: this.state.officeName,
+      officeName: this.state.OfficeName,
       name: this.state.name,
       phone: this.state.phone,
       streetNo: this.state.streetNo,
@@ -153,10 +153,6 @@ class Profile extends React.Component {
     this.setState({[e.target.name]: e.target.value});
   }
 
-  handleCheckboxChange = (e) => {
-    this.setState({accept: e.target.checked})
-  }
-
   render() {
 
     const { classes } = this.props;
@@ -179,7 +175,7 @@ class Profile extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                autoComplete="name"
+                //autoComplete="name"
                 validators={['required']}
                 errorMessages={['This field is required']}
                 onChange={this.handleChange}
@@ -211,7 +207,7 @@ class Profile extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                autoComplete="email"
+                //autoComplete="email"
                 validators={['required', 'isEmail']}
                 errorMessages={['This field is required', 'This is not a valid email']}
                 onChange={this.handleChange}
@@ -244,7 +240,7 @@ class Profile extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                autoComplete="name"
+                //autoComplete="name"
                 validators={['required']}
                 errorMessages={['This field is required']}
                 onChange={this.handleChange}
@@ -272,7 +268,7 @@ class Profile extends React.Component {
                 fullWidth
                 id="phone"
                 name="phone"
-                label="Phone"
+                label="phone"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"

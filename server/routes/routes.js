@@ -15,4 +15,6 @@ router.post('/tempProfile', profileController.tempProfile);
 router.post('/tempUpdateProfile', profileController.tempUpdateProfile);
 router.post('/dentalProfile', profileController.dentalProfile);
 router.post('/dentalUpdateProfile', profileController.dentalUpdateProfile);
+router.post('/dentalInsertProfile', profileController.dentalInsertProfile);
+
 module.exports = router;

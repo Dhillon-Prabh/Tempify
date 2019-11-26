@@ -2,75 +2,98 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import ProfileCard from "../ProfileCard/ProfileCard";
 
 import "./main.scss";
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  },
-  legendContainer: {
-    height: "100px",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  legend: {
-    margin: "0 10px 0 10px",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center"
-  },
-  pendingBox: {
-    height: "15px",
-    width: "15px",
-    backgroundColor: "orange",
-    margin: "0 10px 0 0"
-  },
-  acceptedBox: {
-    height: "15px",
-    width: "15px",
-    backgroundColor: "green",
-    margin: "0 10px 0 0"
-  },
-  completedBox: {
-    height: "15px",
-    width: "15px",
-    backgroundColor: "red",
-    margin: "0 10px 0 0"
-  }
-}));
+export default class Calendar extends React.Component {
+  constructor(props) {
+    super(props);
 
-export default function() {
-  const classes = useStyles();
-  return (
-    <div className={classes.container}>
-      <div className={classes.legendContainer}>
-        <div className={classes.legend}>
-          <div className={classes.pendingBox} /> Pending
-        </div>
-        <div className={classes.legend}>
-          <div className={classes.acceptedBox} />
-          Accepted
-        </div>
-        <div className={classes.legend}>
-          <div className={classes.completedBox} />
-          Completed
-        </div>
+    this.state = {
+      events: []
+    }
+}
+  componentDidMount() {
+    let self = this;
+    var data = {
+      userId: localStorage.getItem("userId"),
+      role: localStorage.getItem("role")
+    }
+
+    fetch("http://localhost:3001/getEvents", {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(function(response) {
+      console.log(response);
+      return response.json();
+    }).then(function(data) {
+      console.log(data);
+      var dataEvents = [];
+      for (var i = 0; i < data.length; i++) {
+        if(data[i].temp_status == "ACCEPTED" && data[i].dental_status == "POSTED") {
+          var title = data[i].office_name;
+          var date = data[i].dates;
+          var backgroundColor = "#06a170";
+          var row = {};
+          row.title = title;
+          row.date = date;
+          row.backgroundColor = backgroundColor;
+
+          dataEvents.push(row)
+        } else if(data[i].temp_status == "COMPLETED" && data[i].dental_status == "POSTED") {
+          var title = data[i].office_name;
+          var date = data[i].dates;
+          var backgroundColor = "#a10628";
+          var row = {};
+          row.title = title;
+          row.date = date;
+          row.backgroundColor = backgroundColor;
+
+          dataEvents.push(row);
+        }
+      }
+      console.log(dataEvents);
+      self.setState({events: dataEvents});
+    }).catch(function(err) {
+      console.log(err);
+    });
+  }
+  
+  state = { render: false };
+
+  render() {
+
+    const {render} = this.state;
+
+    const eventClick = () => {
+      this.setState({
+        render: !render
+      })
+    };
+
+    const getEvents = () => {
+
+    }
+
+    return (
+      <div class="container">
+        <FullCalendar
+          defaultView="dayGridMonth"
+          plugins={[dayGridPlugin, interactionPlugin]}
+          events={this.state.events}
+          eventClick={eventClick}
+        />
+        {
+          render ?
+        <ProfileCard />
+        : null
+        }
       </div>
-      <FullCalendar
-        defaultView="dayGridMonth"
-        plugins={[dayGridPlugin]}
-        header={{
-          left: "prev,next today",
-          center: "title",
-          right: "dayGridMonth, dayGridWeek, dayGridDay"
-        }}
-        styles={{ width: "60%" }}
-      />
-    </div>
-  );
+    );
+  }
 }

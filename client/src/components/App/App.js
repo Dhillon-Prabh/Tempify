@@ -5,6 +5,7 @@ import "./App.css";
 import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
 import Schedule from "../Schedule/schedule";
+import ContactSection from "../Contact/ContactSection";
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
           </BrowserRouter>
         </React.Fragment> */}
         <Schedule />
+        <ContactSection />
       </div>
     );
   }

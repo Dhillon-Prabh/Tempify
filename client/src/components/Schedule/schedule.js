@@ -18,15 +18,11 @@ export default class Calendar extends React.Component {
   render() {
     const { render } = this.state;
 
-    const eventClick = (renderState) => {
+    const eventClick = () => {
       this.setState({
-        render: renderState
+        render: !render
       });
     };
-
-    const eventMouseEnter = () => {
-
-    }
 
     return (
       <div className="outerContainer">

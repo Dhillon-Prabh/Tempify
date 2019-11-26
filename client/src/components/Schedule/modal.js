@@ -29,7 +29,6 @@ export default function TransitionsModal() {
 
   const handleClose = () => {
     setOpen(false);
-    this.props.eventClick(false);
   };
 
   return (

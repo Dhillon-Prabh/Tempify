@@ -101,7 +101,6 @@ exports.dentalProfile = (req, res, next) => {
       'city, province, postalcode, parking_options FROM dentists WHERE user_id = ? LIMIT 1';
     values=[user.userId];
     con.query(userQuery, values, (err, result, fields) => {
-      console.log(result);
       if(!result.length) {
         return res.status(401).send({ error : "error message",});
       } else {
@@ -116,9 +115,7 @@ exports.dentalUpdateProfile = (req, res, next) => {
   
   const user = req.body;
   const userId = req.decodedToken.userId;
-  console.log(user); 
-  console.log(userId);
-  console.log("Inside dentalUpdateProfile");
+
   db((err, con) => {
     if(err){
       console.log(err);
@@ -131,7 +128,6 @@ exports.dentalUpdateProfile = (req, res, next) => {
       values=[new Date(), user.phone, user.officeName, user.name, user.streetNo, user.streetName,
         user.unit, user.city, user.province, user.postalCode, user.parking, Number(userId)];
       con.query(userQuery, values, (err, result, fields) => {
-        console.log(result);
         if(!err) {
           console.log("no error proceeding to resolve");
           resolve(result);

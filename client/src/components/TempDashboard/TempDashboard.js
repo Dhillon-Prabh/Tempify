@@ -29,6 +29,18 @@ const styles = theme => ({
       background: "#404040",
     }
   },
+  option: {
+    paddingTop: '5rem',
+  },
+  activeButton: {
+    display: 'block',
+    height: '4em',
+    backgroundColor: "#404040",
+    color: 'white',
+    '&:hover': {
+      background: "#404040",
+    },
+  },
   label: {
     '&$focused': {
       color: '#00bfff'
@@ -44,6 +56,14 @@ const styles = theme => ({
   },
   notchedOutline: {},
 });
+
+function HomeIcon(props) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    </SvgIcon>
+  );
+}
 
 class TempDashboard extends Component {
   constructor(props) {
@@ -79,7 +99,6 @@ class TempDashboard extends Component {
       console.log(err);
     });
   }
-
   navigatePending() {
     this.setState({
       pending: true,
@@ -87,7 +106,6 @@ class TempDashboard extends Component {
       records: false
     })
   }
-
   navigateSchedule() {
     this.setState({
       pending: false,
@@ -110,57 +128,27 @@ class TempDashboard extends Component {
     return(
       <div>
           <Grid container direction="row" justify="center" alignItems="center" className="options">
-            <Grid item xs={12} md={3}>
-              <Grid item xs={12}>
-                <div className = "tempdashboard-username">
-                  Hi, {this.state.user}!
-                </div>
+              <Grid item xs={2}>
+                  {this.state.user}
+                  <Breadcrumbs aria-label="breadcrumb">
+                      <Link to="/" style={{textDecoration:'none', color: 'inherit'}}>
+                          <ListItem button>
+                              <ListItemIcon>
+                                  <HomeIcon />
+                              </ListItemIcon>
+                              <ListItemText primary="Home" />
+                          </ListItem>
+                      </Link>
+                      <Typography color="textPrimary">dashboard</Typography>
+                  </Breadcrumbs>
               </Grid>
-              <Breadcrumbs aria-label="breadcrumb">
-                  <Link to="/tempdashboard" style={{textDecoration:'none', color: 'inherit'}}>
-                  <ListItem button>
-                    <ListItemIcon>
-                      <SvgIcon >
-                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-                      </SvgIcon>
-                    </ListItemIcon>
-                    <ListItemText primary="Home" />
-                  </ListItem>
-                  </Link>
-                  <Typography color="textPrimary">dashboard</Typography>
-                </Breadcrumbs>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <ButtonGroup fullWidth aria-label="full width outlined button group" className="buttons">
-                  <Button 
-                    type="submit" 
-                    fullWidth variant="contained" 
-                    color="primary" 
-                    className={classes.submit}
-                    onClick={this.navigatePending}
-                    >
-                      Pending
-                    </Button>
-                    <Button 
-                    type="submit" 
-                    fullWidth variant="contained" 
-                    color="primary" 
-                    className={classes.submit}
-                    onClick={this.navigateSchedule}
-                    >
-                      Schedule
-                    </Button>
-                    <Button 
-                    type="submit" 
-                    fullWidth variant="contained" 
-                    color="primary" 
-                    className={classes.submit}
-                    onClick={this.navigateRecords}
-                    >
-                      Records
-                    </Button>
-              </ButtonGroup>
-            </Grid>
+              <Grid item xs={6}>
+                  <ButtonGroup fullWidth aria-label="full width outlined button group" className="buttons">
+                      <Button className={this.state.pending ? "activeButton" : "button"} onClick={this.navigatePending}>Pending</Button>
+                      <Button className={this.state.schedule ? "activeButton" : "button"} onClick={this.navigateSchedule}>Schedule</Button>
+                      <Button className={this.state.records ? "activeButton" : "button"} onClick={this.navigateRecords}>Records</Button>
+                  </ButtonGroup>
+              </Grid>
           </Grid>
 
           {this.state.pending ? <Pending/> : null }

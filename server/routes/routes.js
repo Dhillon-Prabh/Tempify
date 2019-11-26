@@ -19,7 +19,7 @@ router.get('/dentalProfile', isAuth, profileController.dentalProfile);
 router.post('/dentalUpdateProfile', isAuth, profileController.dentalUpdateProfile);
 
 router.get('/tempDashboard', isAuth, authController.getTempDashboardInformation);
-router.post('/postGig', gigController.postGig);
-router.get('/jobPosting', gigController.jobPosting);
-router.post('/acceptGig', gigController.acceptGig);
+router.post('/postGig', isAuth, gigController.postGig);
+router.get('/jobPosting', isAuth, gigController.jobPosting);
+router.post('/acceptGig', isAuth, gigController.acceptGig);
 module.exports = router;

@@ -14,7 +14,8 @@ exports.postGig = [
   }), 
   (req, res, next) => {
     const errors = validationResult(req);
-    console.log(req.body);
+
+    console.log(req.decodedToken);
     
     if (!errors.isEmpty()) {
       return res.status(422).jsonp(errors.array());
@@ -50,7 +51,6 @@ exports.postGig = [
           var query = 'UPDATE gigs SET reference_number = ? WHERE id = ?;';
           values=['GIG' + result.insertId, result.insertId];
             con.query(query, values, (err, result, fields) => {
-              //console.log(this.valuesTemp);
               if(!err) {
                 console.log("no error proceeding to success");
                 res.status(300).send({ message: "success" });

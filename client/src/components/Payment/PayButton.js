@@ -6,6 +6,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Typography from '@material-ui/core/Typography'
 import Payment from './Braintree';
+import PaymentAlert from './PaymentAlert';
 import './Payment.css'
 
 class PayButton extends Component{
@@ -14,39 +15,17 @@ class PayButton extends Component{
     super(props);
 
     this.state = {
-        gigId: 1,
+        gigId: props.gigId,
         success: null,
         setSuccessOpen: false,
         setFailOpen: false,
         isFull: true,
-        hours: 0,
-        wages: 0,
         setPayOpen: false,
         payOpen: false,
     }
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClickClose = this.handleClickClose.bind(this);
-    this.calcAmount = this.calcAmount.bind(this);
-    this.calcGST = this.calcGST.bind(this);
-    this.calcServiceFee = this.calcServiceFee.bind(this);
-    this.calcTotal = this.calcTotal.bind(this);
     this.onComplete = this.onComplete.bind(this);
-  }
-
-  calcAmount() {
-      this.setState({ amount: this.state.hours * this.state.wages });
-  }
-
-  calcServiceFee() {
-    this.setState({ serviceFee: this.state.amount * 0.15 });
-  }
-
-  calcGST() {
-      this.setState({ gst: this.state.amount * 0.05 });
-  }
-
-  calcTotal() {
-      this.setState({ total: this.state.amount + this.state.serviceFee + this.state.gst });
   }
 
   async componentDidMount() {
@@ -64,18 +43,14 @@ class PayButton extends Component{
     .then((response) => {
         this.setState({
           wages: response.wages,
-          hours: response.hours
+          hours: response.hours,
+          serviceFee: response.serviceFee,
+          gst: response.gst,
+          total: response.total
         });
     })
     .catch((error) => {
     });
-    console.log(this.state.wages);
-    console.log(this.state.hours);
-    await this.calcAmount();
-    await this.calcServiceFee();
-    await this.calcGST();
-    await this.calcTotal();
-    console.log(this.state.total);
   }
 
   handleClickOpen = () => {
@@ -117,7 +92,6 @@ class PayButton extends Component{
 
         <Dialog
           open={this.state.setPayOpen}
-          keepMounted
           onClose={this.handleClickClose}
           className='paymentModal'
           fullWidth={this.state.isFull}
@@ -144,27 +118,10 @@ class PayButton extends Component{
           </DialogContent>
         </Dialog>
 
-        <Dialog
-          open={this.state.setSuccessOpen}
-          keepMounted
-          onClose={this.handleClickClose}
-        >
-          <DialogTitle>Payment Success!</DialogTitle>
-          <DialogContent>
-              Thank you
-          </DialogContent>
-        </Dialog>
+        {this.state.setFailOpen ? <PaymentAlert type="fail" /> : null}
 
-        <Dialog
-          open={this.state.setFailOpen}
-          keepMounted
-          onClose={this.handleClickClose}
-        >
-          <DialogTitle>Uh Oh! A Problem Occurred.</DialogTitle>
-          <DialogContent>
-              Please try payment again.
-          </DialogContent>
-        </Dialog>
+        {this.state.setSuccessOpen ? <PaymentAlert type="success" /> : null}
+
       </div>
     );
   }

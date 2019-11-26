@@ -13,7 +13,7 @@ class Payment extends React.Component {
  
   async componentDidMount() {
     // Get a client token for authorization from your server
-    const response = await fetch("http://localhost:3001/payment")
+    await fetch("http://localhost:3001/payment")
     .then((response) => {
        return response.json();
     })
@@ -24,9 +24,10 @@ class Payment extends React.Component {
     })
     .catch((error) => {
     });
+    console.log("MOUNTED");
   }
  
-  async buy() {
+  async pay() {
     // Send the nonce to your server
     this.setState({ payAmount: this.props.total });
     const transaction = await this.instance.requestPaymentMethod();
@@ -74,7 +75,7 @@ class Payment extends React.Component {
             onInstance={instance => (this.instance = instance)}
             paypal
           />
-          <Button variant="outlined" onClick={this.buy.bind(this)}>Pay Now</Button>
+          <Button variant="outlined" onClick={this.pay.bind(this)}>Pay Now</Button>
         </div>
       );
     }

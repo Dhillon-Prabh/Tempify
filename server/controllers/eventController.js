@@ -2,7 +2,9 @@ const db = require('../database/database');
 
 exports.getEvents = (req, res, next) => {
   const user = req.body;
-  console.log(user);
+
+  // console.log(user);
+
   db((err, con) => {
     if(err){
       console.log(err);

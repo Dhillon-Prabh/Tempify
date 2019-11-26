@@ -15,7 +15,7 @@ export default class Calendar extends React.Component {
       events: []
     }
 }
-  componentDidMount() {
+  componentDidMount() {    
     let self = this;
     var data = {
       userId: localStorage.getItem("userId"),
@@ -25,6 +25,7 @@ export default class Calendar extends React.Component {
     fetch("http://localhost:3001/getEvents", {
       method: 'PUT',
       headers: {
+        'Authorization': 'Bearer ' + this.props.token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)

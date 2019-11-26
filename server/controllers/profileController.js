@@ -20,7 +20,7 @@ exports.tempProfile = (req, res, next) => {
         con.release();
       }
     });
-    con.release();
+    // con.release();
   })
 }
 
@@ -99,7 +99,6 @@ exports.dentalProfile = (req, res, next) => {
       console.log(err);
       throw err;
     }
-<<<<<<< HEAD
 
     var dentalQuery = 'SELECT d.id, d.dentist_name, d.email, d.office_name, d.phone_number, d.street_number, ' +
       'd.street_name, d.unit_number, d.city, d.province, d.postalcode, d.parking_options FROM dentists d ' +
@@ -107,13 +106,6 @@ exports.dentalProfile = (req, res, next) => {
     values=[user.userId, user.officeId];
     con.query(dentalQuery, values, (err, result, fields) => {
       console.log(result);
-=======
-    
-    var userQuery = 'SELECT dentist_name, office_name, phone_number, street_number, street_name, unit_number, ' +
-      'city, province, postalcode, parking_options FROM dentists WHERE user_id = ? LIMIT 1';
-    values=[user.userId];
-    con.query(userQuery, values, (err, result, fields) => {
->>>>>>> c6853e4d50f9b5bad2eec4f40e0dd6206cec665d
       if(!result.length) {
         return res.status(401).send({ error : "error message",});
       } else {
@@ -137,17 +129,10 @@ exports.dentalUpdateProfile = (req, res, next) => {
     return new Promise(function (resolve, reject) {
       var dentalQuery = 'UPDATE dentists SET updated_at = ?, phone_number = ?, email = ?, office_name = ?, ' +
         'dentist_name = ?, street_number = ?, street_name = ?, unit_number = ?, city = ?, ' +
-<<<<<<< HEAD
         'province = ?, postalcode = ?, parking_options = ? WHERE id = ?;';
       values=[new Date(), user.phone, user.officeEmail, user.officeName, user.name, user.streetNo, user.streetName,
         user.unit, user.city, user.province, user.postalCode, user.parking, user.officeId];
       con.query(dentalQuery, values, (err, result, fields) => {
-=======
-        'province = ?, postalcode = ?, parking_options = ? WHERE user_id = ?;';
-      values=[new Date(), user.phone, user.officeName, user.name, user.streetNo, user.streetName,
-        user.unit, user.city, user.province, user.postalCode, user.parking, Number(userId)];
-      con.query(userQuery, values, (err, result, fields) => {
->>>>>>> c6853e4d50f9b5bad2eec4f40e0dd6206cec665d
         if(!err) {
           console.log("no error proceeding to resolve");
           resolve(result);

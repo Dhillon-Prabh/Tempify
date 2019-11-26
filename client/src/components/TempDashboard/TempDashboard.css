@@ -20,7 +20,7 @@
 
 .activeButton {
   font-weight: bold !important;
-  background-color: black !important;
+  background-color: #404040 !important;
   color: white !important;
 }
 

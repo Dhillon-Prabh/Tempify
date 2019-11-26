@@ -24,7 +24,7 @@ router.get('/tempDashboard', isAuth, authController.getTempDashboardInformation)
 
 
 //need to change 
-router.put('/getEvents', eventController.getEvents);
+router.put('/getEvents', isAuth, eventController.getEvents);
 
 router.post('/postGig', isAuth, gigController.postGig);
 router.get('/jobPosting', isAuth, gigController.jobPosting);

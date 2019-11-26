@@ -125,7 +125,11 @@ class Navbar extends Component{
       localStorage.setItem('token', resData.token);
       localStorage.setItem('userId', resData.userId);
       localStorage.setItem('userType', resData.type);
+<<<<<<< HEAD
       localStorage.setItem('officeId', resData.officeId);
+=======
+      localStorage.setItem('role', resData.role);
+>>>>>>> 1b89765f1398fb8b5239c5bab101f0cc01db29eb
 
       const remainingMilliseconds = 60 * 60 * 1000;
       const expiryDate = new Date(
@@ -315,7 +319,8 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempdashboard'}>Dashboard</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}>Job Postings</Typography>
-                <Typography variant = "subheading" className = "padding nav-item">My Availability</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  component={NavLink} to={'/tempdashboard'}>My Availability</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'} onClick ={this.logoutHandler}>Logout</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"

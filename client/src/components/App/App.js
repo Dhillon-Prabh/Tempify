@@ -4,6 +4,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import "./App.css";
 import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
+import Schedule from "../Schedule/schedule";
 
 class App extends Component {
   render() {
@@ -16,7 +17,7 @@ class App extends Component {
             <Navbar />
             <Cookie />
           </BrowserRouter>
-        </React.Fragment>
+        </React.Fragment> 
       </div>
     );
   }

@@ -10,11 +10,14 @@ import Login from '../Login/Login';
 import About from '../About/About';
 import Modal from '../Modal/Modal';
 import Home from '../Home/Home';
-import Dashboard from '../Dashboard/Dashboard'
 import TempRegister from '../Register/TempRegister';
 import DentalRegister from '../Register/DentalRegister';
 import TempProfile from '../Profile/TempProfile';
 import DentalProfile from '../Profile/DentalProfile';
+import JobPosting from '../JobPosting/JobPosting';
+import Dashboard from '../Dashboard/Dashboard';
+import TempDashboard from '../TempDashboard/TempDashboard';
+import SuccessAlert from '../Alert/SuccessAlert';
 import TermsAndConditions from '../Terms/TermsAndConditions';
 
 class Navbar extends Component{
@@ -27,7 +30,9 @@ class Navbar extends Component{
       isAuth: false, 
       role: -1,
       officeId: -1,
-      loginError: false
+      loginError: false,
+      loginSuccess: false,
+      token: null
     };
 
     this.loginHandler = this.loginHandler.bind(this);
@@ -36,19 +41,7 @@ class Navbar extends Component{
     this.scrollToBottom = this.scrollToBottom.bind(this);
   }
 
-  componentWillMount(){
-    if(window.innerWidth <= 900){
-      this.setState({drawerActivate:true});
-    }
-
-    window.addEventListener('resize',()=>{
-      if(window.innerWidth <= 900){
-        this.setState({drawerActivate:true});
-      }
-      else{
-        this.setState({drawerActivate:false})
-      }
-    });
+  componentDidMount() {
 
     const token = localStorage.getItem('token');
     const expiryDate = localStorage.getItem('expiryDate');
@@ -65,17 +58,32 @@ class Navbar extends Component{
     const userId = localStorage.getItem('userId');
     const officeId = localStorage.getItem('officeId');
 
-
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
-    
+  
       this.setState({
-        isAuth: true, 
+        isAuth: true,
         token: token,
         userId: userId,
         officeId: officeId
       });
 
       this.setAutoLogout(remainingMilliseconds);
+
+  }
+  componentWillMount(){
+    if(window.innerWidth <= 900){
+      this.setState({drawerActivate:true});
+    }
+
+    window.addEventListener('resize',()=>{
+      if(window.innerWidth <= 900){
+        this.setState({drawerActivate:true});
+      }
+      else{
+        this.setState({drawerActivate:false})
+      }
+    });
+
   }
 
   loginHandler = (event, authData) => {
@@ -103,17 +111,20 @@ class Navbar extends Component{
       return res.json();
     })
     .then(resData => {
-      console.log(resData);
       this.setState({
         isAuth: true, 
+        loginSuccess: true,
         userId: resData.userId,
+        token: resData.token,
         role: resData.role,
+        userType: resData.userType,
         officeId: resData.officeId,
         loginError: false
       });  
 
       localStorage.setItem('token', resData.token);
       localStorage.setItem('userId', resData.userId);
+      localStorage.setItem('userType', resData.type);
       localStorage.setItem('officeId', resData.officeId);
 
       const remainingMilliseconds = 60 * 60 * 1000;
@@ -121,11 +132,20 @@ class Navbar extends Component{
         new Date().getTime() + remainingMilliseconds
       );
       localStorage.setItem('expiryDate', expiryDate.toISOString());
-      this.setAutoLogout(remainingMilliseconds);
+      this.setAutoLogout(remainingMilliseconds);     
             
-      if(this.state.isAuth){
+      if(this.state.isAuth && this.state.userType == "temp"){
+        this.props.history.push("/tempdashboard");
+      } else  {
         this.props.history.push("/dashboard");
       }
+
+      setTimeout(() =>{
+        this.setState({
+          loginSuccess: false
+        })
+      }, 2000);
+
     })
     .catch(err => {
       this.setState({
@@ -146,12 +166,14 @@ class Navbar extends Component{
       isAuth: false, 
       token: null,
       role: -1,
+      userType: "",
       officeId: -1
     })
 
     localStorage.removeItem('token');
     localStorage.removeItem('expiryDate');
     localStorage.removeItem('userId');
+    localStorage.removeItem('userType');
     localStorage.removeItem('officeId');
   }
 
@@ -210,7 +232,7 @@ class Navbar extends Component{
                   component={NavLink} to={'/termsAndConditions'} />
               </List>)
             }
-            { this.state.role == 1 && (
+            { this.state.role == 1 && this.state.isAuth && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
@@ -223,7 +245,7 @@ class Navbar extends Component{
                   component={NavLink} to={'/termsAndConditions'} />
               </List>)
             }
-            { this.state.role == 2 && (
+            { this.state.role == 2 && this.state.isAuth && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
@@ -231,7 +253,7 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}> Profile </ListItem>
                 <ListItem key = {3} button divider className="nav-item item-height"> Dashboard </ListItem>
                 <ListItem key = {4} button divider className="nav-item item-height"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Job Postings </ListItem>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}> Job Postings </ListItem>
                 <ListItem key = {5} button divider className="nav-item item-height"> My Availability </ListItem>
                 <ListItem key = {6} button divider className="nav-item item-height" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Logout </ListItem>
@@ -269,7 +291,7 @@ class Navbar extends Component{
                   component={NavLink} to={'/termsAndConditions'} />
               </React.Fragment>)
             }
-            { this.state.role == 1 && (
+            { this.state.role == 1 && this.state.isAuth && (
               <React.Fragment>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
@@ -283,7 +305,7 @@ class Navbar extends Component{
                   component={NavLink} to={'/termsAndConditions'} />
               </React.Fragment>)
             }
-            { this.state.role == 2 && (
+            { this.state.role == 2 && this.state.isAuth && (
               <React.Fragment>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
@@ -291,7 +313,8 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempprofile'}>Profile</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempdashboard'}>Dashboard</Typography>
-                <Typography variant = "subheading" className = "padding nav-item">Job Postings</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}>Job Postings</Typography>
                 <Typography variant = "subheading" className = "padding nav-item">My Availability</Typography>
                 <Typography variant = "subheading" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'} onClick ={this.logoutHandler}>Logout</Typography>
@@ -304,10 +327,8 @@ class Navbar extends Component{
       </div>
     )
   }
-  
 
-  render(){
-    
+  render(){    
     let routes = (
       <Switch>
       <Route path='/' exact component={Home} />
@@ -343,6 +364,7 @@ class Navbar extends Component{
       const officeId = localStorage.getItem('officeId');
       console.log("Navbar - userId: " + userId);
       console.log("Navbar - officeId: " + officeId);
+
       routes = (
         <Switch>
           <Route path="/home" component={Home} />
@@ -350,7 +372,10 @@ class Navbar extends Component{
             path="/dentalprofile"
             render= {props => (
               <DentalProfile
-                {...props} userId = {userId} officeId = {officeId}
+                {...props} 
+                token = {this.state.token}
+                userId = {userId}
+                officeId = {officeId}
               />
             )}
           />
@@ -358,12 +383,23 @@ class Navbar extends Component{
             path="/tempprofile"
             render= {props => (
               <TempProfile
-                {...props} userId = {userId}
+                {...props}
+                token = {this.state.token}
               />
             )}
           />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/termsAndConditions" component={TermsAndConditions} />
+          <Route
+            path="/tempdashboard"
+            render= {props => (
+              <TempDashboard
+                {...props}
+                token = {this.state.token}
+              />
+            )}
+          />
+          <Route path="/jobPosting" component={JobPosting} />
         </Switch>
       )
     }
@@ -371,11 +407,11 @@ class Navbar extends Component{
     return(
       <div>
         {this.state.drawerActivate ? this.createDrawer() : this.destroyDrawer()}
+        {this.state.loginSuccess ? <SuccessAlert type="login"/> : null}
         { routes }
       </div>
     );
   }
 }
-
 
 export default withRouter(Navbar);

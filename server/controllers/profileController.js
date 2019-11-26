@@ -1,16 +1,13 @@
 const db = require('../database/database');
-const jwt = require('jsonwebtoken');
 
 exports.tempProfile = (req, res, next) => {
-
-  const user = req.body;
-  console.log("Inside tempProfile");
+  const user = req.decodedToken;
   db((err, con) => {
     if(err){
       console.log(err);
       throw err;
     }
-    
+  
     var userQuery = 'SELECT temp_name, experience, expected_rate, city, designation, type_of_practice, ' +
       'dental_software, imagename, phone FROM temps WHERE user_id = ? LIMIT 1';
     values=[user.userId];
@@ -28,7 +25,7 @@ exports.tempProfile = (req, res, next) => {
 exports.tempUpdateProfile = (req, res, next) => {
   
   const user = req.body;
-  console.log("Inside tempUpdateProfile");
+  const userId = req.decodedToken.userId;
   db((err, con) => {
     if(err){
       console.log(err);
@@ -93,7 +90,7 @@ exports.tempUpdateProfile = (req, res, next) => {
 
 exports.dentalProfile = (req, res, next) => {
 
-  const user = req.body;
+  const user = req.decodedToken
   console.log("Inside dentalProfile");
   db((err, con) => {
     if(err){
@@ -120,6 +117,9 @@ exports.dentalProfile = (req, res, next) => {
 exports.dentalUpdateProfile = (req, res, next) => {
   
   const user = req.body;
+  const userId = req.decodedToken.userId;
+  console.log(user); 
+  console.log(userId);
   console.log("Inside dentalUpdateProfile");
   db((err, con) => {
     if(err){

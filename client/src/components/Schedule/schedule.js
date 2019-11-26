@@ -4,62 +4,63 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import ProfileCard from "../ProfileCard/ProfileCard";
+import Modal from "./modal"
 
 import "./main.scss";
+import { red } from "@material-ui/core/colors";
+import { textAlign } from "@material-ui/system";
 
 export default class Calendar extends React.Component {
 
-  componentDidMount() {
-    let currentComponent = this;
-    var data = {
-      userId: localStorage.getItem("userId")
-    }
 
-    fetch("http://localhost:3001/getTempEvent", {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }).then(function(response) {
-      console.log(response);
-      return response.json();
-    }).then(function(data) {
-      console.log(data);
-    }).catch(function(err) {
-      console.log(err);
-    });
-  }
-  
   state = { render: false };
 
   render() {
+    const { render } = this.state;
 
-    const {render} = this.state;
-
-    const eventClick = () => {
+    const eventClick = (renderState) => {
       this.setState({
-        render: !render
-      })
+        render: renderState
+      });
     };
 
-    const getEvents = () => {
+    const eventMouseEnter = () => {
 
     }
 
     return (
-      <div class="container">
-        <FullCalendar
-          defaultView="dayGridMonth"
-          plugins={[dayGridPlugin, interactionPlugin]}
-          events={[{ title: "event 1", date: "2019-11-25" }]}
-          eventClick={eventClick}
-        />
-        {
-          render ?
-        <ProfileCard />
-        : null
-        }
+      <div className="outerContainer">
+        <div class="container">
+          <div class="legend-container">
+            <div className="pendingBox">
+              <div />
+            </div>
+            <div className="pending">Pending</div>
+            <div className="acceptedBox"></div>
+            <div className="accepted">Accepted</div>
+            <div className="completedBox"></div>
+            <div className="completed">Completed</div>
+          </div>
+          <FullCalendar
+            defaultView="dayGridMonth"
+            plugins={[dayGridPlugin, interactionPlugin]}
+            events={[
+              {
+                title: "Event ",
+                date: "2019-11-25",
+                textColor: "red",
+                backgroundColor: "white",
+                borderColor: "white",
+                textAlign: "center",
+                paddingTop: "5px"
+              }
+            ]}
+            eventClick={eventClick}
+          />
+        </div>
+        <div className="profileContainer">
+            {render ? <Modal eventClick={this.eventClick} /> : null}
+          </div>
       </div>
     );
   }

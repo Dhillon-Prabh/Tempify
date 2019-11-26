@@ -13,6 +13,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import TimeInputField from "../Schedule/timeInputField"
 
 
 const styles = theme => ({
@@ -23,6 +24,15 @@ const styles = theme => ({
     media: {
       height: 100,
     },
+    container: {
+        display: "flex",
+        backgroundColor: "white",
+        width: "35%",
+        height: "70%",
+        borderRadius: "5px",
+        justifyContent: "center",
+        alignItems: "center"
+    }
   });
 
 
@@ -36,9 +46,8 @@ class ProfileCard extends Component {
         const { classes } = this.props;
 
         return (
-            <div>
+            <div className={classes.container}>
             <Card className={classes.card}>
-               
                 <CardMedia
                 className={classes.media}
                 image={ok}
@@ -81,6 +90,7 @@ class ProfileCard extends Component {
                     </Typography>
                 </CardActionArea>
             </Card>
+            <TimeInputField />
         </div>
         )
     }

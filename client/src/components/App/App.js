@@ -11,16 +11,20 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <React.Fragment>
+        <React.Fragment>
           <CssBaseline />
           <BrowserRouter>
             <ScrollToTop/>
             <Navbar />
             <Cookie />
           </BrowserRouter>
+<<<<<<< HEAD
         </React.Fragment> */}
         <Schedule />
         <ContactSection />
+=======
+        </React.Fragment> 
+>>>>>>> 6020f3222e78a020382de30822b8359bbfd9b076
       </div>
     );
   }

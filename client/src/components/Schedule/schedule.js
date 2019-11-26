@@ -11,8 +11,66 @@ import { red } from "@material-ui/core/colors";
 import { textAlign } from "@material-ui/system";
 
 export default class Calendar extends React.Component {
+  constructor(props) {
+    super(props);
 
+<<<<<<< HEAD
 
+=======
+    this.state = {
+      events: []
+    }
+}
+  componentDidMount() {
+    let self = this;
+    var data = {
+      userId: localStorage.getItem("userId"),
+      role: localStorage.getItem("role")
+    }
+
+    fetch("http://localhost:3001/getEvents", {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(function(response) {
+      console.log(response);
+      return response.json();
+    }).then(function(data) {
+      console.log(data);
+      var dataEvents = [];
+      for (var i = 0; i < data.length; i++) {
+        if(data[i].temp_status == "ACCEPTED" && data[i].dental_status == "POSTED") {
+          var title = data[i].office_name;
+          var date = data[i].dates;
+          var backgroundColor = "#06a170";
+          var row = {};
+          row.title = title;
+          row.date = date;
+          row.backgroundColor = backgroundColor;
+
+          dataEvents.push(row)
+        } else if(data[i].temp_status == "COMPLETED" && data[i].dental_status == "POSTED") {
+          var title = data[i].office_name;
+          var date = data[i].dates;
+          var backgroundColor = "#a10628";
+          var row = {};
+          row.title = title;
+          row.date = date;
+          row.backgroundColor = backgroundColor;
+
+          dataEvents.push(row);
+        }
+      }
+      console.log(dataEvents);
+      self.setState({events: dataEvents});
+    }).catch(function(err) {
+      console.log(err);
+    });
+  }
+  
+>>>>>>> 6020f3222e78a020382de30822b8359bbfd9b076
   state = { render: false };
 
   render() {
@@ -25,6 +83,7 @@ export default class Calendar extends React.Component {
     };
 
     return (
+<<<<<<< HEAD
       <div className="outerContainer">
         <div class="container">
           <div class="legend-container">
@@ -57,6 +116,20 @@ export default class Calendar extends React.Component {
         <div className="profileContainer">
             {render ? <Modal eventClick={this.eventClick} /> : null}
           </div>
+=======
+      <div class="container">
+        <FullCalendar
+          defaultView="dayGridMonth"
+          plugins={[dayGridPlugin, interactionPlugin]}
+          events={this.state.events}
+          eventClick={eventClick}
+        />
+        {
+          render ?
+        <ProfileCard />
+        : null
+        }
+>>>>>>> 6020f3222e78a020382de30822b8359bbfd9b076
       </div>
     );
   }

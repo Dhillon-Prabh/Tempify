@@ -107,6 +107,7 @@ class PostGig extends React.Component {
           fetch("http://localhost:3001/postGig", {
             method: 'POST',
             headers: {
+              'Authorization': 'Bearer ' + this.props.token,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -317,14 +318,32 @@ const FindFit = () => {
     );
 }
 
-const BookNow = () => {
+
+class BookNow extends React.Component {
+  constructor(props) {
+    super(props);
+    
+  }
+
+  render() {
     return (
-        <React.Fragment>
-            <PostGig withStyles={useStyles}/>
-            <Divider/>
-            <FindFit/>
-        </React.Fragment>
-    );
+      <React.Fragment>
+        <PostGig withStyles={useStyles} token = {this.props.token}/>
+        <Divider/>
+        <FindFit/>
+      </React.Fragment>
+    )
+  }
 }
+
+// const BookNow = () => {
+//     return (
+//         <React.Fragment>
+//             <PostGig withStyles={useStyles}/>
+//             <Divider/>
+//             <FindFit/>
+//         </React.Fragment>
+//     );
+// }
 
 export default BookNow;

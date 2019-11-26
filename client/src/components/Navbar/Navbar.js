@@ -45,27 +45,40 @@ class Navbar extends Component{
 
     const token = localStorage.getItem('token');
     const expiryDate = localStorage.getItem('expiryDate');
+    const userType = localStorage.getItem('userType');
+    const userRole = localStorage.getItem('userRole');
+
 
     if(!token || !expiryDate) {
+      this.props.history.push("/");
       return; 
     }
 
-    if(new Date(expiryDate <= new Date())) {
-      this.logoutHandler();
-      return; 
-    }
+    if(this.state.isAuth && userType.equals("temp")){
+      this.props.history.push("/tempdashboard");
+    } else if(this.state.isAuth && userType.equals("office")) {
+      this.props.history.push("/dashboard");
+    } 
 
     const userId = localStorage.getItem('userId');
     const officeId = localStorage.getItem('officeId');
 
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
+    console.log(remainingMilliseconds);
   
       this.setState({
         isAuth: true,
         token: token,
         userId: userId,
-        officeId: officeId
+        officeId: officeId,
+        role: userRole,
+        userType: userType,
+        loginError: false
       });
+
+      if(this.state.isAuth) {
+        this.props.history.push("/");
+      }
 
       this.setAutoLogout(remainingMilliseconds);
 
@@ -127,6 +140,8 @@ class Navbar extends Component{
       localStorage.setItem('userType', resData.type);
       localStorage.setItem('officeId', resData.officeId);
       localStorage.setItem('role', resData.role);
+      localStorage.setItem('userType', resData.userType);
+
 
       const remainingMilliseconds = 60 * 60 * 1000;
       const expiryDate = new Date(
@@ -390,8 +405,15 @@ class Navbar extends Component{
               />
             )}
           />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/termsAndConditions" component={TermsAndConditions} />
+          <Route
+            path="/dashboard"
+            render= {props => (
+              <Dashboard
+                {...props}
+                token = {this.state.token}
+              />
+            )}
+          />
           <Route
             path="/tempdashboard"
             render= {props => (
@@ -401,7 +423,15 @@ class Navbar extends Component{
               />
             )}
           />
-          <Route path="/jobPosting" component={JobPosting} />
+          <Route
+            path="/jobPosting"
+            render= {props => (
+              <JobPosting
+                {...props}
+                token = {this.state.token}
+              />
+            )}
+          />
         </Switch>
       )
     }

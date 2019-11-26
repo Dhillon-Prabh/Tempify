@@ -21,8 +21,12 @@ router.post('/dentalUpdateProfile', isAuth, profileController.dentalUpdateProfil
 router.post('/dentalInsertProfile', profileController.dentalInsertProfile);
 
 router.get('/tempDashboard', isAuth, authController.getTempDashboardInformation);
-router.post('/postGig', gigController.postGig);
-router.get('/jobPosting', gigController.jobPosting);
-router.post('/acceptGig', gigController.acceptGig);
+
+
+//need to change 
 router.put('/getEvents', eventController.getEvents);
+
+router.post('/postGig', isAuth, gigController.postGig);
+router.get('/jobPosting', isAuth, gigController.jobPosting);
+router.post('/acceptGig', isAuth, gigController.acceptGig);
 module.exports = router;

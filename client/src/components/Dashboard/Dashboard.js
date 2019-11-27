@@ -99,7 +99,7 @@ class Dashboard extends React.Component {
                         </Breadcrumbs>
                     </Grid>
                     <Grid item xs={6}>
-                        <ButtonGroup fullWidth aria-label="full width outlined button group" className="buttons">
+                        <ButtonGroup className="buttons" size="large" aria-label="small contained button group" >
                             <Button className={this.state.bookNow ? "activeButton" : "button"} onClick={this.navigateBookNow}>Book Now</Button>
                             <Button className={this.state.schedule ? "activeButton" : "button"} onClick={this.navigateSchedule}>Schedule</Button>
                             <Button className={this.state.history ? "activeButton" : "button"} onClick={this.navigateHistory}>History</Button>

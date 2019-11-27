@@ -4,8 +4,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import "./App.css";
 import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
-import Schedule from "../Schedule/scheduleForTemp";
-import ContactSection from "../Contact/ContactSection";
+import DashBoard from "../Dashboard/Dashboard"
 
 class App extends Component {
   render() {

@@ -1,5 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+library.add(fab);
 
 const useStyles = makeStyles(theme => ({
   contactContainer: {
@@ -29,13 +34,56 @@ const useStyles = makeStyles(theme => ({
     width: "75%",
     display: "flex"
   },
-  label: {
+  instagramLabel: {
     height: "50px",
     width: "50px",
-    backgroundColor: "lightBlue",
+    backgroundColor: "#84c3e7",
     marginRight: "10px",
     marginTop: "5px",
-    borderRadius: "100px"
+    borderRadius: "100px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "white",
+    fontSize: "25px",
+    '&:hover': {
+      backgroundColor: "#84c3e7",
+      opacity: "0.9"
+    }
+  },
+  twitterLabel: {
+    height: "50px",
+    width: "50px",
+    backgroundColor: "#84dae7",
+    marginRight: "10px",
+    marginTop: "5px",
+    borderRadius: "100px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "white",
+    fontSize: "15px",
+    '&:hover': {
+      backgroundColor: "#84dae7",
+      opacity: "0.9"
+    }
+  },
+  facebookLabel: {
+    height: "50px",
+    width: "50px",
+    backgroundColor: "#75aae6",
+    marginRight: "10px",
+    marginTop: "5px",
+    borderRadius: "100px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "white",
+    fontSize: "15px",
+    '&:hover': {
+      backgroundColor: "#75aae6",
+      opacity: "0.9"
+    }
   }
 }));
 
@@ -51,10 +99,20 @@ export default function() {
       </div>
       <div className={classes.socialMedia}>
         <a href="https://twitter.com/Tempify_co">
-          <div className={classes.label}></div>
+          <div className={classes.twitterLabel}>
+          <FontAwesomeIcon icon={['fab', 'twitter']} size="2x"/>
+          </div>
         </a>
-        <div className={classes.label}></div>
-        <div className={classes.label}></div>
+        <a href="https://www.facebook.com/tempify">
+          <div className={classes.facebookLabel}>
+          <FontAwesomeIcon icon={['fab', 'facebook-f']} size="2x"/>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/tempify.co/">
+          <div className={classes.instagramLabel}>
+          <FontAwesomeIcon icon={['fab', 'instagram']} size="med"/>
+          </div>
+        </a>
       </div>
     </div>
   );

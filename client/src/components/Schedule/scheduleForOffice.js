@@ -3,8 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import ProfileCard from "../ProfileCard/ProfileCard";
-import Modal from "./modal"
+import OfficeProfileCard from "../ProfileCard/OfficeProfileCard";
+import OfficeModal from "./OfficeModal"
 
 import "./main.scss";
 import { red } from "@material-ui/core/colors";
@@ -100,10 +100,14 @@ export default class Calendar extends React.Component {
             plugins={[dayGridPlugin, interactionPlugin]}
             events={this.state.events}
             eventClick={eventClick}
+            events={[
+              { title: 'event 1', date: '2019-11-11' },
+              { title: 'event 2', date: '2019-11-12' }
+            ]}
           />
         </div>
         <div className="profileContainer">
-            {render ? <Modal eventClick={this.eventClick} /> : null}
+            {render ? <OfficeModal/> : null}
           </div>
       </div>
     );

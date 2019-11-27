@@ -31,7 +31,7 @@ class Payment extends React.Component {
     // Send the nonce to your server
     this.setState({ payAmount: this.props.total });
     const transaction = await this.instance.requestPaymentMethod();
-    var data = {payAmount: this.state.payAmount, transaction: transaction};
+    var data = {payAmount: this.state.payAmount, transaction: transaction, gigId: this.props.gigId };
     var success;
     await fetch(`http://localhost:3001/checkout/`, {
         method: 'POST',

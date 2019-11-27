@@ -45,9 +45,7 @@ class History extends Component {
         }).then(res =>  {
           return res.json();
         }).then(result => {
-
-
-
+            
           var resultData = [];
           for (let i = 0; i < result.length; i++) {
               let tempName = result[i].temp_name;

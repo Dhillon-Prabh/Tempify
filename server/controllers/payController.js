@@ -17,7 +17,7 @@ exports.getGigDetails = (req, res, next) => {
       throw err;
     }    
 
-    const query = "SELECT dental_entered_hours, temp_wage, service_fee, gst, total_amount FROM `bookings` WHERE `is_from_gig` = ?";
+    const query = "SELECT temp_hours, temp_wage, service_fee, gst, total_amount FROM `bookings` WHERE id = ?";
     con.query(query, [gig], (err, result, fields) => {     
       if(!result.length) {
         return res.status(401).send({ error : "error message",});
@@ -28,7 +28,7 @@ exports.getGigDetails = (req, res, next) => {
         .status(200)
         .json({
           wages: gigSelected.temp_wage,
-          hours: gigSelected.dental_entered_hours,
+          hours: gigSelected.temp_hours,
           serviceFee: gigSelected.service_fee,
           gst: gigSelected.gst,
           total: gigSelected.total_amount

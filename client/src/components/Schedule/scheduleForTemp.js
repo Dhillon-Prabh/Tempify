@@ -4,8 +4,11 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import ProfileCard from "../ProfileCard/ProfileCard";
+import Modal from "./modal"
 
 import "./main.scss";
+import { red } from "@material-ui/core/colors";
+import { textAlign } from "@material-ui/system";
 
 export default class Calendar extends React.Component {
   constructor(props) {
@@ -39,21 +42,30 @@ export default class Calendar extends React.Component {
         if(data[i].temp_status == "ACCEPTED" && data[i].dental_status == "POSTED") {
           var title = data[i].office_name;
           var date = data[i].dates;
-          var backgroundColor = "#06a170";
+          var id = data[i].id;
           var row = {};
           row.title = title;
           row.date = date;
-          row.backgroundColor = backgroundColor;
+          row.backgroundColor = "green";
+          row.textColor = "white";
+          row.borderColor = "rgba(0, 76, 76, 0.0)";
+          row.fontWeight = "800";
+          row.id = id;
 
           dataEvents.push(row)
-        } else if(data[i].temp_status == "COMPLETED" && data[i].dental_status == "POSTED") {
+        } else if(data[i].temp_status == "COMPLETE" && data[i].dental_status == "POSTED") {
           var title = data[i].office_name;
           var date = data[i].dates;
-          var backgroundColor = "#a10628";
+          var backgroundColor = "red";
+          var id = data[i].id;
           var row = {};
           row.title = title;
           row.date = date;
           row.backgroundColor = backgroundColor;
+          row.textColor = "white";
+          row.borderColor = "rgba(0, 76, 76, 0.0)";
+          row.id = id;
+
           dataEvents.push(row);
           
         }
@@ -65,35 +77,42 @@ export default class Calendar extends React.Component {
     });
   }
   
-  state = { render: false };
+  state = { render: false, bookingId: '' };
 
   render() {
+    const { render } = this.state;
 
-    const {render} = this.state;
-
-    const eventClick = () => {
+    const eventClick = (info) => {
+      console.log(info.event.id);
       this.setState({
-        render: !render
-      })
+        render: !render,
+        bookingId: info.event.id,
+      });
     };
 
-    const getEvents = () => {
-
-    }
-
     return (
-      <div class="container">
-        <FullCalendar
-          defaultView="dayGridMonth"
-          plugins={[dayGridPlugin, interactionPlugin]}
-          events={this.state.events}
-          eventClick={eventClick}
-        />
-        {
-          render ?
-        <ProfileCard />
-        : null
-        }
+      <div className="outerContainer">
+        <div class="container">
+          <div class="legend-container">
+            <div className="pendingBox">
+              <div />
+            </div>
+            <div className="pending">Pending</div>
+            <div className="acceptedBox"></div>
+            <div className="accepted">Accepted</div>
+            <div className="completedBox"></div>
+            <div className="completed">Completed</div>
+          </div>
+          <FullCalendar
+            defaultView="dayGridMonth"
+            plugins={[dayGridPlugin, interactionPlugin]}
+            events={this.state.events}
+            eventClick={eventClick}
+          />
+        </div>
+        <div className="profileContainer">
+            {render ? <Modal bookingId={this.state.bookingId} /> : null}
+          </div>
       </div>
     );
   }

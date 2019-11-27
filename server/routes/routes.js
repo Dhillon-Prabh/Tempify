@@ -24,6 +24,9 @@ router.get('/tempProfile', isAuth, profileController.tempProfile);
 router.post('/tempUpdateProfile',isAuth, profileController.tempUpdateProfile);
 router.get('/dentalProfile', isAuth, profileController.dentalProfile);
 router.post('/dentalUpdateProfile', isAuth, profileController.dentalUpdateProfile);
+
+
+//add isAuth
 router.post('/dentalInsertProfile', profileController.dentalInsertProfile);
 
 router.get('/tempDashboard', isAuth, authController.getTempDashboardInformation);
@@ -32,5 +35,17 @@ router.post('/postGig', isAuth, gigController.postGig);
 router.get('/jobPosting', isAuth, gigController.jobPosting);
 router.post('/acceptGig', isAuth, gigController.acceptGig);
 router.get('/getRecords', isAuth, recordsController.getRecords);
+
+
+
+
+
+
+//add isAuth 
+router.put('/gigCard', gigController.gigCard);
+router.put('/gigCardOffice', gigController.gigCardOffice);
+router.put('/getEventsOffice', eventController.getEventsOffice);
+router.post('/addTime', gigController.addTime);
+
 
 module.exports = router;

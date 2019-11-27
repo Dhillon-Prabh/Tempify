@@ -3,6 +3,5 @@
     "user"      : "zCmRt6OT9O",
     "password"  : "yJXlnvoeOT",
     "database"  : "zCmRt6OT9O",
-    "port"      : 3306,
-    "multipleStatements": "true"
+    "port"      : 3306
 }

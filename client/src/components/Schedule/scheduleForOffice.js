@@ -25,7 +25,7 @@ export default class Calendar extends React.Component {
       role: localStorage.getItem("role")
     }
 
-    fetch("http://localhost:3001/getEvents", {
+    fetch("http://localhost:3001/getEventsOffice", {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -39,27 +39,30 @@ export default class Calendar extends React.Component {
       var dataEvents = [];
       for (var i = 0; i < data.length; i++) {
         if(data[i].temp_status == "ACCEPTED" && data[i].dental_status == "POSTED") {
-          var title = data[i].office_name;
+          var title = data[i].temp_name;
           var date = data[i].dates;
+          var id = data[i].id;
           var row = {};
           row.title = title;
           row.date = date;
-          row.backgroundColor = "rgba(0, 76, 76, 0.0)";
-          row.textColor = "green";
+          row.backgroundColor = "green";
+          row.textColor = "white";
           row.borderColor = "rgba(0, 76, 76, 0.0)";
+          row.id = id;
 
           dataEvents.push(row)
-        } else if(data[i].temp_status == "COMPLETED" && data[i].dental_status == "POSTED") {
-          var title = data[i].office_name;
+        } else if(data[i].temp_status == "COMPLETE" && data[i].dental_status == "POSTED") {
+          var title = data[i].temp_name;
           var date = data[i].dates;
-          var backgroundColor = "#a10628";
+          var backgroundColor = "red";
+          var id = data[i].id;
           var row = {};
           row.title = title;
           row.date = date;
           row.backgroundColor = backgroundColor;
-          row.backgroundColor = "rgba(0, 76, 76, 0.0)";
-          row.textColor = "red";
+          row.textColor = "white";
           row.borderColor = "rgba(0, 76, 76, 0.0)";
+          row.id = id;
 
           dataEvents.push(row);
         }
@@ -71,14 +74,17 @@ export default class Calendar extends React.Component {
     });
   }
   
-  state = { render: false };
+  state = { render: false, bookingId: '' };
 
   render() {
     const { render } = this.state;
 
-    const eventClick = () => {
+    const eventClick = (info) => {
+      console.log("BookingID", info.event.id);
+      console.log(info);
       this.setState({
-        render: !render
+        render: !render,
+        bookingId: info.event.id,
       });
     };
 
@@ -100,14 +106,11 @@ export default class Calendar extends React.Component {
             plugins={[dayGridPlugin, interactionPlugin]}
             events={this.state.events}
             eventClick={eventClick}
-            events={[
-              { title: 'event 1', date: '2019-11-11' },
-              { title: 'event 2', date: '2019-11-12' }
-            ]}
+            events={this.state.events}
           />
         </div>
         <div className="profileContainer">
-            {render ? <OfficeModal/> : null}
+            {render ? <OfficeModal bookingId={this.state.bookingId}/> : null}
           </div>
       </div>
     );

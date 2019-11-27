@@ -145,6 +145,44 @@ const styles = theme => ({
 class ProfileCard extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      bookingId : this.props.bookingId,
+      tempName: '',
+      practice: '',
+      software: '',
+      experience: '',
+      rate: '',
+      bookingRef: ''
+    }
+  }
+
+  componentDidMount(){
+    var self = this;
+    var data = {
+        bookingId: this.state.bookingId
+    }
+    console.log("BookingID", data.bookingId);
+    fetch("http://localhost:3001/gigCardOffice", {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(res => {
+      return res.json();
+    }).then(result => {  
+      self.setState({
+          tempName: result[0].temp_name,
+          practice: result[0].type_of_practice,
+          software: result[0].dental_software,
+          experience: result[0].experience,
+          rate: result[0].expected_rate,
+          bookingRef: result[0].reference_number
+      })
+      console.log(result);
+    }).catch(function(err) {
+      console.log(err);
+    });
   }
 
   render() {
@@ -154,38 +192,34 @@ class ProfileCard extends Component {
       <div className={classes.outerContainer}>
         <div className={classes.container}>
           <div className={classes.imageContainer}></div>
-          <div className={classes.nameContainer}>Prabdeep Singh</div>
-          <div className={classes.statusContainer}>
-            <div className={classes.statusLeft}>Status:</div>
-            <div className={classes.statusRight}>Complete</div>
-          </div>
+          <div className={classes.nameContainer}>{this.state.tempName}</div>
           <div className={classes.statusContainer}>
             <div className={classes.statusLeft}>Practice:</div>
-            <div className={classes.statusRight}>General</div>
+            <div className={classes.statusRight}>{this.state.practice}</div>
           </div>
           <div className={classes.statusContainer}>
             <div className={classes.statusLeft}>Software:</div>
             <div className={classes.statusRight}>
-              Dentrix, Pikachu, Bulbasaur
+              {this.state.software}
             </div>
           </div>
           <div className={classes.statusContainer}>
             <div className={classes.statusLeft}>Experience:</div>
-            <div className={classes.statusRight}>20 Years</div>
+            <div className={classes.statusRight}>{this.state.experience} Years</div>
           </div>
           <div className={classes.locationRateContainer}>
             <div className={classes.locationAndImageContainer}>
               <div className={classes.locationImage}></div>
               <div className={classes.location}>Location</div>
             </div>
-            <div className={classes.rate}>$50.00 / Hour</div>
+            <div className={classes.rate}>${this.state.rate} / Hour</div>
           </div>
           <div className={classes.bookingContainer}>
             <div className={classes.bookingIDTitle}>Booking ID</div>
-            <div className={classes.bookingID}>IDFG28FHAUFU219FUOSIGU</div>
+            <div className={classes.bookingID}>{this.state.bookingRef}</div>
           </div>
           <div className={classes.paymentButtonContainer}>
-          <PaymentButton />
+          <PaymentButton gigId={this.state.bookingId}/>
         </div>
         </div>
       </div>

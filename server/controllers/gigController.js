@@ -158,6 +158,37 @@ exports.gigCard = (req, res, next) => {
   })
 }
 
+exports.gigCardOffice = (req, res, next) => {
+
+  const booking = req.body;
+  console.log("Inside gigCardOffice");
+  console.log(booking);
+  db((err, con) => {
+    if(err){
+      console.log(err);
+      throw err;
+    }
+    
+    var userQuery = 'SELECT t.temp_name, t.experience, t.expected_rate, t.type_of_practice, ' +
+    't.dental_software, b.reference_number FROM temps t JOIN bookings b ON t.id = b.temp_id WHERE b.id = ? LIMIT 1';
+    values=[booking.bookingId];
+    con.query(userQuery, values, (err, result, fields) => {
+      if (!err) {
+        if(!result.length) {
+          return res.status(401).send({ error : "error message",});
+        } else {
+          return res.status(200).json(result);
+        }
+      } else {
+        console.log(err);
+        res.status(401).send({ error : "error message",});
+        con.release();
+      }
+    });
+  })
+}
+
+
 exports.addTime = (req, res, next) => {
 
   const booking = req.body;

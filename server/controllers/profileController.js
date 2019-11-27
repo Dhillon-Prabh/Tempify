@@ -13,9 +13,11 @@ exports.tempProfile = (req, res, next) => {
     values=[user.userId];
     con.query(userQuery, values, (err, result, fields) => {
       if(!result.length) {
-        return res.status(401).send({ error : "error message",});
+        res.status(401).send({ error : "error message",});
+        con.release();
       } else {
-        return res.status(200).json(result);
+        res.status(200).json(result);
+        con.release();
       }
     });
     con.release();

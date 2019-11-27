@@ -12,7 +12,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import BookNow from '../BookNow/BookNow';
 import Schedule from '../Schedule/schedule';
-import Records from '../Records/Records';
 import History from '../History/History';
 
 
@@ -112,7 +111,7 @@ class Dashboard extends Component {
                 </Grid>
                 {this.state.bookNow ? <BookNow token = {this.props.token}/> : null }
                 {this.state.schedule ? <Schedule/> : null }
-                {this.state.history ? <Records/> : null }
+                {this.state.history ? <History token = {this.props.token}/> : null }
             </React.Fragment>
         );
     }

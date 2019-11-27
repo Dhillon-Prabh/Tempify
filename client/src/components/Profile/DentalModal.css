@@ -1,3 +1,60 @@
+.header1 {
+  padding-top: 5rem;
+  padding-bottom: 1.65em;
+  letter-spacing: 0.1rem !important;
+  font-weight: 800 !important;
+  font-size: 1.8rem !important;
+}
+
+.profile {
+  width: 60%;
+  margin: auto;
+}
+
+.textfield {
+  width: 100%;
+}
+
+.blueButton {
+  width: 210px;
+  height: 59px;
+  background-color: #00bfff !important;
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+}
+
+.container1 {
+}
+
+.container2 {
+  height: 6rem;
+  line-height: normal;
+}
+
+.temp-profile-asterisk {
+  color: red;
+}
+
+.temp-profile-upload {
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.dental-modal-clearButton {
+  border: 1px solid white !important;
+  color:white !important;
+  box-shadow: none;
+  padding: 10px 20px;
+  border-radius: 0px !important ;
+  background-color: transparent;
+  width: 170px;
+  height: 44px;
+  margin-left: 7px !important;
+  margin-right: 7px !important ;
+  font-weight: 900px;
+  font-size: 0.8rem;
+}
+
 .modal-login-blueButton {
   width: 100px;
   height: 59px;
@@ -5,11 +62,6 @@
   background-color: #00bfff !important;
   border: 1px solid lightgray; 
   color:white !important;
-}
-
-.modal-login-blueButton:hover {
-  background-color: #00bfff !important;
-  opacity: 0.9;
 }
 
 .modal-register-blueButton {
@@ -20,14 +72,13 @@
   background-color: white !important;
 }
 
-.modal-register-blueButton:hover {
-  background-color: #F5F5F5 !important;
+.dental-modal-container1 {
+  height: 100% !important;
 }
 
-.modal-container {
-  width: 500px; 
+.dental-modal-container2 {
+  width: 100%; 
   height: 100%;
-  text-align:center;
   padding: 20px !important;
 }
 

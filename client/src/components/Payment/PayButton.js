@@ -84,7 +84,7 @@ class PayButton extends Component{
   render() {
 
     return (
-      <div>
+      <div className="container">
         <Button onClick={this.handleClickOpen} className='payButton'>
             PAY
         </Button>

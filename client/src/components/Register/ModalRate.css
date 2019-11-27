@@ -7,21 +7,12 @@
   color:white !important;
 }
 
-.modal-login-blueButton:hover {
-  background-color: #00bfff !important;
-  opacity: 0.9;
-}
-
 .modal-register-blueButton {
   width: 100px;
   height: 59px;
   margin-right: 25px !important;
   border: 1px solid lightgray !important;
   background-color: white !important;
-}
-
-.modal-register-blueButton:hover {
-  background-color: #F5F5F5 !important;
 }
 
 .modal-container {

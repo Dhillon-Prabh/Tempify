@@ -14,8 +14,6 @@ exports.postGig = [
   }), 
   (req, res, next) => {
     const errors = validationResult(req);
-
-    console.log(req.decodedToken);
     
     if (!errors.isEmpty()) {
       return res.status(422).jsonp(errors.array());
@@ -94,20 +92,21 @@ exports.jobPosting = (req, res, next) => {
 
 exports.acceptGig = (req, res, next) => {
   var value = req.body;
-  console.log(value.acceptData);
+  console.log(value.acceptData, "i am req.body");
+  console.log(value);
   db((err, con) => {
     if(err){
       console.log(err);
       throw err;
     }
     var query = 'SELECT id, expected_rate FROM temps WHERE user_id = ?;';
-        values=[value.userId];
+        values=[req.decodedToken.userId];
         con.query(query, values, (err, result, fields) => {
         if(!err) {
             var userquery = "UPDATE gigs SET status = ? where id = ?;" +
-            "INSERT INTO bookings (`created_at`, `updated_at`, `temp_id`, `temp_status`," + 
-            "`dentist_id`, `dental_status`, `reference_number`, `dates`, `is_from_gig`, `timings`," +
-            "`designation`, `temp_wage`)" + 
+            "INSERT INTO bookings (created_at, updated_at, temp_id, temp_status, " + 
+            "dentist_id, dental_status, reference_number, dates, is_from_gig, timings, " +
+            "designation, temp_wage)\n" + 
             " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
           uservalues=["ACCEPTED", value.gigId, new Date(), new Date(), result[0].id, "ACCEPTED", value.acceptData.dentist_id, "POSTED", 
             "TMPFY"+ value.gigId, value.acceptData.date, value.gigId, value.acceptData.time, value.acceptData.designation, result[0].expected_rate];

@@ -46,7 +46,7 @@ class JobPosting extends React.Component {
         },
         body: JSON.stringify(data)
         }).then(function(response) {
-            // console.log(response);
+            console.log(response);
             return response;
         }).then(function(data) {
             // console.log(data);

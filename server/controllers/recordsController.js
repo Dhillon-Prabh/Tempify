@@ -17,8 +17,6 @@ exports.getRecords = (req, res, next) => {
     
     con.query(query, [values], (err, result, fields) => {
 
-      
-
       let bookingQuery = '';
       if(req.decodedToken.userType === "temp") {
         bookingQuery = "SELECT d.office_name, d.street_number, d.street_name, d.unit_number, d.city, d.province, d.postalcode, d.parking_options, d.phone_number , d.email ,b.reference_number, b.dates, b.temp_status FROM bookings b JOIN dentists d ON b.dentist_id = d.id WHERE b.temp_status LIKE 'COMPLETE' AND b.dental_status LIKE 'COMPLETE' AND b.temp_id = ?";

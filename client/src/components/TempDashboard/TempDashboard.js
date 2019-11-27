@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Schedule from '../Schedule/schedule';
+import Schedule from '../Schedule/scheduleForTemp';
 import {Link} from 'react-router-dom';
 import './TempDashboard.css'
 
@@ -110,12 +110,12 @@ class TempDashboard extends Component {
     return(
       <div>
           <Grid container direction="row" justify="center" alignItems="center" className="options">
-            <Grid item xs={12} md={3}>
-              <Grid item xs={12}>
+            <Grid item xs={2}>
+              {/* <Grid item xs={12}>
                 <div className = "tempdashboard-username">
                   Hi, {this.state.user}!
                 </div>
-              </Grid>
+              </Grid> */}
               <Breadcrumbs aria-label="breadcrumb">
                   <Link to="/tempdashboard" style={{textDecoration:'none', color: 'inherit'}}>
                   <ListItem button>
@@ -130,35 +130,11 @@ class TempDashboard extends Component {
                   <Typography color="textPrimary">dashboard</Typography>
                 </Breadcrumbs>
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6}>
               <ButtonGroup fullWidth aria-label="full width outlined button group" className="buttons">
-                  <Button 
-                    type="submit" 
-                    fullWidth variant="contained" 
-                    color="primary" 
-                    className={classes.submit}
-                    onClick={this.navigatePending}
-                    >
-                      Pending
-                    </Button>
-                    <Button 
-                    type="submit" 
-                    fullWidth variant="contained" 
-                    color="primary" 
-                    className={classes.submit}
-                    onClick={this.navigateSchedule}
-                    >
-                      Schedule
-                    </Button>
-                    <Button 
-                    type="submit" 
-                    fullWidth variant="contained" 
-                    color="primary" 
-                    className={classes.submit}
-                    onClick={this.navigateRecords}
-                    >
-                      Records
-                    </Button>
+                  <Button className={this.state.pending ? "activeButton" : "button"} onClick={this.navigatePending}>Pending</Button>
+                  <Button className={this.state.schedule ? "activeButton" : "button"} onClick={this.navigateSchedule}>Schedule</Button>
+                  <Button className={this.state.records ? "activeButton" : "button"} onClick={this.navigateRecords}>Records</Button>
               </ButtonGroup>
             </Grid>
           </Grid>

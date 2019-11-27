@@ -101,22 +101,128 @@ exports.acceptGig = (req, res, next) => {
       console.log(err);
       throw err;
     }
-    var query = "UPDATE gigs SET status = ? where id = ?;" +
-      "INSERT INTO bookings (`created_at`, `updated_at`, `temp_id`, `temp_status`," + 
-      "`dentist_id`, `dental_status`, `reference_number`, `dates`, `is_from_gig`, `timings`," +
-      "`designation`)" + 
-      " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-    values=["ACCEPTED", value.gigId, new Date(), new Date(), value.userId, "ACCEPTED", value.acceptData.dentist_id, "POSTED", 
-      "TMPFY"+ value.gigId, value.acceptData.date, value.gigId, value.acceptData.time, value.acceptData.designation];
-    con.query(query, values, (err, result, fields) => {
+    var query = 'SELECT id, expected_rate FROM temps WHERE user_id = ?;';
+        values=[value.userId];
+        con.query(query, values, (err, result, fields) => {
+        if(!err) {
+            var userquery = "UPDATE gigs SET status = ? where id = ?;" +
+            "INSERT INTO bookings (`created_at`, `updated_at`, `temp_id`, `temp_status`," + 
+            "`dentist_id`, `dental_status`, `reference_number`, `dates`, `is_from_gig`, `timings`," +
+            "`designation`, `temp_wage`)" + 
+            " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+          uservalues=["ACCEPTED", value.gigId, new Date(), new Date(), result[0].id, "ACCEPTED", value.acceptData.dentist_id, "POSTED", 
+            "TMPFY"+ value.gigId, value.acceptData.date, value.gigId, value.acceptData.time, value.acceptData.designation, result[0].expected_rate];
+          con.query(userquery, uservalues, (err, result, fields) => {
+            if (!err) {
+              res.status(300).send("Success");
+              con.release();
+            } else {
+              console.log(err);
+              res.status(401).send('Error Occurred');
+              con.release();
+            }
+          });
+        } else {
+          res.status(401).send('Error Occurred');
+          con.release();
+        }
+        });
+  })
+}
+
+exports.gigCard = (req, res, next) => {
+
+  const booking = req.body;
+  console.log("Inside gigCard");
+  db((err, con) => {
+    if(err){
+      console.log(err);
+      throw err;
+    }
+    
+    var userQuery = 'SELECT d.dentist_name, d.office_name, d.phone_number, d.email, d.street_number, d.street_name, d.unit_number, ' +
+      'd.city, d.province, d.postalcode, d.parking_options, b.dates, b.timings, b.reference_number FROM dentists d JOIN bookings b ON d.id = b.dentist_id WHERE b.id = ? LIMIT 1';
+    values=[booking.bookingId];
+    con.query(userQuery, values, (err, result, fields) => {
       if (!err) {
-        res.status(300).send("Success");
-        con.release();
+        if(!result.length) {
+          return res.status(401).send({ error : "error message",});
+        } else {
+          return res.status(200).json(result);
+        }
       } else {
         console.log(err);
-        res.status(401).send('Error Occurred');
+        res.status(401).send({ error : "error message",});
         con.release();
       }
     });
+  })
+}
+
+exports.gigCardOffice = (req, res, next) => {
+
+  const booking = req.body;
+  console.log("Inside gigCardOffice");
+  console.log(booking);
+  db((err, con) => {
+    if(err){
+      console.log(err);
+      throw err;
+    }
+    
+    var userQuery = 'SELECT t.temp_name, t.experience, t.expected_rate, t.type_of_practice, ' +
+    't.dental_software, b.reference_number FROM temps t JOIN bookings b ON t.id = b.temp_id WHERE b.id = ? LIMIT 1';
+    values=[booking.bookingId];
+    con.query(userQuery, values, (err, result, fields) => {
+      if (!err) {
+        if(!result.length) {
+          return res.status(401).send({ error : "error message",});
+        } else {
+          return res.status(200).json(result);
+        }
+      } else {
+        console.log(err);
+        res.status(401).send({ error : "error message",});
+        con.release();
+      }
+    });
+  })
+}
+
+
+exports.addTime = (req, res, next) => {
+
+  const booking = req.body;
+  console.log("Inside addTime");
+  console.log(booking);
+  db((err, con) => {
+    if(err){
+      console.log(err);
+      throw err;
+    }
+    var query = 'SELECT temp_wage FROM bookings WHERE id = ?;';
+        values=[booking.bookingId];
+        con.query(query, values, (err, result, fields) => {
+        if(!err) { 
+          var userQuery = 'UPDATE bookings SET temp_status = ?, temp_hours = ?, service_fee = ?, gst = ?, total_amount = ? WHERE id = ?;';
+          var amount = parseInt(result[0].temp_wage) * booking.hours;
+          var gst = amount * 0.05;
+          var service_fee = amount *0.15;
+          var total = amount + gst + service_fee;
+          valuesB=["COMPLETE", booking.hours, service_fee, gst, total, booking.bookingId];
+          con.query(userQuery, valuesB, (err, result, fields) => {
+            if (!err) {
+              return res.status(200).json(result);
+            } else {
+              console.log(err);
+              res.status(401).send({ error : "error message",});
+              con.release();
+            }
+          });
+        } else {
+          res.status(401).send('Error Occurred');
+          con.release();
+        }
+      });
   })
 }

@@ -29,11 +29,11 @@ export default function() {
   const classes = useStyles();
   return (
     <div className={classes.outerContainer}>
-      <div className={classes.container}>
+      {/* <div className={classes.container}>
         <div className={classes.footerContainers}>Pricing</div>
         <div className={classes.footerContainers}>Privacy Policy</div>
         <div className={classes.footerContainers}>Terms and Conditions</div>
-      </div>
+      </div> */}
       <div className={classes.copyrightMessage}>
         © Tempify. All rights reserved. @2017-2018.
       </div>

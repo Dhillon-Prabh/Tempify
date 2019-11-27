@@ -11,7 +11,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import BookNow from '../BookNow/BookNow';
-import Schedule from '../Schedule/schedule';
+import Schedule from '../Schedule/scheduleForOffice';
 import Records from '../Records/Records';
 
 function HomeIcon(props) {
@@ -87,7 +87,7 @@ class Dashboard extends React.Component {
                 <Grid container direction="row" justify="center" alignItems="center" className="options">
                     <Grid item xs={2}>
                         <Breadcrumbs aria-label="breadcrumb">
-                            <Link to="/" style={{textDecoration:'none', color: 'inherit'}}>
+                            <Link to="/dashboard" style={{textDecoration:'none', color: 'inherit'}}>
                                 <ListItem button>
                                     <ListItemIcon>
                                         <HomeIcon />
@@ -99,7 +99,7 @@ class Dashboard extends React.Component {
                         </Breadcrumbs>
                     </Grid>
                     <Grid item xs={6}>
-                        <ButtonGroup fullWidth aria-label="full width outlined button group" className="buttons">
+                        <ButtonGroup className="buttons" size="large" aria-label="small contained button group" >
                             <Button className={this.state.bookNow ? "activeButton" : "button"} onClick={this.navigateBookNow}>Book Now</Button>
                             <Button className={this.state.schedule ? "activeButton" : "button"} onClick={this.navigateSchedule}>Schedule</Button>
                             <Button className={this.state.history ? "activeButton" : "button"} onClick={this.navigateHistory}>History</Button>

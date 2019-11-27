@@ -69,6 +69,7 @@ class Profile extends React.Component {
       province: '',
       postalCode: '',
       parking: parking[0].value,
+      groupId: this.props.groupId,
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -79,27 +80,30 @@ class Profile extends React.Component {
       userId: this.state.userId,
       officeId: this.state.officeId
     }
-    
+
     fetch("http://localhost:3001/dentalProfile", {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,
+        'Content-Type': 'application/json'
       },
+      body: JSON.stringify(data)
     }).then(res =>  {
       return res.json();
     }).then(result => {
       currentComponent.setState({
-        name: data[0].dentist_name,
-        officeEmail: data[0].email,
-        officeName: data[0].office_name,
-        phone: data[0].phone_number,
-        streetNo: data[0].street_number,
-        streetName: data[0].street_name,
-        unit: data[0].unit_number,
-        city: data[0].city,
-        province: data[0].province,
-        postalCode: data[0].postalcode,
-        parking: data[0].parking_options,
+        name: result[0].dentist_name,
+        officeEmail: result[0].email,
+        officeName: result[0].office_name,
+        phone: result[0].phone_number,
+        streetNo: result[0].street_number,
+        streetName: result[0].street_name,
+        unit: result[0].unit_number,
+        city: result[0].city,
+        province: result[0].province,
+        postalCode: result[0].postalcode,
+        parking: result[0].parking_options,
+        groupId: result[0].group_id,
       });
     }).catch(function(err) {
       console.log(err);
@@ -117,8 +121,7 @@ class Profile extends React.Component {
     var data = {
       userId: this.props.userId,
       officeId: this.props.officeId,
-      officeEmail: this.state.officeEmail,
-      officeName: this.state.OfficeName,
+      officeName: this.state.officeName,
       name: this.state.name,
       phone: this.state.phone,
       streetNo: this.state.streetNo,
@@ -194,39 +197,6 @@ class Profile extends React.Component {
                 }}
               />
             </Grid>
-            <Grid item xs={12} sm={6} className="container2">
-              <TextValidator
-                required
-                fullWidth
-                id="officeEmail"
-                name="officeEmail"
-                value={this.state.officeEmail}
-                label="Office Email Address"
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                //autoComplete="email"
-                validators={['required', 'isEmail']}
-                errorMessages={['This field is required', 'This is not a valid email']}
-                onChange={this.handleChange}
-                InputLabelProps={{
-                  shrink: true,
-                  classes: {
-                    root: classes.label,
-                    focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
-                }}
-                InputProps={{
-                  classes: {
-                    root: classes.outlinedInput,
-                    focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
-                }}
-              />
-            </Grid>
-
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
                 required

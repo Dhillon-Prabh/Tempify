@@ -59,7 +59,9 @@ class DentalModal extends React.Component {
     this.state = {
       userId: this.props.userId,
       officeId: this.props.officeId,
-      officeEmail: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
       officeName: '',
       name: '',
       phone: '',
@@ -73,6 +75,7 @@ class DentalModal extends React.Component {
       setOpen: false,
       open: false,
       link: this.props.link,
+      groupId: this.props.groupId,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleClickOpen = this.handleClickOpen.bind(this);
@@ -126,7 +129,8 @@ class DentalModal extends React.Component {
     let currentComponent = this;
     var data = {
       userId: this.state.userId,
-      officeId: this.state.officeId
+      officeId: this.state.officeId,
+      groupId: this.state.groupId,
     }
   }
 
@@ -141,7 +145,8 @@ class DentalModal extends React.Component {
     var data = {
       userId: this.props.userId,
       officeId: this.props.officeId,
-      officeEmail: this.state.officeEmail,
+      email: this.state.email,
+      password: this.state.password,
       officeName: this.state.officeName,
       name: this.state.name,
       phone: this.state.phone,
@@ -152,8 +157,10 @@ class DentalModal extends React.Component {
       province: this.state.province,
       postalCode: this.state.postalCode,
       parking: this.state.parking,
+      groupId: this.state.groupId,
     }
 
+    console.log(data);
     fetch("http://localhost:3001/dentalInsertProfile", {
       method: 'POST',
       headers: {
@@ -167,20 +174,15 @@ class DentalModal extends React.Component {
     }).catch(function(err) {
       console.log(err);
     });
-    //this.props.history.push("/home");
-    this.setState({setOpen: true});//handleClickClose();
+    this.props.history.push("/home");
+    //this.setState({setOpen: false});//handleClickClose();
   }
 
   handleChange = (e) => {
     this.setState({[e.target.name]: e.target.value});
   }
 
-  handleCheckboxChange = (e) => {
-    this.setState({accept: e.target.checked})
-  }
-
   render() {
-
     const { classes } = this.props;
     return (
       <div className="profile">
@@ -212,7 +214,7 @@ class DentalModal extends React.Component {
                         className={classes.textField}
                         margin="normal"
                         variant="outlined"
-                        autoComplete="name"
+                        //autoComplete="name"
                         validators={['required']}
                         errorMessages={['This field is required']}
                         onChange={this.handleChange}
@@ -237,14 +239,14 @@ class DentalModal extends React.Component {
                     <TextValidator
                         required
                         fullWidth
-                        id="officeEmail"
-                        name="officeEmail"
-                        value={this.state.officeEmail}
-                        label="Office Email Address"
+                        id="email"
+                        name="email"
+                        value={this.state.email}
+                        label="Email Address"
                         className={classes.textField}
                         margin="normal"
                         variant="outlined"
-                        autoComplete="email"
+                        //autoComplete="email"
                         validators={['required', 'isEmail']}
                         errorMessages={['This field is required', 'This is not a valid email']}
                         onChange={this.handleChange}
@@ -263,6 +265,71 @@ class DentalModal extends React.Component {
                             notchedOutline: classes.notchedOutline,
                         },
                         }}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12} sm={6} className="container2">
+                    <TextValidator
+                      required
+                      fullWidth
+                      id="password"
+                      name="password"
+                      value={this.state.password}
+                      type="password"
+                      label="Password"
+                      className={classes.textField}
+                      margin="normal"
+                      variant="outlined"
+                      validators={['required']}
+                      errorMessages={['This field is required']}
+                      onChange={this.handleChange}
+                      InputLabelProps={{
+                        shrink: true,
+                        classes: {
+                          root: classes.label,
+                          focused: classes.focused,
+                          asterisk: classes.labelAsterisk,
+                        },
+                      }}
+                      InputProps={{
+                        classes: {
+                          root: classes.outlinedInput,
+                          focused: classes.focused,
+                          notchedOutline: classes.notchedOutline,
+                        },
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} className="container2">
+                    <TextValidator
+                      required
+                      fullWidth
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      value={this.state.confirmPassword}
+                      type="password"
+                      label="Confirm password"
+                      className={classes.textField}
+                      margin="normal"
+                      variant="outlined"
+                      validators={['required', 'isPasswordMatch']}
+                      errorMessages={['This field is required', 'Passwords do not match']}
+                      onChange={this.handleChange}
+                      InputLabelProps={{
+                        shrink: true,
+                        classes: {
+                          root: classes.label,
+                          focused: classes.focused,
+                          asterisk: classes.labelAsterisk,
+                        },
+                      }}
+                      InputProps={{
+                        classes: {
+                          root: classes.outlinedInput,
+                          focused: classes.focused,
+                          notchedOutline: classes.notchedOutline,
+                        },
+                      }}
                     />
                   </Grid>
                   

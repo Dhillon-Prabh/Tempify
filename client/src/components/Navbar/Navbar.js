@@ -57,6 +57,7 @@ class Navbar extends Component{
 
     const userId = localStorage.getItem('userId');
     const officeId = localStorage.getItem('officeId');
+    const groupId = localStorage.getItem('groupId');
 
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
   
@@ -64,7 +65,8 @@ class Navbar extends Component{
         isAuth: true,
         token: token,
         userId: userId,
-        officeId: officeId
+        officeId: officeId,
+        groupId: groupId
       });
 
       this.setAutoLogout(remainingMilliseconds);
@@ -119,6 +121,7 @@ class Navbar extends Component{
         role: resData.role,
         userType: resData.userType,
         officeId: resData.officeId,
+        groupId: resData.groupId,
         loginError: false
       });  
 
@@ -126,6 +129,7 @@ class Navbar extends Component{
       localStorage.setItem('userId', resData.userId);
       localStorage.setItem('userType', resData.type);
       localStorage.setItem('officeId', resData.officeId);
+      localStorage.setItem('groupId', resData.groupId);
       localStorage.setItem('role', resData.role);
 
       const remainingMilliseconds = 60 * 60 * 1000;
@@ -168,7 +172,8 @@ class Navbar extends Component{
       token: null,
       role: -1,
       userType: "",
-      officeId: -1
+      officeId: -1,
+      groupId: -1
     })
 
     localStorage.removeItem('token');
@@ -176,6 +181,7 @@ class Navbar extends Component{
     localStorage.removeItem('userId');
     localStorage.removeItem('userType');
     localStorage.removeItem('officeId');
+    localStorage.removeItem('groupId');
   }
 
   setAutoLogout(milliseconds) {
@@ -364,8 +370,10 @@ class Navbar extends Component{
     if(this.state.isAuth) {
       const userId = localStorage.getItem('userId');
       const officeId = localStorage.getItem('officeId');
+      const groupId = localStorage.getItem('groupId');
       console.log("Navbar - userId: " + userId);
       console.log("Navbar - officeId: " + officeId);
+      console.log("Navbar - groupId: " + groupId);
 
       routes = (
         <Switch>
@@ -378,6 +386,7 @@ class Navbar extends Component{
                 token = {this.state.token}
                 userId = {userId}
                 officeId = {officeId}
+                groupId = {groupId}
               />
             )}
           />
@@ -387,6 +396,7 @@ class Navbar extends Component{
               <TempProfile
                 {...props}
                 token = {this.state.token}
+                userId = {userId}
               />
             )}
           />

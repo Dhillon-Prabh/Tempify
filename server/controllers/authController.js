@@ -18,8 +18,7 @@ exports.postLogin = (req, res, next) => {
           error: "error message",
         });
       } else if(result[0].role == 1) {
-        var userQuery = 'SELECT d.id FROM office_group o INNER JOIN dentists d ON o.id = d.group_id ' +
-          'WHERE o.user_id = ? LIMIT 1;';
+        var userQuery = 'SELECT id, group_id FROM dentists WHERE user_id = ? LIMIT 1;';
         values=[result[0].id];
         con.query(userQuery, values, (err, row, fields) => {
           if(!err) {
@@ -31,6 +30,7 @@ exports.postLogin = (req, res, next) => {
                 email: loadedUser.email, 
                 userId: loadedUser.id,
                 officeId: office.id,
+                groupId: office.group_id,
                 userType:'office'
               }, 'secret', { 
                 expiresIn: '1h' 
@@ -44,6 +44,7 @@ exports.postLogin = (req, res, next) => {
                 userId: loadedUser.id,
                 role: loadedUser.role,
                 officeId: office.id,
+                groupId: office.group_id,
                 userType: 'office'
                 }
               )
@@ -60,6 +61,7 @@ exports.postLogin = (req, res, next) => {
               email: loadedUser.email, 
               userId: loadedUser.id,
               officeId: -1,
+              groupId: -1,
               userType:'temp'
             }, 'secret', { 
               expiresIn: '1h' 
@@ -72,10 +74,10 @@ exports.postLogin = (req, res, next) => {
               token: token,
               userId: loadedUser.id,
               role: loadedUser.role,
-              userType: 'temp',
-              officeId: -1
-              }
-            )
+              officeId: -1,
+              groupId: -1,
+              userType: 'temp'
+            })
         con.release();
       }
     })

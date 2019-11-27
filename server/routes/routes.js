@@ -28,7 +28,9 @@ router.get('/tempDashboard', isAuth, authController.getTempDashboardInformation)
 router.post('/postGig', gigController.postGig);
 router.get('/jobPosting', gigController.jobPosting);
 router.put('/gigCard', gigController.gigCard);
+router.put('/gigCardOffice', gigController.gigCardOffice);
 router.post('/acceptGig', gigController.acceptGig);
 router.put('/getEvents', eventController.getEvents);
+router.put('/getEventsOffice', eventController.getEventsOffice);
 router.post('/addTime', gigController.addTime);
 module.exports = router;

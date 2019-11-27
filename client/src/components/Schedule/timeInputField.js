@@ -28,7 +28,7 @@ class BasicTextFields extends React.Component {
     this.state = {
       bookingId: this.props.bookingId,
       hour: '',
-      minutes: ''
+      minutes: '0'
     }
     this.handleChange = this.handleChange.bind(this);
   }

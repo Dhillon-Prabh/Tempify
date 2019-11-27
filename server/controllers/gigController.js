@@ -172,9 +172,12 @@ exports.addTime = (req, res, next) => {
         values=[booking.bookingId];
         con.query(query, values, (err, result, fields) => {
         if(!err) { 
-          var userQuery = 'UPDATE bookings SET temp_status = ?, temp_hours = ?, total_amount = ? WHERE id = ?;';
+          var userQuery = 'UPDATE bookings SET temp_status = ?, temp_hours = ?, service_fee = ?, gst = ?, total_amount = ? WHERE id = ?;';
           var amount = parseInt(result[0].temp_wage) * booking.hours;
-          valuesB=["COMPLETE", booking.hours, amount, booking.bookingId];
+          var gst = amount * 0.05;
+          var service_fee = amount *0.15;
+          var total = amount + gst + service_fee;
+          valuesB=["COMPLETE", booking.hours, service_fee, gst, total, booking.bookingId];
           con.query(userQuery, valuesB, (err, result, fields) => {
             if (!err) {
               return res.status(200).json(result);

@@ -167,36 +167,6 @@ exports.dentalUpdateProfile = (req, res, next) => {
 }
 
 exports.dentalInsertProfile = (req, res, next) => {
-  
-  const user = req.body;
-  console.log("Inside dentalInsertProfile");
-  db((err, con) => {
-    if(err){
-      console.log(err);
-      throw err;
-    }
-
-    var dentalQuery = 'INSERT INTO dentists(created_at, updated_at, group_id, phone_number, email, ' +
-      'office_name, dentist_name, street_number, street_name, unit_number, city, province, postalcode, ' + 
-      'parking_options) VALUES (?, ?, (SELECT id FROM office_group WHERE user_id = ? LIMIT 1), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
-    values=[new Date(), new Date(), user.phone, user.officeEmail, user.officeName, user.name, user.streetNo,
-      user.streetName, user.unit, user.city, user.province, user.postalCode, user.parking];
-    con.query(dentalQuery, values, (err, result, fields) => {
-      console.log(result);
-      if(!err) {
-        console.log("no error proceeding to success");
-        res.status(300).send({ message: "success" });
-        con.release();
-      } else {
-        console.log("Error:" + err);
-        res.status(400).send({error: "unable to complete request"});
-        con.release();
-      }
-    });
-  })
-}
-
-exports.dentalInsertProfile = (req, res, next) => {
 
   const user = req.body;
   console.log("Inside dentalInsertProfile");

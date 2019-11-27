@@ -139,8 +139,8 @@ class DentalModal extends React.Component {
     ValidatorForm.removeValidationRule('isTruthy');
   }
 
-  submitForm = (event) => {
-    event.preventDefault();
+  submitForm = () => {
+    console.log("inside sufsf");
 
     var data = {
       userId: this.props.userId,
@@ -197,7 +197,7 @@ class DentalModal extends React.Component {
         >
           <DialogContent>
             <div className="dental-modal-container2"> 
-              <ValidatorForm ref="form" onSubmit={(e) => this.submitForm(e)}>
+              <ValidatorForm ref="form">
                 <Typography align="center" className="dental-modal-header">
                   ADD NEW OFFICE
                 </Typography>
@@ -604,7 +604,7 @@ class DentalModal extends React.Component {
                   </Grid>
 
                   <Grid item xs={12} align="center">
-                    <Button className="dental-modal-blueButton" color="primary" variant="contained" type="submit">
+                    <Button className="dental-modal-blueButton" color="primary" variant="contained" type="submit" onClick={this.submitForm}>
                       ADD
                     </Button>
                     <Button className="dental-modal-blueButton" color="primary" variant="contained" onClick={this.handleClickClose}>

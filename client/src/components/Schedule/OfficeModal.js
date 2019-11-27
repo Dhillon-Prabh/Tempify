@@ -1,9 +1,10 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import ProfileCard from "../ProfileCard/ProfileCard"
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import OfficeProfileCard from "../ProfileCard/OfficeProfileCard";
+import PaymentButton from "../Payment/PayButton";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -14,9 +15,8 @@ const useStyles = makeStyles(theme => ({
   paper: {
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
-    boxShadow: theme.shadows[5],
+    boxShadow: theme.shadows[0],
     padding: theme.spacing(2, 4, 3),
-    shadows: ["none"]
   },
 }));
 
@@ -47,7 +47,7 @@ export default function TransitionsModal() {
         }}
       >
         <Fade in={open}>
-            <ProfileCard />
+            <OfficeProfileCard />
         </Fade>
       </Modal>
     </div>

@@ -32,6 +32,7 @@ const styles = theme => ({
         borderRadius: "5px",
         justifyContent: "center",
         alignItems: "center",
+        outline: "none"
     }
   });
 

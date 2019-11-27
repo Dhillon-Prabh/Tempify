@@ -54,8 +54,8 @@ export default class Calendar extends React.Component {
           row.title = title;
           row.date = date;
           row.backgroundColor = backgroundColor;
-
           dataEvents.push(row);
+          
         }
       }
       console.log(dataEvents);

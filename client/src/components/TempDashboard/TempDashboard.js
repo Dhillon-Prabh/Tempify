@@ -153,7 +153,7 @@ class TempDashboard extends Component {
           </Grid>
 
           {this.state.pending ? <Pending token = {this.props.token} /> : null }
-          {this.state.schedule ? <Schedule/> : null }
+          {this.state.schedule ? <Schedule token = {this.props.token}/> : null }
           {this.state.records ? <Records token = {this.props.token}/> : null }
 
       </div>

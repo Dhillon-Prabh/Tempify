@@ -49,7 +49,6 @@ exports.postLogin = (req, res, next) => {
               )
             con.release();
           } else {
-            console.log("error fetching office id");
             con.release();
           }
         });

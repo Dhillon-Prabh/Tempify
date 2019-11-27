@@ -110,7 +110,7 @@ class Dashboard extends Component {
                     </Grid>
                 </Grid>
                 {this.state.bookNow ? <BookNow token = {this.props.token}/> : null }
-                {this.state.schedule ? <Schedule/> : null }
+                {this.state.schedule ? <Schedule token = {this.props.token}/> : null }
                 {this.state.history ? <History token = {this.props.token}/> : null }
             </React.Fragment>
         );

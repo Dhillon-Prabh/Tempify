@@ -69,7 +69,7 @@ class BasicTextFields extends React.Component {
 
   render() { 
     const { classes } = this.props;
-  return (
+    return (
       <form className={classes.root} noValidate autoComplete="off" onSubmit={(e) => this.submitForm(e)}>
         <TextField id="standard-basic" name="hour" value={this.state.hour} onChange={this.handleChange} label="Hour" />
         <TextField id="standard-basic" name="minutes" value={this.state.minutes} onChange={this.handleChange} label="Minute" />

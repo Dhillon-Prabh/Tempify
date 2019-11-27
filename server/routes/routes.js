@@ -30,4 +30,5 @@ router.get('/jobPosting', gigController.jobPosting);
 router.put('/gigCard', gigController.gigCard);
 router.post('/acceptGig', gigController.acceptGig);
 router.put('/getEvents', eventController.getEvents);
+router.post('/addTime', gigController.addTime);
 module.exports = router;

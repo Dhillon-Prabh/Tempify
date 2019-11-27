@@ -122,7 +122,8 @@ exports.acceptGig = (req, res, next) => {
             }
           });
         } else {
-            reject(err);
+          res.status(401).send('Error Occurred');
+          con.release();
         }
         });
   })
@@ -154,5 +155,39 @@ exports.gigCard = (req, res, next) => {
         con.release();
       }
     });
+  })
+}
+
+exports.addTime = (req, res, next) => {
+
+  const booking = req.body;
+  console.log("Inside addTime");
+  console.log(booking);
+  db((err, con) => {
+    if(err){
+      console.log(err);
+      throw err;
+    }
+    var query = 'SELECT temp_wage FROM bookings WHERE id = ?;';
+        values=[booking.bookingId];
+        con.query(query, values, (err, result, fields) => {
+        if(!err) { 
+          var userQuery = 'UPDATE bookings SET temp_status = ?, temp_hours = ?, total_amount = ? WHERE id = ?;';
+          var amount = parseInt(result[0].temp_wage) * booking.hours;
+          valuesB=["COMPLETE", booking.hours, amount, booking.bookingId];
+          con.query(userQuery, valuesB, (err, result, fields) => {
+            if (!err) {
+              return res.status(200).json(result);
+            } else {
+              console.log(err);
+              res.status(401).send({ error : "error message",});
+              con.release();
+            }
+          });
+        } else {
+          res.status(401).send('Error Occurred');
+          con.release();
+        }
+      });
   })
 }

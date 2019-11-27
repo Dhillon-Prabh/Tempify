@@ -9,8 +9,12 @@ import SuccessAlert from '../Alert/SuccessAlert';
 const columns = [
     {name:"office", label:"Dental Office", className:"column"},
     {name:"address", label:"Office Address", className:"column"},
-    {name:"action", label:"Action", className:"column"},
-    {name:"joeco", label:"joeco", className:"column"}
+    {name:"phone", label:"Phone Number", className:"column"},
+    {name:"email", label:"Email Address", className:"column"},
+    {name:"parking", label:"Parking Option", className:"column"},
+    {name:"bookingDate", label:"Booking Date", className:"column"},
+    {name:"bookingID", label:"Booking ID", className:"column"},
+    {name:"status", label:"Status", className:"column"}
 ];
 
 const options = {
@@ -31,66 +35,48 @@ class Records extends Component {
         }
     }
 
-    // handleClick(acceptData) {
-    //     var self = this;
-    //     const userId = localStorage.getItem('userId');
-    //     var data = {
-    //         userId: userId,
-    //         gigId: acceptData[0].id,
-    //         acceptData: acceptData[0]
-    //       }
-    //     console.log(data); 
-    //     fetch("http://localhost:3001/acceptGig", {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(data)
-    //     }).then(function(response) {
-    //         console.log(response);
-    //         return response;
-    //     }).then(function(data) {
-    //         console.log(data);
-    //         if (data.status == 300) {
-    //             console.log("Success");
-    //             self.setState({success: true});
-    //             self.props.history.push("/tempdashboard");
-    //         }
-    //     }).catch(function(err) {
-    //         console.log(err);
-    //     });
-    //     this.forceUpdate();
-    // }
-
     componentDidMount() {
-        // var self = this;
-        // fetch("http://localhost:3001/jobPosting", {
-        //   method: 'GET'
-        // }).then(res =>  {
-        //   return res.json();
-        // }).then(result => {
-        //   console.log(result);
-        //   var resultData = [];
-        //   for (var i = 0; i < result.length; i++) {
-        //       result[i].date = format(parseISO(result[i].date), 'yyyy-MM-dd');
-        //       var office = result[i].office_name;
-        //       var details = result[i].designation + "\n" + result[i].date + "\n" + result[i].time;
-        //       var address = result[i].unit_number + ", " + result[i].street_number + " " + result[i].street_name + ", " 
-        //                     + result[i].city + "\n" + "Parking: " + result[i].parking_options
-        //       var action = <Button className="select" onClick={self.handleClick.bind(self,[result[i]])}>Select</Button>;
-        //       var row = [];
-        //       row.push(office);
-        //       row.push(details);
-        //       row.push(address);
-        //       row.push(action);
 
-        //       resultData.push(row);
-        //   }
-        //   self.setState({data: resultData});
-        //   console.log(result);
-        // }).catch(function(err) {
-        //   console.log(err);
-        // });
+        console.log(this.props.token);
+
+        fetch("http://localhost:3001/getRecords", {
+            method: 'GET',
+            headers: {
+              'Authorization': 'Bearer ' + this.props.token,
+            }
+        }).then(res =>  {
+          return res.json();
+        }).then(result => {
+          console.log(result);
+
+          var resultData = [];
+          for (let i = 0; i < result.length; i++) {
+            //   result[i].date = format(parseISO(result[i].date), 'yyyy-MM-dd');
+              let office = result[i].office_name;
+              let address = result[i].unit_number + " " + result[i].street_name + " " + result[i].city + " " + result[i].province + " " + result[i].postalcode;
+              let phoneNumber = result[i].phone_number;
+              let email = result[i].email;
+              let parkingOption = result[i].parking_options;
+              let bookingDate = result[i].dates;
+              let bookingID = result[i].reference_number;
+              let status = result[i].temp_status; 
+
+            //   var action = <Button className="select" onClick={this.handleClick.bind(this,[result[i]])}>Select</Button>;
+              let row = [];
+              row.push(office);
+              row.push(address);
+              row.push(phoneNumber);
+              row.push(email);
+              row.push(parkingOption);
+              row.push(bookingDate);
+              row.push(bookingID);
+              row.push(status);
+              resultData.push(row);
+        }
+          this.setState({data: resultData});
+        }).catch(function(err) {
+          console.log(err);
+        });
     }
     render() {
         return (

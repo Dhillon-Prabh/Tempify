@@ -27,6 +27,7 @@ router.post('/dentalUpdateProfile', isAuth, profileController.dentalUpdateProfil
 router.get('/tempDashboard', isAuth, authController.getTempDashboardInformation);
 router.post('/postGig', gigController.postGig);
 router.get('/jobPosting', gigController.jobPosting);
+router.put('/gigCard', gigController.gigCard);
 router.post('/acceptGig', gigController.acceptGig);
 router.put('/getEvents', eventController.getEvents);
 module.exports = router;

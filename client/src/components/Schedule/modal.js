@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function TransitionsModal() {
+export default function TransitionsModal(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -46,7 +46,7 @@ export default function TransitionsModal() {
         }}
       >
         <Fade in={open}>
-            <ProfileCard />
+            <ProfileCard bookingId={props.bookingId}/>
         </Fade>
       </Modal>
     </div>

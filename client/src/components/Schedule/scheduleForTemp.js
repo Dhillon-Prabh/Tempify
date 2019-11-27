@@ -41,26 +41,29 @@ export default class Calendar extends React.Component {
         if(data[i].temp_status == "ACCEPTED" && data[i].dental_status == "POSTED") {
           var title = data[i].office_name;
           var date = data[i].dates;
+          var id = data[i].id;
           var row = {};
           row.title = title;
           row.date = date;
-          row.backgroundColor = "rgba(0, 76, 76, 0.0)";
-          row.textColor = "green";
+          row.backgroundColor = "green";
+          row.textColor = "white";
           row.borderColor = "rgba(0, 76, 76, 0.0)";
           row.fontWeight = "800";
+          row.id = id;
 
           dataEvents.push(row)
-        } else if(data[i].temp_status == "COMPLETED" && data[i].dental_status == "POSTED") {
+        } else if(data[i].temp_status == "COMPLETE" && data[i].dental_status == "POSTED") {
           var title = data[i].office_name;
           var date = data[i].dates;
-          var backgroundColor = "#a10628";
+          var backgroundColor = "red";
+          var id = data[i].id;
           var row = {};
           row.title = title;
           row.date = date;
           row.backgroundColor = backgroundColor;
-          row.backgroundColor = "rgba(0, 76, 76, 0.0)";
-          row.textColor = "red";
+          row.textColor = "white";
           row.borderColor = "rgba(0, 76, 76, 0.0)";
+          row.id = id;
 
           dataEvents.push(row);
         }
@@ -72,14 +75,16 @@ export default class Calendar extends React.Component {
     });
   }
   
-  state = { render: false };
+  state = { render: false, bookingId: '' };
 
   render() {
     const { render } = this.state;
 
-    const eventClick = () => {
+    const eventClick = (info) => {
+      console.log(info.event.id);
       this.setState({
-        render: !render
+        render: !render,
+        bookingId: info.event.id,
       });
     };
 
@@ -104,7 +109,7 @@ export default class Calendar extends React.Component {
           />
         </div>
         <div className="profileContainer">
-            {render ? <Modal eventClick={this.eventClick} /> : null}
+            {render ? <Modal bookingId={this.state.bookingId} /> : null}
           </div>
       </div>
     );

@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function BasicTextFields() {
+export default class BasicTextFields extends React.Fragment {
   const classes = useStyles();
 
   return (

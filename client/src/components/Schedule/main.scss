@@ -6,15 +6,15 @@
 }
 
 .fc-event:hover .fc-content {
-    border-color: #1c7d87;
-    background-color: red;
-    color: white;
+    color: black;
     cursor: pointer;
 }
 
 .outerContainer {
   display: flex;
   justify-content: center;
+  margin-top: 70px;
+  margin-bottom: 70px;
 }
 
 .container {
@@ -31,7 +31,7 @@
 .pendingBox {
   height: 15px;
   width: 15px;
-  background-color: green;
+  background-color: orange;
   margin-right: 6px;
 }
 
@@ -42,7 +42,7 @@
 .acceptedBox {
   height: 15px;
   width: 15px;
-  background-color: yellow;
+  background-color: green;
   margin-right: 6px;
 }
 

@@ -11,7 +11,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import BookNow from '../BookNow/BookNow';
-import Schedule from '../Schedule/schedule';
+import Schedule from '../Schedule/scheduleForOffice';
 import Records from '../Records/Records';
 
 function HomeIcon(props) {

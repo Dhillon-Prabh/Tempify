@@ -54,6 +54,11 @@ class ProfileCard extends Component {
                 title="Temp"
                 />
                 <CardContent>
+                    <div className="contaner">
+                        <div className="titleContainer">
+                        
+                        </div>
+                    </div>
                 <Typography gutterBottom variant="h5" component="h2">
                     TEMP
                 </Typography>

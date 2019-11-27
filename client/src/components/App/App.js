@@ -4,7 +4,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import "./App.css";
 import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
-import Schedule from "../Schedule/schedule";
+import Schedule from "../Schedule/scheduleForTemp";
 import ContactSection from "../Contact/ContactSection";
 
 class App extends Component {
@@ -18,13 +18,7 @@ class App extends Component {
             <Navbar />
             <Cookie />
           </BrowserRouter>
-<<<<<<< HEAD
-        </React.Fragment> */}
-        <Schedule />
-        <ContactSection />
-=======
-        </React.Fragment> 
->>>>>>> 6020f3222e78a020382de30822b8359bbfd9b076
+        </React.Fragment>
       </div>
     );
   }

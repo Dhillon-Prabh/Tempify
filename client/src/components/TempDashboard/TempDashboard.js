@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Schedule from '../Schedule/schedule';
+import Schedule from '../Schedule/scheduleForTemp';
 import {Link} from 'react-router-dom';
 import './TempDashboard.css'
 

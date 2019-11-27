@@ -14,9 +14,6 @@ export default class Calendar extends React.Component {
   constructor(props) {
     super(props);
 
-<<<<<<< HEAD
-
-=======
     this.state = {
       events: []
     }
@@ -44,11 +41,13 @@ export default class Calendar extends React.Component {
         if(data[i].temp_status == "ACCEPTED" && data[i].dental_status == "POSTED") {
           var title = data[i].office_name;
           var date = data[i].dates;
-          var backgroundColor = "#06a170";
           var row = {};
           row.title = title;
           row.date = date;
-          row.backgroundColor = backgroundColor;
+          row.backgroundColor = "rgba(0, 76, 76, 0.0)";
+          row.textColor = "green";
+          row.borderColor = "rgba(0, 76, 76, 0.0)";
+          row.fontWeight = "800";
 
           dataEvents.push(row)
         } else if(data[i].temp_status == "COMPLETED" && data[i].dental_status == "POSTED") {
@@ -59,6 +58,9 @@ export default class Calendar extends React.Component {
           row.title = title;
           row.date = date;
           row.backgroundColor = backgroundColor;
+          row.backgroundColor = "rgba(0, 76, 76, 0.0)";
+          row.textColor = "red";
+          row.borderColor = "rgba(0, 76, 76, 0.0)";
 
           dataEvents.push(row);
         }
@@ -70,7 +72,6 @@ export default class Calendar extends React.Component {
     });
   }
   
->>>>>>> 6020f3222e78a020382de30822b8359bbfd9b076
   state = { render: false };
 
   render() {
@@ -83,7 +84,6 @@ export default class Calendar extends React.Component {
     };
 
     return (
-<<<<<<< HEAD
       <div className="outerContainer">
         <div class="container">
           <div class="legend-container">
@@ -99,37 +99,13 @@ export default class Calendar extends React.Component {
           <FullCalendar
             defaultView="dayGridMonth"
             plugins={[dayGridPlugin, interactionPlugin]}
-            events={[
-              {
-                title: "Event ",
-                date: "2019-11-25",
-                textColor: "red",
-                backgroundColor: "white",
-                borderColor: "white",
-                textAlign: "center",
-                paddingTop: "5px"
-              }
-            ]}
+            events={this.state.events}
             eventClick={eventClick}
           />
         </div>
         <div className="profileContainer">
             {render ? <Modal eventClick={this.eventClick} /> : null}
           </div>
-=======
-      <div class="container">
-        <FullCalendar
-          defaultView="dayGridMonth"
-          plugins={[dayGridPlugin, interactionPlugin]}
-          events={this.state.events}
-          eventClick={eventClick}
-        />
-        {
-          render ?
-        <ProfileCard />
-        : null
-        }
->>>>>>> 6020f3222e78a020382de30822b8359bbfd9b076
       </div>
     );
   }

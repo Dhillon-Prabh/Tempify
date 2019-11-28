@@ -47,7 +47,7 @@ export default function TransitionsModal(props) {
         }}
       >
         <Fade in={open}>
-            <OfficeProfileCard bookingId={props.bookingId}/>
+            <OfficeProfileCard bookingId={props.bookingId} disablePay={props.disablePay}/>
         </Fade>
       </Modal>
     </div>

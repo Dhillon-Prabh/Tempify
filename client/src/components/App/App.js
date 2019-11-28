@@ -5,6 +5,7 @@ import "./App.css";
 import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
 import DashBoard from "../Dashboard/Dashboard"
+import OfficeCard from "../ProfileCard/OfficeProfileCard"
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
             <Cookie />
           </BrowserRouter>
         </React.Fragment>
+        {/* <OfficeCard /> */}
       </div>
     );
   }

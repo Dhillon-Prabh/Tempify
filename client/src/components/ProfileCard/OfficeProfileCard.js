@@ -1,27 +1,15 @@
 import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import ok from "../../images/user.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import "./ProfileCard.css";
-
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
-import TimeInputField from "../Schedule/timeInputField";
 import PaymentButton from "../Payment/PayButton";
 
 const styles = theme => ({
   outerContainer: {
     marginTop: "50px",
     marginLeft: "15px",
-    width: "350px",
-    height: "84%",
+    width: "390px",
+    height: "600px",
     borderRadius: "5px",
     display: "flex",
     justifyContent: "center",
@@ -29,10 +17,11 @@ const styles = theme => ({
     flexDirection: "column",
     // backgroundColor: "rgb(248,248,248)",
     outline: "none",
-    lineHeight: "1.15"
+    lineHeight: "1.25",
+    fontFamily: "arial"
   },
   container: {
-    width: "280px",
+    width: "100%",
     height: "550px",
     display: "flex",
     flexDirection: "column",
@@ -46,12 +35,18 @@ const styles = theme => ({
   },
   imageContainer: {
     width: "100%",
-    height: "160px",
-    backgroundColor: "yellow"
+    height: "22%",
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "10px",
+    marginBottom: "10px"
+  },
+  image: {
+    height: "100%"
   },
   nameContainer: {
     width: "100%",
-    height: "70px",
+    height: "10%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -61,18 +56,26 @@ const styles = theme => ({
     borderBottom: "1px solid lightgray",
     marginBottom: "10px"
   },
+  outerStatusContainer: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "38%",
+    width: "100%"
+  },
   statusContainer: {
-    width: "80%",
+    width: "100%",
     display: "flex",
     minHeight: "35px",
     maxHeight: "70px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    marginTop: "25px",
   },
   statusLeft: {
-    marginTop: "30px",
     fontSize: "16px",
     fontWeight: 400
   },
@@ -84,7 +87,7 @@ const styles = theme => ({
   locationRateContainer: {
     width: "100%",
     display: "flex",
-    height: "55px",
+    height: "9%",
     justifyContent: "center",
     alignItems: "center",
     borderStyle: "solid",
@@ -95,7 +98,7 @@ const styles = theme => ({
   locationAndImageContainer: {
     display: "flex",
     justifyContent: "center",
-    width: "50%"
+    width: "0%"
   },
   locationImage: {
     width: "20%",
@@ -108,7 +111,7 @@ const styles = theme => ({
     justifyContent: "left"
   },
   rate: {
-    width: "50%",
+    width: "100%",
     display: "flex",
     justifyContent: "center"
   },
@@ -118,8 +121,8 @@ const styles = theme => ({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    height: "90px",
-    borderBottom: "1px solid lightgray",
+    height: "9%",
+    borderBottom: "1px solid lightgray"
   },
   bookingIDTitle: {
     width: "100%",
@@ -132,11 +135,11 @@ const styles = theme => ({
     width: "100%",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
   paymentButtonContainer: {
     display: "flex",
-    height: "100px",
+    height: "12%",
     justifyContent: "center",
     alignItems: "center"
   }
@@ -146,43 +149,46 @@ class ProfileCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookingId : this.props.bookingId,
-      tempName: '',
-      practice: '',
-      software: '',
-      experience: '',
-      rate: '',
-      bookingRef: ''
-    }
+      bookingId: this.props.bookingId,
+      tempName: "",
+      practice: "",
+      software: "",
+      experience: "",
+      rate: "",
+      bookingRef: ""
+    };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     var self = this;
     var data = {
-        bookingId: this.state.bookingId
-    }
+      bookingId: this.state.bookingId
+    };
     console.log("BookingID", data.bookingId);
     fetch("http://localhost:3001/gigCardOffice", {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
-    }).then(res => {
-      return res.json();
-    }).then(result => {  
-      self.setState({
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(result => {
+        self.setState({
           tempName: result[0].temp_name,
           practice: result[0].type_of_practice,
           software: result[0].dental_software,
-          experience: result[0].experience,
+          experience: result[0].experience + " Years",
           rate: result[0].expected_rate,
-          bookingRef: result[0].reference_number
+          bookingRef: " " + result[0].reference_number
+        });
+        console.log(result);
       })
-      console.log(result);
-    }).catch(function(err) {
-      console.log(err);
-    });
+      .catch(function(err) {
+        console.log(err);
+      });
   }
 
   render() {
@@ -191,36 +197,40 @@ class ProfileCard extends Component {
     return (
       <div className={classes.outerContainer}>
         <div className={classes.container}>
-          <div className={classes.imageContainer}></div>
+          <div className={classes.imageContainer}>
+            <img className={classes.image} src={ok} alt="banner" />
+          </div>
           <div className={classes.nameContainer}>{this.state.tempName}</div>
-          <div className={classes.statusContainer}>
-            <div className={classes.statusLeft}>Practice:</div>
-            <div className={classes.statusRight}>{this.state.practice}</div>
-          </div>
-          <div className={classes.statusContainer}>
-            <div className={classes.statusLeft}>Software:</div>
-            <div className={classes.statusRight}>
-              {this.state.software}
+          <div className={classes.outerStatusContainer}>
+            <div className={classes.statusContainer}>
+              <div className={classes.statusLeft}>Practice:</div>
+              <div className={classes.statusRight}>{this.state.practice}</div>
             </div>
-          </div>
-          <div className={classes.statusContainer}>
-            <div className={classes.statusLeft}>Experience:</div>
-            <div className={classes.statusRight}>{this.state.experience} Years</div>
+            <div className={classes.statusContainer}>
+              <div className={classes.statusLeft}>Software:</div>
+              <div className={classes.statusRight}>{this.state.software}</div>
+            </div>
+            <div className={classes.statusContainer}>
+              <div className={classes.statusLeft}>Experience:</div>
+              <div className={classes.statusRight}>
+                {this.state.experience}
+              </div>
+            </div>
           </div>
           <div className={classes.locationRateContainer}>
             <div className={classes.locationAndImageContainer}>
-              <div className={classes.locationImage}></div>
-              <div className={classes.location}>Location</div>
+              {/* <div className={classes.locationImage}></div>
+              <div className={classes.location}>Location</div> */}
             </div>
             <div className={classes.rate}>${this.state.rate} / Hour</div>
           </div>
           <div className={classes.bookingContainer}>
-            <div className={classes.bookingIDTitle}>Booking ID</div>
-            <div className={classes.bookingID}>{this.state.bookingRef}</div>
+            <div className={classes.bookingIDTitle}>Booking ID: {this.state.bookingRef}</div>
+            {/* <div className={classes.bookingID}>{this.state.bookingRef}</div> */}
           </div>
           <div className={classes.paymentButtonContainer}>
-          <PaymentButton gigId={this.state.bookingId}/>
-        </div>
+            <PaymentButton gigId={this.state.bookingId} />
+          </div>
         </div>
       </div>
     );

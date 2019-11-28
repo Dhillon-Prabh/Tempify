@@ -33,6 +33,16 @@ const styles = theme => ({
         justifyContent: "center",
         alignItems: "center",
         outline: "none"
+    },
+    miniContainer: {
+        display: "flex",
+        backgroundColor: "white",
+        width: "20%",
+        height: "70%",
+        borderRadius: "5px",
+        justifyContent: "center",
+        alignItems: "center",
+        outline: "none"
     }
   });
 
@@ -41,8 +51,10 @@ class ProfileCard extends Component {
 
     constructor(props) {
         super(props);
+        console.log("displayHours:" , this.props.displayHours);
         this.state = {
             bookingId : this.props.bookingId,
+            displayHours : this.props.displayHours,
             officeName: '',
             address1: '',
             address2: '',
@@ -91,7 +103,7 @@ class ProfileCard extends Component {
         const { classes } = this.props;
 
         return (
-            <div className={classes.container}>
+            <div className={this.state.displayHours ? classes.container : classes.miniContainer}>
             <Card className={classes.card}>
                 <CardMedia
                 className={classes.media}
@@ -135,7 +147,7 @@ class ProfileCard extends Component {
                     </Typography>
                 </CardActionArea>
             </Card>
-            <TimeInputField token = {this.props.token} bookingId={this.state.bookingId}/>
+            {this.state.displayHours ? <TimeInputField token = {this.props.token} bookingId={this.state.bookingId}/> : null}
         </div>
         )
     }

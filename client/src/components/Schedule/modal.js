@@ -51,7 +51,7 @@ export default function TransitionsModal(props) {
         }}
       >
         <Fade in={open}>
-            <ProfileCard token ={values.token} bookingId={props.bookingId}/>
+            <ProfileCard token ={values.token} bookingId={props.bookingId} displayHours={props.displayHours}/>
         </Fade>
       </Modal>
     </div>

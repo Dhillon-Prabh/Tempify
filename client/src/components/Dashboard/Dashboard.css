@@ -8,21 +8,30 @@
 
 .buttons{
     height: 3rem;
-    width: 30rem !important;
+    /* width: 100px !important; */
 }
 
 .button {
     font-weight: bold !important;
     background-color: #00bfff !important;
     color: white !important;
+    width: 170px;
+    /* width: 100px !important; */
 }
 
-.activeButton {
+.officeActiveButton {
     font-weight: bold !important;
     background-color: #404040 !important;
     color: white !important;
+    width: 170px;
 }
 
 body{
     overflow-x:hidden;
+}
+
+.dashboardContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
 }

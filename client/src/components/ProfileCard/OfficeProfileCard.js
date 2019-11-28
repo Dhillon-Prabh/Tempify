@@ -232,7 +232,7 @@ class ProfileCard extends Component {
             {/* <div className={classes.bookingID}>{this.state.bookingRef}</div> */}
           </div>
           <div className={classes.paymentButtonContainer}>
-            {this.state.disablePay ? null : <PaymentButton gigId={this.state.bookingId} />}
+            {this.state.disablePay ? null : <PaymentButton token = {this.props.token} gigId={this.state.bookingId} />}
         </div>
         </div>
       </div>

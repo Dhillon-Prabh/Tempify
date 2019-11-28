@@ -129,27 +129,35 @@ class TempDashboard extends Component {
     return(
       <div>
           <Grid container direction="row" justify="center" alignItems="center" className="options">
-              <Grid item xs={2}>
-                  {this.state.user}
-                  <Breadcrumbs aria-label="breadcrumb">
-                      <Link to="/" style={{textDecoration:'none', color: 'inherit'}}>
-                          <ListItem button>
-                              <ListItemIcon>
-                                  <HomeIcon />
-                              </ListItemIcon>
-                              <ListItemText primary="Home" />
-                          </ListItem>
-                      </Link>
-                      <Typography color="textPrimary">dashboard</Typography>
-                  </Breadcrumbs>
-              </Grid>
-              <Grid item xs={6}>
-                  <ButtonGroup fullWidth aria-label="full width outlined button group" className="buttons">
-                      <Button className={this.state.pending ? "activeButton" : "button"} onClick={this.navigatePending}>Pending</Button>
-                      <Button className={this.state.schedule ? "activeButton" : "button"} onClick={this.navigateSchedule}>Schedule</Button>
-                      <Button className={this.state.records ? "activeButton" : "button"} onClick={this.navigateRecords}>Records</Button>
-                  </ButtonGroup>
-              </Grid>
+            <Grid item xs={2}>
+              <Grid item xs={12}>
+                <div className = "tempdashboard-username">
+                  Hi, {this.state.user}!
+                </div>
+              </Grid> 
+              <Breadcrumbs aria-label="breadcrumb">
+                  <Link to="/tempdashboard" style={{textDecoration:'none', color: 'inherit'}}>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <SvgIcon >
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                      </SvgIcon>
+                    </ListItemIcon>
+                    <ListItemText primary="Home" />
+                  </ListItem>
+                  </Link>
+                  <Typography color="textPrimary">dashboard</Typography>
+                </Breadcrumbs>
+            </Grid>
+            <Grid item xs={6}>
+            <div className="dashboardContainer">
+              <ButtonGroup aria-label="small contained button group" className="buttons">
+                  <Button className={this.state.pending ? "activeButton" : "tempButton"} onClick={this.navigatePending}>Pending</Button>
+                  <Button className={this.state.schedule ? "activeButton" : "tempButton"} onClick={this.navigateSchedule}>Schedule</Button>
+                  <Button className={this.state.records ? "activeButton" : "tempButton"} onClick={this.navigateRecords}>Records</Button>
+              </ButtonGroup>
+              </div>
+            </Grid>
           </Grid>
 
           {this.state.pending ? <Pending token = {this.props.token} /> : null }

@@ -99,12 +99,11 @@ exports.dentalProfile = (req, res, next) => {
       console.log(err);
       throw err;
     }
-
-    var dentalQuery = 'SELECT d.id, d.dentist_name, d.email, d.office_name, d.phone_number, d.street_number, ' +
-      'd.street_name, d.unit_number, d.city, d.province, d.postalcode, d.parking_options FROM dentists d ' +
-      'INNER JOIN office_group o ON d.group_id = o.id WHERE o.user_id = ? AND d.id = ? LIMIT 1';
-    values=[user.userId, user.officeId];
-    con.query(dentalQuery, values, (err, result, fields) => {
+    
+    var userQuery = 'SELECT dentist_name, office_name, phone_number, street_number, street_name, unit_number, ' +
+      'city, province, postalcode, parking_options FROM dentists WHERE user_id = ? LIMIT 1';
+    values=[user.userId];
+    con.query(userQuery, values, (err, result, fields) => {
       console.log(result);
       if(!result.length) {
         return res.status(401).send({ error : "error message",});
@@ -112,7 +111,6 @@ exports.dentalProfile = (req, res, next) => {
         return res.status(200).json(result);
       }
     });
-    con.release();
   })
 }
 

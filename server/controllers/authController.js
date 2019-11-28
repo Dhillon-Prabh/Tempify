@@ -13,74 +13,59 @@ exports.postLogin = (req, res, next) => {
 
     const query = "SELECT email, password, id, role FROM `users` WHERE `email` = ? AND `password` = ?";
     con.query(query, [email, password], (err, result, fields) => {
-      if(!result.length) {
+      if (!result.length) {
         return res.status(401).send({
           error: "error message",
         });
-      } else if(result[0].role == 1) {
-        var userQuery = 'SELECT d.id FROM office_group o INNER JOIN dentists d ON o.id = d.group_id ' +
-          'WHERE o.user_id = ? LIMIT 1;';
-        values=[result[0].id];
-        con.query(userQuery, values, (err, row, fields) => {
-          if(!err) {
-            console.log("no error proceeding to resolve");
-            let loadedUser = result[0];
-            let office = row[0];
-            const token = jwt.sign(
-              {
-                email: loadedUser.email, 
-                userId: loadedUser.id,
-                officeId: office.id,
-                userType:'office'
-              }, 'secret', { 
-                expiresIn: '1h' 
-              }
-            );
-      
-            res
-              .status(200)
-              .json({
-                token: token,
-                userId: loadedUser.id,
-                role: loadedUser.role,
-                officeId: office.id,
-                userType: 'office'
-                }
-              )
-            con.release();
-          } else {
-            con.release();
-          }
-        });
-      } else {
-        let loadedUser = result[0];
-          const token = jwt.sign(
-            {
-              email: loadedUser.email, 
-              userId: loadedUser.id,
-              officeId: -1,
-              userType:'temp'
-            }, 'secret', { 
-              expiresIn: '1h' 
-            }
-          );
-    
+      }
+      const tempQuery = "SELECT email FROM `temps` WHERE `email` = ?";
+      con.query(tempQuery, [result[0].email], (err, resData, fields) => {
+
+        if (!resData.length) {
+          let loadedUser = result[0];
+          const token = jwt.sign({
+            email: loadedUser.email,
+            userId: loadedUser.id,
+            userType:'office'
+          }, 'secret', {
+            expiresIn: '1h'
+          });
+
           res
             .status(200)
             .json({
               token: token,
               userId: loadedUser.id,
               role: loadedUser.role,
-              userType: 'temp',
-              officeId: -1
-              }
-            )
-        con.release();
-      }
+              userType: 'office'
+            })
+
+        } else {
+          let loadedUser = result[0];
+          const token = jwt.sign({
+            email: loadedUser.email,
+            userId: loadedUser.id,
+            userType:'temp'
+          }, 'secret', {
+            expiresIn: '1h'
+          });
+
+          res
+            .status(200)
+            .json({
+              token: token,
+              userId: loadedUser.id,
+              role: loadedUser.role,
+              userType: 'temp'
+            })
+        }
+
+      })
+
+      con.release();
     })
   })
 }
-
 exports.getTempDashboardInformation = (req, res, next) => {
   const user = req.decodedToken;
   db((err, con) => {

@@ -25,7 +25,6 @@ router.post('/tempUpdateProfile',isAuth, profileController.tempUpdateProfile);
 router.get('/dentalProfile', isAuth, profileController.dentalProfile);
 router.post('/dentalUpdateProfile', isAuth, profileController.dentalUpdateProfile);
 
-
 //add isAuth
 router.post('/dentalInsertProfile', profileController.dentalInsertProfile);
 
@@ -35,9 +34,6 @@ router.post('/postGig', isAuth, gigController.postGig);
 router.get('/jobPosting', isAuth, gigController.jobPosting);
 router.post('/acceptGig', isAuth, gigController.acceptGig);
 router.get('/getRecords', isAuth, recordsController.getRecords);
-
-
-
 
 
 

@@ -20,10 +20,6 @@ exports.tempProfile = (req, res, next) => {
         con.release();
       }
     });
-<<<<<<< HEAD
-    // con.release();
-=======
->>>>>>> parent of 5cfb76d... debugged multi login
   })
 }
 

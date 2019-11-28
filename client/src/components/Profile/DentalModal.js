@@ -158,10 +158,6 @@ class DentalModal extends React.Component {
       parking: this.state.parking,
     }
 
-<<<<<<< HEAD
-    // fetch("http://localhost:3001/dentalInsertProfile", {
-=======
->>>>>>> parent of 5cfb76d... debugged multi login
     fetch("http://localhost:3001/dentalUpdateProfile", {
       method: 'POST',
       headers: {
@@ -175,11 +171,8 @@ class DentalModal extends React.Component {
     }).catch(function(err) {
       console.log(err);
     });
-<<<<<<< HEAD
     //this.props.history.push("/home");
     this.setState({setOpen: true});//handleClickClose();
-=======
->>>>>>> parent of 5cfb76d... debugged multi login
     this.props.history.push("/home");
   }
 
@@ -205,13 +198,10 @@ class DentalModal extends React.Component {
           maxWidth={'lg'}
           className="dental-modal-container1"
         >
-<<<<<<< HEAD
           {/* <DialogContent>
             <div className="dental-modal-container2"> 
               <ValidatorForm ref="form" onSubmit={(e) => this.submitForm(e)}>
                 <Typography align="center" className="dental-modal-header"> */}
-=======
->>>>>>> parent of 5cfb76d... debugged multi login
           <DialogContent className = "dental-modal-container1">
             <div className="dental-modal-container2"> 
               <ValidatorForm ref="form" onSubmit={(e) => this.submitForm(e)}>

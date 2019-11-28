@@ -16,6 +16,7 @@ router.post('/email', emailController.contactUsEmail);
 router.post('/tempRegister', authController.tempRegister, emailController.tempRegisterEmail);
 router.post('/dentalRegister', authController.dentalRegister, emailController.dentalRegisterEmail);
 
+<<<<<<< HEAD
 router.get('/payment', payController.getToken);
 router.post('/checkout', payController.checkout);
 router.post('/getGigDetails', payController.getGigDetails);
@@ -44,4 +45,10 @@ router.put('/getEventsOffice', eventController.getEventsOffice);
 router.post('/addTime', gigController.addTime);
 
 
+=======
+router.post('/tempProfile', profileController.tempProfile);
+router.post('/tempUpdateProfile', profileController.tempUpdateProfile);
+router.post('/dentalProfile', profileController.dentalProfile);
+router.post('/dentalUpdateProfile', profileController.dentalUpdateProfile);
+>>>>>>> parent of 5cfb76d... debugged multi login
 module.exports = router;

@@ -69,6 +69,7 @@ exports.postGig = [
         });
       })
     }
+    next();
   }
 ]
 
@@ -125,8 +126,9 @@ exports.acceptGig = (req, res, next) => {
           res.status(401).send('Error Occurred');
           con.release();
         }
-        });
+      });
   })
+  next();
 }
 
 exports.gigCard = (req, res, next) => {
@@ -223,5 +225,6 @@ exports.addTime = (req, res, next) => {
           con.release();
         }
       });
-  })
+  });
+  next();
 }

@@ -1,12 +1,14 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import './Profile.css'
-import DentalModal from './DentalModal'
+import CheckboxValidatorElement from '../CheckboxValidatorElement/CheckboxValidatorElement';
 
 const useStyles = theme => ({
   textField: {
@@ -39,15 +41,15 @@ const useStyles = theme => ({
 
 const parking = [
   {
-    value: 'yes',
+    value: 'Free',
     label: 'Free',
   },
   {
-    value: 'paid',
+    value: 'Paid/Street',
     label: 'Paid/Street',
   },
   {
-    value: 'no',
+    value: 'No Parking',
     label: 'No Parking',
   },
 ];
@@ -57,8 +59,6 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       userId: this.props.userId,
-      officeId: this.props.officeId,
-      officeEmail: '',
       officeName: '',
       name: '',
       phone: '',
@@ -74,10 +74,16 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
+    // ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+    //   if(value !== this.state.password) {
+    //     return false;
+    //   } 
+    //   return true;
+    // });
+    //ValidatorForm.addValidationRule('isTruthy', value => value);
     let currentComponent = this;
     var data = {
-      userId: this.state.userId,
-      officeId: this.state.officeId
+      userId: this.state.userId
     }
     
     fetch("http://localhost:3001/dentalProfile", {
@@ -89,17 +95,16 @@ class Profile extends React.Component {
       return res.json();
     }).then(result => {
       currentComponent.setState({
-        name: data[0].dentist_name,
-        officeEmail: data[0].email,
-        officeName: data[0].office_name,
-        phone: data[0].phone_number,
-        streetNo: data[0].street_number,
-        streetName: data[0].street_name,
-        unit: data[0].unit_number,
-        city: data[0].city,
-        province: data[0].province,
-        postalCode: data[0].postalcode,
-        parking: data[0].parking_options,
+        name: result[0].dentist_name,
+        officeName: result[0].office_name,
+        phone: result[0].phone_number,
+        streetNo: result[0].street_number,
+        streetName: result[0].street_name,
+        unit: result[0].unit_number,
+        city: result[0].city,
+        province: result[0].province,
+        postalCode: result[0].postalcode,
+        parking: result[0].parking_options,
       });
     }).catch(function(err) {
       console.log(err);
@@ -116,8 +121,6 @@ class Profile extends React.Component {
 
     var data = {
       userId: this.props.userId,
-      officeId: this.props.officeId,
-      officeEmail: this.state.officeEmail,
       officeName: this.state.officeName,
       name: this.state.name,
       phone: this.state.phone,
@@ -198,39 +201,6 @@ class Profile extends React.Component {
                 }}
               />
             </Grid>
-            <Grid item xs={12} sm={6} className="container2">
-              <TextValidator
-                required
-                fullWidth
-                id="officeEmail"
-                name="officeEmail"
-                value={this.state.officeEmail}
-                label="Office Email Address"
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                autoComplete="email"
-                validators={['required', 'isEmail']}
-                errorMessages={['This field is required', 'This is not a valid email']}
-                onChange={this.handleChange}
-                InputLabelProps={{
-                  shrink: true,
-                  classes: {
-                    root: classes.label,
-                    focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
-                }}
-                InputProps={{
-                  classes: {
-                    root: classes.outlinedInput,
-                    focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
-                }}
-              />
-            </Grid>
-
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
                 required
@@ -534,11 +504,10 @@ class Profile extends React.Component {
               </TextValidator>
             </Grid>
 
-            <Grid item xs={12} className="container2">
+            <Grid item xs={12} align="center">
               <Button className="blueButton" color="primary" variant="contained" type="submit">
                 UPDATE DETAILS
               </Button>
-              <DentalModal className="blueButton" idType="blueButton" name="ADD NEW OFFICE"/>
             </Grid>
           </Grid>
         </ValidatorForm>

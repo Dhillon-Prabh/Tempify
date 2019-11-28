@@ -15,7 +15,8 @@ export default class Calendar extends React.Component {
     super(props);
 
     this.state = {
-      events: []
+      events: [],
+      token: this.props.token
     }
 }
   componentDidMount() {
@@ -28,6 +29,7 @@ export default class Calendar extends React.Component {
     fetch("http://localhost:3001/getEventsOffice", {
       method: 'PUT',
       headers: {
+        'Authorization': 'Bearer ' + this.props.token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -110,7 +112,7 @@ export default class Calendar extends React.Component {
           />
         </div>
         <div className="profileContainer">
-            {render ? <OfficeModal bookingId={this.state.bookingId}/> : null}
+            {render ? <OfficeModal token = {this.props.token} bookingId={this.state.bookingId}/> : null}
           </div>
       </div>
     );

@@ -18,7 +18,9 @@ export default class Calendar extends React.Component {
       events: []
     }
 }
-  componentDidMount() {    
+  componentDidMount() {  
+    
+    console.log(this.props.token);
     let self = this;
     var data = {
       userId: localStorage.getItem("userId"),
@@ -111,7 +113,7 @@ export default class Calendar extends React.Component {
           />
         </div>
         <div className="profileContainer">
-            {render ? <Modal bookingId={this.state.bookingId} /> : null}
+            {render ? <Modal token = {this.props.token} bookingId={this.state.bookingId} /> : null}
           </div>
       </div>
     );

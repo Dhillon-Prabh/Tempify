@@ -55,7 +55,7 @@ exports.tempUpdateProfile = (req, res, next) => {
       role += ']';
       dentalsw += ']';
       values=[new Date(), user.practice, user.imageName, user.expectedRate, user.name, role, assistant, hygienist,
-        receptionist, user.experience, dentalsw, user.city, user.phone, Number(user.userId)];
+        receptionist, user.experience, dentalsw, user.city, user.phone, user.userId];
       con.query(userQuery, values, (err, result, fields) => {
         console.log(result);
         if(!err) {
@@ -67,8 +67,10 @@ exports.tempUpdateProfile = (req, res, next) => {
       });
     })
     .then(function(result) {
+
+      console.log(result);
       var tempQuery = 'UPDATE users SET name = ?, updated_at = ? WHERE id = ?;';
-      valuesTemp=[user.name, new Date(), Number(user.userId)];
+      valuesTemp=[user.name, new Date(), user.userId];
         con.query(tempQuery, valuesTemp, (err, result, fields) => {
           //console.log(this.valuesTemp);
           if(!err) {
@@ -93,6 +95,7 @@ exports.tempUpdateProfile = (req, res, next) => {
 exports.dentalProfile = (req, res, next) => {
 
   const user = req.decodedToken
+
   console.log("Inside dentalProfile");
   db((err, con) => {
     if(err){
@@ -100,10 +103,11 @@ exports.dentalProfile = (req, res, next) => {
       throw err;
     }
     
-    var userQuery = 'SELECT dentist_name, office_name, phone_number, street_number, street_name, unit_number, ' +
-      'city, province, postalcode, parking_options FROM dentists WHERE user_id = ? LIMIT 1';
+    let userQuery = 'SELECT dentist_name, office_name, phone_number, street_number, street_name, unit_number, city, province, postalcode, parking_options FROM dentists WHERE user_id = ?'
+    // var userQuery = 'SELECT dentist_name, office_name, phone_number, street_number, street_name, unit_number, ' +
+    //   'city, province, postalcode, parking_options FROM dentists WHERE user_id = ? LIMIT 1';
     values=[user.userId];
-    con.query(userQuery, values, (err, result, fields) => {
+    con.query(userQuery, user.userId, (err, result, fields) => {
       console.log(result);
       if(!result.length) {
         return res.status(401).send({ error : "error message",});

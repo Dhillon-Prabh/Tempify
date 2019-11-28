@@ -25,12 +25,15 @@ router.post('/tempUpdateProfile',isAuth, profileController.tempUpdateProfile);
 router.post('/dentalProfile', isAuth, profileController.dentalProfile);
 router.post('/dentalUpdateProfile', isAuth, profileController.dentalUpdateProfile);
 router.post('/dentalInsertProfile', isAuth, profileController.dentalInsertProfile);
-router.post('/dentalGroupProfile', isAuth, profileController.dentalGroupProfile);
 
 router.get('/tempDashboard', isAuth, authController.getTempDashboardInformation);
-router.post('/postGig', gigController.postGig);
+router.post('/postGig', gigController.postGig, emailController.gigPostedEmail);
 router.get('/jobPosting', gigController.jobPosting);
-router.post('/acceptGig', gigController.acceptGig);
+router.put('/gigCard', gigController.gigCard);
+router.put('/gigCardOffice', gigController.gigCardOffice);
+router.post('/acceptGig', gigController.acceptGig, emailController.gigAcceptedEmail);
 router.put('/getEvents', eventController.getEvents);
+router.put('/getEventsOffice', eventController.getEventsOffice);
+router.post('/addTime', gigController.addTime, emailController.addTimeEmail);
 
 module.exports = router;

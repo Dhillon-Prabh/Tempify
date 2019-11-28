@@ -171,9 +171,6 @@ class Profile extends React.Component {
 
   componentDidMount() {
     let currentComponent = this;
-    var data = {
-      userId: this.state.userId
-    }
     
     fetch("http://localhost:3001/tempProfile", {
       method: 'GET',

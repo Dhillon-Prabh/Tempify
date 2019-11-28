@@ -8,35 +8,51 @@ import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import './Profile.css'
 import NewOfficeModal from './NewOfficeModal'
 import MUIDatatable from "mui-datatables";
-//import SwitchOfficeModal from './SwitchOfficeModal'
 
 const useStyles = theme => ({
   textField: {
-    width: '100%',
+    width: "100%",
     marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(1)
   },
   label: {
-    '&$focused': {
-      color: '#00bfff'
-    },
+    "&$focused": {
+      color: "#00bfff"
+    }
   },
   labelAsterisk: {
-    color: '#ff0000'
+    color: "#ff0000"
   },
   focused: {},
   outlinedInput: {
-    '&$focused $notchedOutline': {
-      border: '1px solid #00bfff'
-    },
+    "&$focused $notchedOutline": {
+      border: "1px solid #00bfff"
+    }
   },
   notchedOutline: {},
   button: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(1)
   },
   input: {
-    display: 'none',
+    display: "none"
   },
+  dentalProfileTitleContainer: {
+    marginTop: "120px"
+  },
+  dentalProfileTitle: {
+    fontWeight: 800,
+    fontSize: "26pt",
+    display: "flex",
+    justifyContent: "center",
+    height: "80px",
+    fontFamily: "Arial"
+  },
+  dentalProfileUpdateButton: {
+    height: "100px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });
 
 const parking = [
@@ -77,7 +93,7 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: localStorage.getItem('userId'),//this.props.userId,
+      userId: localStorage.getItem('userId'),
       officeId: this.props.officeId,
       groupId: this.props.groupId,
       officeEmail: '',
@@ -114,7 +130,6 @@ class Profile extends React.Component {
     }).then(res =>  {
       return res.json();
     }).then(result => {
-      console.log("before loop");
       var resultData = [];
       for (var i = 0; i < result.length; i++) {
         let dUserId = result[i].user_id;
@@ -154,11 +169,11 @@ class Profile extends React.Component {
   }
 
   componentWillUnmount() {
-    ValidatorForm.removeValidationRule('isPasswordMatch');
-    ValidatorForm.removeValidationRule('isTruthy');
+    ValidatorForm.removeValidationRule("isPasswordMatch");
+    ValidatorForm.removeValidationRule("isTruthy");
   }
 
-  submitForm = (event) => {
+  submitForm = event => {
     event.preventDefault();
 
     var data = {
@@ -173,29 +188,32 @@ class Profile extends React.Component {
       city: this.state.city,
       province: this.state.province,
       postalCode: this.state.postalCode,
-      parking: this.state.parking,
-    }
+      parking: this.state.parking
+    };
 
     fetch("http://localhost:3001/dentalUpdateProfile", {
-      method: 'POST',
+      method: "POST",
       headers: {
-        Authorization: 'Bearer ' + this.props.token,
-        'Content-Type': 'application/json'
+        Authorization: "Bearer " + this.props.token,
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
-    }).then(function(response) {
-      console.log(response);
-    }).then(function(data) {
-      console.log(data);
-    }).catch(function(err) {
-      console.log(err);
-    });
+    })
+      .then(function(response) {
+        console.log(response);
+      })
+      .then(function(data) {
+        console.log(data);
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
     this.props.history.push("/home");
-  }
+  };
 
-  handleChange = (e) => {
-    this.setState({[e.target.name]: e.target.value});
-  }
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   handleClick(acceptData) {
     console.log("handleClick");
@@ -213,14 +231,13 @@ class Profile extends React.Component {
   }
 
   render() {
-
     const { classes } = this.props;
     return (
       <div className="profile">
-        <ValidatorForm ref="form" onSubmit={(e) => this.submitForm(e)}>
-          <Typography align="center" className="header1">
-            MY PROFILE
-          </Typography>
+        <ValidatorForm ref="form" onSubmit={e => this.submitForm(e)}>
+          <div className={classes.dentalProfileTitleContainer}>
+            <div className={classes.dentalProfileTitle}>MY PROFILE</div>
+          </div>
 
           <MUIDatatable 
             className="dental-profile-datatable"
@@ -251,15 +268,15 @@ class Profile extends React.Component {
                   classes: {
                     root: classes.label,
                     focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
+                    asterisk: classes.labelAsterisk
+                  }
                 }}
                 InputProps={{
                   classes: {
                     root: classes.outlinedInput,
                     focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
+                    notchedOutline: classes.notchedOutline
+                  }
                 }}
               />
             </Grid>
@@ -283,19 +300,19 @@ class Profile extends React.Component {
                   classes: {
                     root: classes.label,
                     focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
+                    asterisk: classes.labelAsterisk
+                  }
                 }}
                 InputProps={{
                   classes: {
                     root: classes.outlinedInput,
                     focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
+                    notchedOutline: classes.notchedOutline
+                  }
                 }}
               />
             </Grid>
-            
+
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
                 required
@@ -307,23 +324,33 @@ class Profile extends React.Component {
                 margin="normal"
                 variant="outlined"
                 value={this.state.phone}
-                validators={['required', 'minStringLength:10', 'minStringLength:10', 'isNumber']}
-                errorMessages={['This field is required', 'Value should be 10 digits', 'Value should be 10 digits', 'Must be a number']}
+                validators={[
+                  "required",
+                  "minStringLength:10",
+                  "minStringLength:10",
+                  "isNumber"
+                ]}
+                errorMessages={[
+                  "This field is required",
+                  "Value should be 10 digits",
+                  "Value should be 10 digits",
+                  "Must be a number"
+                ]}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
                     root: classes.label,
                     focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
+                    asterisk: classes.labelAsterisk
+                  }
                 }}
                 InputProps={{
                   classes: {
                     root: classes.outlinedInput,
                     focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
+                    notchedOutline: classes.notchedOutline
+                  }
                 }}
               />
             </Grid>
@@ -339,26 +366,25 @@ class Profile extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.streetNo}
-                validators={['required']}
-                errorMessages={['This field is required']}
+                validators={["required"]}
+                errorMessages={["This field is required"]}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
                     root: classes.label,
                     focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
+                    asterisk: classes.labelAsterisk
+                  }
                 }}
                 InputProps={{
                   classes: {
                     root: classes.outlinedInput,
                     focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
+                    notchedOutline: classes.notchedOutline
+                  }
                 }}
-              >
-              </TextValidator>
+              ></TextValidator>
             </Grid>
 
             <Grid item xs={12} sm={6} className="container2">
@@ -373,26 +399,25 @@ class Profile extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.streetName}
-                validators={['required']}
-                errorMessages={['This field is required']}
+                validators={["required"]}
+                errorMessages={["This field is required"]}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
                     root: classes.label,
                     focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
+                    asterisk: classes.labelAsterisk
+                  }
                 }}
                 InputProps={{
                   classes: {
                     root: classes.outlinedInput,
                     focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
+                    notchedOutline: classes.notchedOutline
+                  }
                 }}
-              >
-              </TextValidator>
+              ></TextValidator>
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
@@ -405,23 +430,23 @@ class Profile extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                validators={['required']}
-                errorMessages={['This field is required']}
+                validators={["required"]}
+                errorMessages={["This field is required"]}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
                     root: classes.label,
                     focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
+                    asterisk: classes.labelAsterisk
+                  }
                 }}
                 InputProps={{
                   classes: {
                     root: classes.outlinedInput,
                     focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
+                    notchedOutline: classes.notchedOutline
+                  }
                 }}
               />
             </Grid>
@@ -438,26 +463,25 @@ class Profile extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.city}
-                validators={['required']}
-                errorMessages={['This field is required']}
+                validators={["required"]}
+                errorMessages={["This field is required"]}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
                     root: classes.label,
                     focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
+                    asterisk: classes.labelAsterisk
+                  }
                 }}
                 InputProps={{
                   classes: {
                     root: classes.outlinedInput,
                     focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
+                    notchedOutline: classes.notchedOutline
+                  }
                 }}
-              >
-              </TextValidator>
+              ></TextValidator>
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
@@ -471,26 +495,25 @@ class Profile extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.province}
-                validators={['required']}
-                errorMessages={['This field is required']}
+                validators={["required"]}
+                errorMessages={["This field is required"]}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
                     root: classes.label,
                     focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
+                    asterisk: classes.labelAsterisk
+                  }
                 }}
                 InputProps={{
                   classes: {
                     root: classes.outlinedInput,
                     focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
+                    notchedOutline: classes.notchedOutline
+                  }
                 }}
-              >
-              </TextValidator>
+              ></TextValidator>
             </Grid>
 
             <Grid item xs={12} sm={6} className="container2">
@@ -505,26 +528,25 @@ class Profile extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.postalCode}
-                validators={['required']}
-                errorMessages={['This field is required']}
+                validators={["required"]}
+                errorMessages={["This field is required"]}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
                     root: classes.label,
                     focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
+                    asterisk: classes.labelAsterisk
+                  }
                 }}
                 InputProps={{
                   classes: {
                     root: classes.outlinedInput,
                     focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
+                    notchedOutline: classes.notchedOutline
+                  }
                 }}
-              >
-              </TextValidator>
+              ></TextValidator>
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
@@ -539,30 +561,30 @@ class Profile extends React.Component {
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.parking}
-                validators={['required']}
-                errorMessages={['This field is required']}
+                validators={["required"]}
+                errorMessages={["This field is required"]}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
                   classes: {
                     root: classes.label,
                     focused: classes.focused,
-                    asterisk: classes.labelAsterisk,
-                  },
+                    asterisk: classes.labelAsterisk
+                  }
                 }}
                 InputProps={{
                   classes: {
                     root: classes.outlinedInput,
                     focused: classes.focused,
-                    notchedOutline: classes.notchedOutline,
-                  },
+                    notchedOutline: classes.notchedOutline
+                  }
                 }}
               >
-              {parking.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
+                {parking.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
               </TextValidator>
             </Grid>
 
@@ -575,7 +597,7 @@ class Profile extends React.Component {
           </Grid>
         </ValidatorForm>
       </div>
-    )
+    );
   }
 }
 

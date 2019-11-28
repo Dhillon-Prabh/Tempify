@@ -4,7 +4,10 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import "./App.css";
 import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
-import Schedule from "../Schedule/schedule";
+import DashBoard from "../Dashboard/Dashboard"
+import OfficeCard from "../ProfileCard/OfficeProfileCard"
+import BookNow from "../BookNow/BookNow"
+import DentailProfile from "../Profile/DentalProfile"
 
 class App extends Component {
   render() {
@@ -17,7 +20,10 @@ class App extends Component {
             <Navbar />
             <Cookie />
           </BrowserRouter>
-        </React.Fragment> 
+        </React.Fragment>
+        {/* <OfficeCard /> */}
+        {/* <BookNow />n */}
+        {/* <DentailProfile /> */}
       </div>
     );
   }

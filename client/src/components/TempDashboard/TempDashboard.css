@@ -9,19 +9,21 @@
 
 .buttons{
   height: 3rem;
-  width: 30rem !important;
+  /* width: 30rem !important; */
 }
 
-.button {
+.tempButton {
   font-weight: bold !important;
   background-color: #00bfff !important;
   color: white !important;
+  width: 170px;
 }
 
 .activeButton {
   font-weight: bold !important;
   background-color: black !important;
   color: white !important;
+  width: 170px;
 }
 
 body{

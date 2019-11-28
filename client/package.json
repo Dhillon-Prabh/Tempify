@@ -22,7 +22,7 @@
     "install": "^0.13.0",
     "material-ui-icons": "^1.0.0-beta.36",
     "material-ui-image": "^3.2.2",
-    "mui-datatables": "^2.13.0",
+    "mui-datatables": "^2.13.1",
     "notistack": "^0.9.6",
     "npm": "^6.13.1",
     "react": "^16.9.0",

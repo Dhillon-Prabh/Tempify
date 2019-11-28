@@ -30,6 +30,7 @@ class Navbar extends Component{
       isAuth: false, 
       role: -1,
       officeId: -1,
+      groupId: -1,
       loginError: false,
       loginSuccess: false,
       token: null

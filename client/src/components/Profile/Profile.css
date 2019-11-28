@@ -19,14 +19,18 @@
     width: 210px;
     height: 59px;
     background-color: #00bfff !important;
-    margin-left: 10px !important;
-    margin-right: 10px !important;
+    margin: 1rem 1rem !important;
 }
 
 .container1 {
 }
 
 .container2 {
+    height: 6rem;
+    line-height: normal;
+}
+
+.dental-profile-container3 {
     height: 6rem;
     line-height: normal;
 }

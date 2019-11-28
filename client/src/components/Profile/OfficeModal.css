@@ -5,6 +5,12 @@
   font-size: 1.8rem !important;
 }
 
+.dental-profile-datatable {
+  margin-bottom: 2rem;
+  margin-left: 1rem;
+  white-space: pre-line;
+}
+
 .profile {
   width: 60%;
   margin: auto;

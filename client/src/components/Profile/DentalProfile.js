@@ -6,7 +6,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import './Profile.css'
-import DentalModal from './DentalModal'
+import NewOfficeModal from './NewOfficeModal'
+import MUIDatatable from "mui-datatables";
+//import SwitchOfficeModal from './SwitchOfficeModal'
 
 const useStyles = theme => ({
   textField: {
@@ -52,12 +54,32 @@ const parking = [
   },
 ];
 
+const columns = [
+  {name:"id", label:"id", className:"column", viewColumns:"false"},
+  {name:"name", label:"Name", className:"column"},
+  {name:"officeEmail", label:"Email", className:"column"},
+  {name:"officeName", label:"Office Name", className:"column"},
+  {name:"action", label:"Action", className:"column"}
+];
+
+const options = {
+  selectableRows: false,
+  search: false,
+  print: false,
+  download: false,
+  filter: false,
+  column: false,
+  pagination: false,
+  viewColumns: false,
+};
+
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: this.props.userId,
+      userId: localStorage.getItem('userId'),//this.props.userId,
       officeId: this.props.officeId,
+      groupId: this.props.groupId,
       officeEmail: '',
       officeName: '',
       name: '',
@@ -69,18 +91,19 @@ class Profile extends React.Component {
       province: '',
       postalCode: '',
       parking: parking[0].value,
-      groupId: this.props.groupId,
+      data: [],
+      success: false,
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
+    console.log("mounting again");
     let currentComponent = this;
     var data = {
-      userId: this.state.userId,
-      officeId: this.state.officeId
+      groupId: this.state.groupId,
     }
-
+    
     fetch("http://localhost:3001/dentalProfile", {
       method: 'POST',
       headers: {
@@ -91,20 +114,40 @@ class Profile extends React.Component {
     }).then(res =>  {
       return res.json();
     }).then(result => {
-      currentComponent.setState({
-        name: result[0].dentist_name,
-        officeEmail: result[0].email,
-        officeName: result[0].office_name,
-        phone: result[0].phone_number,
-        streetNo: result[0].street_number,
-        streetName: result[0].street_name,
-        unit: result[0].unit_number,
-        city: result[0].city,
-        province: result[0].province,
-        postalCode: result[0].postalcode,
-        parking: result[0].parking_options,
-        groupId: result[0].group_id,
-      });
+      console.log("before loop");
+      var resultData = [];
+      for (var i = 0; i < result.length; i++) {
+        let dUserId = result[i].user_id;
+        let dName = result[i].dentist_name;
+        let dOfficeEmail = result[i].email;
+        let dOfficeName = result[i].office_name;
+        let action = <Button className="select" onClick={currentComponent.handleClick.bind(currentComponent,[result[i]])}>Select</Button>;
+        let row = [];
+        row.push(dUserId);
+        row.push(dName);
+        row.push(dOfficeEmail);
+        row.push(dOfficeName);
+        row.push(action);
+        resultData.push(row);
+
+        if (this.state.userId == result[i].user_id) {
+          currentComponent.setState({
+            name: result[i].dentist_name,
+            officeEmail: result[i].email,
+            officeName: result[i].office_name,
+            phone: result[i].phone_number,
+            streetNo: result[i].street_number,
+            streetName: result[i].street_name,
+            unit: result[i].unit_number,
+            city: result[i].city,
+            province: result[i].province,
+            postalCode: result[i].postalcode,
+            parking: result[i].parking_options,
+          });
+        }
+      }
+      currentComponent.setState({data: resultData});
+      console.log(result);
     }).catch(function(err) {
       console.log(err);
     });
@@ -119,8 +162,8 @@ class Profile extends React.Component {
     event.preventDefault();
 
     var data = {
-      userId: this.props.userId,
-      officeId: this.props.officeId,
+      userId: this.state.userId,
+      officeId: this.state.officeId,
       officeName: this.state.officeName,
       name: this.state.name,
       phone: this.state.phone,
@@ -154,6 +197,21 @@ class Profile extends React.Component {
     this.setState({[e.target.name]: e.target.value});
   }
 
+  handleClick(acceptData) {
+    console.log("handleClick");
+    let currentComponent = this;
+    var id = acceptData[0].user_id;
+    console.log("id: " + id);
+    
+    if (localStorage.getItem('userId') != id) {
+      localStorage.setItem('userId', id);
+      console.log("userId updated");
+      //currentComponent.setState({userId: id});
+    }
+    currentComponent.props.history.push("/home");  //dentalprofile
+    //this.forceUpdate();
+  }
+
   render() {
 
     const { classes } = this.props;
@@ -163,6 +221,14 @@ class Profile extends React.Component {
           <Typography align="center" className="header1">
             MY PROFILE
           </Typography>
+
+          <MUIDatatable 
+            className="dental-profile-datatable"
+            title={"Office List"}
+            columns={columns}
+            options={options}
+            data={this.state.data}
+          />
 
           <Grid container spacing={6} className="container1">
             <Grid item xs={12} sm={6} className="container2">
@@ -500,11 +566,11 @@ class Profile extends React.Component {
               </TextValidator>
             </Grid>
 
-            <Grid item xs={12} className="container2">
+            <Grid item xs={12} direction="row" alignItems="center">
               <Button className="blueButton" color="primary" variant="contained" type="submit">
                 UPDATE DETAILS
               </Button>
-              <DentalModal className="blueButton" idType="blueButton" name="ADD NEW OFFICE"/>
+              <NewOfficeModal className="blueButton" idType="blueButton" name="ADD NEW OFFICE" groupId={this.state.groupId}/>
             </Grid>
           </Grid>
         </ValidatorForm>

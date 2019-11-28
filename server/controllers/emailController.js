@@ -24,40 +24,46 @@ transporter.use('compile', hbs({
 exports.gigPostedEmail = async (req, res, next) => {
     const email = 'bcitfiveguys@gmail.com';
     var emails = "";
-    var dentalInfo;
     var job = req.body;
     var gigEmailOption = {};
-    await db((err, con) => {
-
-        if (err) {
-          throw err;
-        }
+    function connect() {
+        return new Promise(function(resolve, reject) {
+            db((err, con) => {
     
-        var query = "SELECT email FROM `temps` WHERE `is_approved` = 1";
-        con.query(query, (err, result, fields) => {
-          if (!result.length) {
-            return res.status(401).send({
-              error: "error message",
+                if (err) {
+                throw err;
+                }
+            
+                var query = "SELECT email FROM `temps` WHERE `is_approved` = 1";
+                con.query(query, (err, result, fields) => {
+                    if (!result.length) {
+                        return res.status(401).send({
+                        error: "error message",
+                        });
+                    } else {
+                        for (var s of result) {
+                            emails += s.email;
+                            emails += ", "
+                        }
+                    }
+                });
+    
+                query = 'SELECT office_name, dentist_name, street_number, street_name, unit_number, city, province, parking_options FROM dentists WHERE user_id = ?;';
+                values=[job.userId];
+                con.query(query, values, (err, result, fields) => {
+                    if(!err) {
+                        resolve(result[0]);
+                        con.release();
+                    } else {
+                        con.release();
+                        return reject(err);
+                    }
+                });
             });
-          } else {
-            for (var s of result) {
-                emails += s.email;
-                emails += ", "
-            }
-          }
-        });
+        })
+    }
 
-        query = 'SELECT office_name, dentist_name, street_number, street_name, unit_number, city, province, parking_options FROM dentists WHERE user_id = ?;';
-        values=[job.userId];
-        con.query(query, values, (err, result, fields) => {
-            if(!err) {
-                dentalInfo = result[0];
-            }
-        });
-        con.release();
-    });
-
-        console.log("DENTAL" + dentalInfo);
+    await connect().then(function(dentalInfo) {
         gigEmailOption = {
             to: email, // list of receivers
             subject: 'New Gig posted in Tempify', // Subject line
@@ -72,16 +78,168 @@ exports.gigPostedEmail = async (req, res, next) => {
                 parking: dentalInfo.parking_options
             }
         }
-        console.log("GIG " + gigEmailOption);
+    }).catch((err) => setImmediate(() => { throw err; }));
     
-
     await transporter.sendMail(gigEmailOption, function(err, info) {
-        console.log("IN" + gigEmailOption);
-
         if (err) {
             console.log(err);
         }
     });
+}
+
+exports.gigAcceptedEmail = async (req, res, next) => {
+    const email = 'bcitfiveguys@gmail.com';
+    var values = req.body;
+    var tempData = {};
+    var gigData = {};
+    var emailOption = {};
+    function connect() {
+        return new Promise(function(resolve, reject) {
+            db((err, con) => {
+    
+                if (err) {
+                throw err;
+                }
+                var value = [values.userId];
+                var query = "SELECT temp_name, email, designation, experience, dental_software, "
+                    + "is_assistant, is_hygienist, is_receptionist, city, expected_rate, "
+                    + "type_of_practice FROM `temps` WHERE `user_id` = ?";
+                con.query(query, value, (err, result, fields) => {
+                    if (err) {
+                        return res.status(401).send({
+                            error: "error message",
+                        });
+                    } else {
+                        tempData = result[0];
+                    }
+                });
+    
+                query = 'SELECT date, time FROM gigs WHERE id = ?;';
+                con.query(query, [values.gigId], (err, result, fields) => {
+                    if(!err) {
+                        resolve(result[0]);
+                        con.release();
+                    } else {
+                        con.release();
+                        return reject(err);
+                    }
+                });
+            });
+        })
+    }
+
+    await connect().then(function(gigInfo) {
+        var tempDesignation = "";
+        if (tempData.is_assistant == 1) {
+            tempDesignation += "Assistant ";
+        }
+        if (tempData.is_hygienist == 1) {
+            tempDesignation += "Hygienist ";
+        }
+        if (tempData.is_receptionist == 1) {
+            tempDesignation += "Receptionist "
+        }
+        emailOption = {
+            to: email, // list of receivers
+            subject: 'Temp applied for gig', // Subject line
+            template: 'gig_accepted_to_dental',
+            context: {
+                temp_name: tempData.temp_name,
+                email: tempData.email,
+                designation: tempDesignation,
+                experience: tempData.experience,
+                dental_software: tempData.dental_software,
+                type_of_practice: tempData.type_of_practice,
+                city: tempData.city,
+                expected_rate: tempData.expected_rate,
+                timings: gigInfo.data + " " + gigInfo.time,
+                to: email
+            }
+        }
+    }).catch((err) => setImmediate(() => { throw err; }));
+    
+    await transporter.sendMail(emailOption, function(err, info) {
+        if (err) {
+            console.log(err);
+        }
+    });
+    
+}
+
+exports.addTimeEmail = async (req, res, next) => {
+    console.log("IN EMAIL");
+    const email = 'bcitfiveguys@gmail.com';
+    var values = req.body;
+    var emailOption = {};
+    function connect() {
+        return new Promise(function(resolve, reject) {
+            db((err, con) => {
+    
+                if (err) {
+                throw err;
+                }
+                var value = [values.bookingId];
+                var query = "SELECT t.temp_name, t.designation, t.experience, t.dental_software, "
+                    + "t.is_assistant, t.is_hygienist, t.is_receptionist, t.city, t.expected_rate, "
+                    + "t.type_of_practice, b.dates, b.timings FROM bookings b JOIN temps t on b.temp_id = t.id "
+                    + "WHERE b.id = ?;";
+                con.query(query, value, (err, result, fields) => {
+                    if (err) {
+                        return res.status(401).send({
+                            error: "error message",
+                        });
+                        con.release();
+                    } else {
+                        console.log(result[0]);
+                        resolve(result[0]);
+                        con.release();
+                    }
+                });
+            });
+        })
+    }
+    console.log("AFTER QUERY");
+
+    await connect().then(function(bookingInfo) {
+        console.log("IN AWAIT");
+        var tempDesignation = "";
+        if (bookingInfo.is_assistant == 1) {
+            tempDesignation += "Assistant ";
+        }
+        if (bookingInfo.is_hygienist == 1) {
+            tempDesignation += "Hygienist ";
+        }
+        if (bookingInfo.is_receptionist == 1) {
+            tempDesignation += "Receptionist "
+        }
+        console.log("SETTING EMAIL");
+        emailOption = {
+            to: email, // list of receivers
+            subject: 'Booking Id:' + values.bookingId + ' has been completed by ' + bookingInfo.temp_name, // Subject line
+            template: 'completed_job',
+            context: {
+                temp_name: bookingInfo.temp_name,
+                designation: tempDesignation,
+                experience: bookingInfo.experience,
+                dental_software: bookingInfo.dental_software,
+                type_of_practice: bookingInfo.type_of_practice,
+                city: bookingInfo.city,
+                expected_rate: bookingInfo.expected_rate,
+                timings: bookingInfo.dates + " " + bookingInfo.timings,
+                to: email
+            }
+        }
+        console.log("EMAIL SET");
+    }).catch((err) => setImmediate(() => { throw err; }));
+    
+    console.log("BEFORE SENDING");
+
+    await transporter.sendMail(emailOption, function(err, info) {
+        if (err) {
+            console.log(err);
+        }
+    });
+
 }
 
 exports.tempRegisterEmail = async (req, res, next) => {

@@ -78,6 +78,9 @@ exports.checkout = (req, res, next) => {
         })
       }
       res.send(result);
+      if(result.success) {
+        next();
+      }
     } else {
       res.status(500).send(error);
     }

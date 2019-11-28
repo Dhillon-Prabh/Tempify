@@ -67,6 +67,7 @@ exports.postGig = [
         });
       })
     }
+    next();
   }
 ]
 
@@ -124,8 +125,9 @@ exports.acceptGig = (req, res, next) => {
           res.status(401).send('Error Occurred');
           con.release();
         }
-        });
+      });
   })
+  next();
 }
 
 exports.gigCard = (req, res, next) => {
@@ -198,16 +200,16 @@ exports.addTime = (req, res, next) => {
       console.log(err);
       throw err;
     }
-    var query = 'SELECT temp_wage FROM bookings WHERE id = ?;';
+    var query = 'SELECT temp_wage, is_from_gig FROM bookings WHERE id = ?';
         values=[booking.bookingId];
         con.query(query, values, (err, result, fields) => {
         if(!err) { 
-          var userQuery = 'UPDATE bookings SET temp_status = ?, temp_hours = ?, service_fee = ?, gst = ?, total_amount = ? WHERE id = ?;';
+          var userQuery = 'UPDATE gigs SET status = ? WHERE id = ?; UPDATE bookings SET temp_status = ?, temp_hours = ?, service_fee = ?, gst = ?, total_amount = ? WHERE id = ?;';
           var amount = parseInt(result[0].temp_wage) * booking.hours;
           var gst = amount * 0.05;
           var service_fee = amount *0.15;
           var total = amount + gst + service_fee;
-          valuesB=["COMPLETE", booking.hours, service_fee, gst, total, booking.bookingId];
+          valuesB=["COMPLETE", result[0].is_from_gig, "COMPLETE", booking.hours, service_fee, gst, total, booking.bookingId];
           con.query(userQuery, valuesB, (err, result, fields) => {
             if (!err) {
               return res.status(200).json(result);
@@ -222,5 +224,6 @@ exports.addTime = (req, res, next) => {
           con.release();
         }
       });
-  })
+  });
+  next();
 }

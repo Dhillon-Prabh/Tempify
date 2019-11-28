@@ -36,7 +36,9 @@ export default class Calendar extends React.Component {
     }).then(function(response) {
       console.log(response);
       return response.json();
-    }).then(function(data) {
+    }).then(function(dataAll) {
+      console.log(dataAll);
+      var data = dataAll[0];
       console.log(data);
       var dataEvents = [];
       for (var i = 0; i < data.length; i++) {
@@ -51,6 +53,7 @@ export default class Calendar extends React.Component {
           row.textColor = "white";
           row.borderColor = "rgba(0, 76, 76, 0.0)";
           row.id = id;
+          row.disablePay = true;
 
           dataEvents.push(row)
         } else if(data[i].temp_status == "COMPLETE" && data[i].dental_status == "POSTED") {
@@ -65,6 +68,21 @@ export default class Calendar extends React.Component {
           row.textColor = "white";
           row.borderColor = "rgba(0, 76, 76, 0.0)";
           row.id = id;
+          row.disablePay = false;
+
+          dataEvents.push(row);
+        }
+      }
+      if (dataAll.length > 1) {
+        var posted = dataAll[1];
+        for (var i = 0; i < posted.length; i++) {
+          var title = posted[i].time;
+          var date = posted[i].date;
+          var backgroundColor = "orange";
+          var row = {};
+          row.title = title;
+          row.date = date;
+          row.backgroundColor = backgroundColor;
 
           dataEvents.push(row);
         }
@@ -76,18 +94,20 @@ export default class Calendar extends React.Component {
     });
   }
   
-  state = { render: false, bookingId: '' };
+  state = { render: false, bookingId: '', disablePay: false };
 
   render() {
     const { render } = this.state;
 
     const eventClick = (info) => {
       console.log("BookingID", info.event.id);
-      console.log(info);
-      this.setState({
-        render: !render,
-        bookingId: info.event.id,
-      });
+      if (info.event.id !== '') {
+        this.setState({
+          render: !render,
+          bookingId: info.event.id,
+          disablePay: info.event.extendedProps.disablePay,
+        });
+      }
     };
 
     return (
@@ -106,13 +126,14 @@ export default class Calendar extends React.Component {
           <FullCalendar
             defaultView="dayGridMonth"
             plugins={[dayGridPlugin, interactionPlugin]}
+            displayEventTime= {false}
             events={this.state.events}
             eventClick={eventClick}
-            events={this.state.events}
           />
         </div>
         <div className="profileContainer">
-            {render ? <OfficeModal token = {this.props.token} bookingId={this.state.bookingId}/> : null}
+            {render ? <OfficeModal token = {this.props.token} bookingId={this.state.bookingId} disablePay={this.state.disablePay}/> : null}
+            {/* {render ? <OfficeModal bookingId={this.state.bookingId} disablePay={this.state.disablePay}/> : null} */}
           </div>
       </div>
     );

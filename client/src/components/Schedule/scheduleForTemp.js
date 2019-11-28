@@ -49,6 +49,7 @@ export default class Calendar extends React.Component {
           row.textColor = "white";
           row.borderColor = "rgba(0, 76, 76, 0.0)";
           row.fontWeight = "800";
+          row.displayHours = true;
           row.id = id;
 
           dataEvents.push(row)
@@ -63,6 +64,7 @@ export default class Calendar extends React.Component {
           row.backgroundColor = backgroundColor;
           row.textColor = "white";
           row.borderColor = "rgba(0, 76, 76, 0.0)";
+          row.displayHours = false;
           row.id = id;
 
           dataEvents.push(row);
@@ -75,7 +77,7 @@ export default class Calendar extends React.Component {
     });
   }
   
-  state = { render: false, bookingId: '' };
+  state = { render: false, bookingId: '', displayHours: false };
 
   render() {
     const { render } = this.state;
@@ -85,6 +87,7 @@ export default class Calendar extends React.Component {
       this.setState({
         render: !render,
         bookingId: info.event.id,
+        displayHours: info.event.extendedProps.displayHours,
       });
     };
 
@@ -109,7 +112,7 @@ export default class Calendar extends React.Component {
           />
         </div>
         <div className="profileContainer">
-            {render ? <Modal bookingId={this.state.bookingId} /> : null}
+            {render ? <Modal bookingId={this.state.bookingId} displayHours={this.state.displayHours}/> : null}
           </div>
       </div>
     );

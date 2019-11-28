@@ -112,6 +112,7 @@ class PostGig extends React.Component {
     fetch("http://localhost:3001/postGig", {
       method: "POST",
       headers: {
+        'Authorization': 'Bearer ' + this.props.token,
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)

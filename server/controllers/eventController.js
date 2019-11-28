@@ -66,10 +66,9 @@ exports.getEventsOffice = (req, res, next) => {
               if (!err) {
                 if(result.length) {
                     events.push(result);
+                    res.status(200).json(events);
                 }
-                
-                res.status(200).json(events);
-                con.release();
+                              
               } else {
                 console.log(err);
               }

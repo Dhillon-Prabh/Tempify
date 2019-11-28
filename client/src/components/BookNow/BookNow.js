@@ -86,58 +86,10 @@ class PostGig extends React.Component {
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-<<<<<<< HEAD
-    handleDateChange = (date) => {
-        this.setState({date: date});
-    }
-    
-    submitForm = (event) => {
-        var self = this;
-        self.setState({
-          dateError: false,
-          timeError: false,
-        })
-        event.preventDefault();
-        const userId = localStorage.getItem('userId');
-        var data = {
-            date: format(this.state.date, 'yyyy-MM-dd'),
-            time: this.state.fromTime + ' - ' + this.state.toTime,
-            designation: this.state.designation,
-            userId: userId
-          }
-          fetch("http://localhost:3001/postGig", {
-            method: 'POST',
-            headers: {
-              'Authorization': 'Bearer ' + this.props.token,
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-          }).then(function(response) {
-            if (response.status == 422) {
-              console.log("validation error");
-            } else if (response.status == 300) {
-              self.setState({success: true});
-            }
-            return response.json();
-          }).then(function(data) {
-            for (var i = 0; i < data.length; i++) {
-              if (data[i].param == 'date') {
-                console.log("date error");
-                self.setState({dateError: true});
-              } else if (data[i].param == 'time') {
-                self.setState({timeError: true});
-              }
-            }
-            console.log(data);
-          }).catch(function(err) {
-            console.log(err);
-          });
-    }
-=======
+
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
->>>>>>> f536e31e6fbf0295a680ceae257cb7a38956c442
 
   handleDateChange = date => {
     this.setState({ date: date });
@@ -313,37 +265,6 @@ class PostGig extends React.Component {
   }
 }
 
-<<<<<<< HEAD
-
-class BookNow extends React.Component {
-  constructor(props) {
-    super(props);
-    
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <PostGig withStyles={useStyles} token = {this.props.token}/>
-        <Divider/>
-        <FindFit/>
-      </React.Fragment>
-    )
-  }
-}
-
-// const BookNow = () => {
-//     return (
-//         <React.Fragment>
-//             <PostGig withStyles={useStyles}/>
-//             <Divider/>
-//             <FindFit/>
-//         </React.Fragment>
-//     );
-// }
-
-export default BookNow;
-=======
 const FindFit = () => {
   const [values, setValues] = React.useState({
     date: new Date(),
@@ -427,15 +348,31 @@ const FindFit = () => {
   );
 };
 
-const BookNow = () => {
-  return (
-    <React.Fragment>
-      <PostGig withStyles={useStyles} />
-      <Divider />
-      <FindFit />
-    </React.Fragment>
-  );
-};
+class BookNow extends React.Component {
+  constructor(props) {
+    super(props);
+    
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <PostGig withStyles={useStyles} token = {this.props.token}/>
+        <Divider/>
+        <FindFit/>
+      </React.Fragment>
+    )
+  }
+}
+
+// const BookNow = () => {
+//     return (
+//         <React.Fragment>
+//             <PostGig withStyles={useStyles}/>
+//             <Divider/>
+//             <FindFit/>
+//         </React.Fragment>
+//     );
+// }
 
 export default BookNow;
->>>>>>> f536e31e6fbf0295a680ceae257cb7a38956c442

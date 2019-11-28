@@ -115,11 +115,7 @@ exports.acceptGig = (req, res, next) => {
             if (!err) {
               res.status(300).send("Success");
               con.release();
-            } else {
-              console.log(err);
-              res.status(401).send('Error Occurred');
-              con.release();
-            }
+            } 
           });
         } else {
           res.status(401).send('Error Occurred');
@@ -212,7 +208,7 @@ exports.addTime = (req, res, next) => {
           valuesB=["COMPLETE", result[0].is_from_gig, "COMPLETE", booking.hours, service_fee, gst, total, booking.bookingId];
           con.query(userQuery, valuesB, (err, result, fields) => {
             if (!err) {
-              return res.status(200).json(result);
+              res.status(200).json(result);
             } else {
               console.log(err);
               res.status(401).send({ error : "error message",});

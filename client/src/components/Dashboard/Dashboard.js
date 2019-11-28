@@ -88,12 +88,8 @@ class Dashboard extends Component {
         return(
             <React.Fragment>
                 <Grid container direction="row" justify="center" alignItems="center" className="options">
-<<<<<<< HEAD
                     <Grid item xs={2}>
                      {this.state.user}
-=======
-                    {/* <Grid item xs={2}>
->>>>>>> f536e31e6fbf0295a680ceae257cb7a38956c442
                         <Breadcrumbs aria-label="breadcrumb">
                             <Link to="/dashboard" style={{textDecoration:'none', color: 'inherit'}}>
                                 <ListItem button>
@@ -105,7 +101,7 @@ class Dashboard extends Component {
                             </Link>
                             <Typography color="textPrimary">dashboard</Typography>
                         </Breadcrumbs>
-                    </Grid> */}
+                    </Grid> 
                     <Grid item xs={6}>
                     <div className="dashboardContainer">
                         <ButtonGroup className="buttons" size="large" aria-label="small contained button group" >

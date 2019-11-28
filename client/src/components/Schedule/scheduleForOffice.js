@@ -53,12 +53,6 @@ export default class Calendar extends React.Component {
           row.borderColor = "rgba(0, 76, 76, 0.0)";
           row.id = id;
           row.disablePay = true;
-          row.backgroundColor = {
-            '&:hover': {
-              backgroundColor: "#84dae7",
-              opacity: "0.9"
-            }
-          }
 
           dataEvents.push(row)
         } else if(data[i].temp_status == "COMPLETE" && data[i].dental_status == "POSTED") {

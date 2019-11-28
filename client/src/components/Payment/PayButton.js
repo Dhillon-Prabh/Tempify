@@ -114,7 +114,7 @@ class PayButton extends Component{
             <Typography>
                 Total charges: ${this.state.total}
             </Typography>
-            <Payment total={this.state.total} onFinish={this.onComplete}/>
+            <Payment total={this.state.total} gigId={this.state.gigId} onFinish={this.onComplete}/>
           </DialogContent>
         </Dialog>
 

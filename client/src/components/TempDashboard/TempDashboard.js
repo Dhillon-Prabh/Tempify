@@ -110,12 +110,12 @@ class TempDashboard extends Component {
     return(
       <div>
           <Grid container direction="row" justify="center" alignItems="center" className="options">
-            <Grid item xs={2}>
-              {/* <Grid item xs={12}>
+            {/* <Grid item xs={2}>
+              <Grid item xs={12}>
                 <div className = "tempdashboard-username">
                   Hi, {this.state.user}!
                 </div>
-              </Grid> */}
+              </Grid> 
               <Breadcrumbs aria-label="breadcrumb">
                   <Link to="/tempdashboard" style={{textDecoration:'none', color: 'inherit'}}>
                   <ListItem button>
@@ -129,13 +129,15 @@ class TempDashboard extends Component {
                   </Link>
                   <Typography color="textPrimary">dashboard</Typography>
                 </Breadcrumbs>
-            </Grid>
+            </Grid> */}
             <Grid item xs={6}>
-              <ButtonGroup fullWidth aria-label="full width outlined button group" className="buttons">
-                  <Button className={this.state.pending ? "activeButton" : "button"} onClick={this.navigatePending}>Pending</Button>
-                  <Button className={this.state.schedule ? "activeButton" : "button"} onClick={this.navigateSchedule}>Schedule</Button>
-                  <Button className={this.state.records ? "activeButton" : "button"} onClick={this.navigateRecords}>Records</Button>
+            <div className="dashboardContainer">
+              <ButtonGroup aria-label="small contained button group" className="buttons">
+                  <Button className={this.state.pending ? "activeButton" : "tempButton"} onClick={this.navigatePending}>Pending</Button>
+                  <Button className={this.state.schedule ? "activeButton" : "tempButton"} onClick={this.navigateSchedule}>Schedule</Button>
+                  <Button className={this.state.records ? "activeButton" : "tempButton"} onClick={this.navigateRecords}>Records</Button>
               </ButtonGroup>
+              </div>
             </Grid>
           </Grid>
 

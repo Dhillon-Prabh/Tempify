@@ -47,7 +47,7 @@ export default function TransitionsModal(props) {
         }}
       >
         <Fade in={open}>
-            <ProfileCard bookingId={props.bookingId}/>
+            <ProfileCard bookingId={props.bookingId} displayHours={props.displayHours}/>
         </Fade>
       </Modal>
     </div>

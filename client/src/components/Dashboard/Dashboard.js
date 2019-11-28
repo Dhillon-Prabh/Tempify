@@ -14,6 +14,8 @@ import BookNow from '../BookNow/BookNow';
 import Schedule from '../Schedule/scheduleForOffice';
 import Records from '../Records/Records';
 
+import "./main.scss";
+
 function HomeIcon(props) {
     return (
       <SvgIcon {...props}>
@@ -85,7 +87,7 @@ class Dashboard extends React.Component {
         return(
             <React.Fragment>
                 <Grid container direction="row" justify="center" alignItems="center" className="options">
-                    <Grid item xs={2}>
+                    {/* <Grid item xs={2}>
                         <Breadcrumbs aria-label="breadcrumb">
                             <Link to="/dashboard" style={{textDecoration:'none', color: 'inherit'}}>
                                 <ListItem button>
@@ -97,13 +99,15 @@ class Dashboard extends React.Component {
                             </Link>
                             <Typography color="textPrimary">dashboard</Typography>
                         </Breadcrumbs>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={6}>
+                    <div className="dashboardContainer">
                         <ButtonGroup className="buttons" size="large" aria-label="small contained button group" >
-                            <Button className={this.state.bookNow ? "activeButton" : "button"} onClick={this.navigateBookNow}>Book Now</Button>
-                            <Button className={this.state.schedule ? "activeButton" : "button"} onClick={this.navigateSchedule}>Schedule</Button>
-                            <Button className={this.state.history ? "activeButton" : "button"} onClick={this.navigateHistory}>History</Button>
+                            <Button className={this.state.bookNow ? "officeActiveButton" : "button"} onClick={this.navigateBookNow}>Book Now</Button>
+                            <Button className={this.state.schedule ? "officeActiveButton" : "button"} onClick={this.navigateSchedule}>Schedule</Button>
+                            <Button className={this.state.history ? "officeActiveButton" : "button"} onClick={this.navigateHistory}>History</Button>
                         </ButtonGroup>
+                        </div>
                     </Grid>
                 </Grid>
                 {this.state.bookNow ? <BookNow/> : null }

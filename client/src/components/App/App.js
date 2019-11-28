@@ -6,6 +6,7 @@ import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
 import DashBoard from "../Dashboard/Dashboard"
 import OfficeCard from "../ProfileCard/OfficeProfileCard"
+import BookNow from "../BookNow/BookNow"
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
           </BrowserRouter>
         </React.Fragment>
         {/* <OfficeCard /> */}
+        {/* <BookNow />n */}
       </div>
     );
   }

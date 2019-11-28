@@ -37,7 +37,6 @@ export default class Calendar extends React.Component {
     }).then(function(dataAll) {
       console.log(dataAll);
       var data = dataAll[0];
-      var posted = dataAll[1];
       console.log(data);
       var dataEvents = [];
       for (var i = 0; i < data.length; i++) {
@@ -72,16 +71,19 @@ export default class Calendar extends React.Component {
           dataEvents.push(row);
         }
       }
-      for (var i = 0; i < posted.length; i++) {
-        var title = posted[i].time;
-        var date = posted[i].date;
-        var backgroundColor = "orange";
-        var row = {};
-        row.title = title;
-        row.date = date;
-        row.backgroundColor = backgroundColor;
+      if (dataAll.length > 1) {
+        var posted = dataAll[1];
+        for (var i = 0; i < posted.length; i++) {
+          var title = posted[i].time;
+          var date = posted[i].date;
+          var backgroundColor = "orange";
+          var row = {};
+          row.title = title;
+          row.date = date;
+          row.backgroundColor = backgroundColor;
 
-        dataEvents.push(row);
+          dataEvents.push(row);
+        }
       }
       console.log(dataEvents);
       self.setState({events: dataEvents});

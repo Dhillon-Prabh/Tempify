@@ -58,6 +58,7 @@ exports.getEventsOffice = (req, res, next) => {
                 res.status(401).send({ error : "failed here",});
                 con.release();
             } else {
+                result = [];
                 events.push(result);
                 var userQuery = 'SELECT date, time FROM gigs WHERE status LIKE ? AND dentist_id = ?;';
                 userValue=["POSTED", dentist_id];

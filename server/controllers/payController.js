@@ -59,7 +59,28 @@ exports.checkout = (req, res, next) => {
     }
   }, function(error, result) {
     if (result) {
+      if (result.success) {
+        db((err, con) => {
+          if(err){
+            console.log(err);
+            throw err;
+          }
+          var query = 'UPDATE bookings SET dental_status = "COMPLETE" WHERE id = ?;';
+            var gig = req.body.gigId;
+            con.query(query, [gig], (err, result, fields) => {
+            if(!err) { 
+                con.release();
+            } else {
+              res.status(401).send('Error Occurred');
+              con.release();
+            }
+          });
+        })
+      }
       res.send(result);
+      if(result.success) {
+        next();
+      }
     } else {
       res.status(500).send(error);
     }

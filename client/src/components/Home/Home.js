@@ -52,7 +52,9 @@ class Block1 extends React.Component {
                     WE HANDLE THE ENTIRE PAYMENT PROCESS!
                 </Typography>
                 <Grid container direction='row' justify='center' className='columns blockRow'>
-                    <Grid item direction='column' justify='center' className='block1Column'>
+                <div className="whyChooseTempifyContainer">
+                <div className="dentalProfessionalContainer">
+                    <Grid item direction='column' justify='center' className='block1Column' container={true}>
                         <Typography className='block1ColumnTitle'>
                             DENTAL PROFESSIONALS
                         </Typography>
@@ -60,7 +62,9 @@ class Block1 extends React.Component {
                         <Row img={tax} content="Collect only ONE T4 at the end of the year."/>
                         <Row img={research} content="Keep track of all your payment records in one place."/>
                     </Grid>
-                    <Grid item direction='column' className='block1Column'>
+                    </div>
+                    <div className="dentalOfficeContainer">
+                    <Grid item direction='column' className='block1Column' container={true}>
                         <Typography className='block1ColumnTitle'>
                             DENTAL OFFICES
                         </Typography>
@@ -68,6 +72,8 @@ class Block1 extends React.Component {
                         <Row img={tax} content="We provide ALL our Dental Professionals with T4s"/>
                         <Row img={insurance} content="We cover CPP and El contributions!"/>
                     </Grid>
+                    </div>
+                    </div>
                 </Grid>
             </Grid>
         );
@@ -97,25 +103,25 @@ class Block2 extends React.Component {
                     4 SIMPLE STEPS TO BOOK YOUR NEXT DENTAL PROFESSIONAL
                 </Typography>
                 <Grid container direction='row' className='columns blockRow'>
-                    <Grid item direction='column' className='block2Column'>
+                    <Grid item direction='column' className='block2Column' container={true}>
                         <Typography align='center' className='columnTitle'>
                             STEP 1
                         </Typography>
                         <Col icon={faClock} content="Select the time and date you wish to have a dental professional at your office"/>
                     </Grid>
-                    <Grid item direction='column' className='block2Column'>
+                    <Grid item direction='column' className='block2Column' container={true}>
                         <Typography align='center' className='columnTitle'>
                             STEP 2
                         </Typography>
                         <Col icon={faUsers} content="Browse through the profiles and find the right person for your office"/>
                     </Grid>
-                    <Grid item justify='center' direction='column' className='block2Column'>
+                    <Grid item justify='center' direction='column' className='block2Column' container={true}>
                         <Typography align='center' className='columnTitle'>
                             STEP 3
                         </Typography>
                         <Col icon={faCheckCircle} content="Confirmation will be made after the dental professional accepts the request"/>
                     </Grid>
-                    <Grid item justify='center' direction='column' className='block2Column'>
+                    <Grid item justify='center' direction='column' className='block2Column' container={true}>
                         <Typography align='center' className='columnTitle'>
                             STEP 4
                         </Typography>
@@ -186,7 +192,7 @@ class Block4 extends React.Component {
 
 const Col2 = (props) => {
     return (
-        <Grid item justify='center' direction='column' align='center' className='block3Column'>
+        <Grid item justify='center' direction='column' align='center' className='block3Column' container={true}>
             <img src={props.image} className="img2" alt=""/>
             <Typography align='center'>
                 {props.title}
@@ -200,7 +206,7 @@ const Col2 = (props) => {
 
 const Col3 = (props) => {
     return (
-        <Grid item justify='center' direction='column' align='center' className='block4Column'>
+        <Grid item justify='center' direction='column' align='center' className='block4Column' container={true}>
             <img src={props.image} className="img2" alt=""/>
             <Typography align='center'>
                 {props.title}

@@ -164,7 +164,7 @@ class Navbar extends Component{
       localStorage.setItem('expiryDate', expiryDate.toISOString());
       this.setAutoLogout(remainingMilliseconds);     
             
-      if(this.state.isAuth && this.state.userType == "temp"){
+      if(this.state.isAuth && this.state.userType === "temp"){
         this.props.history.push("/tempdashboard");
       } else  {
         this.props.history.push("/dashboard");
@@ -312,14 +312,14 @@ class Navbar extends Component{
             </Link>
             { this.state.role === -1 && (
               <React.Fragment>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>About Us</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now" idType="typography" link="/dentalregister"/></Typography>
-                <Typography variant = "subheading" className = "padding nav-item"><Modal name = "Become a Temp" idType="typography" link="/tempregister"/></Typography>
-                <Typography variant = "subheading" className = "padding nav-item" onClick = {this.scrollToBottom}>Contact Us</Typography>
-                <Typography variant = "subheading" className = "nav-item" 
+                <Typography variant = "body1" className = "padding nav-item"><Modal name="Book Now" idType="typography" link="/dentalregister"/></Typography>
+                <Typography variant = "body1" className = "padding nav-item"><Modal name = "Become a Temp" idType="typography" link="/tempregister"/></Typography>
+                <Typography variant = "body1" className = "padding nav-item" onClick = {this.scrollToBottom}>Contact Us</Typography>
+                <Typography variant = "body1" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   component={NavLink} to={'/termsAndConditions'} />
@@ -327,13 +327,13 @@ class Navbar extends Component{
             }
             { this.state.userType === "office" && this.state.isAuth && (
               <React.Fragment>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dentalprofile'}>Profile</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dashboard'}>Dashboard</Typography>
-                <Typography variant = "subheading" className = "nav-item" 
+                <Typography variant = "body1" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink}  onClick ={this.logoutHandler} to={'/login'}>Logout</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   component={NavLink} to={'/termsAndConditions'} />
@@ -341,17 +341,17 @@ class Navbar extends Component{
             }
             { this.state.userType === "temp" && this.state.isAuth && (
               <React.Fragment>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempprofile'}>Profile</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempdashboard'}>Dashboard</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}>Job Postings</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   component={NavLink} to={'/tempdashboard'}>My Availability</Typography>
-                <Typography variant = "subheading" className = "nav-item" 
+                <Typography variant = "body1" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'} onClick ={this.logoutHandler}>Logout</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   component={NavLink} to={'/termsAndConditions'} />

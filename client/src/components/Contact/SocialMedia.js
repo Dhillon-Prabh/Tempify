@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center",
     alignItems: "center",
     color: "white",
-    fontSize: "25px",
+    fontSize: "15px",
     '&:hover': {
       backgroundColor: "#84c3e7",
       opacity: "0.9"
@@ -110,7 +110,7 @@ export default function() {
         </a>
         <a href="https://www.instagram.com/tempify.co/">
           <div className={classes.instagramLabel}>
-          <FontAwesomeIcon icon={['fab', 'instagram']} size="med"/>
+          <FontAwesomeIcon icon={['fab', 'instagram']} size="2x"/>
           </div>
         </a>
       </div>

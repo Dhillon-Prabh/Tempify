@@ -21,9 +21,6 @@ class App extends Component {
             <Cookie />
           </BrowserRouter>
         </React.Fragment>
-        {/* <OfficeCard /> */}
-        {/* <BookNow />n */}
-        {/* <DentailProfile /> */}
       </div>
     );
   }

@@ -72,7 +72,7 @@ class TempDashboard extends Component {
     this.state = {
       user: "",
       pending: false,
-      schedule: false,
+      schedule: true,
       records: false,
     }
 

@@ -31,7 +31,7 @@ class Dashboard extends Component {
         this.state = {
           user: '',
           bookNow: false,
-          schedule: false,
+          schedule: true,
           history: false,
         }
     

@@ -158,7 +158,7 @@ class Register extends React.Component {
                   className={classes.textField}
                   margin="normal"
                   variant="outlined"
-                  //autoComplete="name"
+                  autoComplete="name"
                   validators={['required']}
                   errorMessages={['This field is required']}
                   onChange={this.handleChange}
@@ -190,7 +190,7 @@ class Register extends React.Component {
                   className={classes.textField}
                   margin="normal"
                   variant="outlined"
-                  //autoComplete="email"
+                  autoComplete="email"
                   validators={['required', 'isEmail']}
                   errorMessages={['This field is required', 'This is not a valid email']}
                   onChange={this.handleChange}
@@ -288,7 +288,7 @@ class Register extends React.Component {
                   className={classes.textField}
                   margin="normal"
                   variant="outlined"
-                  //autoComplete="name"
+                  autoComplete="name"
                   validators={['required']}
                   errorMessages={['This field is required']}
                   onChange={this.handleChange}

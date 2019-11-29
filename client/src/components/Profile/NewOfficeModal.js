@@ -57,8 +57,6 @@ class NewOfficeModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      //userId: this.props.userId,
-      //officeId: this.props.officeId,
       email: '',
       password: '',
       confirmPassword: '',
@@ -103,8 +101,6 @@ class NewOfficeModal extends React.Component {
   }
 
   submitModalForm = () => {
-    console.log("inside dental modal submit");
-    
     var data = {
       userId: this.props.userId,
       officeId: this.props.officeId,
@@ -123,7 +119,6 @@ class NewOfficeModal extends React.Component {
       groupId: this.state.groupId,
     }
 
-    console.log(data);
     fetch("http://localhost:3001/dentalInsertProfile", {
       method: 'POST',
       headers: {
@@ -139,6 +134,7 @@ class NewOfficeModal extends React.Component {
       console.log(err);
     });
     this.setState({setOpen: false});
+    window.location.reload();
   }
 
   handleChange = (e) => {

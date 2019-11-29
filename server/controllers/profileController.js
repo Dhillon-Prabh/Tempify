@@ -239,28 +239,3 @@ exports.dentalInsertProfile = (req, res, next) => {
   })
   next();
 }
-
-exports.dentalGroupProfile = (req, res, next) => {
-  console.log("Inside dentalGroupProfile 1");
-  const user = req.body;
-  const token = req.decodedToken;
-  console.log("Inside dentalGroupProfile");
-  db((err, con) => {
-    if(err){
-      console.log(err);
-      throw err;
-    }
-
-    var dentalQuery = 'SELECT id, dentist_name, email, office_name FROM dentists WHERE group_id = ?;';
-    values=[Number(user.groupId)];
-    con.query(dentalQuery, values, (err, result, fields) => {
-      console.log("dental groupId: " + user.groupId);
-      if(!result.length) {
-        return res.status(401).send({ error : "error message",});
-      } else {
-        return res.status(200).json(result);
-      }
-    });
-    con.release();
-  })
-}

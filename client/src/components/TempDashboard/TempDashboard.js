@@ -29,6 +29,18 @@ const styles = theme => ({
       background: "#404040",
     }
   },
+  option: {
+    paddingTop: '5rem',
+  },
+  activeButton: {
+    display: 'block',
+    height: '4em',
+    backgroundColor: "#404040",
+    color: 'white',
+    '&:hover': {
+      background: "#404040",
+    },
+  },
   label: {
     '&$focused': {
       color: '#00bfff'
@@ -44,6 +56,14 @@ const styles = theme => ({
   },
   notchedOutline: {},
 });
+
+function HomeIcon(props) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    </SvgIcon>
+  );
+}
 
 class TempDashboard extends Component {
   constructor(props) {
@@ -62,6 +82,7 @@ class TempDashboard extends Component {
   }
 
   componentDidMount(){
+    
     fetch("http://localhost:3001/tempProfile", {
       method: 'GET',
       headers: {
@@ -79,7 +100,6 @@ class TempDashboard extends Component {
       console.log(err);
     });
   }
-
   navigatePending() {
     this.setState({
       pending: true,
@@ -87,7 +107,6 @@ class TempDashboard extends Component {
       records: false
     })
   }
-
   navigateSchedule() {
     this.setState({
       pending: false,
@@ -110,7 +129,7 @@ class TempDashboard extends Component {
     return(
       <div>
           <Grid container direction="row" justify="center" alignItems="center" className="options">
-            {/* <Grid item xs={2}>
+            <Grid item xs={2}>
               <Grid item xs={12}>
                 <div className = "tempdashboard-username">
                   Hi, {this.state.user}!
@@ -129,7 +148,7 @@ class TempDashboard extends Component {
                   </Link>
                   <Typography color="textPrimary">dashboard</Typography>
                 </Breadcrumbs>
-            </Grid> */}
+            </Grid>
             <Grid item xs={6}>
             <div className="dashboardContainer">
               <ButtonGroup aria-label="small contained button group" className="buttons">
@@ -141,9 +160,9 @@ class TempDashboard extends Component {
             </Grid>
           </Grid>
 
-          {this.state.pending ? <Pending/> : null }
-          {this.state.schedule ? <Schedule/> : null }
-          {this.state.records ? <Records/> : null }
+          {this.state.pending ? <Pending token = {this.props.token} /> : null }
+          {this.state.schedule ? <Schedule token = {this.props.token}/> : null }
+          {this.state.records ? <Records token = {this.props.token}/> : null }
 
       </div>
     ); 

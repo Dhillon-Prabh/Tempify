@@ -44,31 +44,52 @@ class Navbar extends Component{
 
   componentDidMount() {
 
+    // this.logoutHandler();
+
+    if (!sessionStorage.getItem('logged')) {
+      this.logoutHandler();
+      return;
+    }
+
+
     const token = localStorage.getItem('token');
     const expiryDate = localStorage.getItem('expiryDate');
+    const userType = localStorage.getItem('userType');
+    const userRole = localStorage.getItem('userRole');
+
 
     if(!token || !expiryDate) {
+      this.props.history.push("/");
       return; 
     }
 
-    if(new Date(expiryDate <= new Date())) {
-      this.logoutHandler();
-      return; 
-    }
+    if(this.state.isAuth && userType.equals("temp")){
+      this.props.history.push("/tempdashboard");
+    } else if(this.state.isAuth && userType.equals("office")) {
+      this.props.history.push("/dashboard");
+    } 
 
     const userId = localStorage.getItem('userId');
     const officeId = localStorage.getItem('officeId');
     const groupId = localStorage.getItem('groupId');
 
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
+    console.log(remainingMilliseconds);
   
       this.setState({
         isAuth: true,
         token: token,
         userId: userId,
         officeId: officeId,
-        groupId: groupId
+        groupId: groupId,
+        role: userRole,
+        userType: userType,
+        loginError: false
       });
+
+      if(this.state.isAuth) {
+        this.props.history.push("/");
+      }
 
       this.setAutoLogout(remainingMilliseconds);
 
@@ -132,11 +153,15 @@ class Navbar extends Component{
       localStorage.setItem('officeId', resData.officeId);
       localStorage.setItem('groupId', resData.groupId);
       localStorage.setItem('role', resData.role);
+      localStorage.setItem('userType', resData.userType);
+
+      sessionStorage.setItem('logged', true)
 
       const remainingMilliseconds = 60 * 60 * 1000;
       const expiryDate = new Date(
         new Date().getTime() + remainingMilliseconds
       );
+
       localStorage.setItem('expiryDate', expiryDate.toISOString());
       this.setAutoLogout(remainingMilliseconds);     
             
@@ -183,6 +208,8 @@ class Navbar extends Component{
     localStorage.removeItem('userType');
     localStorage.removeItem('officeId');
     localStorage.removeItem('groupId');
+    sessionStorage.removeItem('logged');
+
   }
 
   setAutoLogout(milliseconds) {
@@ -224,7 +251,7 @@ class Navbar extends Component{
             onClick={()=>{this.setState({drawer:false})}}
             onKeyDown={()=>{this.setState({drawer:false})}}>
             
-            { this.state.role == -1 && (
+            { this.state.role === -1 && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
@@ -240,7 +267,7 @@ class Navbar extends Component{
                   component={NavLink} to={'/termsAndConditions'} />
               </List>)
             }
-            { this.state.role == 1 && this.state.isAuth && (
+            { this.state.userType === "office" && this.state.isAuth && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
@@ -253,7 +280,7 @@ class Navbar extends Component{
                   component={NavLink} to={'/termsAndConditions'} />
               </List>)
             }
-            { this.state.role == 2 && this.state.isAuth && (
+            { this.state.userType === "temp" && this.state.isAuth && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
@@ -284,7 +311,7 @@ class Navbar extends Component{
             <Link to="/home" className="logo-container">
               <img src={logo} className="logo" alt="logo"/>
             </Link>
-            { this.state.role == -1 && (
+            { this.state.role === -1 && (
               <React.Fragment>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
@@ -299,7 +326,7 @@ class Navbar extends Component{
                   component={NavLink} to={'/termsAndConditions'} />
               </React.Fragment>)
             }
-            { this.state.role == 1 && this.state.isAuth && (
+            { this.state.userType === "office" && this.state.isAuth && (
               <React.Fragment>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
@@ -313,7 +340,7 @@ class Navbar extends Component{
                   component={NavLink} to={'/termsAndConditions'} />
               </React.Fragment>)
             }
-            { this.state.role == 2 && this.state.isAuth && (
+            { this.state.userType === "temp" && this.state.isAuth && (
               <React.Fragment>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
@@ -401,8 +428,15 @@ class Navbar extends Component{
               />
             )}
           />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/termsAndConditions" component={TermsAndConditions} />
+          <Route
+            path="/dashboard"
+            render= {props => (
+              <Dashboard
+                {...props}
+                token = {this.state.token}
+              />
+            )}
+          />
           <Route
             path="/tempdashboard"
             render= {props => (
@@ -412,7 +446,15 @@ class Navbar extends Component{
               />
             )}
           />
-          <Route path="/jobPosting" component={JobPosting} />
+          <Route
+            path="/jobPosting"
+            render= {props => (
+              <JobPosting
+                {...props}
+                token = {this.state.token}
+              />
+            )}
+          />
         </Switch>
       )
     }

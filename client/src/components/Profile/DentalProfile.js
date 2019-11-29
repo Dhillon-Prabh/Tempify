@@ -159,9 +159,7 @@ class Profile extends React.Component {
         row.push(dOfficeEmail);
         row.push(dOfficeName);
         row.push(action);
-        resultData.push(row);
-
-        
+        resultData.push(row);        
       }
       currentComponent.setState({data: resultData});
       console.log(result);
@@ -226,11 +224,8 @@ class Profile extends React.Component {
     if (localStorage.getItem('userId') != id) {
       localStorage.setItem('userId', id);
       console.log("userId updated");
-      //currentComponent.setState({userId: id});
     }
-    //currentComponent.props.history.push("/home");  //dentalprofile
     window.location.reload();
-    //this.forceUpdate();
   }
 
   render() {
@@ -322,7 +317,7 @@ class Profile extends React.Component {
                 fullWidth
                 id="phone"
                 name="phone"
-                label="phone"
+                label="Phone"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"

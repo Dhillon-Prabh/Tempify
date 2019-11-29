@@ -238,6 +238,10 @@ class Profile extends React.Component {
     this.setState({[e.target.name]: e.target.value});
   }
 
+  handleCheckboxChange = (e) => {
+    this.setState({accept: e.target.checked})
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -259,7 +263,7 @@ class Profile extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                //autoComplete="name"
+                autoComplete="name"
                 validators={['required']}
                 errorMessages={['This field is required']}
                 onChange={this.handleChange}
@@ -345,7 +349,7 @@ class Profile extends React.Component {
               <TextValidator
                 required
                 fullWidth
-                id="expectedRate"
+                id="expRate"
                 name="expectedRate"
                 label="Expected rate [$]"
                 className={classes.textField}
@@ -419,7 +423,7 @@ class Profile extends React.Component {
                   asterisk: classes.labelAsterisk,
                 }}
               >
-                What do you do? <span className="asterisk">*</span>
+                What do you do? <span className="temp-profile-asterisk">*</span>
               </InputLabel>
               <Select
                 multiple
@@ -453,7 +457,7 @@ class Profile extends React.Component {
                 select
                 id="practice"
                 name="practice"
-                label="Practice"
+                label="practice"
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -494,7 +498,7 @@ class Profile extends React.Component {
                   asterisk: classes.labelAsterisk,
                 }}
               >
-                Dental Software Used <span className="asterisk">*</span>
+                Dental Software Used <span className="temp-profile-asterisk">*</span>
               </InputLabel>
               <Select
                 multiple
@@ -525,10 +529,9 @@ class Profile extends React.Component {
               <input
                 accept="./image/*"
                 id="image-upload"
-                name="image-upload"
                 multiple
                 type="file"
-                className="upload"
+                className="temp-profile-upload"
               />
             </Grid>
 

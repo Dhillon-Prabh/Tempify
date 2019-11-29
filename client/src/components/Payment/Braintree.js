@@ -13,7 +13,12 @@ class Payment extends React.Component {
  
   async componentDidMount() {
     // Get a client token for authorization from your server
-    await fetch("http://localhost:3001/payment")
+
+    await fetch("http://localhost:3001/payment", {
+      headers: {
+        'Authorization': 'Bearer ' + this.props.token,
+      },
+    })
     .then((response) => {
        return response.json();
     })

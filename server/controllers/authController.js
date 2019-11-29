@@ -9,11 +9,11 @@ exports.postLogin = (req, res, next) => {
 
     if (err) {
       throw err;
-    }
+    }    
 
     const query = "SELECT email, password, id, role FROM `users` WHERE `email` = ? AND `password` = ?";
     con.query(query, [email, password], (err, result, fields) => {
-      if(!result.length) {
+      if (!result.length) {
         return res.status(401).send({
           error: "error message",
         });
@@ -83,12 +83,10 @@ exports.postLogin = (req, res, next) => {
     })
   })
 }
-
 exports.getTempDashboardInformation = (req, res, next) => {
   const user = req.decodedToken;
   db((err, con) => {
     if(err){
-      console.log(err);
       throw err;
     }
   
@@ -99,7 +97,6 @@ exports.getTempDashboardInformation = (req, res, next) => {
       if(!result.length) {
         return res.status(401).send({ error : "error message",});
       } else {
-        console.log(result);
         return res.status(200).json(result);
       }
     });

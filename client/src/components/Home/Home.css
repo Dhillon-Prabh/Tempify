@@ -19,7 +19,7 @@
 }
 
 .header2 {
-    padding-bottom: 2.625em;
+    padding-bottom: 2em;
     font-size: 1.75em !important;
 }
 
@@ -49,6 +49,7 @@
 
 .blockRow {
     max-width: 84em;
+    flex-wrap: nowrap !important;
 }
 
 .block4Column {
@@ -59,7 +60,6 @@
 }
 
 .block1ColumnTitle {
-    padding-left: 83px;
     padding-bottom: 15px;
     font-weight: bold !important;
     font-size: 18px !important;
@@ -102,4 +102,17 @@
 .fIcons {
     font-size: 17px !important;
     margin-bottom: 5px;
+}
+
+.whyChooseTempifyContainer {
+    display: flex;
+
+}
+
+.dentalProfessionalContainer{
+    width: 550px;
+}
+
+.dentalOfficeContainer{
+    width: 550px;
 }

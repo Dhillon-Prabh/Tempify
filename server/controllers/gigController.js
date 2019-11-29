@@ -150,7 +150,7 @@ exports.gigCard = (req, res, next) => {
 }
 
 exports.gigCardOffice = (req, res, next) => {
-
+  console.log("gigcardoffice");
   const booking = req.body;
 
   db((err, con) => {
@@ -180,8 +180,9 @@ exports.gigCardOffice = (req, res, next) => {
 
 
 exports.addTime = (req, res, next) => {
-
+  console.log("addTime");
   const booking = req.body;
+  console.log(booking);
   db((err, con) => {
     if(err){
       console.log(err);

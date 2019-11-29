@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import SuccessAlert from "../Alert/SuccessAlert"
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -72,7 +73,8 @@ export default function TextFields() {
   const [values, setValues] = React.useState({
     cuName: "",
     cuEmail: "",
-    cuMessage: ""
+    cuMessage: "",
+    setSuccessOpen: false
   });
 
   const handleChange = name => event => {
@@ -94,8 +96,15 @@ export default function TextFields() {
     setValues({
       cuName: "",
       cuEmail: "",
-      cuMessage: ""
+      cuMessage: "",
+      setSuccessOpen: true
     });
+    
+    setTimeout(() =>{
+      setValues({
+        setSuccessOpen: false
+      })
+    }, 2000);
   }
 
   return (
@@ -122,7 +131,7 @@ export default function TextFields() {
       </div>
       <div className={classes.messageContaienr}>
         <TextField
-          multiline="true"
+          multiline={true}
           rows="5"
           id="standard-name"
           className={classes.contactMessage}
@@ -138,6 +147,7 @@ export default function TextFields() {
           Send Message
         </Button>
       </div>
+      {values.setSuccessOpen ? <SuccessAlert type="contact" /> : null}
     </form>
   );
 }

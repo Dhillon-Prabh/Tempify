@@ -58,7 +58,7 @@ class Modal extends Component{
           )
       case 'typography':
         return (
-          <Typography variant = "subheading" onClick={this.handleClickOpen}>
+          <Typography onClick={this.handleClickOpen}>
             {this.props.name}
           </Typography>);
       default: 
@@ -71,7 +71,6 @@ class Modal extends Component{
     return (
       <div >
         {this.renderButton(this.props.idType)}
-
         <Dialog
           open={this.state.setOpen}
           keepMounted

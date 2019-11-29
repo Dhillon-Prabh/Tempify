@@ -1,12 +1,8 @@
 const mysql = require('mysql');
 
-var pool  = mysql.createPool({
-  "host"      : "remotemysql.com",
-  "user"      : "EKTr45LdT9",
-  "password"  : "rG5VwhZk8Z",
-  "database"  : "EKTr45LdT9",
-  "port"      : 3306
-});
+let dbconfig = require(__dirname + '/../config/db-config-multi.json');
+
+var pool  = mysql.createPool(dbconfig);
  
 var getConnection = (cb) => {
   pool.getConnection((err, connection) => {

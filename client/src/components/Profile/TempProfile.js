@@ -5,11 +5,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import ListItemText from '@material-ui/core/ListItemText';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import SuccessAlert from '../Alert/SuccessAlert'
 import './Profile.css'
 
 const useStyles = theme => ({
@@ -23,7 +24,17 @@ const useStyles = theme => ({
       color: '#00bfff'
     },
   },
-  inputlabel: {},
+  inputlabel: {
+    zIndex: '1001 !important',
+    display: 'inline-block',
+    position: 'relative',
+    top: '11px',
+    left: '20px',
+    background: '#ffffff',
+    margin: '0',
+    paddingLeft: '4px',
+    paddingRight: '4px',
+  },
   labelAsterisk: {
     color: '#ff0000'
   },
@@ -155,38 +166,32 @@ class Profile extends React.Component {
       dentalsw: [],
       imageName: '',
       phone: '',
+      setSuccessOpen: false
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     let currentComponent = this;
-    var data = {
-      userId: this.state.userId
-    }
     
     fetch("http://localhost:3001/tempProfile", {
-      method: 'POST',
+      method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Authorization': 'Bearer ' + this.props.token,
       },
-      body: JSON.stringify(data)
-    }).then(function(response) {
-      console.log(response);
-      return response.json();
-    }).then(function(data) {
-      console.log(data);
-      
+    }).then(res => {
+      return res.json();
+    }).then(result => {     
       currentComponent.setState({
-        name: data[0].temp_name,
-        experience: data[0].experience,
-        expectedRate: data[0].expected_rate,
-        city: data[0].city,
-        role: Array.from(JSON.parse(data[0].designation)),
-        practice: data[0].type_of_practice,
-        dentalsw: Array.from(JSON.parse(data[0].dental_software)),
-        imageName: data[0].imagename,
-        phone: data[0].phone
+        name: result[0].temp_name,
+        experience: result[0].experience,
+        expectedRate: result[0].expected_rate,
+        city: result[0].city,
+        role: Array.from(JSON.parse(result[0].designation)),
+        practice: result[0].type_of_practice,
+        dentalsw: Array.from(JSON.parse(result[0].dental_software)),
+        imageName: result[0].imagename,
+        phone: result[0].phone
       });
     }).catch(function(err) {
       console.log(err);
@@ -217,6 +222,7 @@ class Profile extends React.Component {
     fetch("http://localhost:3001/tempUpdateProfile", {
       method: 'POST',
       headers: {
+        Authorization: 'Bearer ' + this.props.token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -227,7 +233,12 @@ class Profile extends React.Component {
     }).catch(function(err) {
       console.log(err);
     });
-    this.props.history.push("/home");
+    this.setState({setSuccessOpen: true});
+    setTimeout(() =>{
+      this.setState({
+        setSuccessOpen: false
+      })
+    }, 2000);
   }
 
   handleChange = (e) => {
@@ -419,10 +430,9 @@ class Profile extends React.Component {
                   asterisk: classes.labelAsterisk,
                 }}
               >
-                What do you do? <span className="temp-register-asterisk">*</span>
+                What do you do? <span className="temp-profile-asterisk">*</span>
               </InputLabel>
               <Select
-                required
                 multiple
                 fullWidth
                 id="role"
@@ -447,7 +457,6 @@ class Profile extends React.Component {
                 ))}
               </Select>
             </Grid>
-
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
                 required
@@ -488,17 +497,17 @@ class Profile extends React.Component {
               </TextValidator>
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
-              <InputLabel shrink={true}
+              <InputLabel
+                shrink={true}
                 classes={{
                   root: classes.inputlabel,
                   focused: classes.focused,
                   asterisk: classes.labelAsterisk,
                 }}
               >
-                Dental Software Used <span className="temp-register-asterisk">*</span>
+                Dental Software Used <span className="temp-profile-asterisk">*</span>
               </InputLabel>
               <Select
-                required
                 multiple
                 fullWidth
                 id="dentalsw"
@@ -523,14 +532,13 @@ class Profile extends React.Component {
                 ))}
               </Select>
             </Grid>
-
             <Grid item xs={12} sm={6} className="container2">
               <input
                 accept="./image/*"
                 id="image-upload"
                 multiple
                 type="file"
-                className="temp-register-upload"
+                className="temp-profile-upload"
               />
             </Grid>
 
@@ -541,6 +549,7 @@ class Profile extends React.Component {
             </Grid>
           </Grid>
         </ValidatorForm>
+        {this.state.setSuccessOpen ? <SuccessAlert type="profileUpdate" /> : null}
       </div>
     )
   }

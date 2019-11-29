@@ -120,13 +120,8 @@ class Profile extends React.Component {
       groupId: this.state.groupId,
     }
     
-<<<<<<< HEAD
     fetch("/auth/dentalProfile", {
-      method: 'GET',
-=======
-    fetch("http://localhost:3001/dentalProfile", {
       method: 'POST',
->>>>>>> 0adced3ab41e0ce0230f1cd00f7bea0ab9245093
       headers: {
         'Authorization': 'Bearer ' + this.props.token,
         'Content-Type': 'application/json'

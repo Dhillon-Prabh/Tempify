@@ -47,7 +47,7 @@ class BasicTextFields extends React.Component {
       bookingId: this.state.bookingId,
       hours: parseInt(this.state.hour) + minutes,
     }
-    fetch("http://localhost:3001/addTime", {
+    fetch("/auth/addTime", {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,

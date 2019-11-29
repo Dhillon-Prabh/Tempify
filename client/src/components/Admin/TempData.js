@@ -24,7 +24,7 @@ class TempData extends React.Component {
 
     componentDidMount() {
         var rows = [];
-        fetch("http://localhost:3001/admin", {
+        fetch("/auth/admin", {
             method: 'GET'
         }).then(res =>  {
             return res.json();

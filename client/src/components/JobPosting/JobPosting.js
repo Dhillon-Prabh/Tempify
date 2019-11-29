@@ -40,7 +40,7 @@ class JobPosting extends React.Component {
             acceptData: acceptData[0]
           }
         // console.log(data); 
-        fetch("http://localhost:3001/acceptGig", {
+        fetch("/auth/acceptGig", {
         method: 'POST',
         headers: {
             Authorization: 'Bearer ' + this.props.token,
@@ -65,7 +65,7 @@ class JobPosting extends React.Component {
 
     componentDidMount() {
         var self = this;
-        fetch("http://localhost:3001/jobPosting", {
+        fetch("/auth/jobPosting", {
           method: 'GET',
           headers: {
             Authorization: 'Bearer ' + this.props.token,

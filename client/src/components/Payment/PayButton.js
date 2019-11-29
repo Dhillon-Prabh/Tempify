@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -29,7 +29,7 @@ class PayButton extends Component{
 
   async componentDidMount() {
     var data = {gigId: this.state.gigId};
-    await fetch("http://localhost:3001/getGigDetails", {
+    await fetch("/auth/getGigDetails", {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,

@@ -26,7 +26,7 @@ export default class Calendar extends React.Component {
       role: localStorage.getItem("role")
     }
 
-    fetch("http://localhost:3001/getEventsOffice", {
+    fetch("/auth/getEventsOffice", {
       method: 'PUT',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,

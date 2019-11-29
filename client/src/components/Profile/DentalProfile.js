@@ -192,13 +192,8 @@ class Profile extends React.Component {
       parking: this.state.parking
     };
 
-<<<<<<< HEAD
     fetch("/dentalUpdateProfile", {
       method: 'POST',
-=======
-    fetch("http://localhost:3001/dentalUpdateProfile", {
-      method: "POST",
->>>>>>> 0adced3ab41e0ce0230f1cd00f7bea0ab9245093
       headers: {
         Authorization: "Bearer " + this.props.token,
         "Content-Type": "application/json"

@@ -1,7 +1,62 @@
-@import '~@fullcalendar/core/main.css';
-@import '~@fullcalendar/daygrid/main.css';
+@import "~@fullcalendar/core/main.css";
+@import "~@fullcalendar/daygrid/main.css";
 // @import '~@fullcalendar/timegrid/main.css';
 
 .fc {
-    width: 60%
+}
+
+.fc-event:hover .fc-content {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.outerContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+}
+
+.legend-container {
+  display: flex;
+}
+
+.pendingBox {
+  height: 15px;
+  width: 15px;
+  background-color: orange;
+  margin-right: 6px;
+}
+
+.pending {
+  margin-right: 20px;
+}
+
+.acceptedBox {
+  height: 15px;
+  width: 15px;
+  background-color: green;
+  margin-right: 6px;
+}
+
+.accepted {
+  margin-right: 20px;
+}
+
+.completedBox {
+  height: 15px;
+  width: 15px;
+  background-color: red;
+  margin-right: 6px;
+}
+
+.calendar-card-container {
+  display: flex;
 }

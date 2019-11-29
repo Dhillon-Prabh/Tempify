@@ -5,11 +5,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
+import { Link, Route } from "react-router-dom";
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import './Register.css'
 import CheckboxValidatorElement from '../CheckboxValidatorElement/CheckboxValidatorElement';
-import ContactSection from '../Contact/ContactSection'
+import ContactSection from '../Contact/ContactSection';
+import TermsAndConditions from '../Terms/TermsAndConditions';
 
 const useStyles = theme => ({
   textField: {
@@ -42,15 +43,15 @@ const useStyles = theme => ({
 
 const parking = [
   {
-    value: 'Free',
+    value: 'yes',
     label: 'Free',
   },
   {
-    value: 'Paid/Street',
+    value: 'paid',
     label: 'Paid/Street',
   },
   {
-    value: 'No Parking',
+    value: 'no',
     label: 'No Parking',
   },
 ];
@@ -586,14 +587,18 @@ class Register extends React.Component {
                   value={this.state.accept} />}
                   label="I Accept"
                 />
-                <Link
-                  component="button"
-                  variant="body2"
-                  onClick={() => {
-                    alert("Hi, I'm Terms and conditions.");
-                  }}>
-                  Terms and Conditions
-                </Link>
+                <nav>
+                  <Link
+                    variant="body2"
+                    to="/termsAndConditions"
+                    >
+                    Terms and Conditions
+                  </Link>
+                </nav>
+                <Route
+                  path="/termsAndConditions"
+                  component={TermsAndConditions}
+                />
               </Grid>
               <Grid item xs={12} align="center">
                 <Button className="blueButton" color="primary" variant="contained" type="submit">

@@ -49,7 +49,7 @@ class Payment extends React.Component {
          return response.json();
       })
       .then((responseJson) => {
-        //  console.log(responseJson);
+         console.log(responseJson);
         //  console.log(responseJson.transaction);
          success = responseJson.success;
         //  console.log(responseJson.success);
@@ -63,6 +63,7 @@ class Payment extends React.Component {
           console.log("FAILED");
       }
       this.props.onFinish(success);
+      window.location.reload();
   }
  
   render() {

@@ -45,6 +45,12 @@ class Navbar extends Component{
 
     // this.logoutHandler();
 
+    if (!sessionStorage.getItem('logged')) {
+      this.logoutHandler();
+      return;
+    }
+
+
     const token = localStorage.getItem('token');
     const expiryDate = localStorage.getItem('expiryDate');
     const userType = localStorage.getItem('userType');
@@ -144,11 +150,13 @@ class Navbar extends Component{
       localStorage.setItem('role', resData.role);
       localStorage.setItem('userType', resData.userType);
 
+      sessionStorage.setItem('logged', true)
 
       const remainingMilliseconds = 60 * 60 * 1000;
       const expiryDate = new Date(
         new Date().getTime() + remainingMilliseconds
       );
+
       localStorage.setItem('expiryDate', expiryDate.toISOString());
       this.setAutoLogout(remainingMilliseconds);     
             
@@ -193,6 +201,8 @@ class Navbar extends Component{
     localStorage.removeItem('userId');
     localStorage.removeItem('userType');
     localStorage.removeItem('officeId');
+    sessionStorage.removeItem('logged');
+
   }
 
   setAutoLogout(milliseconds) {

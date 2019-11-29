@@ -143,7 +143,6 @@ exports.tempRegister = (req, res, next) => {
           });
           con.release();
         } else {
-          console.log("Error:" + err);
           res.status(400).send({
             error: "unable to complete request"
           });

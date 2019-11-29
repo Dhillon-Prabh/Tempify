@@ -27,9 +27,6 @@ module.exports = (req, res, next) => {
   }
 
   req.decodedToken = decodedToken;
-  req.userId = decodedToken.userId;
-
-  console.log("passed token test");
-  
+  req.userId = decodedToken.userId;  
   next();
 };

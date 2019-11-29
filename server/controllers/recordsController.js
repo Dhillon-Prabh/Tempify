@@ -3,7 +3,6 @@ const db = require('../database/database');
 exports.getRecords = (req, res, next) => {
   db((err, con) => {
     if(err){
-      console.log(err);
       throw err;
     }
 

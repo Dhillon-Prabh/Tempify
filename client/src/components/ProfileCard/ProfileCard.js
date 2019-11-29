@@ -18,7 +18,7 @@ import TimeInputField from "../Schedule/timeInputField"
 
 const styles = theme => ({
     card: {
-      maxWidth: 275,
+      maxWidth: 300,
       height:430,
     },
     media: {

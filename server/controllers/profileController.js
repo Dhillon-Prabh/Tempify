@@ -13,6 +13,7 @@ exports.tempProfile = (req, res, next) => {
     values=[user.userId];
     con.query(userQuery, values, (err, result, fields) => {
       if(!result.length) {
+        
         res.status(401).send({ error : "error message",});
         con.release();
       } else {
@@ -72,7 +73,6 @@ exports.tempUpdateProfile = (req, res, next) => {
       var tempQuery = 'UPDATE users SET name = ?, updated_at = ? WHERE id = ?;';
       valuesTemp=[user.name, new Date(), user.userId];
         con.query(tempQuery, valuesTemp, (err, result, fields) => {
-          //console.log(this.valuesTemp);
           if(!err) {
             console.log("no error proceeding to success");
             res.status(300).send({ message: "success" });

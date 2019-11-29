@@ -194,8 +194,7 @@ exports.addTime = (req, res, next) => {
           var userQuery = 'UPDATE gigs SET status = ? WHERE id = ?; UPDATE bookings SET temp_status = ?, temp_hours = ?, service_fee = ?, gst = ?, total_amount = ? WHERE id = ?;';
 
           if(!booking.hours) {
-              res.status(404).send({error: "booking hours is null"});
-              con.release();
+            return res.status(404).send({error: "booking hours is null"});
           }
 
           var amount = parseInt(result[0].temp_wage) * booking.hours;

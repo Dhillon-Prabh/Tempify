@@ -170,7 +170,8 @@ class ProfileCard extends Component {
     fetch("http://localhost:3001/gigCardOffice", {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        'Authorization': 'Bearer ' + this.props.token,
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     })
@@ -231,7 +232,7 @@ class ProfileCard extends Component {
             {/* <div className={classes.bookingID}>{this.state.bookingRef}</div> */}
           </div>
           <div className={classes.paymentButtonContainer}>
-            {this.state.disablePay ? null : <PaymentButton gigId={this.state.bookingId} />}
+            {this.state.disablePay ? null : <PaymentButton token = {this.props.token} gigId={this.state.bookingId} />}
         </div>
         </div>
       </div>

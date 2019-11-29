@@ -76,6 +76,7 @@ class ProfileCard extends Component {
         fetch("http://localhost:3001/gigCard", {
           method: 'PUT',
           headers: {
+            'Authorization': 'Bearer ' + this.props.token,
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(data)
@@ -146,7 +147,7 @@ class ProfileCard extends Component {
                     </Typography>
                 </CardActionArea>
             </Card>
-            {this.state.displayHours ? <TimeInputField bookingId={this.state.bookingId}/> : null}
+            {this.state.displayHours ? <TimeInputField token = {this.props.token} bookingId={this.state.bookingId}/> : null}
         </div>
         )
     }

@@ -51,13 +51,13 @@ class BasicTextFields extends React.Component {
     fetch("http://localhost:3001/addTime", {
       method: 'POST',
       headers: {
+        'Authorization': 'Bearer ' + this.props.token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     }).then(function(response) {
       console.log(response);
       if (response.status == 200) {
-        console.log("300 bro");
       }
     }).then(function(data) {
       console.log(data);

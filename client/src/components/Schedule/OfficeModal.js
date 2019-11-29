@@ -23,6 +23,12 @@ const useStyles = makeStyles(theme => ({
 export default function TransitionsModal(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [values, setValues] = React.useState({
+    token: props.token,
+  });
+
+  console.log(values.token);
+
 
   const handleOpen = () => {
     setOpen(true);
@@ -47,7 +53,8 @@ export default function TransitionsModal(props) {
         }}
       >
         <Fade in={open}>
-            <OfficeProfileCard bookingId={props.bookingId} disablePay={props.disablePay}/>
+            <OfficeProfileCard token = {values.token} bookingId={props.bookingId} disablePay={props.disablePay}/>
+            {/* <OfficeProfileCard bookingId={props.bookingId} disablePay={props.disablePay}/> */}
         </Fade>
       </Modal>
     </div>

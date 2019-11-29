@@ -67,7 +67,7 @@ exports.tempUpdateProfile = (req, res, next) => {
     })
     .then(function(result) {
       var tempQuery = 'UPDATE users SET name = ?, updated_at = ? WHERE id = ?;';
-      valuesTemp=[user.name, new Date(), Number(user.userId)];
+      valuesTemp=[user.name, new Date(), user.userId];
         con.query(tempQuery, valuesTemp, (err, result, fields) => {
           //console.log(this.valuesTemp);
           if(!err) {

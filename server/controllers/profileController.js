@@ -85,7 +85,6 @@ exports.tempUpdateProfile = (req, res, next) => {
         })
     })
     .catch(function(err) {
-      console.log("Error:" + err);
       res.status(err).send({error: "There was an error"})
       con.release();
     });
@@ -95,17 +94,12 @@ exports.tempUpdateProfile = (req, res, next) => {
 exports.dentalProfile = (req, res, next) => {
 
   const user = req.decodedToken
-
-  console.log("Inside dentalProfile");
   db((err, con) => {
     if(err){
-      console.log(err);
       throw err;
     }
     
     let userQuery = 'SELECT dentist_name, office_name, phone_number, street_number, street_name, unit_number, city, province, postalcode, parking_options FROM dentists WHERE user_id = ?'
-    // var userQuery = 'SELECT dentist_name, office_name, phone_number, street_number, street_name, unit_number, ' +
-    //   'city, province, postalcode, parking_options FROM dentists WHERE user_id = ? LIMIT 1';
     values=[user.userId];
     con.query(userQuery, user.userId, (err, result, fields) => {
       console.log(result);
@@ -121,11 +115,9 @@ exports.dentalProfile = (req, res, next) => {
 exports.dentalUpdateProfile = (req, res, next) => {
   
   const user = req.body;
-  const userId = req.decodedToken.userId;
 
   db((err, con) => {
     if(err){
-      console.log(err);
       throw err;
     }
     return new Promise(function (resolve, reject) {
@@ -136,7 +128,6 @@ exports.dentalUpdateProfile = (req, res, next) => {
         user.unit, user.city, user.province, user.postalCode, user.parking, user.officeId];
       con.query(userQuery, values, (err, result, fields) => {
         if(!err) {
-          console.log("no error proceeding to resolve");
           resolve(result);
         } else {
           reject(err);
@@ -148,19 +139,16 @@ exports.dentalUpdateProfile = (req, res, next) => {
       valuesTemp=[user.name, new Date(), Number(user.userId)];
         con.query(dentalQuery, valuesTemp, (err, result, fields) => {
           if(!err) {
-            console.log("no error proceeding to success");
             res.status(300).send({ message: "success" });
             con.release();
           } else {
-            console.log("Error:" + err);
             res.status(400).send({error: "unable to complete request"});
             con.release();
           }
         })
     })
     .catch(function(err) {
-      console.log("Error:" + err);
-      res.status(err).send({error: "There was an error"})
+      res.status(err).send({error: "Error in dentalUpdateProfile controller"})
       con.release();
     });
   })

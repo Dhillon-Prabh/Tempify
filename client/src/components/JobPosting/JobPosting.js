@@ -33,7 +33,9 @@ class JobPosting extends React.Component {
 
     handleClick(acceptData) {
         var self = this;
+        const userId = localStorage.getItem('userId');
         var data = {
+            userId: userId,
             gigId: acceptData[0].id,
             acceptData: acceptData[0]
           }
@@ -46,7 +48,7 @@ class JobPosting extends React.Component {
         },
         body: JSON.stringify(data)
         }).then(function(response) {
-            console.log(response);
+            // console.log(response);
             return response;
         }).then(function(data) {
             // console.log(data);

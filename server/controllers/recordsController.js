@@ -25,12 +25,9 @@ exports.getRecords = (req, res, next) => {
 
       }
       con.query(bookingQuery, result[0].id , (err, result, fields) => {
-  
-      console.log(result);
-  
+    
         if(!result.length) {
-          console.log("im an error");
-          res.status(401).send({ error : "error message",});
+          res.status(401).send({ error : "no result",});
           con.release();
         } else {
           res.status(200).json(result);

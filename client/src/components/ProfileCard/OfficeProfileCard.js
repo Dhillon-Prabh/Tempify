@@ -182,7 +182,7 @@ class ProfileCard extends Component {
         self.setState({
           tempName: result[0].temp_name,
           practice: result[0].type_of_practice,
-          software: result[0].dental_software,
+          software: Array.from(JSON.parse(result[0].dental_software) + " "),
           experience: result[0].experience + " Years",
           rate: result[0].expected_rate,
           bookingRef: " " + result[0].reference_number

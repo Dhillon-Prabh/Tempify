@@ -37,7 +37,7 @@ router.post('/acceptGig', isAuth, gigController.acceptGig, emailController.gigAc
 router.put('/getEvents', isAuth, eventController.getEvents);
 router.put('/getEventsOffice', isAuth, eventController.getEventsOffice);
 router.post('/addTime', isAuth, gigController.addTime, emailController.addTimeEmail);
-router.get('/getRecords', isAuth, recordsController.getRecords);
+router.post('/getRecords', isAuth, recordsController.getRecords);
 
 router.get('/admin', adminController.tempData);
 

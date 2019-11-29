@@ -58,7 +58,7 @@ const useStyles = theme => ({
 const designations = [
   {
     value: "Assistant",
-    label: "Assitant"
+    label: "Assistant"
   },
   {
     value: "Registered Dental Hygienist",
@@ -76,8 +76,8 @@ class PostGig extends React.Component {
     this.state = {
       date: new Date(),
       fromTime: "07:30",
-      toTime: "05:00",
-      designation: "",
+      toTime: "17:00",
+      designation: designations[0].value,
       dateError: false,
       timeError: false,
       success: false

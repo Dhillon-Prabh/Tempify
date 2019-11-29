@@ -8,10 +8,10 @@ exports.getRecords = (req, res, next) => {
 
     if(req.decodedToken.userType === "temp") {
       var query = 'SELECT id FROM temps WHERE user_id = ?;';
-      values=[req.decodedToken.userId];
+      values=[req.body.userId];
     } else if (req.decodedToken.userType === "office") {
       var query = 'SELECT id FROM dentists WHERE user_id = ?;';
-      values=[req.decodedToken.userId];
+      values=[req.body.userId];
     }
     
     con.query(query, [values], (err, result, fields) => {

@@ -8,6 +8,7 @@ import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import './Profile.css'
 import NewOfficeModal from './NewOfficeModal'
 import MUIDatatable from "mui-datatables";
+import SuccessAlert from "../Alert/SuccessAlert";
 
 const useStyles = theme => ({
   textField: {

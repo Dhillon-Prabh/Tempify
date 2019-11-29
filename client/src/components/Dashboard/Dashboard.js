@@ -30,7 +30,7 @@ class Dashboard extends Component {
     
         this.state = {
           user: '',
-          bookNow: false,
+          bookNow: true,
           schedule: false,
           history: false,
         }
@@ -52,8 +52,7 @@ class Dashboard extends Component {
       }).then(result => {     
 
         this.setState({
-          user: result[0].dentist_name,
-          bookNow: true
+          user: result[0].dentist_name
         });
       }).catch(function(err) {
         console.log(err);

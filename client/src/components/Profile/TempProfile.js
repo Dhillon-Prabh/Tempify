@@ -10,6 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import SuccessAlert from '../Alert/SuccessAlert'
 import './Profile.css'
 
 const useStyles = theme => ({
@@ -155,6 +156,7 @@ class Profile extends React.Component {
       dentalsw: [],
       imageName: '',
       phone: '',
+      setSuccessOpen: false
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -225,7 +227,12 @@ class Profile extends React.Component {
     }).catch(function(err) {
       console.log(err);
     });
-    this.props.history.push("/home");
+    this.setState({setSuccessOpen: true});
+    setTimeout(() =>{
+      this.setState({
+        setSuccessOpen: false
+      })
+    }, 2000);
   }
 
   handleChange = (e) => {
@@ -537,6 +544,7 @@ class Profile extends React.Component {
             </Grid>
           </Grid>
         </ValidatorForm>
+        {this.state.setSuccessOpen ? <SuccessAlert type="profileUpdate" /> : null}
       </div>
     )
   }

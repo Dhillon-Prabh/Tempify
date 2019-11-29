@@ -1,0 +1,9 @@
+.paymentModal {
+    height: 100% !important;
+}
+
+.payButton {
+    background-color: #00bfff !important;
+    color: #ffffff !important;
+    width: 100%;
+}

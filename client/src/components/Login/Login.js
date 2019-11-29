@@ -66,18 +66,70 @@ class LoginTemp extends Component {
     this.state = {
       email: '',
       password: '',
+      switched: false,
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateInputValue = this.updateInputValue.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+
+    const switched = localStorage.getItem("rememberMe");
+    
+    if(switched) {
+      const user = localStorage.getItem("user");
+      const password = localStorage.getItem("password");
+      const switched = localStorage.getItem("rememberMe");
+     
+      this.setState({
+        email: user,
+        password: password,
+        switched: !switched
+      })
+    } else {
+      this.setState({
+        email:  '',
+        password: '',
+        switched: !switched
+      })
+
+      localStorage.removeItem("rememberMe");
+      localStorage.setItem("user", "");
+      localStorage.setItem("password", "");
+    }
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      switched: !this.state.switched
+    })
+
+    if(!this.state.switched) {
+      localStorage.removeItem("rememberMe");
+      localStorage.setItem("user", "");
+      localStorage.setItem("password", "");
+    } else {
+      localStorage.setItem("rememberMe", true);
+      localStorage.setItem("user", this.state.email);
+      localStorage.setItem("password", this.state.password);
+    }
   }
 
   handleSubmit(e) {
-    this.setState({ 
-      message: 'Sending...',
-      submitted: true
-    }, 
-      this.submitFormData);
+
+    if(!this.state.switched) {
+      console.log(!this.state.switched)
+      this.setState({ 
+        email: this.state.email,
+        password: this.state.password,
+      })
+
+      localStorage.setItem("rememberMe", !this.state.switched);
+      localStorage.setItem("user", this.state.email);
+      localStorage.setItem("password", this.state.password);
+    }
   }
 
   updateInputValue(e) {
@@ -93,8 +145,8 @@ class LoginTemp extends Component {
       <div>
         <Container component="main" maxWidth="sm" className="login_container">
           <div className={classes.paper}>
-            <Typography component="h1" variant="h5" className="login_title">
-              LOGIN WITH YOUR EMAIL ACCOUNT
+          <Typography align="center" className="header1">
+              LOGIN WITH AN EMAIL ACCOUNT
             </Typography>
             <ValidatorForm ref="form"
               className={classes.form}        
@@ -165,7 +217,7 @@ class LoginTemp extends Component {
                 }}
               />
               <FormControlLabel
-                control={<Checkbox value="remember" color="default" />}
+                control={<Checkbox value="remember" color="default" checked={!this.state.switched} onClick={this.handleChange}  />}
                 label="Remember me"
               />
               <PasswordModal/>
@@ -175,6 +227,7 @@ class LoginTemp extends Component {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                onClick = {this.handleSubmit}
               >
                 LOGIN
               </Button>

@@ -19,7 +19,7 @@
 }
 
 .boldText {
-    font-weight: bold !important;
+    color:gray;
 }
 
 .rightAlign {
@@ -35,4 +35,21 @@
     width: 100% !important;
     position: absolute;
     bottom: 0;
+}
+
+.profileCard-section2 {
+    border-top: 1px solid rgba(34, 36, 38, 0.1);
+    border-bottom: 1px solid rgba(34, 36, 38, 0.1);
+}
+
+.ProfileCard-bookingdate {
+    font-weight:bold !important;    
+}
+
+.ProfileCard-bookingID {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight:bold !important;   
+    margin-top: 10px; 
 }

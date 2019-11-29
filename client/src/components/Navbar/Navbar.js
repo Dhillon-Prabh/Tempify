@@ -10,11 +10,16 @@ import Login from '../Login/Login';
 import About from '../About/About';
 import Modal from '../Modal/Modal';
 import Home from '../Home/Home';
-import Dashboard from '../Dashboard/Dashboard'
 import TempRegister from '../Register/TempRegister';
 import DentalRegister from '../Register/DentalRegister';
 import TempProfile from '../Profile/TempProfile';
 import DentalProfile from '../Profile/DentalProfile';
+import JobPosting from '../JobPosting/JobPosting';
+import Dashboard from '../Dashboard/Dashboard';
+import TempDashboard from '../TempDashboard/TempDashboard';
+import SuccessAlert from '../Alert/SuccessAlert';
+import Admin from '../Admin/TempData';
+import TermsAndConditions from '../Terms/TermsAndConditions';
 
 class Navbar extends Component{
 
@@ -25,7 +30,10 @@ class Navbar extends Component{
       drawer:false,
       isAuth: false, 
       role: -1,
+      officeId: -1,
+      groupId: -1,
       loginError: false,
+      loginSuccess: false,
       token: null
     };
 
@@ -37,28 +45,50 @@ class Navbar extends Component{
 
   componentDidMount() {
 
+    // this.logoutHandler();
+
+    if (!sessionStorage.getItem('logged')) {
+      this.logoutHandler();
+      return;
+    }
+
+
     const token = localStorage.getItem('token');
     const expiryDate = localStorage.getItem('expiryDate');
-
+    const userType = localStorage.getItem('userType');
+    const userRole = localStorage.getItem('userRole');
     if(!token || !expiryDate) {
+      this.props.history.push("/");
       return; 
     }
 
-    if(new Date(expiryDate <= new Date())) {
-      this.logoutHandler();
-      return; 
-    }
+    if(this.state.isAuth && userType.equals("temp")){
+      this.props.history.push("/tempdashboard");
+    } else if(this.state.isAuth && userType.equals("office")) {
+      this.props.history.push("/dashboard");
+    } 
 
-  
-    
     const userId = localStorage.getItem('userId');
+    const officeId = localStorage.getItem('officeId');
+    const groupId = localStorage.getItem('groupId');
+
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
+    console.log(remainingMilliseconds);
   
       this.setState({
         isAuth: true,
         token: token,
-        userId: userId
+        userId: userId,
+        officeId: officeId,
+        groupId: groupId,
+        role: userRole,
+        userType: userType,
+        loginError: false
       });
+
+      if(this.state.isAuth) {
+        this.props.history.push("/");
+      }
 
       this.setAutoLogout(remainingMilliseconds);
 
@@ -106,26 +136,45 @@ class Navbar extends Component{
     .then(resData => {
       this.setState({
         isAuth: true, 
+        loginSuccess: true,
         userId: resData.userId,
         token: resData.token,
         role: resData.role,
+        userType: resData.userType,
+        officeId: resData.officeId,
+        groupId: resData.groupId,
         loginError: false
       });  
 
       localStorage.setItem('token', resData.token);
       localStorage.setItem('userId', resData.userId);
+      localStorage.setItem('userType', resData.type);
+      localStorage.setItem('officeId', resData.officeId);
+      localStorage.setItem('groupId', resData.groupId);
+      localStorage.setItem('role', resData.role);
+      localStorage.setItem('userType', resData.userType);
 
+      sessionStorage.setItem('logged', true)
 
       const remainingMilliseconds = 60 * 60 * 1000;
       const expiryDate = new Date(
         new Date().getTime() + remainingMilliseconds
       );
+
       localStorage.setItem('expiryDate', expiryDate.toISOString());
-      this.setAutoLogout(remainingMilliseconds);
+      this.setAutoLogout(remainingMilliseconds);     
             
-      if(this.state.isAuth){
+      if(this.state.isAuth && this.state.userType === "temp"){
+        this.props.history.push("/tempdashboard");
+      } else  {
         this.props.history.push("/dashboard");
       }
+
+      setTimeout(() =>{
+        this.setState({
+          loginSuccess: false
+        })
+      }, 2000);
 
     })
     .catch(err => {
@@ -146,13 +195,19 @@ class Navbar extends Component{
     this.setState({
       isAuth: false, 
       token: null,
-      role: -1
+      role: -1,
+      userType: "",
+      officeId: -1,
+      groupId: -1
     })
 
     localStorage.removeItem('token');
     localStorage.removeItem('expiryDate');
     localStorage.removeItem('userId');
-    localStorage.removeItem('loggedIn');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('officeId');
+    localStorage.removeItem('groupId');
+    sessionStorage.removeItem('logged');
 
   }
 
@@ -195,7 +250,7 @@ class Navbar extends Component{
             onClick={()=>{this.setState({drawer:false})}}
             onKeyDown={()=>{this.setState({drawer:false})}}>
             
-            { this.state.role == -1 && (
+            { this.state.role === -1 && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
@@ -207,9 +262,11 @@ class Navbar extends Component{
                 <ListItem key = {5} button divider className="nav-item item-height" onClick = {this.scrollToBottom}> Contact Us </ListItem>
                 <ListItem key = {6} button divider className="nav-item item-height" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}> Login </ListItem>
+                <ListItem key = {7} button divider className="nav-item item-height" 
+                  component={NavLink} to={'/termsAndConditions'} />
               </List>)
             }
-            { this.state.role == 1 && this.state.isAuth && (
+            { this.state.userType === "office" && this.state.isAuth && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
@@ -218,9 +275,11 @@ class Navbar extends Component{
                 <ListItem key = {3} button divider className="nav-item item-height"> Dashboard </ListItem>
                 <ListItem key = {6} button divider className="nav-item item-height" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Logout </ListItem>
+                <ListItem key = {7} button divider className="nav-item item-height" 
+                  component={NavLink} to={'/termsAndConditions'} />
               </List>)
             }
-            { this.state.role == 2 && this.state.isAuth && (
+            { this.state.userType === "temp" && this.state.isAuth && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
@@ -228,10 +287,11 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}> Profile </ListItem>
                 <ListItem key = {3} button divider className="nav-item item-height"> Dashboard </ListItem>
                 <ListItem key = {4} button divider className="nav-item item-height"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Job Postings </ListItem>
-                <ListItem key = {5} button divider className="nav-item item-height"> My Availability </ListItem>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}> Job Postings </ListItem>
                 <ListItem key = {6} button divider className="nav-item item-height" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Logout </ListItem>
+                <ListItem key = {7} button divider className="nav-item item-height" 
+                  component={NavLink} to={'/termsAndConditions'} />
               </List>)
             }
           </div>
@@ -249,43 +309,49 @@ class Navbar extends Component{
             <Link to="/home" className="logo-container">
               <img src={logo} className="logo" alt="logo"/>
             </Link>
-            { this.state.role == -1 && (
+            { this.state.role === -1 && (
               <React.Fragment>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>About Us</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now" idType="typography" link="/dentalregister"/></Typography>
-                <Typography variant = "subheading" className = "padding nav-item"><Modal name = "Become a Temp" idType="typography" link="/tempregister"/></Typography>
-                <Typography variant = "subheading" className = "padding nav-item" onClick = {this.scrollToBottom}>Contact Us</Typography>
-                <Typography variant = "subheading" className = "nav-item" 
+                <Typography variant = "body1" className = "padding nav-item"><Modal name="Book Now" idType="typography" link="/dentalregister"/></Typography>
+                <Typography variant = "body1" className = "padding nav-item"><Modal name = "Become a Temp" idType="typography" link="/tempregister"/></Typography>
+                <Typography variant = "body1" className = "padding nav-item" onClick = {this.scrollToBottom}>Contact Us</Typography>
+                <Typography variant = "body1" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  component={NavLink} to={'/termsAndConditions'} />
               </React.Fragment>)
             }
-            { this.state.role == 1 && this.state.isAuth && (
+            { this.state.userType === "office" && this.state.isAuth && (
               <React.Fragment>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dentalprofile'}>Profile</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dashboard'}>Dashboard</Typography>
-                <Typography variant = "subheading" className = "nav-item" 
+                <Typography variant = "body1" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink}  onClick ={this.logoutHandler} to={'/login'}>Logout</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  component={NavLink} to={'/termsAndConditions'} />
               </React.Fragment>)
             }
-            { this.state.role == 2 && this.state.isAuth && (
+            { this.state.userType === "temp" && this.state.isAuth && (
               <React.Fragment>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempprofile'}>Profile</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempdashboard'}>Dashboard</Typography>
-                <Typography variant = "subheading" className = "padding nav-item">Job Postings</Typography>
-                <Typography variant = "subheading" className = "padding nav-item">My Availability</Typography>
-                <Typography variant = "subheading" className = "nav-item" 
+                <Typography variant = "body1" className = "padding nav-item"
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}>Job Postings</Typography>
+                <Typography variant = "body1" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'} onClick ={this.logoutHandler}>Logout</Typography>
+                <Typography variant = "subheading" className = "padding nav-item"
+                  component={NavLink} to={'/termsAndConditions'} />
               </React.Fragment>)
             }
           </Toolbar>
@@ -297,6 +363,7 @@ class Navbar extends Component{
   render(){    
     let routes = (
       <Switch>
+      <Route path='/admin' exact component={Admin}/>
       <Route path='/' exact component={Home} />
       <Route
         path="/login"
@@ -311,6 +378,7 @@ class Navbar extends Component{
       />
       <Route path="/home" component={Home} />
       <Route path="/about" component={About} />
+      <Route path="/termsAndConditions" component={TermsAndConditions} />
       <Route path="/tempregister" component={TempRegister} />
       <Route
         path="/dentalregister"
@@ -325,6 +393,13 @@ class Navbar extends Component{
     );
 
     if(this.state.isAuth) {
+      const userId = localStorage.getItem('userId');
+      const officeId = localStorage.getItem('officeId');
+      const groupId = localStorage.getItem('groupId');
+      console.log("Navbar - userId: " + userId);
+      console.log("Navbar - officeId: " + officeId);
+      console.log("Navbar - groupId: " + groupId);
+
       routes = (
         <Switch>
           <Route path="/home" component={Home} />
@@ -334,6 +409,9 @@ class Navbar extends Component{
               <DentalProfile
                 {...props} 
                 token = {this.state.token}
+                userId = {userId}
+                officeId = {officeId}
+                groupId = {groupId}
               />
             )}
           />
@@ -343,10 +421,37 @@ class Navbar extends Component{
               <TempProfile
                 {...props}
                 token = {this.state.token}
+                userId = {userId}
               />
             )}
           />
-          <Route path="/dashboard" component={Dashboard} />
+          <Route
+            path="/dashboard"
+            render= {props => (
+              <Dashboard
+                {...props}
+                token = {this.state.token}
+              />
+            )}
+          />
+          <Route
+            path="/tempdashboard"
+            render= {props => (
+              <TempDashboard
+                {...props}
+                token = {this.state.token}
+              />
+            )}
+          />
+          <Route
+            path="/jobPosting"
+            render= {props => (
+              <JobPosting
+                {...props}
+                token = {this.state.token}
+              />
+            )}
+          />
         </Switch>
       )
     }
@@ -354,11 +459,11 @@ class Navbar extends Component{
     return(
       <div>
         {this.state.drawerActivate ? this.createDrawer() : this.destroyDrawer()}
+        {this.state.loginSuccess ? <SuccessAlert type="login"/> : null}
         { routes }
       </div>
     );
   }
 }
-
 
 export default withRouter(Navbar);

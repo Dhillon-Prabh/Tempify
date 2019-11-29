@@ -145,8 +145,8 @@ class LoginTemp extends Component {
       <div>
         <Container component="main" maxWidth="sm" className="login_container">
           <div className={classes.paper}>
-            <Typography component="h1" variant="h5" className="login_title">
-              LOGIN WITH YOUR EMAIL ACCOUNT
+          <Typography align="center" className="header1">
+              LOGIN WITH AN EMAIL ACCOUNT
             </Typography>
             <ValidatorForm ref="form"
               className={classes.form}        

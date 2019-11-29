@@ -42,15 +42,15 @@ const useStyles = theme => ({
 
 const parking = [
   {
-    value: 'Free',
+    value: 'yes',
     label: 'Free',
   },
   {
-    value: 'Paid/Street',
+    value: 'paid',
     label: 'Paid/Street',
   },
   {
-    value: 'No Parking',
+    value: 'no',
     label: 'No Parking',
   },
 ];
@@ -109,6 +109,7 @@ class Register extends React.Component {
         postalCode: this.state.postalCode,
         parking: this.state.parking,
     }
+
     fetch("http://localhost:3001/dentalRegister", {
       method: 'POST',
       headers: {

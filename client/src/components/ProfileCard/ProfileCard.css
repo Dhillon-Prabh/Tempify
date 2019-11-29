@@ -47,5 +47,9 @@
 }
 
 .ProfileCard-bookingID {
-    font-weight:bold !important;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight:bold !important;   
+    margin-top: 10px; 
 }

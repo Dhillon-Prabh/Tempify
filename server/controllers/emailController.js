@@ -100,7 +100,7 @@ exports.gigAcceptedEmail = async (req, res, next) => {
                 if (err) {
                 throw err;
                 }
-                var value = [values.userId];
+                var value = [req.decodedToken.userId];
                 var query = "SELECT temp_name, email, designation, experience, dental_software, "
                     + "is_assistant, is_hygienist, is_receptionist, city, expected_rate, "
                     + "type_of_practice FROM `temps` WHERE `user_id` = ?";
@@ -111,6 +111,7 @@ exports.gigAcceptedEmail = async (req, res, next) => {
                         });
                     } else {
                         tempData = result[0];
+                        console.log(tempData, "I AM TEMP DATA !!!!");
                     }
                 });
     

@@ -1,25 +1,25 @@
-import React from 'react';
+import React from "react";
 import MUIDatatable from "mui-datatables";
-import Button from '@material-ui/core/Button'
-import {format} from 'date-fns';
-import parseISO from 'date-fns/parseISO';
-import SuccessAlert from '../Alert/SuccessAlert';
-import './JobPosting.css'
+import Button from "@material-ui/core/Button";
+import { format } from "date-fns";
+import parseISO from "date-fns/parseISO";
+import SuccessAlert from "../Alert/SuccessAlert";
+import "./JobPosting.css";
 
 const columns = [
-    {name:"office", label:"Dental Office", className:"column"},
-    {name:"details", label:"Details", className:"column"},
-    {name:"address", label:"Office Address", className:"column"},
-    {name:"action", label:"Action", className:"column"}
+  { name: "office", label: "Dental Office", className: "column" },
+  { name: "details", label: "Details", className: "column" },
+  { name: "address", label: "Office Address", className: "column" },
+  { name: "action", label: "Action", className: "column" }
 ];
 
 const options = {
-    selectableRows: false,
-    search: true,
-    print: false,
-    download: false,
-    filter: false,
- };
+  selectableRows: false,
+  search: true,
+  print: false,
+  download: false,
+  filter: false
+};
 
 class JobPosting extends React.Component {
     constructor(props) {
@@ -39,18 +39,19 @@ class JobPosting extends React.Component {
             gigId: acceptData[0].id,
             acceptData: acceptData[0]
           }
-        console.log(data); 
+        // console.log(data); 
         fetch("http://localhost:3001/acceptGig", {
         method: 'POST',
         headers: {
+            Authorization: 'Bearer ' + this.props.token,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
         }).then(function(response) {
-            console.log(response);
+            // console.log(response);
             return response;
         }).then(function(data) {
-            console.log(data);
+            // console.log(data);
             if (data.status == 300) {
                 console.log("Success");
                 self.setState({success: true});
@@ -65,11 +66,14 @@ class JobPosting extends React.Component {
     componentDidMount() {
         var self = this;
         fetch("http://localhost:3001/jobPosting", {
-          method: 'GET'
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + this.props.token,
+          }
         }).then(res =>  {
           return res.json();
         }).then(result => {
-          console.log(result);
+        //   console.log(result);
           var resultData = [];
           for (var i = 0; i < result.length; i++) {
               result[i].date = format(parseISO(result[i].date), 'yyyy-MM-dd');
@@ -87,27 +91,28 @@ class JobPosting extends React.Component {
               resultData.push(row);
           }
           self.setState({data: resultData});
-          console.log(result);
+        //   console.log(result);
         }).catch(function(err) {
           console.log(err);
         });
-    }
+  }
 
-    render() {
-        return (
-            <React.Fragment>
-                <MUIDatatable 
-                    className="datatable"
-                    title={"Job Postings"}
-                    options={options}
-                    columns={columns}
-                    data={this.state.data}
-                />
-                {this.state.success ? <SuccessAlert type="acceptGig" /> : null}
-            </React.Fragment>
-
-        );
-    }
+  render() {
+    return (
+      <React.Fragment>
+        <div className="jobPostingContainer">
+          <MUIDatatable
+            className="datatable"
+            title={"Job Postings"}
+            options={options}
+            columns={columns}
+            data={this.state.data}
+          />
+          {this.state.success ? <SuccessAlert type="acceptGig" /> : null}
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
 export default JobPosting;

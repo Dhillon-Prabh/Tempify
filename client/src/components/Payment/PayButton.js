@@ -32,6 +32,7 @@ class PayButton extends Component{
     await fetch("http://localhost:3001/getGigDetails", {
       method: 'POST',
       headers: {
+        'Authorization': 'Bearer ' + this.props.token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)

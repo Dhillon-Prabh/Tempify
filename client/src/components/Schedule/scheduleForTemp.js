@@ -18,7 +18,9 @@ export default class Calendar extends React.Component {
       events: []
     }
 }
-  componentDidMount() {
+  componentDidMount() {  
+    
+    console.log(this.props.token);
     let self = this;
     var data = {
       userId: localStorage.getItem("userId"),
@@ -28,6 +30,7 @@ export default class Calendar extends React.Component {
     fetch("http://localhost:3001/getEvents", {
       method: 'PUT',
       headers: {
+        'Authorization': 'Bearer ' + this.props.token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -68,6 +71,7 @@ export default class Calendar extends React.Component {
           row.id = id;
 
           dataEvents.push(row);
+          
         }
       }
       console.log(dataEvents);
@@ -91,6 +95,12 @@ export default class Calendar extends React.Component {
       });
     };
 
+    const setStateFromModal = (renderState) => {
+      this.setState({
+        render: renderState
+      })
+    }
+
     return (
       <div className="outerContainer">
         <div class="container">
@@ -112,7 +122,7 @@ export default class Calendar extends React.Component {
           />
         </div>
         <div className="profileContainer">
-            {render ? <Modal bookingId={this.state.bookingId} displayHours={this.state.displayHours}/> : null}
+            {render ? <Modal token = {this.props.token} bookingId={this.state.bookingId} displayHours={this.state.displayHours} renderState={setStateFromModal}/> : null}
           </div>
       </div>
     );

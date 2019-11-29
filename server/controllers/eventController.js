@@ -48,32 +48,38 @@ exports.getEventsOffice = (req, res, next) => {
         values=[user.userId];
         con.query(query, values, (err, result, fields) => {
         if(!err) {
+          console.log(result);
           var userQuery = 'SELECT b.dates, t.temp_name, b.temp_status, b.dental_status, b.id from bookings b JOIN temps t on b.temp_id = t.id ' +
             'WHERE b.dentist_id = ?;';
           var dentist_id = result[0].id;
           userValue=[dentist_id];
           con.query(userQuery, userValue, (err, result, fields) => {
-            if(!result.length) {
-                console.log(err);
-                res.status(401).send({ error : "failed here",});
-                con.release();
+            console.log("bookings result");
+            if (!err) {
+              if(!result.length) {
+                console.log("No error");
+              } else {
+                  console.log(result);
+                  events.push(result);
+              }
             } else {
-                events.push(result);
-                var userQuery = 'SELECT date, time FROM gigs WHERE status LIKE ? AND dentist_id = ?;';
-                userValue=["POSTED", dentist_id];
-                con.query(userQuery, userValue, (err, result, fields) => {
-                  if (!err) {
-                    if(result.length) {
-                        events.push(result);
-                        con.release();
-                    }
-                    res.status(200).json(events);
-                    con.release();
-                  } else {
-                    console.log(err);
-                  }
-                });
+              console.log(err);
+              res.status(401).send({error : "error Message2",});
             }
+            var userQuery = 'SELECT date, time FROM gigs WHERE status LIKE ? AND dentist_id = ?;';
+            userValue=["POSTED", dentist_id];
+            con.query(userQuery, userValue, (err, result, fields) => {
+              if (!err) {
+                if(result.length) {
+                    console.log(result);
+                    events.push(result);
+                }
+                res.status(200).json(events);         
+              } else {
+                console.log(err);
+                res.status(401).send({error : "error Message2",});
+              }
+            });
         });
         } else {
           console.log(err);

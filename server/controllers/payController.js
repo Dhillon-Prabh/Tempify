@@ -42,9 +42,7 @@ exports.getGigDetails = (req, res, next) => {
 
 exports.getToken = (req, res, next) => {
     gateway.clientToken.generate({ 
-      // customerId: "test"
     }, function (err, response) {
-    // console.log(response.clientToken);
     res.send(response);
   });
 };
@@ -62,7 +60,6 @@ exports.checkout = (req, res, next) => {
       if (result.success) {
         db((err, con) => {
           if(err){
-            console.log(err);
             throw err;
           }
           var query = 'UPDATE bookings SET dental_status = "COMPLETE" WHERE id = ?;';

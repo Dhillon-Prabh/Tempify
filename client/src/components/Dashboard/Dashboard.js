@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './Dashboard.css';
 import { Grid } from '@material-ui/core';
 import {Link, NavLink} from 'react-router-dom';
@@ -11,8 +11,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import BookNow from '../BookNow/BookNow';
+import History from '../History/History';
 import Schedule from '../Schedule/scheduleForOffice';
-import Records from '../Records/Records';
 
 import "./main.scss";
 
@@ -24,13 +24,13 @@ function HomeIcon(props) {
     );
 }
 
-class Dashboard extends React.Component {
+class Dashboard extends Component {
     constructor(props) {
         super(props);
     
         this.state = {
           user: '',
-          bookNow: true,
+          bookNow: false,
           schedule: false,
           history: false,
         }
@@ -41,22 +41,23 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount(){
-        fetch("http://localhost:3001/tempProfile", {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Bearer ' + this.props.token,
-          },
-        }).then(res => {
-          return res.json();
-        }).then(result => {     
-    
-          this.setState({
-            user: result[0].temp_name,
-            bookNow: true
-          });
-        }).catch(function(err) {
-          console.log(err);
+
+      fetch("http://localhost:3001/dentalProfile", {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + this.props.token,
+        },
+      }).then(res => {
+        return res.json();
+      }).then(result => {     
+
+        this.setState({
+          user: result[0].dentist_name,
+          bookNow: true
         });
+      }).catch(function(err) {
+        console.log(err);
+      });
     }
 
     navigateBookNow() {
@@ -87,7 +88,8 @@ class Dashboard extends React.Component {
         return(
             <React.Fragment>
                 <Grid container direction="row" justify="center" alignItems="center" className="options">
-                    {/* <Grid item xs={2}>
+                <div className="tempDateboardOuterContainer">
+                    <Grid item xs={2}>
                         <Breadcrumbs aria-label="breadcrumb">
                             <Link to="/dashboard" style={{textDecoration:'none', color: 'inherit'}}>
                                 <ListItem button>
@@ -99,7 +101,7 @@ class Dashboard extends React.Component {
                             </Link>
                             <Typography color="textPrimary">dashboard</Typography>
                         </Breadcrumbs>
-                    </Grid> */}
+                    </Grid> 
                     <Grid item xs={6}>
                     <div className="dashboardContainer">
                         <ButtonGroup className="buttons" size="large" aria-label="small contained button group" >
@@ -109,10 +111,11 @@ class Dashboard extends React.Component {
                         </ButtonGroup>
                         </div>
                     </Grid>
+                    </div>
                 </Grid>
-                {this.state.bookNow ? <BookNow/> : null }
-                {this.state.schedule ? <Schedule/> : null }
-                {this.state.history ? <Records/> : null }
+                {this.state.bookNow ? <BookNow token = {this.props.token}/> : null }
+                {this.state.schedule ? <Schedule token = {this.props.token}/> : null }
+                {this.state.history ? <History token = {this.props.token}/> : null }
             </React.Fragment>
         );
     }

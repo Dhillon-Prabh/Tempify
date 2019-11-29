@@ -86,6 +86,7 @@ class PostGig extends React.Component {
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
+
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -111,6 +112,7 @@ class PostGig extends React.Component {
     fetch("http://localhost:3001/postGig", {
       method: "POST",
       headers: {
+        'Authorization': 'Bearer ' + this.props.token,
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
@@ -347,14 +349,20 @@ const FindFit = () => {
   );
 };
 
-const BookNow = () => {
-  return (
-    <React.Fragment>
-      <PostGig withStyles={useStyles} />
-      <Divider />
-      <FindFit />
-    </React.Fragment>
-  );
-};
+class BookNow extends React.Component {
+  constructor(props) {
+    super(props);
+    
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <PostGig withStyles={useStyles} token = {this.props.token}/>
+        <Divider/>
+      </React.Fragment>
+    )
+  }
+}
 
 export default BookNow;

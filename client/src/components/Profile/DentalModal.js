@@ -161,6 +161,7 @@ class DentalModal extends React.Component {
     fetch("http://localhost:3001/dentalUpdateProfile", {
       method: 'POST',
       headers: {
+        'Authorization': 'Bearer ' + this.props.token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -171,6 +172,8 @@ class DentalModal extends React.Component {
     }).catch(function(err) {
       console.log(err);
     });
+    //this.props.history.push("/home");
+    this.setState({setOpen: true});//handleClickClose();
     this.props.history.push("/home");
   }
 
@@ -196,6 +199,10 @@ class DentalModal extends React.Component {
           maxWidth={'lg'}
           className="dental-modal-container1"
         >
+          {/* <DialogContent>
+            <div className="dental-modal-container2"> 
+              <ValidatorForm ref="form" onSubmit={(e) => this.submitForm(e)}>
+                <Typography align="center" className="dental-modal-header"> */}
           <DialogContent className = "dental-modal-container1">
             <div className="dental-modal-container2"> 
               <ValidatorForm ref="form" onSubmit={(e) => this.submitForm(e)}>

@@ -243,6 +243,7 @@ class Profile extends React.Component {
             <div className={classes.dentalProfileTitle}>MY PROFILE</div>
           </div>
 
+
           <MUIDatatable 
             className="dental-profile-datatable"
             title={"Office List"}

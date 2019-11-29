@@ -36,6 +36,7 @@ export default function TransitionsModal(props) {
 
   const handleClose = () => {
     setOpen(false);
+    props.renderState(false);
   };
 
   return (

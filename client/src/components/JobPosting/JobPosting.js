@@ -1,25 +1,25 @@
-import React from 'react';
+import React from "react";
 import MUIDatatable from "mui-datatables";
-import Button from '@material-ui/core/Button'
-import {format} from 'date-fns';
-import parseISO from 'date-fns/parseISO';
-import SuccessAlert from '../Alert/SuccessAlert';
-import './JobPosting.css'
+import Button from "@material-ui/core/Button";
+import { format } from "date-fns";
+import parseISO from "date-fns/parseISO";
+import SuccessAlert from "../Alert/SuccessAlert";
+import "./JobPosting.css";
 
 const columns = [
-    {name:"office", label:"Dental Office", className:"column"},
-    {name:"details", label:"Details", className:"column"},
-    {name:"address", label:"Office Address", className:"column"},
-    {name:"action", label:"Action", className:"column"}
+  { name: "office", label: "Dental Office", className: "column" },
+  { name: "details", label: "Details", className: "column" },
+  { name: "address", label: "Office Address", className: "column" },
+  { name: "action", label: "Action", className: "column" }
 ];
 
 const options = {
-    selectableRows: false,
-    search: true,
-    print: false,
-    download: false,
-    filter: false,
- };
+  selectableRows: false,
+  search: true,
+  print: false,
+  download: false,
+  filter: false
+};
 
 class JobPosting extends React.Component {
     constructor(props) {
@@ -95,23 +95,24 @@ class JobPosting extends React.Component {
         }).catch(function(err) {
           console.log(err);
         });
-    }
+  }
 
-    render() {
-        return (
-            <React.Fragment>
-                <MUIDatatable 
-                    className="datatable"
-                    title={"Job Postings"}
-                    options={options}
-                    columns={columns}
-                    data={this.state.data}
-                />
-                {this.state.success ? <SuccessAlert type="acceptGig" /> : null}
-            </React.Fragment>
-
-        );
-    }
+  render() {
+    return (
+      <React.Fragment>
+        <div className="jobPostingContainer">
+          <MUIDatatable
+            className="datatable"
+            title={"Job Postings"}
+            options={options}
+            columns={columns}
+            data={this.state.data}
+          />
+          {this.state.success ? <SuccessAlert type="acceptGig" /> : null}
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
 export default JobPosting;

@@ -129,12 +129,13 @@ class TempDashboard extends Component {
     return(
       <div>
           <Grid container direction="row" justify="center" alignItems="center" className="options">
+          <div className="tempDateboardOuterContainer">
             <Grid item xs={2}>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <div className = "tempdashboard-username">
                   Hi, {this.state.user}!
                 </div>
-              </Grid> 
+              </Grid>  */}
               <Breadcrumbs aria-label="breadcrumb">
                   <Link to="/tempdashboard" style={{textDecoration:'none', color: 'inherit'}}>
                   <ListItem button>
@@ -148,9 +149,9 @@ class TempDashboard extends Component {
                   </Link>
                   <Typography color="textPrimary">dashboard</Typography>
                 </Breadcrumbs>
-            </Grid>
-            <Grid item xs={6}>
-            <div className="dashboardContainer">
+            </Grid> 
+            <Grid item xs={4}>
+            <div className="tempDashboardContainer">
               <ButtonGroup aria-label="small contained button group" className="buttons">
                   <Button className={this.state.pending ? "activeButton" : "tempButton"} onClick={this.navigatePending}>Pending</Button>
                   <Button className={this.state.schedule ? "activeButton" : "tempButton"} onClick={this.navigateSchedule}>Schedule</Button>
@@ -158,6 +159,7 @@ class TempDashboard extends Component {
               </ButtonGroup>
               </div>
             </Grid>
+            </div>
           </Grid>
 
           {this.state.pending ? <Pending token = {this.props.token} /> : null }

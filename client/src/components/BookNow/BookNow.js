@@ -360,20 +360,9 @@ class BookNow extends React.Component {
       <React.Fragment>
         <PostGig withStyles={useStyles} token = {this.props.token}/>
         <Divider/>
-        <FindFit/>
       </React.Fragment>
     )
   }
 }
-
-// const BookNow = () => {
-//     return (
-//         <React.Fragment>
-//             <PostGig withStyles={useStyles}/>
-//             <Divider/>
-//             <FindFit/>
-//         </React.Fragment>
-//     );
-// }
 
 export default BookNow;

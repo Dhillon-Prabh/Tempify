@@ -17,8 +17,7 @@ const useStyles = theme => ({
     },
   },
   button: {
-    margin: theme.spacing(1),
-    backgroundColor: "#53bed5 !important",
+    backgroundColor: "#00BFFF !important",
   }
 });
 

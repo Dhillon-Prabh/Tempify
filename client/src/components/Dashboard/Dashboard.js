@@ -88,8 +88,8 @@ class Dashboard extends Component {
         return(
             <React.Fragment>
                 <Grid container direction="row" justify="center" alignItems="center" className="options">
+                <div className="tempDateboardOuterContainer">
                     <Grid item xs={2}>
-                     {this.state.user}
                         <Breadcrumbs aria-label="breadcrumb">
                             <Link to="/dashboard" style={{textDecoration:'none', color: 'inherit'}}>
                                 <ListItem button>
@@ -111,6 +111,7 @@ class Dashboard extends Component {
                         </ButtonGroup>
                         </div>
                     </Grid>
+                    </div>
                 </Grid>
                 {this.state.bookNow ? <BookNow token = {this.props.token}/> : null }
                 {this.state.schedule ? <Schedule token = {this.props.token}/> : null }

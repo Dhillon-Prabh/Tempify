@@ -8,6 +8,8 @@ import DashBoard from "../Dashboard/Dashboard"
 import OfficeCard from "../ProfileCard/OfficeProfileCard"
 import BookNow from "../BookNow/BookNow"
 import DentailProfile from "../Profile/DentalProfile"
+import TempSchedule from "../Schedule/scheduleForTemp"
+import ProfileCard from "../ProfileCard/ProfileCard";
 
 class App extends Component {
   render() {
@@ -21,9 +23,6 @@ class App extends Component {
             <Cookie />
           </BrowserRouter>
         </React.Fragment>
-        {/* <OfficeCard /> */}
-        {/* <BookNow />n */}
-        {/* <DentailProfile /> */}
       </div>
     );
   }

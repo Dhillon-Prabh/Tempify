@@ -95,6 +95,12 @@ export default class Calendar extends React.Component {
       });
     };
 
+    const setStateFromModal = (renderState) => {
+      this.setState({
+        render: renderState
+      })
+    }
+
     return (
       <div className="outerContainer">
         <div class="container">
@@ -116,7 +122,7 @@ export default class Calendar extends React.Component {
           />
         </div>
         <div className="profileContainer">
-            {render ? <Modal token = {this.props.token} bookingId={this.state.bookingId} displayHours={this.state.displayHours}/> : null}
+            {render ? <Modal token = {this.props.token} bookingId={this.state.bookingId} displayHours={this.state.displayHours} renderState={setStateFromModal}/> : null}
           </div>
       </div>
     );

@@ -55,8 +55,6 @@ class Navbar extends Component{
     const expiryDate = localStorage.getItem('expiryDate');
     const userType = localStorage.getItem('userType');
     const userRole = localStorage.getItem('userRole');
-
-
     if(!token || !expiryDate) {
       this.props.history.push("/");
       return; 

@@ -17,8 +17,7 @@ const useStyles = theme => ({
     },
   },
   button: {
-    margin: theme.spacing(1),
-    backgroundColor: "#53bed5 !important",
+    backgroundColor: "#00BFFF !important",
   }
 });
 
@@ -27,7 +26,7 @@ class BasicTextFields extends React.Component {
     super(props);
     this.state = {
       bookingId: this.props.bookingId,
-      hour: '',
+      hour: '0',
       minutes: '0'
     }
     this.handleChange = this.handleChange.bind(this);

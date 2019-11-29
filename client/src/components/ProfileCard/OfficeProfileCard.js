@@ -200,7 +200,7 @@ class ProfileCard extends Component {
       <div className={classes.outerContainer}>
         <div className={classes.container}>
           <div className={classes.imageContainer}>
-            <img className={classes.image} src={ok} alt="banner" />
+            <img className={classes.image} src={ok} alt="profile image" />
           </div>
           <div className={classes.nameContainer}>{this.state.tempName}</div>
           <div className={classes.outerStatusContainer}>

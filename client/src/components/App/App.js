@@ -9,24 +9,24 @@ import OfficeCard from "../ProfileCard/OfficeProfileCard"
 import BookNow from "../BookNow/BookNow"
 import DentailProfile from "../Profile/DentalProfile"
 import TempSchedule from "../Schedule/scheduleForTemp"
-import TempAvailabilitySchedule from "../Schedule/tempAvailabilitySchedule";
+import ProfileCard from "../ProfileCard/ProfileCard";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <React.Fragment>
+        <React.Fragment>
           <CssBaseline />
           <BrowserRouter>
             <ScrollToTop/>
             <Navbar />
             <Cookie />
           </BrowserRouter>
-        </React.Fragment> */}
+        </React.Fragment> 
         {/* <OfficeCard /> */}
         {/* <BookNow />
         {/* <DentailProfile /> */}
-        <TempAvailabilitySchedule />
+        {/* <ProfileCard /> */}
       </div>
     );
   }

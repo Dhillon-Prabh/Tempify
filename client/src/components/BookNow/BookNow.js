@@ -352,7 +352,6 @@ const BookNow = () => {
     <React.Fragment>
       <PostGig withStyles={useStyles} />
       <Divider />
-      <FindFit />
     </React.Fragment>
   );
 };

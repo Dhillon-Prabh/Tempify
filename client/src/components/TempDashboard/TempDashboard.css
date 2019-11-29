@@ -1,13 +1,12 @@
 .tempdashboard-username {
-  margin-left:20px;
+  margin-left: 20px;
 }
 
 .options {
   padding-top: 5rem;
 }
 
-
-.buttons{
+.buttons {
   height: 3rem;
   /* width: 30rem !important; */
 }
@@ -26,6 +25,21 @@
   width: 170px;
 }
 
-body{
-  overflow-x:hidden;
+body {
+  overflow-x: hidden;
+}
+
+.tempDashboardContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.tempDateboardOuterContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  margin-top: 30px;
 }

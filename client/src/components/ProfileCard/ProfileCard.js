@@ -28,7 +28,7 @@ const styles = theme => ({
         display: "flex",
         backgroundColor: "white",
         width: "35%",
-        height: "70%",
+        height: "480px",
         borderRadius: "5px",
         justifyContent: "center",
         alignItems: "center",

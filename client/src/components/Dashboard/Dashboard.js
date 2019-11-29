@@ -87,7 +87,8 @@ class Dashboard extends React.Component {
         return(
             <React.Fragment>
                 <Grid container direction="row" justify="center" alignItems="center" className="options">
-                    {/* <Grid item xs={2}>
+                <div className="tempDateboardOuterContainer">
+                    <Grid item xs={2}>
                         <Breadcrumbs aria-label="breadcrumb">
                             <Link to="/dashboard" style={{textDecoration:'none', color: 'inherit'}}>
                                 <ListItem button>
@@ -99,7 +100,7 @@ class Dashboard extends React.Component {
                             </Link>
                             <Typography color="textPrimary">dashboard</Typography>
                         </Breadcrumbs>
-                    </Grid> */}
+                    </Grid> 
                     <Grid item xs={6}>
                     <div className="dashboardContainer">
                         <ButtonGroup className="buttons" size="large" aria-label="small contained button group" >
@@ -109,6 +110,7 @@ class Dashboard extends React.Component {
                         </ButtonGroup>
                         </div>
                     </Grid>
+                    </div>
                 </Grid>
                 {this.state.bookNow ? <BookNow/> : null }
                 {this.state.schedule ? <Schedule/> : null }

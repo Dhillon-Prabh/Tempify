@@ -27,16 +27,16 @@ router.post('/dentalUpdateProfile', isAuth, profileController.dentalUpdateProfil
 
 router.get('/tempDashboard', isAuth, authController.getTempDashboardInformation);
 router.put('/getEvents', isAuth, eventController.getEvents);
-router.post('/postGig', isAuth, gigController.postGig);
+router.post('/postGig', isAuth, gigController.postGig, emailController.gigPostedEmail);
 router.get('/jobPosting', isAuth, gigController.jobPosting);
-router.post('/acceptGig', isAuth, gigController.acceptGig);
+router.post('/acceptGig', isAuth, gigController.acceptGig, emailController.gigAcceptedEmail);
 router.get('/getRecords', isAuth, recordsController.getRecords);
 
 //add isAuth 
 router.put('/gigCard', isAuth, gigController.gigCard);
 router.put('/gigCardOffice', isAuth, gigController.gigCardOffice);
 router.put('/getEventsOffice', isAuth, eventController.getEventsOffice);
-router.post('/addTime', isAuth, gigController.addTime);
+router.post('/addTime', isAuth, gigController.addTime, emailController.addTimeEmail);
 
 
 module.exports = router;

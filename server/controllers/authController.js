@@ -21,7 +21,11 @@ exports.postLogin = (req, res, next) => {
       const tempQuery = "SELECT email FROM `temps` WHERE `email` = ?";
       con.query(tempQuery, [result[0].email], (err, resData, fields) => {
 
+
+        console.log(resData.length, "I AM IN LOGIN!!!!!!");
+
         if (!resData.length) {
+
           let loadedUser = result[0];
           const token = jwt.sign({
             email: loadedUser.email,

@@ -234,7 +234,7 @@ class Navbar extends Component{
             onClick={()=>{this.setState({drawer:false})}}
             onKeyDown={()=>{this.setState({drawer:false})}}>
             
-            { this.state.role == -1 && (
+            { this.state.role === -1 && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
@@ -250,7 +250,7 @@ class Navbar extends Component{
                   component={NavLink} to={'/termsAndConditions'} />
               </List>)
             }
-            { this.state.role == 1 && this.state.isAuth && (
+            { this.state.userType === "office" && this.state.isAuth && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
@@ -263,7 +263,7 @@ class Navbar extends Component{
                   component={NavLink} to={'/termsAndConditions'} />
               </List>)
             }
-            { this.state.role == 2 && this.state.isAuth && (
+            { this.state.userType === "temp" && this.state.isAuth && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
@@ -294,7 +294,7 @@ class Navbar extends Component{
             <Link to="/home" className="logo-container">
               <img src={logo} className="logo" alt="logo"/>
             </Link>
-            { this.state.role == -1 && (
+            { this.state.role === -1 && (
               <React.Fragment>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
@@ -309,7 +309,7 @@ class Navbar extends Component{
                   component={NavLink} to={'/termsAndConditions'} />
               </React.Fragment>)
             }
-            { this.state.role == 1 && this.state.isAuth && (
+            { this.state.userType === "office" && this.state.isAuth && (
               <React.Fragment>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
@@ -323,7 +323,7 @@ class Navbar extends Component{
                   component={NavLink} to={'/termsAndConditions'} />
               </React.Fragment>)
             }
-            { this.state.role == 2 && this.state.isAuth && (
+            { this.state.userType === "temp" && this.state.isAuth && (
               <React.Fragment>
                 <Typography variant = "subheading" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>

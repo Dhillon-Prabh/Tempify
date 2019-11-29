@@ -47,11 +47,9 @@ class Records extends Component {
         }).then(res =>  {
           return res.json();
         }).then(result => {
-          console.log(result);
 
           var resultData = [];
           for (let i = 0; i < result.length; i++) {
-            //   result[i].date = format(parseISO(result[i].date), 'yyyy-MM-dd');
               let office = result[i].office_name;
               let address = result[i].unit_number + " " + result[i].street_name + " " + result[i].city + " " + result[i].province + " " + result[i].postalcode;
               let phoneNumber = result[i].phone_number;
@@ -61,7 +59,6 @@ class Records extends Component {
               let bookingID = result[i].reference_number;
               let status = result[i].temp_status; 
 
-            //   var action = <Button className="select" onClick={this.handleClick.bind(this,[result[i]])}>Select</Button>;
               let row = [];
               row.push(office);
               row.push(address);

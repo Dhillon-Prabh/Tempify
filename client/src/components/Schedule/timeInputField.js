@@ -27,7 +27,7 @@ class BasicTextFields extends React.Component {
     super(props);
     this.state = {
       bookingId: this.props.bookingId,
-      hour: '',
+      hour: '0',
       minutes: '0'
     }
     this.handleChange = this.handleChange.bind(this);
@@ -56,8 +56,9 @@ class BasicTextFields extends React.Component {
       },
       body: JSON.stringify(data)
     }).then(function(response) {
-      console.log(response);
+      
       if (response.status == 200) {
+        window.location.reload();
       }
     }).then(function(data) {
       console.log(data);

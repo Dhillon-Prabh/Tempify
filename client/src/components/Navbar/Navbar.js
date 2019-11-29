@@ -46,7 +46,6 @@ class Navbar extends Component{
   componentDidMount() {
 
     // this.logoutHandler();
-
     if (!sessionStorage.getItem('logged')) {
       this.logoutHandler();
       return;
@@ -73,7 +72,6 @@ class Navbar extends Component{
     const groupId = localStorage.getItem('groupId');
 
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
-    console.log(remainingMilliseconds);
   
       this.setState({
         isAuth: true,

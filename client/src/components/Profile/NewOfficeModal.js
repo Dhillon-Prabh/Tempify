@@ -7,8 +7,7 @@ import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import {Link} from 'react-router-dom';
-import './DentalModal.css'
+import './OfficeModal.css'
 
 const useStyles = theme => ({
   textField: {
@@ -37,9 +36,6 @@ const useStyles = theme => ({
   input: {
     display: 'none',
   },
-  window: {
-    maxWidth: 'lg',
-  }
 });
 
 const parking = [
@@ -57,13 +53,13 @@ const parking = [
   },
 ];
 
-class DentalModal extends React.Component {
+class NewOfficeModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: this.props.userId,
-      officeId: this.props.officeId,
-      officeEmail: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
       officeName: '',
       name: '',
       phone: '',
@@ -77,6 +73,7 @@ class DentalModal extends React.Component {
       setOpen: false,
       open: false,
       link: this.props.link,
+      groupId: this.props.groupId,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleClickOpen = this.handleClickOpen.bind(this);
@@ -95,13 +92,61 @@ class DentalModal extends React.Component {
     });
   };
 
-  renderButton(param) {
+  componentDidMount() {
+  }
 
+  componentWillUnmount() {
+    ValidatorForm.removeValidationRule('isPasswordMatch');
+    ValidatorForm.removeValidationRule('isTruthy');
+  }
+
+  submitModalForm = () => {
+    var data = {
+      userId: this.props.userId,
+      officeId: this.props.officeId,
+      email: this.state.email,
+      password: this.state.password,
+      officeName: this.state.officeName,
+      name: this.state.name,
+      phone: this.state.phone,
+      streetNo: this.state.streetNo,
+      streetName: this.state.streetName,
+      unit: this.state.unit,
+      city: this.state.city,
+      province: this.state.province,
+      postalCode: this.state.postalCode,
+      parking: this.state.parking,
+      groupId: this.state.groupId,
+    }
+
+    fetch("http://localhost:3001/dentalInsertProfile", {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + this.props.token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(function(response) {
+      console.log(response);
+    }).then(function(data) {
+      console.log(data);
+    }).catch(function(err) {
+      console.log(err);
+    });
+    this.setState({setOpen: false});
+    window.location.reload();
+  }
+
+  handleChange = (e) => {
+    this.setState({[e.target.name]: e.target.value});
+  }
+
+  renderButton(param) {
     switch(param) {
       case 'blueButton':
         return (
           <Button
-            className="modal-blueButton"
+            className="blueButton"
             onClick={this.handleClickOpen}
           >
             {this.props.name}
@@ -110,7 +155,7 @@ class DentalModal extends React.Component {
       case 'clearButton':
         return (
           <Button
-          className="dental-modal-clearButton"
+          className="modal-clearButton"
           onClick={this.handleClickOpen}
         >
           {this.props.name}
@@ -126,72 +171,11 @@ class DentalModal extends React.Component {
     }
   }
 
-  componentDidMount() {
-    let currentComponent = this;
-    var data = {
-      userId: this.state.userId,
-      officeId: this.state.officeId
-    }
-  }
-
-  componentWillUnmount() {
-    ValidatorForm.removeValidationRule('isPasswordMatch');
-    ValidatorForm.removeValidationRule('isTruthy');
-  }
-
-  submitForm = (event) => {
-    event.preventDefault();
-
-    var data = {
-      userId: this.props.userId,
-      officeId: this.props.officeId,
-      officeEmail: this.state.officeEmail,
-      officeName: this.state.officeName,
-      name: this.state.name,
-      phone: this.state.phone,
-      streetNo: this.state.streetNo,
-      streetName: this.state.streetName,
-      unit: this.state.unit,
-      city: this.state.city,
-      province: this.state.province,
-      postalCode: this.state.postalCode,
-      parking: this.state.parking,
-    }
-
-    fetch("http://localhost:3001/dentalUpdateProfile", {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + this.props.token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }).then(function(response) {
-      console.log(response);
-    }).then(function(data) {
-      console.log(data);
-    }).catch(function(err) {
-      console.log(err);
-    });
-    //this.props.history.push("/home");
-    this.setState({setOpen: true});//handleClickClose();
-    this.props.history.push("/home");
-  }
-
-  handleChange = (e) => {
-    this.setState({[e.target.name]: e.target.value});
-  }
-
-  handleCheckboxChange = (e) => {
-    this.setState({accept: e.target.checked})
-  }
-
   render() {
-
     const { classes } = this.props;
     return (
-      <div className="profile">
+      <div className="dental-profile-modal-profile">
         {this.renderButton(this.props.idType)}
-
         <Dialog
           open={this.state.setOpen}
           keepMounted
@@ -199,14 +183,10 @@ class DentalModal extends React.Component {
           maxWidth={'lg'}
           className="dental-modal-container1"
         >
-          {/* <DialogContent>
+          <DialogContent>
             <div className="dental-modal-container2"> 
-              <ValidatorForm ref="form" onSubmit={(e) => this.submitForm(e)}>
-                <Typography align="center" className="dental-modal-header"> */}
-          <DialogContent className = "dental-modal-container1">
-            <div className="dental-modal-container2"> 
-              <ValidatorForm ref="form" onSubmit={(e) => this.submitForm(e)}>
-                <Typography align="center" className="header1">
+              <ValidatorForm ref="form">
+                <Typography align="center" className="dental-modal-header">
                   ADD NEW OFFICE
                 </Typography>
 
@@ -222,7 +202,7 @@ class DentalModal extends React.Component {
                         className={classes.textField}
                         margin="normal"
                         variant="outlined"
-                        autoComplete="name"
+                        //autoComplete="name"
                         validators={['required']}
                         errorMessages={['This field is required']}
                         onChange={this.handleChange}
@@ -247,14 +227,14 @@ class DentalModal extends React.Component {
                     <TextValidator
                         required
                         fullWidth
-                        id="officeEmail"
-                        name="officeEmail"
-                        value={this.state.officeEmail}
-                        label="Office Email Address"
+                        id="email"
+                        name="email"
+                        value={this.state.email}
+                        label="Email Address"
                         className={classes.textField}
                         margin="normal"
                         variant="outlined"
-                        autoComplete="email"
+                        //autoComplete="email"
                         validators={['required', 'isEmail']}
                         errorMessages={['This field is required', 'This is not a valid email']}
                         onChange={this.handleChange}
@@ -275,7 +255,104 @@ class DentalModal extends React.Component {
                         }}
                     />
                   </Grid>
+
+                  <Grid item xs={12} sm={6} className="container2">
+                    <TextValidator
+                      required
+                      fullWidth
+                      id="password"
+                      name="password"
+                      value={this.state.password}
+                      type="password"
+                      label="Password"
+                      className={classes.textField}
+                      margin="normal"
+                      variant="outlined"
+                      validators={['required']}
+                      errorMessages={['This field is required']}
+                      onChange={this.handleChange}
+                      InputLabelProps={{
+                        shrink: true,
+                        classes: {
+                          root: classes.label,
+                          focused: classes.focused,
+                          asterisk: classes.labelAsterisk,
+                        },
+                      }}
+                      InputProps={{
+                        classes: {
+                          root: classes.outlinedInput,
+                          focused: classes.focused,
+                          notchedOutline: classes.notchedOutline,
+                        },
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} className="container2">
+                    <TextValidator
+                      required
+                      fullWidth
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      value={this.state.confirmPassword}
+                      type="password"
+                      label="Confirm password"
+                      className={classes.textField}
+                      margin="normal"
+                      variant="outlined"
+                      validators={['required', 'isPasswordMatch']}
+                      errorMessages={['This field is required', 'Passwords do not match']}
+                      onChange={this.handleChange}
+                      InputLabelProps={{
+                        shrink: true,
+                        classes: {
+                          root: classes.label,
+                          focused: classes.focused,
+                          asterisk: classes.labelAsterisk,
+                        },
+                      }}
+                      InputProps={{
+                        classes: {
+                          root: classes.outlinedInput,
+                          focused: classes.focused,
+                          notchedOutline: classes.notchedOutline,
+                        },
+                      }}
+                    />
+                  </Grid>
                   
+                  <Grid item xs={12} sm={6} className="container2">
+                    <TextValidator
+                      required
+                      fullWidth
+                      id="name"
+                      name="name"
+                      value={this.state.name}
+                      label="Your name"
+                      className={classes.textField}
+                      margin="normal"
+                      variant="outlined"
+                      //autoComplete="name"
+                      validators={['required']}
+                      errorMessages={['This field is required']}
+                      onChange={this.handleChange}
+                      InputLabelProps={{
+                        shrink: true,
+                        classes: {
+                          root: classes.label,
+                          focused: classes.focused,
+                          asterisk: classes.labelAsterisk,
+                        },
+                      }}
+                      InputProps={{
+                        classes: {
+                          root: classes.outlinedInput,
+                          focused: classes.focused,
+                          notchedOutline: classes.notchedOutline,
+                        },
+                      }}
+                    />
+                  </Grid>
                   <Grid item xs={12} sm={6} className="container2">
                     <TextValidator
                         required
@@ -307,6 +384,7 @@ class DentalModal extends React.Component {
                         }}
                     />
                   </Grid>
+
                   <Grid item xs={12} sm={6} className="container2">
                     <TextValidator
                         required
@@ -340,7 +418,6 @@ class DentalModal extends React.Component {
                     >
                     </TextValidator>
                   </Grid>
-
                   <Grid item xs={12} sm={6} className="container2">
                     <TextValidator
                         required
@@ -374,6 +451,7 @@ class DentalModal extends React.Component {
                     >
                     </TextValidator>
                   </Grid>
+
                   <Grid item xs={12} sm={6} className="container2">
                     <TextValidator
                         required
@@ -405,7 +483,6 @@ class DentalModal extends React.Component {
                         }}
                     />
                   </Grid>
-
                   <Grid item xs={12} sm={6} className="container2">
                     <TextValidator
                         required
@@ -439,6 +516,7 @@ class DentalModal extends React.Component {
                     >
                     </TextValidator>
                   </Grid>
+
                   <Grid item xs={12} sm={6} className="container2">
                     <TextValidator
                         required
@@ -472,7 +550,6 @@ class DentalModal extends React.Component {
                     >
                     </TextValidator>
                   </Grid>
-
                   <Grid item xs={12} sm={6} className="container2">
                     <TextValidator
                         required
@@ -506,6 +583,7 @@ class DentalModal extends React.Component {
                     >
                     </TextValidator>
                   </Grid>
+
                   <Grid item xs={12} sm={6} className="container2">
                     <TextValidator
                         required
@@ -547,10 +625,10 @@ class DentalModal extends React.Component {
                   </Grid>
 
                   <Grid item xs={12} align="center">
-                    <Button className="blueButton" color="primary" variant="contained" type="submit">
+                    <Button className="dental-modal-blueButton" color="primary" variant="contained" onClick={this.submitModalForm}>
                       ADD
                     </Button>
-                    <Button className="blueButton" color="primary" variant="contained" onClick={this.handleClickClose}>
+                    <Button className="dental-modal-blueButton" color="primary" variant="contained" onClick={this.handleClickClose}>
                       CLOSE
                     </Button>
                   </Grid>
@@ -564,4 +642,4 @@ class DentalModal extends React.Component {
   }
 }
 
-export default withStyles(useStyles)(DentalModal);
+export default withStyles(useStyles)(NewOfficeModal);

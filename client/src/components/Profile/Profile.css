@@ -20,6 +20,23 @@
     height: 59px;
     background-color: #00bfff !important;
     margin: 1rem 1rem !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+.dental-profile-update-blueButton {
+    width: 210px;
+    height: 59px;
+    background-color: #00bfff !important;
+    color: #ffffff !important;
+    line-height: 1.75 !important;
+}
+
+.dental-profile-modal-blueButton {
+    width: 210px;
+    height: 59px;
+    background-color: #00bfff !important;
+    color: #ffffff !important;
 }
 
 .container1 {

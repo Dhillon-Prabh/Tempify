@@ -71,7 +71,6 @@ const parking = [
 ];
 
 const columns = [
-  {name:"id", label:"id", className:"column", viewColumns:"false"},
   {name:"name", label:"Name", className:"column"},
   {name:"officeEmail", label:"Email", className:"column"},
   {name:"officeName", label:"Office Name", className:"column"},
@@ -132,18 +131,10 @@ class Profile extends React.Component {
     }).then(result => {
       var resultData = [];
       for (var i = 0; i < result.length; i++) {
-        let dUserId = result[i].user_id;
         let dName = result[i].dentist_name;
         let dOfficeEmail = result[i].email;
         let dOfficeName = result[i].office_name;
-        let action = <Button className="select" onClick={currentComponent.handleClick.bind(currentComponent,[result[i]])}>Select</Button>;
-        let row = [];
-        row.push(dUserId);
-        row.push(dName);
-        row.push(dOfficeEmail);
-        row.push(dOfficeName);
-        row.push(action);
-        resultData.push(row);
+        let action;
 
         if (this.state.userId == result[i].user_id) {
           currentComponent.setState({
@@ -159,7 +150,18 @@ class Profile extends React.Component {
             postalCode: result[i].postalcode,
             parking: result[i].parking_options,
           });
+        } else {
+          action = <Button className="select" onClick={currentComponent.handleClick.bind(currentComponent,[result[i]])}>Select</Button>;
         }
+        
+        let row = [];
+        row.push(dName);
+        row.push(dOfficeEmail);
+        row.push(dOfficeName);
+        row.push(action);
+        resultData.push(row);
+
+        
       }
       currentComponent.setState({data: resultData});
       console.log(result);
@@ -588,11 +590,15 @@ class Profile extends React.Component {
               </TextValidator>
             </Grid>
 
-            <Grid item xs={12} direction="row" alignItems="center">
+            <Grid item xs={12} direction="row" align="center">
               <Button className="blueButton" color="primary" variant="contained" type="submit">
                 UPDATE DETAILS
               </Button>
-              <NewOfficeModal className="blueButton" idType="blueButton" name="ADD NEW OFFICE" groupId={this.state.groupId}/>
+              <NewOfficeModal className="dental-profile-modal-blueButton"
+                idType="blueButton"
+                name="ADD NEW OFFICE"
+                groupId={this.state.groupId}
+                token={this.props.token}/>
             </Grid>
           </Grid>
         </ValidatorForm>

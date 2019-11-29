@@ -11,9 +11,10 @@
   white-space: pre-line;
 }
 
-.profile {
-  width: 60%;
-  margin: auto;
+.dental-profile-modal-profile {
+  display: inline-flex;
+  margin: 1rem !important;
+  padding: 6px 16px;
 }
 
 .textfield {
@@ -22,9 +23,9 @@
 
 .dental-modal-blueButton {
   width: 150px;
-  height: 59px;
+  height: 44px !important;
   background-color: #00bfff !important;
-  margin: 1rem 1rem !important;
+  margin: 1rem !important;
 }
 
 .container1 {

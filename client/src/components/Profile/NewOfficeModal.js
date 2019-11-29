@@ -127,6 +127,7 @@ class NewOfficeModal extends React.Component {
     fetch("http://localhost:3001/dentalInsertProfile", {
       method: 'POST',
       headers: {
+        'Authorization': 'Bearer ' + this.props.token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -177,7 +178,7 @@ class NewOfficeModal extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className="profile">
+      <div className="dental-profile-modal-profile">
         {this.renderButton(this.props.idType)}
         <Dialog
           open={this.state.setOpen}

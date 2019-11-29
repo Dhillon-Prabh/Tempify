@@ -21,9 +21,6 @@ exports.postLogin = (req, res, next) => {
       const tempQuery = "SELECT email FROM `temps` WHERE `email` = ?";
       con.query(tempQuery, [result[0].email], (err, resData, fields) => {
 
-
-        console.log(resData.length, "I AM IN LOGIN!!!!!!");
-
         if (!resData.length) {
 
           let loadedUser = result[0];
@@ -74,7 +71,6 @@ exports.getTempDashboardInformation = (req, res, next) => {
   const user = req.decodedToken;
   db((err, con) => {
     if(err){
-      console.log(err);
       throw err;
     }
   
@@ -85,7 +81,6 @@ exports.getTempDashboardInformation = (req, res, next) => {
       if(!result.length) {
         return res.status(401).send({ error : "error message",});
       } else {
-        console.log(result);
         return res.status(200).json(result);
       }
     });
@@ -110,7 +105,6 @@ exports.tempRegister = (req, res, next) => {
           values = [user.name, user.email, user.password, null, new Date(), new Date(), null, 2, null, null, 1, 0, null];
           con.query(userQuery, values, (err, result, fields) => {
             if (!err) {
-              console.log("no error proceeding to resolve");
               resolve(result);
             } else {
               reject(err);
@@ -144,7 +138,6 @@ exports.tempRegister = (req, res, next) => {
       ];
       con.query(tempQuery, valuesTemp, (err, result, fields) => {
         if (!err) {
-          console.log("no error proceeding to success");
           res.status(300).send({
             message: "success"
           });
@@ -182,13 +175,11 @@ exports.tempRegister = (req, res, next) => {
         user.city, result.insertId, new Date(), new Date()];
       con.query(tempQuery, valuesTemp, (err, result, fields) => {
         if(!err) {
-          console.log("no error proceeding to success");
           res.status(300).send({
             message: "success"
           });
           con.release();
         } else {
-          console.log("Error:" + err);
           res.status(400).send({
             error: "unable to complete request"
           });
@@ -197,7 +188,6 @@ exports.tempRegister = (req, res, next) => {
       })
     })
     .catch(function(err) {
-      console.log("Error:" + err);
       res.status(err).send({
         error: "There was an error"
       })
@@ -210,7 +200,6 @@ exports.tempRegister = (req, res, next) => {
 exports.dentalRegister = (req, res, next) => {
 
   const user = req.body;
-  console.log("Inside dentalRegister");
   db((err, con) => {
     if (err) {
       console.log(err);
@@ -243,10 +232,8 @@ exports.dentalRegister = (req, res, next) => {
       values=[new Date(), result.insertId];
       con.query(officeGroupQuery, values, (err, result, fields) => {
         if(!err) {
-          console.log("no error proceeding to success");
           return result;
         } else {
-          console.log("Error:" + err);
           return err;
         }
       })
@@ -259,13 +246,11 @@ exports.dentalRegister = (req, res, next) => {
         user.streetName, user.unit, user.city, user.province, user.postalCode, user.parking];
       con.query(dentalQuery, values, (err, result, fields) => {
         if(!err) {
-          console.log("no error proceeding to success");
           res.status(300).send({
             message: "success"
           });
           con.release();
         } else {
-          console.log("Error:" + err);
           res.status(400).send({
             error: "unable to complete request"
           });
@@ -274,7 +259,6 @@ exports.dentalRegister = (req, res, next) => {
       })
     })
     .catch(function(err) {
-      console.log("Error:" + err);
       res.status(err).send({
         error: "unable to complete request"
       });

@@ -1,0 +1,13 @@
+.tableWrapper {
+    height: 100vh;
+    overflow: auto;
+    padding: 5rem;
+}
+
+.headerFont {
+    font-size: 12pt !important;
+}
+
+.cellFont {
+    font-size: 11pt !important;
+}

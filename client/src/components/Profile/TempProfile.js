@@ -174,7 +174,7 @@ class Profile extends React.Component {
   componentDidMount() {
     let currentComponent = this;
     
-    fetch("/tempProfile", {
+    fetch("/auth/tempProfile", {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,

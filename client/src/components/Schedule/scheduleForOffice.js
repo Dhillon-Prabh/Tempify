@@ -88,7 +88,8 @@ export default class Calendar extends React.Component {
       } else if (dataAll.length == 1) { // either bookings or gigs returned
           var data = dataAll[0];
           console.log("Only one returned data", data);
-          if (data[0].length == 2) { //gigs returned
+          if (!data[0].id) { //gigs returned
+            console.log("inside gigs");
             for (var i = 0; i < data.length; i++) {
               var title = data[i].time;
               var date = data[i].date;

@@ -150,7 +150,7 @@ exports.gigCard = (req, res, next) => {
 }
 
 exports.gigCardOffice = (req, res, next) => {
-
+  console.log("gigcardoffice");
   const booking = req.body;
 
   db((err, con) => {
@@ -180,8 +180,9 @@ exports.gigCardOffice = (req, res, next) => {
 
 
 exports.addTime = (req, res, next) => {
-
+  console.log("addTime");
   const booking = req.body;
+  console.log(booking);
   db((err, con) => {
     if(err){
       console.log(err);
@@ -198,9 +199,13 @@ exports.addTime = (req, res, next) => {
           }
 
           var amount = parseInt(result[0].temp_wage) * booking.hours;
+          amount = parseFloat(amount.toFixed(2));
           var gst = amount * 0.05;
+          gst = parseFloat(gst.toFixed(2));
           var service_fee = amount *0.15;
+          service_fee = parseFloat(service_fee.toFixed(2));
           var total = amount + gst + service_fee;
+          total = parseFloat(total.toFixed(2));
           valuesB=["COMPLETE", result[0].is_from_gig, "COMPLETE", booking.hours, service_fee, gst, total, booking.bookingId];
           con.query(userQuery, valuesB, (err, result, fields) => {
             if (!err) {

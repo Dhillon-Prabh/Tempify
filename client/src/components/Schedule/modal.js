@@ -33,10 +33,6 @@ export default function TransitionsModal(props) {
     props.renderState(false);
   };
 
-  const [values, setValues] = React.useState({
-    token: props.token,
-  });
-
   return (
     <div>
       <Modal
@@ -52,7 +48,7 @@ export default function TransitionsModal(props) {
         }}
       >
         <Fade in={open}>
-            <ProfileCard token ={values.token} bookingId={props.bookingId} displayHours={props.displayHours}/>
+            <ProfileCard token ={props.token} bookingId={props.bookingId} displayHours={props.displayHours}/>
         </Fade>
       </Modal>
     </div>

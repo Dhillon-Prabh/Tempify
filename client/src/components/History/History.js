@@ -36,12 +36,17 @@ class History extends Component {
     }
 
     componentDidMount() {
-
+        var userId = localStorage.getItem('userId');
+        var data = {
+            userId: userId,
+        }
         fetch("http://localhost:3001/getRecords", {
-            method: 'GET',
+            method: 'POST',
             headers: {
               'Authorization': 'Bearer ' + this.props.token,
-            }
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         }).then(res =>  {
           return res.json();
         }).then(result => {

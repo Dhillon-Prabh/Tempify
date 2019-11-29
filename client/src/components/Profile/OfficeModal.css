@@ -1,34 +1,31 @@
-.header1 {
-  padding-top: 5rem;
+.dental-modal-header {
   padding-bottom: 1.65em;
   letter-spacing: 0.1rem !important;
   font-weight: 800 !important;
   font-size: 1.8rem !important;
 }
 
-.profile {
-  width: 60%;
-  margin: auto;
+.dental-profile-datatable {
+  margin-bottom: 2rem;
+  margin-left: 1rem;
+  white-space: pre-line;
+}
+
+.dental-profile-modal-profile {
+  display: inline-flex;
+  margin: 1rem !important;
+  padding: 6px 16px;
 }
 
 .textfield {
   width: 100%;
 }
 
-.blueButton {
-  width: 210px;
-  height: 59px;
+.dental-modal-blueButton {
+  width: 150px;
+  height: 44px !important;
   background-color: #00bfff !important;
-  margin: 1rem 1rem !important;
-
-}
-
-.blueButton {
-  width: 210px;
-  height: 59px;
-  background-color: #00bfff !important;
-  margin-left: 10px !important;
-  margin-right: 10px !important;
+  margin: 1rem !important;
 }
 
 /* .container1 {
@@ -41,11 +38,6 @@
 
 .temp-profile-asterisk {
   color: red;
-}
-
-.temp-profile-upload {
-  margin-top: 20px;
-  margin-left: 10px;
 }
 
 .dental-modal-clearButton {

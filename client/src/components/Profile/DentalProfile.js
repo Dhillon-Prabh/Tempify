@@ -1,16 +1,14 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { withStyles } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
-import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import "./Profile.css";
-import CheckboxValidatorElement from "../CheckboxValidatorElement/CheckboxValidatorElement";
-import { flexbox } from "@material-ui/system";
-import SuccessAlert from '../Alert/SuccessAlert'
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import './Profile.css'
+import NewOfficeModal from './NewOfficeModal'
+import MUIDatatable from "mui-datatables";
+import SuccessAlert from "../Alert/SuccessAlert";
 
 const useStyles = theme => ({
   textField: {
@@ -60,78 +58,115 @@ const useStyles = theme => ({
 
 const parking = [
   {
-    value: "Free",
-    label: "Free"
+    value: 'yes',
+    label: 'Free',
   },
   {
-    value: "Paid/Street",
-    label: "Paid/Street"
+    value: 'paid',
+    label: 'Paid/Street',
   },
   {
-    value: "No Parking",
-    label: "No Parking"
-  }
+    value: 'no',
+    label: 'No Parking',
+  },
 ];
+
+const columns = [
+  {name:"name", label:"Name", className:"column"},
+  {name:"officeEmail", label:"Email", className:"column"},
+  {name:"officeName", label:"Office Name", className:"column"},
+  {name:"action", label:"Action", className:"column"}
+];
+
+const options = {
+  selectableRows: false,
+  search: false,
+  print: false,
+  download: false,
+  filter: false,
+  column: false,
+  pagination: false,
+  viewColumns: false,
+};
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: this.props.userId,
-      officeName: "",
-      name: "",
-      phone: "",
-      streetNo: "",
-      streetName: "",
-      unit: "",
-      city: "",
-      province: "",
-      postalCode: "",
+      userId: localStorage.getItem('userId'),
+      officeId: this.props.officeId,
+      groupId: this.props.groupId,
+      officeEmail: '',
+      officeName: '',
+      name: '',
+      phone: '',
+      streetNo: '',
+      streetName: '',
+      unit: '',
+      city: '',
+      province: '',
+      postalCode: '',
       parking: parking[0].value,
-      setSuccessOpen: false
-    };
+      data: [],
+      success: false,
+    }
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    // ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
-    //   if(value !== this.state.password) {
-    //     return false;
-    //   }
-    //   return true;
-    // });
-    //ValidatorForm.addValidationRule('isTruthy', value => value);
+    console.log("mounting again");
     let currentComponent = this;
     var data = {
-      userId: this.state.userId
-    };
-
+      groupId: this.state.groupId,
+    }
+    
     fetch("http://localhost:3001/dentalProfile", {
-      method: "GET",
+      method: 'POST',
       headers: {
-        Authorization: "Bearer " + this.props.token
+        'Authorization': 'Bearer ' + this.props.token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(res =>  {
+      return res.json();
+    }).then(result => {
+      var resultData = [];
+      for (var i = 0; i < result.length; i++) {
+        let dName = result[i].dentist_name;
+        let dOfficeEmail = result[i].email;
+        let dOfficeName = result[i].office_name;
+        let action;
+
+        if (this.state.userId == result[i].user_id) {
+          currentComponent.setState({
+            name: result[i].dentist_name,
+            officeEmail: result[i].email,
+            officeName: result[i].office_name,
+            phone: result[i].phone_number,
+            streetNo: result[i].street_number,
+            streetName: result[i].street_name,
+            unit: result[i].unit_number,
+            city: result[i].city,
+            province: result[i].province,
+            postalCode: result[i].postalcode,
+            parking: result[i].parking_options,
+          });
+        } else {
+          action = <Button className="select" onClick={currentComponent.handleClick.bind(currentComponent,[result[i]])}>Select</Button>;
+        }
+        
+        let row = [];
+        row.push(dName);
+        row.push(dOfficeEmail);
+        row.push(dOfficeName);
+        row.push(action);
+        resultData.push(row);        
       }
-    })
-      .then(res => {
-        return res.json();
-      })
-      .then(result => {
-        currentComponent.setState({
-          name: result[0].dentist_name,
-          officeName: result[0].office_name,
-          phone: result[0].phone_number,
-          streetNo: result[0].street_number,
-          streetName: result[0].street_name,
-          unit: result[0].unit_number,
-          city: result[0].city,
-          province: result[0].province,
-          postalCode: result[0].postalcode,
-          parking: result[0].parking_options
-        });
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
+      currentComponent.setState({data: resultData});
+      console.log(result);
+    }).catch(function(err) {
+      console.log(err);
+    });
   }
 
   componentWillUnmount() {
@@ -143,7 +178,8 @@ class Profile extends React.Component {
     event.preventDefault();
 
     var data = {
-      userId: this.props.userId,
+      userId: this.state.userId,
+      officeId: this.state.officeId,
       officeName: this.state.officeName,
       name: this.state.name,
       phone: this.state.phone,
@@ -185,9 +221,18 @@ class Profile extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleCheckboxChange = e => {
-    this.setState({ accept: e.target.checked });
-  };
+  handleClick(acceptData) {
+    console.log("handleClick");
+    let currentComponent = this;
+    var id = acceptData[0].user_id;
+    console.log("id: " + id);
+    
+    if (localStorage.getItem('userId') != id) {
+      localStorage.setItem('userId', id);
+      console.log("userId updated");
+    }
+    window.location.reload();
+  }
 
   render() {
     const { classes } = this.props;
@@ -197,6 +242,14 @@ class Profile extends React.Component {
           <div className={classes.dentalProfileTitleContainer}>
             <div className={classes.dentalProfileTitle}>MY PROFILE</div>
           </div>
+
+          <MUIDatatable 
+            className="dental-profile-datatable"
+            title={"Office List"}
+            columns={columns}
+            options={options}
+            data={this.state.data}
+          />
 
           <Grid container spacing={6} className="container1">
             <Grid item xs={12} sm={6} className="container2">
@@ -210,9 +263,9 @@ class Profile extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                autoComplete="name"
-                validators={["required"]}
-                errorMessages={["This field is required"]}
+                //autoComplete="name"
+                validators={['required']}
+                errorMessages={['This field is required']}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
@@ -242,9 +295,9 @@ class Profile extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
-                autoComplete="name"
-                validators={["required"]}
-                errorMessages={["This field is required"]}
+                //autoComplete="name"
+                validators={['required']}
+                errorMessages={['This field is required']}
                 onChange={this.handleChange}
                 InputLabelProps={{
                   shrink: true,
@@ -539,17 +592,15 @@ class Profile extends React.Component {
               </TextValidator>
             </Grid>
 
-            <Grid item xs={12} align="center">
-              <div className={classes.dentalProfileUpdateButton}>
-                <Button
-                  className="blueButton"
-                  color="primary"
-                  variant="contained"
-                  type="submit"
-                >
-                  UPDATE DETAILS
-                </Button>
-              </div>
+            <Grid item xs={12} direction="row" align="center">
+              <Button className="blueButton" color="primary" variant="contained" type="submit">
+                UPDATE DETAILS
+              </Button>
+              <NewOfficeModal className="dental-profile-modal-blueButton"
+                idType="blueButton"
+                name="ADD NEW OFFICE"
+                groupId={this.state.groupId}
+                token={this.props.token}/>
             </Grid>
           </Grid>
         </ValidatorForm>

@@ -19,14 +19,32 @@
     width: 210px;
     height: 59px;
     background-color: #00bfff !important;
-    margin-left: 10px !important;
-    margin-right: 10px !important;
+    margin: 1rem 1rem !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
 }
 
-.container1 {
+.dental-profile-update-blueButton {
+    width: 210px;
+    height: 59px;
+    background-color: #00bfff !important;
+    color: #ffffff !important;
+    line-height: 1.75 !important;
+}
+
+.dental-profile-modal-blueButton {
+    width: 210px;
+    height: 59px;
+    background-color: #00bfff !important;
+    color: #ffffff !important;
 }
 
 .container2 {
+    height: 6rem;
+    line-height: normal;
+}
+
+.dental-profile-container3 {
     height: 6rem;
     line-height: normal;
 }

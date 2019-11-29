@@ -31,6 +31,7 @@ class Navbar extends Component{
       isAuth: false, 
       role: -1,
       officeId: -1,
+      groupId: -1,
       loginError: false,
       loginSuccess: false,
       token: null
@@ -69,6 +70,7 @@ class Navbar extends Component{
 
     const userId = localStorage.getItem('userId');
     const officeId = localStorage.getItem('officeId');
+    const groupId = localStorage.getItem('groupId');
 
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
     console.log(remainingMilliseconds);
@@ -78,6 +80,7 @@ class Navbar extends Component{
         token: token,
         userId: userId,
         officeId: officeId,
+        groupId: groupId,
         role: userRole,
         userType: userType,
         loginError: false
@@ -139,6 +142,7 @@ class Navbar extends Component{
         role: resData.role,
         userType: resData.userType,
         officeId: resData.officeId,
+        groupId: resData.groupId,
         loginError: false
       });  
 
@@ -146,6 +150,7 @@ class Navbar extends Component{
       localStorage.setItem('userId', resData.userId);
       localStorage.setItem('userType', resData.type);
       localStorage.setItem('officeId', resData.officeId);
+      localStorage.setItem('groupId', resData.groupId);
       localStorage.setItem('role', resData.role);
       localStorage.setItem('userType', resData.userType);
 
@@ -159,7 +164,7 @@ class Navbar extends Component{
       localStorage.setItem('expiryDate', expiryDate.toISOString());
       this.setAutoLogout(remainingMilliseconds);     
             
-      if(this.state.isAuth && this.state.userType == "temp"){
+      if(this.state.isAuth && this.state.userType === "temp"){
         this.props.history.push("/tempdashboard");
       } else  {
         this.props.history.push("/dashboard");
@@ -192,7 +197,8 @@ class Navbar extends Component{
       token: null,
       role: -1,
       userType: "",
-      officeId: -1
+      officeId: -1,
+      groupId: -1
     })
 
     localStorage.removeItem('token');
@@ -200,6 +206,7 @@ class Navbar extends Component{
     localStorage.removeItem('userId');
     localStorage.removeItem('userType');
     localStorage.removeItem('officeId');
+    localStorage.removeItem('groupId');
     sessionStorage.removeItem('logged');
 
   }
@@ -281,7 +288,6 @@ class Navbar extends Component{
                 <ListItem key = {3} button divider className="nav-item item-height"> Dashboard </ListItem>
                 <ListItem key = {4} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}> Job Postings </ListItem>
-                <ListItem key = {5} button divider className="nav-item item-height"> My Availability </ListItem>
                 <ListItem key = {6} button divider className="nav-item item-height" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Logout </ListItem>
                 <ListItem key = {7} button divider className="nav-item item-height" 
@@ -305,14 +311,14 @@ class Navbar extends Component{
             </Link>
             { this.state.role === -1 && (
               <React.Fragment>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/about'}>About Us</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"><Modal name="Book Now" idType="typography" link="/dentalregister"/></Typography>
-                <Typography variant = "subheading" className = "padding nav-item"><Modal name = "Become a Temp" idType="typography" link="/tempregister"/></Typography>
-                <Typography variant = "subheading" className = "padding nav-item" onClick = {this.scrollToBottom}>Contact Us</Typography>
-                <Typography variant = "subheading" className = "nav-item" 
+                <Typography variant = "body1" className = "padding nav-item"><Modal name="Book Now" idType="typography" link="/dentalregister"/></Typography>
+                <Typography variant = "body1" className = "padding nav-item"><Modal name = "Become a Temp" idType="typography" link="/tempregister"/></Typography>
+                <Typography variant = "body1" className = "padding nav-item" onClick = {this.scrollToBottom}>Contact Us</Typography>
+                <Typography variant = "body1" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'}>Login</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   component={NavLink} to={'/termsAndConditions'} />
@@ -320,13 +326,13 @@ class Navbar extends Component{
             }
             { this.state.userType === "office" && this.state.isAuth && (
               <React.Fragment>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dentalprofile'}>Profile</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/dashboard'}>Dashboard</Typography>
-                <Typography variant = "subheading" className = "nav-item" 
+                <Typography variant = "body1" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink}  onClick ={this.logoutHandler} to={'/login'}>Logout</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   component={NavLink} to={'/termsAndConditions'} />
@@ -334,17 +340,15 @@ class Navbar extends Component{
             }
             { this.state.userType === "temp" && this.state.isAuth && (
               <React.Fragment>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempprofile'}>Profile</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempdashboard'}>Dashboard</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
+                <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}>Job Postings</Typography>
-                <Typography variant = "subheading" className = "padding nav-item"
-                  component={NavLink} to={'/tempdashboard'}>My Availability</Typography>
-                <Typography variant = "subheading" className = "nav-item" 
+                <Typography variant = "body1" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'} onClick ={this.logoutHandler}>Logout</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
                   component={NavLink} to={'/termsAndConditions'} />
@@ -391,8 +395,10 @@ class Navbar extends Component{
     if(this.state.isAuth) {
       const userId = localStorage.getItem('userId');
       const officeId = localStorage.getItem('officeId');
+      const groupId = localStorage.getItem('groupId');
       console.log("Navbar - userId: " + userId);
       console.log("Navbar - officeId: " + officeId);
+      console.log("Navbar - groupId: " + groupId);
 
       routes = (
         <Switch>
@@ -405,6 +411,7 @@ class Navbar extends Component{
                 token = {this.state.token}
                 userId = {userId}
                 officeId = {officeId}
+                groupId = {groupId}
               />
             )}
           />
@@ -414,6 +421,7 @@ class Navbar extends Component{
               <TempProfile
                 {...props}
                 token = {this.state.token}
+                userId = {userId}
               />
             )}
           />

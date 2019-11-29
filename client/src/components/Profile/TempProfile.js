@@ -172,7 +172,6 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    
     let currentComponent = this;
     
     fetch("http://localhost:3001/tempProfile", {

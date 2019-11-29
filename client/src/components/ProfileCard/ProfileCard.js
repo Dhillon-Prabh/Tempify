@@ -53,6 +53,7 @@ class ProfileCard extends Component {
       this.state = {
           bookingId : this.props.bookingId,
           displayHours : this.props.displayHours,
+          token: this.props.token,
           officeName: '',
           address1: '',
           address2: '',
@@ -147,7 +148,7 @@ class ProfileCard extends Component {
             </Typography>
           </CardActionArea>
         </Card>
-        <TimeInputField bookingId={this.state.bookingId} />
+        {this.state.displayHours ? <TimeInputField bookingId={this.state.bookingId} token={this.state.token}/> : null}
       </div>
     );
   }

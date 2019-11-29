@@ -57,7 +57,9 @@ exports.checkout = (req, res, next) => {
     }
   }, function(error, result) {
     if (result) {
+      console.log("REsult", result);
       if (result.success) {
+        console.log("success", result);
         db((err, con) => {
           if(err){
             throw err;
@@ -74,6 +76,7 @@ exports.checkout = (req, res, next) => {
           });
         })
       }
+      console.log("sending success");
       res.send(result);
       if(result.success) {
         next();

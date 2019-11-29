@@ -18,6 +18,7 @@ import JobPosting from '../JobPosting/JobPosting';
 import Dashboard from '../Dashboard/Dashboard';
 import TempDashboard from '../TempDashboard/TempDashboard';
 import SuccessAlert from '../Alert/SuccessAlert';
+import Admin from '../Admin/TempData';
 
 class Navbar extends Component{
 
@@ -313,6 +314,7 @@ class Navbar extends Component{
   render(){    
     let routes = (
       <Switch>
+      <Route path='/admin' exact component={Admin}/>
       <Route path='/' exact component={Home} />
       <Route
         path="/login"

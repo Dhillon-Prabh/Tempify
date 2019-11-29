@@ -88,7 +88,7 @@ exports.gigPostedEmail = async (req, res, next) => {
 }
 
 exports.gigAcceptedEmail = async (req, res, next) => {
-    const email = 'bcitfiveguys@gmail.com';
+    const email = 'fiveguysbcit@gmail.com';
     var values = req.body;
     var tempData = {};
     var gigData = {};
@@ -167,8 +167,7 @@ exports.gigAcceptedEmail = async (req, res, next) => {
 }
 
 exports.addTimeEmail = async (req, res, next) => {
-    console.log("IN EMAIL");
-    const email = 'bcitfiveguys@gmail.com';
+    const email = 'fiveguysbcit@gmail.com';
     var values = req.body;
     var emailOption = {};
     function connect() {
@@ -190,7 +189,6 @@ exports.addTimeEmail = async (req, res, next) => {
                         });
                         con.release();
                     } else {
-                        console.log(result[0]);
                         resolve(result[0]);
                         con.release();
                     }
@@ -198,10 +196,8 @@ exports.addTimeEmail = async (req, res, next) => {
             });
         })
     }
-    console.log("AFTER QUERY");
 
     await connect().then(function(bookingInfo) {
-        console.log("IN AWAIT");
         var tempDesignation = "";
         if (bookingInfo.is_assistant == 1) {
             tempDesignation += "Assistant ";
@@ -212,7 +208,6 @@ exports.addTimeEmail = async (req, res, next) => {
         if (bookingInfo.is_receptionist == 1) {
             tempDesignation += "Receptionist "
         }
-        console.log("SETTING EMAIL");
         emailOption = {
             to: email, // list of receivers
             subject: 'Booking Id:' + values.bookingId + ' has been completed by ' + bookingInfo.temp_name, // Subject line
@@ -229,11 +224,8 @@ exports.addTimeEmail = async (req, res, next) => {
                 to: email
             }
         }
-        console.log("EMAIL SET");
     }).catch((err) => setImmediate(() => { throw err; }));
     
-    console.log("BEFORE SENDING");
-
     await transporter.sendMail(emailOption, function(err, info) {
         if (err) {
             console.log(err);

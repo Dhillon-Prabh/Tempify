@@ -6,6 +6,7 @@ const emailController = require('../controllers/emailController');
 const payController = require('../controllers/payController');
 const gigController = require('../controllers/gigController')
 const eventController = require('../controllers/eventController');
+const adminController = require('../controllers/adminController');
 
 const router = express.Router();
 
@@ -33,4 +34,6 @@ router.post('/acceptGig', gigController.acceptGig, emailController.gigAcceptedEm
 router.put('/getEvents', eventController.getEvents);
 router.put('/getEventsOffice', eventController.getEventsOffice);
 router.post('/addTime', gigController.addTime, emailController.addTimeEmail);
+
+router.get('/admin', adminController.tempData);
 module.exports = router;

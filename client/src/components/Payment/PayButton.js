@@ -1,9 +1,8 @@
-import React, { Component, lazy, Suspense } from 'react';
+import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import Typography from '@material-ui/core/Typography'
 import Payment from './Braintree';
 import PaymentAlert from './PaymentAlert';

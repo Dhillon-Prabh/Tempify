@@ -228,7 +228,8 @@ class Profile extends React.Component {
       console.log("userId updated");
       //currentComponent.setState({userId: id});
     }
-    currentComponent.props.history.push("/home");  //dentalprofile
+    //currentComponent.props.history.push("/home");  //dentalprofile
+    window.location.reload();
     //this.forceUpdate();
   }
 

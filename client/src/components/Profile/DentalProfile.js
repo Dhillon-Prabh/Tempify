@@ -10,6 +10,7 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import "./Profile.css";
 import CheckboxValidatorElement from "../CheckboxValidatorElement/CheckboxValidatorElement";
 import { flexbox } from "@material-ui/system";
+import SuccessAlert from '../Alert/SuccessAlert'
 
 const useStyles = theme => ({
   textField: {
@@ -86,7 +87,8 @@ class Profile extends React.Component {
       city: "",
       province: "",
       postalCode: "",
-      parking: parking[0].value
+      parking: parking[0].value,
+      setSuccessOpen: false
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -171,7 +173,12 @@ class Profile extends React.Component {
       .catch(function(err) {
         console.log(err);
       });
-    this.props.history.push("/home");
+      this.setState({setSuccessOpen: true});
+      setTimeout(() =>{
+        this.setState({
+          setSuccessOpen: false
+        })
+      }, 2000);
   };
 
   handleChange = e => {
@@ -546,6 +553,7 @@ class Profile extends React.Component {
             </Grid>
           </Grid>
         </ValidatorForm>
+        {this.state.setSuccessOpen ? <SuccessAlert type="profileUpdate" /> : null}
       </div>
     );
   }

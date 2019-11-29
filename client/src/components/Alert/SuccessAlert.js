@@ -7,10 +7,6 @@ function MyApp(props) {
   const { enqueueSnackbar } = useSnackbar();
 
   const showAlert = (variant, autoHideDuration) => {
-    if (props.type == 'login') {
-    } else if (props.type == 'postGig') {
-    } else if (props.type == 'acceptGig') {
-    }
     switch (props.type) {
       case 'login':
         enqueueSnackbar('Succesful login!', { variant, autoHideDuration });
@@ -21,6 +17,11 @@ function MyApp(props) {
       case 'acceptGig':
         enqueueSnackbar('Job accepted successfully!', { variant, autoHideDuration });
         break;
+      case 'contact':
+        enqueueSnackbar('Message sent!', { variant, autoHideDuration});
+        break;
+      case 'profileUpdate':
+        enqueueSnackbar('Profile updated successfully!', {variant, autoHideDuration});
       default:
         break;
     }

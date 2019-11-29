@@ -6,6 +6,7 @@ const emailController = require('../controllers/emailController');
 const payController = require('../controllers/payController');
 const gigController = require('../controllers/gigController')
 const eventController = require('../controllers/eventController');
+const adminController = require('../controllers/adminController');
 const recordsController = require('../controllers/recordsController')
 
 const router = express.Router();
@@ -26,17 +27,16 @@ router.get('/dentalProfile', isAuth, profileController.dentalProfile);
 router.post('/dentalUpdateProfile', isAuth, profileController.dentalUpdateProfile);
 
 router.get('/tempDashboard', isAuth, authController.getTempDashboardInformation);
-router.put('/getEvents', isAuth, eventController.getEvents);
-router.post('/postGig', isAuth, gigController.postGig, emailController.gigPostedEmail);
-router.get('/jobPosting', isAuth, gigController.jobPosting);
-router.post('/acceptGig', isAuth, gigController.acceptGig, emailController.gigAcceptedEmail);
+router.post('/postGig', gigController.postGig, emailController.gigPostedEmail);
+router.get('/jobPosting', gigController.jobPosting);
+router.put('/gigCard', gigController.gigCard);
+router.put('/gigCardOffice', gigController.gigCardOffice);
+router.post('/acceptGig', gigController.acceptGig, emailController.gigAcceptedEmail);
+router.put('/getEvents', eventController.getEvents);
+router.put('/getEventsOffice', eventController.getEventsOffice);
+router.post('/addTime', gigController.addTime, emailController.addTimeEmail);
 router.get('/getRecords', isAuth, recordsController.getRecords);
 
-//add isAuth 
-router.put('/gigCard', isAuth, gigController.gigCard);
-router.put('/gigCardOffice', isAuth, gigController.gigCardOffice);
-router.put('/getEventsOffice', isAuth, eventController.getEventsOffice);
-router.post('/addTime', isAuth, gigController.addTime, emailController.addTimeEmail);
-
+router.get('/admin', adminController.tempData);
 
 module.exports = router;

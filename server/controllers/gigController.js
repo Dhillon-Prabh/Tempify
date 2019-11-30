@@ -160,7 +160,7 @@ exports.gigCardOffice = (req, res, next) => {
     }
     
     var userQuery = 'SELECT t.temp_name, t.experience, t.expected_rate, t.type_of_practice, ' +
-    't.dental_software, b.reference_number FROM temps t JOIN bookings b ON t.id = b.temp_id WHERE b.id = ? LIMIT 1';
+    't.dental_software, b.reference_number, b.temp_hours FROM temps t JOIN bookings b ON t.id = b.temp_id WHERE b.id = ? LIMIT 1';
     values=[booking.bookingId];
     con.query(userQuery, values, (err, result, fields) => {
       if (!err) {
@@ -200,10 +200,10 @@ exports.addTime = (req, res, next) => {
 
           var amount = parseInt(result[0].temp_wage) * booking.hours;
           amount = parseFloat(amount.toFixed(2));
-          var gst = amount * 0.05;
-          gst = parseFloat(gst.toFixed(2));
           var service_fee = amount *0.15;
           service_fee = parseFloat(service_fee.toFixed(2));
+          var gst = service_fee * 0.05;
+          gst = parseFloat(gst.toFixed(2));
           var total = amount + gst + service_fee;
           total = parseFloat(total.toFixed(2));
           valuesB=["COMPLETE", result[0].is_from_gig, "COMPLETE", booking.hours, service_fee, gst, total, booking.bookingId];

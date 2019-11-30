@@ -1,5 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link, Route } from "react-router-dom";
+import TermsAndConditions from '../Terms/TermsAndConditions';
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   outerContainer: {
@@ -18,7 +21,8 @@ const useStyles = makeStyles(theme => ({
   },
   footerContainers: {
     marginLeft: "10px",
-    marginRight: "10px"
+    marginRight: "10px",
+    textDecoration: "none"
   },
   copyrightMessage: {
     color: "gray"
@@ -29,13 +33,13 @@ export default function() {
   const classes = useStyles();
   return (
     <div className={classes.outerContainer}>
-      {/* <div className={classes.container}>
-        <div className={classes.footerContainers}>Pricing</div>
-        <div className={classes.footerContainers}>Privacy Policy</div>
-        <div className={classes.footerContainers}>Terms and Conditions</div>
-      </div> */}
+      <div className={classes.container}>
+        <Typography className={classes.footerContainers} component={Link} to="/pricing">Pricing</Typography>
+        <Typography className={classes.footerContainers} component={Link} to="/privacy">Privacy Policy</Typography>
+        <Typography className={classes.footerContainers} component={Link} to="/termsAndConditions">Terms and Conditions</Typography>
+      </div>
       <div className={classes.copyrightMessage}>
-        © Tempify. All rights reserved. @2017-2018.
+        © Tempify. All rights reserved. @2017-2019.
       </div>
     </div>
   );

@@ -20,6 +20,9 @@ import TempDashboard from '../TempDashboard/TempDashboard';
 import SuccessAlert from '../Alert/SuccessAlert';
 import Admin from '../Admin/TempData';
 import TermsAndConditions from '../Terms/TermsAndConditions';
+import Pricing from '../Policy/Pricing';
+import Privacy from '../Policy/Policy'
+
 
 class Navbar extends Component{
 
@@ -389,6 +392,8 @@ class Navbar extends Component{
           />
         )}
       />
+      <Route path="/pricing" component={Pricing} />
+      <Route path="/privacy" component={Privacy} />
     </Switch>
     );
 

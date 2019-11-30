@@ -2,7 +2,7 @@ const db = require('../database/database');
 const {check, validationResult} = require('express-validator/check');
 
 exports.postGig = [
-  check('date').isAfter(new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()).withMessage("Date should be in the future"),
+  check('date').isAfter(new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate() - 1).withMessage("Date should be in the future"),
   check('time').custom(value =>{
       var times = value.split("-");
       var fromTime = parseInt(times[0]);

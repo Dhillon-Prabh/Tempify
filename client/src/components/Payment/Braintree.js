@@ -63,9 +63,7 @@ class Payment extends React.Component {
           console.log("FAILED");
       }
       this.props.onFinish(success);
-      // window.location.reload();
-      // this.setState(this.state);
-      this.forceUpdate();
+      window.location.reload();
     }
  
   render() {

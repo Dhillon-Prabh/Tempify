@@ -39,7 +39,7 @@ export default class Calendar extends React.Component {
       // console.log(response);
       return response.json();
     }).then(function(dataAll) {
-      // console.log(dataAll);
+      console.log("dataALL",dataAll);
       var dataEvents = [];
       if (dataAll.length == 2) { //we get bookings and gigs
         var data = dataAll[0]; // these are bookings
@@ -89,7 +89,11 @@ export default class Calendar extends React.Component {
           row.backgroundColor = backgroundColor;
 
           dataEvents.push(row);
+
         }
+
+        console.log("dataEVENTS", dataEvents);
+
       } else if (dataAll.length == 1) { // either bookings or gigs returned
           var data = dataAll[0];
           // console.log("Only one returned data", data);

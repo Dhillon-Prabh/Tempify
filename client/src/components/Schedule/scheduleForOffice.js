@@ -5,6 +5,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import OfficeProfileCard from "../ProfileCard/OfficeProfileCard";
 import OfficeModal from "./OfficeModal"
+import { format } from "date-fns";
+
 
 import "./main.scss";
 import { red } from "@material-ui/core/colors";

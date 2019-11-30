@@ -81,25 +81,6 @@ class TempDashboard extends Component {
     this.navigateRecords = this.navigateRecords.bind(this);
   }
 
-  componentDidMount(){
-    
-    fetch("/auth/tempProfile", {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + this.props.token,
-      },
-    }).then(res => {
-      return res.json();
-    }).then(result => {     
-
-      this.setState({
-        user: result[0].temp_name,
-        schedule: true
-      });
-    }).catch(function(err) {
-      console.log(err);
-    });
-  }
   navigatePending() {
     this.setState({
       pending: true,
@@ -131,11 +112,6 @@ class TempDashboard extends Component {
           <Grid container direction="row" justify="center" alignItems="center" className="options">
           <div className="tempDateboardOuterContainer">
             <Grid item xs={2}>
-              {/* <Grid item xs={12}>
-                <div className = "tempdashboard-username">
-                  Hi, {this.state.user}!
-                </div>
-              </Grid>  */}
               <Breadcrumbs aria-label="breadcrumb">
                   <Link to="/tempdashboard" style={{textDecoration:'none', color: 'inherit'}}>
                   <ListItem button>

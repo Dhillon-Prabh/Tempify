@@ -248,7 +248,7 @@ class Navbar extends Component{
             onClick={()=>{this.setState({drawer:false})}}
             onKeyDown={()=>{this.setState({drawer:false})}}>
             
-            { this.state.role === -1 && (
+            { this.state.role === -1 && !this.state.isAuth && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
@@ -307,7 +307,7 @@ class Navbar extends Component{
             <Link to="/home" className="logo-container">
               <img src={logo} className="logo" alt="logo"/>
             </Link>
-            { this.state.role === -1 && (
+            { this.state.role === -1 && !this.state.isAuth && (
               <React.Fragment>
                 <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>

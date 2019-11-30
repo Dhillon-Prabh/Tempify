@@ -192,7 +192,7 @@ class Profile extends React.Component {
       parking: this.state.parking
     };
 
-    fetch("/dentalUpdateProfile", {
+    fetch("/auth/dentalUpdateProfile", {
       method: 'POST',
       headers: {
         Authorization: "Bearer " + this.props.token,

@@ -34,10 +34,10 @@ export default class Calendar extends React.Component {
       },
       body: JSON.stringify(data)
     }).then(function(response) {
-      console.log(response);
+      // console.log(response);
       return response.json();
     }).then(function(dataAll) {
-      console.log(dataAll);
+      // console.log(dataAll);
       var dataEvents = [];
       if (dataAll.length == 2) { //we get bookings and gigs
         var data = dataAll[0]; // these are bookings
@@ -74,9 +74,12 @@ export default class Calendar extends React.Component {
           }
         }
         var posted = dataAll[1]; //these are gigs
+
+        console.log(posted);
         for (var i = 0; i < posted.length; i++) {
           var title = posted[i].time;
           var date = posted[i].date;
+          date = format(parseISO(date), 'yyyy-MM-dd');
           var backgroundColor = "orange";
           var row = {};
           row.title = title;
@@ -87,12 +90,12 @@ export default class Calendar extends React.Component {
         }
       } else if (dataAll.length == 1) { // either bookings or gigs returned
           var data = dataAll[0];
-          console.log("Only one returned data", data);
+          // console.log("Only one returned data", data);
           if (!data[0].id) { //gigs returned
-            console.log("inside gigs");
             for (var i = 0; i < data.length; i++) {
               var title = data[i].time;
               var date = data[i].date;
+              date = format(parseISO(date), 'yyyy-MM-dd');
               var backgroundColor = "orange";
               var row = {};
               row.title = title;
@@ -136,7 +139,7 @@ export default class Calendar extends React.Component {
             }
           }
       }
-      console.log(dataEvents);
+      // console.log(dataEvents);
       self.setState({events: dataEvents});
     }).catch(function(err) {
       console.log(err);
@@ -149,7 +152,7 @@ export default class Calendar extends React.Component {
     const { render } = this.state;
 
     const eventClick = (info) => {
-      console.log("BookingID", info.event.id);
+      // console.log("BookingID", info.event.id);
       if (info.event.id !== '') {
         this.setState({
           render: !render,

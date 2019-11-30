@@ -7,7 +7,7 @@ class Payment extends React.Component {
   instance;
  
   state = {
-      payAmount: 0,
+    payAmount: 0,
     clientToken: null
   };
  

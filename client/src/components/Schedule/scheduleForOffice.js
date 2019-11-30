@@ -80,6 +80,7 @@ export default class Calendar extends React.Component {
         console.log(posted);
         for (var i = 0; i < posted.length; i++) {
           var title = posted[i].time;
+          console.log("before", posted[i].date);
           var date = posted[i].date;
           date = format(parseISO(date), 'yyyy-MM-dd');
           var backgroundColor = "orange";
@@ -87,7 +88,7 @@ export default class Calendar extends React.Component {
           row.title = title;
           row.date = date;
           row.backgroundColor = backgroundColor;
-
+          console.log("Row date", row.date);
           dataEvents.push(row);
 
         }
@@ -100,7 +101,9 @@ export default class Calendar extends React.Component {
           if (!data[0].id) { //gigs returned
             for (var i = 0; i < data.length; i++) {
               var title = data[i].time;
+              console.log("Before date", data[i].date);
               var date = data[i].date;
+              console.log("AFTER date", date);
               date = format(parseISO(date), 'yyyy-MM-dd');
               var backgroundColor = "orange";
               var row = {};

@@ -109,7 +109,7 @@ class PostGig extends React.Component {
       designation: this.state.designation,
       userId: userId
     };
-    fetch("/auth/postGig", {
+    fetch("http://localhost:3001/postGig", {
       method: "POST",
       headers: {
         'Authorization': 'Bearer ' + this.props.token,

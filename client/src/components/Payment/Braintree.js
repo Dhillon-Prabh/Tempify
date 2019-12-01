@@ -38,7 +38,11 @@ class Payment extends React.Component {
     const transaction = await this.instance.requestPaymentMethod();
     var data = {payAmount: this.state.payAmount, transaction: transaction, gigId: this.props.gigId };
     var success;
+<<<<<<< HEAD
     await fetch("/auth/checkout/", {
+=======
+    await fetch(`http://localhost:3001/checkout/`, {
+>>>>>>> 725b523e3d5407abb4306438b435cef22c58ff08
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

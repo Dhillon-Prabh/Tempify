@@ -1,11 +1,12 @@
-import React, { Component, lazy, Suspense } from 'react';
+import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography'
 import Payment from './Braintree';
-import PaymentAlert from './PaymentAlert';
+import SuccessAlert from '../Alert/SuccessAlert';
+import FailAlert from '../Alert/FailAlert';
 import './Payment.css'
 
 class PayButton extends Component{
@@ -29,7 +30,7 @@ class PayButton extends Component{
 
   async componentDidMount() {
     var data = {gigId: this.state.gigId};
-    await fetch("/auth/getGigDetails", {
+    await fetch("http://localhost:3001/getGigDetails", {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,
@@ -61,7 +62,6 @@ class PayButton extends Component{
 
   handleClickClose = () => {
     this.setState({
-      setPayOpen: false,
       setSuccessOpen: false,
       setFailOpen: false
     });
@@ -118,9 +118,9 @@ class PayButton extends Component{
           </DialogContent>
         </Dialog>
 
-        {this.state.setFailOpen ? <PaymentAlert type="fail" /> : null}
+        {this.state.setFailOpen ? <FailAlert type="paymentFail" /> : null}
 
-        {this.state.setSuccessOpen ? <PaymentAlert type="success" /> : null}
+        {this.state.setSuccessOpen ? <SuccessAlert type="paymentSuccess" /> : null}
 
       </div>
     );

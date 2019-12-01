@@ -157,7 +157,8 @@ class ProfileCard extends Component {
       software: '',
       experience: '',
       rate: '',
-      bookingRef: ''
+      bookingRef: '',
+      temp_hours: 0
     }
   }
 
@@ -167,7 +168,7 @@ class ProfileCard extends Component {
       bookingId: this.state.bookingId
     };
     console.log("BookingID", data.bookingId);
-    fetch("/auth/gigCardOffice", {
+    fetch("http://localhost:3001/gigCardOffice", {
       method: "PUT",
       headers: {
         'Authorization': 'Bearer ' + this.props.token,
@@ -185,7 +186,8 @@ class ProfileCard extends Component {
           software: Array.from(JSON.parse(result[0].dental_software) + " "),
           experience: result[0].experience + " Years",
           rate: result[0].expected_rate,
-          bookingRef: " " + result[0].reference_number
+          bookingRef: " " + result[0].reference_number,
+          temp_hours: result[0].temp_hours
         });
         console.log(result);
       })
@@ -206,17 +208,23 @@ class ProfileCard extends Component {
           <div className={classes.nameContainer}>{this.state.tempName}</div>
           <div className={classes.outerStatusContainer}>
             <div className={classes.statusContainer}>
-              <div className={classes.statusLeft}>Practice:</div>
+              <div className={classes.statusLeft}>Practice :</div>
               <div className={classes.statusRight}>{this.state.practice}</div>
             </div>
             <div className={classes.statusContainer}>
-              <div className={classes.statusLeft}>Software:</div>
+              <div className={classes.statusLeft}>Software :</div>
               <div className={classes.statusRight}>{this.state.software}</div>
             </div>
             <div className={classes.statusContainer}>
-              <div className={classes.statusLeft}>Experience:</div>
+              <div className={classes.statusLeft}>Experience :</div>
               <div className={classes.statusRight}>
                 {this.state.experience}
+              </div>
+            </div>
+            <div className={classes.statusContainer}>
+              <div className={classes.statusLeft}>Temp's Total Work in Hours :</div>
+              <div className={classes.statusRight}>
+                {this.state.temp_hours} Hours
               </div>
             </div>
           </div>
@@ -225,10 +233,10 @@ class ProfileCard extends Component {
               {/* <div className={classes.locationImage}></div>
               <div className={classes.location}>Location</div> */}
             </div>
-            <div className={classes.rate}>${this.state.rate} / Hour</div>
+            <div className={classes.rate}>Temp's Wage : ${this.state.rate} / Hour</div>
           </div>
           <div className={classes.bookingContainer}>
-            <div className={classes.bookingIDTitle}>Booking ID: {this.state.bookingRef}</div>
+            <div className={classes.bookingIDTitle}>Booking ID : {this.state.bookingRef}</div>
             {/* <div className={classes.bookingID}>{this.state.bookingRef}</div> */}
           </div>
           <div className={classes.paymentButtonContainer}>

@@ -93,6 +93,13 @@ class NewOfficeModal extends React.Component {
   };
 
   componentDidMount() {
+    ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+      if(value !== this.state.password) {
+        return false;
+      } 
+      return true;
+    });
+    ValidatorForm.addValidationRule('isTruthy', value => value);
   }
 
   componentWillUnmount() {
@@ -100,7 +107,9 @@ class NewOfficeModal extends React.Component {
     ValidatorForm.removeValidationRule('isTruthy');
   }
 
-  submitModalForm = () => {
+  submitModalForm = event => {
+    console.log("inside submitModalform");
+    event.preventDefault();
     var data = {
       userId: this.props.userId,
       officeId: this.props.officeId,
@@ -119,7 +128,7 @@ class NewOfficeModal extends React.Component {
       groupId: this.state.groupId,
     }
 
-    fetch("/auth/dentalInsertProfile", {
+    fetch("http://localhost:3001/dentalInsertProfile", {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,
@@ -185,7 +194,7 @@ class NewOfficeModal extends React.Component {
         >
           <DialogContent>
             <div className="dental-modal-container2"> 
-              <ValidatorForm ref="form">
+              <ValidatorForm ref="modalform" onSubmit={(e) => this.submitModalForm(e)}>
                 <Typography align="center" className="dental-modal-header">
                   ADD NEW OFFICE
                 </Typography>
@@ -300,8 +309,8 @@ class NewOfficeModal extends React.Component {
                       className={classes.textField}
                       margin="normal"
                       variant="outlined"
-                      validators={['required', 'isPasswordMatch']}
-                      errorMessages={['This field is required', 'Passwords do not match']}
+                      validators={['required']}
+                      errorMessages={['This field is required']}
                       onChange={this.handleChange}
                       InputLabelProps={{
                         shrink: true,
@@ -625,7 +634,7 @@ class NewOfficeModal extends React.Component {
                   </Grid>
 
                   <Grid item xs={12} align="center">
-                    <Button className="dental-modal-blueButton" color="primary" variant="contained" onClick={this.submitModalForm}>
+                    <Button className="dental-modal-blueButton" color="primary" variant="contained" type="submit">
                       ADD
                     </Button>
                     <Button className="dental-modal-blueButton" color="primary" variant="contained" onClick={this.handleClickClose}>

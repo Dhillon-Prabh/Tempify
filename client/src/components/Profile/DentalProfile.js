@@ -244,6 +244,7 @@ class Profile extends React.Component {
     const { classes } = this.props;
     return (
       <div className="profile">
+    
         <ValidatorForm ref="form" onSubmit={e => this.submitForm(e)}>
           <div className={classes.dentalProfileTitleContainer}>
             <div className={classes.dentalProfileTitle}>MY PROFILE</div>
@@ -257,7 +258,6 @@ class Profile extends React.Component {
             options={options}
             data={this.state.data}
           />
-
           <Grid container spacing={6} className="container1">
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
@@ -602,16 +602,18 @@ class Profile extends React.Component {
               <Button className="blueButton" color="primary" variant="contained" type="submit">
                 UPDATE DETAILS
               </Button>
-            </Grid>
+              </Grid>
           </Grid>
         </ValidatorForm>
-        <NewOfficeModal className="dental-profile-modal-blueButton"
-          idType="blueButton"
-          name="ADD NEW OFFICE"
-          groupId={this.state.groupId}
-          token={this.props.token}/>
-        {this.state.setSuccessOpen ? <SuccessAlert type="profileUpdate" /> : null}
-        {this.state.setFailOpen ? <FailAlert type="profileUpdate" /> : null}
+        <div align="center">
+          <NewOfficeModal className="dental-profile-modal-blueButton"
+            idType="blueButton"
+            name="ADD NEW OFFICE"
+            groupId={this.state.groupId}
+            token={this.props.token}/>
+          {this.state.setSuccessOpen ? <SuccessAlert type="profileUpdate" /> : null}
+          {this.state.setFailOpen ? <FailAlert type="profileUpdate" /> : null}
+        </div>
       </div>
     );
   }

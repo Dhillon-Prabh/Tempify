@@ -4,43 +4,35 @@
   font-weight: 800 !important;
   font-size: 1.8rem !important;
 }
-
 .dental-profile-datatable {
   margin-bottom: 2rem;
   margin-left: 1rem;
   white-space: pre-line;
 }
-
 .dental-profile-modal-profile {
-  transform: translateX(19rem) !important;
-  display: inline-flex;
-  margin: 1rem !important;
-  padding: 6px 16px;
-}
+  /* display: block; */
+  display:inline-block !important;
+  width:500px;
 
+}
 .textfield {
   width: 100%;
 }
-
 .dental-modal-blueButton {
   width: 150px;
   height: 44px !important;
   background-color: #00bfff !important;
   margin: 1rem !important;
 }
-
 /* .container1 {
 } */
-
 .container2 {
   height: 6rem;
   line-height: normal;
 }
-
 .temp-profile-asterisk {
   color: red;
 }
-
 .dental-modal-clearButton {
   border: 1px solid white !important;
   color:white !important;
@@ -55,7 +47,6 @@
   font-weight: 900px;
   font-size: 0.8rem;
 }
-
 .modal-login-blueButton {
   width: 100px;
   height: 59px;
@@ -64,7 +55,6 @@
   border: 1px solid lightgray; 
   color:white !important;
 }
-
 .modal-register-blueButton {
   width: 100px;
   height: 59px;
@@ -72,17 +62,14 @@
   border: 1px solid lightgray !important;
   background-color: white !important;
 }
-
 .dental-modal-container1 {
   height: 100% !important;
 }
-
 .dental-modal-container2 {
   width: 100%; 
   height: 100%;
   padding: 20px !important;
 }
-
 .modal-title {
   text-align:center;
   padding-bottom: 10px;
@@ -95,7 +82,6 @@
 .MuiDialog-root {
   bottom:350px !important;
 }
-
 .modal-blueButton {
   background-color: #00bfff !important;
   border: 1px solid lightgray;
@@ -111,7 +97,6 @@
   font-size: 0.8rem;
   font-weight: 900px;
 }
-
 .modal-clearButton {
   border: 1px solid white !important;
   color:white !important;

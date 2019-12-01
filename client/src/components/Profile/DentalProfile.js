@@ -122,7 +122,7 @@ class Profile extends React.Component {
       groupId: this.state.groupId,
     }
     
-    fetch("/auth/dentalProfile", {
+    fetch("http://localhost:3001/dentalProfile", {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,
@@ -194,7 +194,7 @@ class Profile extends React.Component {
       parking: this.state.parking
     };
     var self = this;
-    fetch("/auth/dentalUpdateProfile", {
+    fetch("http://localhost:3001/dentalUpdateProfile", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + this.props.token,

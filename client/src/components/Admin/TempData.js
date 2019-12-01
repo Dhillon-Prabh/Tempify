@@ -6,7 +6,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 
 import './TempData.css';
 
@@ -19,13 +18,13 @@ class TempData extends React.Component {
         }
     }
 
-    createRow(id, period, name, email, phone, license_number, payment) {
-        return {id, period, name, email, phone, license_number, payment};
+    createRow(id, name, email, phone, license_number, payment) {
+        return {id, name, email, phone, license_number, payment};
     }
 
     componentDidMount() {
         var rows = [];
-        fetch("/auth/admin", {
+        fetch("http://localhost:3001/admin", {
             method: 'GET'
         }).then(res =>  {
             return res.json();
@@ -33,31 +32,17 @@ class TempData extends React.Component {
             console.log(result);
             for (var i = 0; i < result.length; i++) {
                 var id = result[i].temp_id;
-                var period = result[i].period;
                 var name = result[i].temp_name;
                 var email = result[i].email;
                 var phone = result[i].phone;
                 var license_number = result[i].license_number;
                 var payment = result[i].payment;
-                rows.push(this.createRow(id, period, name, email, phone, license_number, payment));
+                rows.push(this.createRow(id, name, email, phone, license_number, payment));
             }
             this.setState({data: rows});
         }).catch(function(err) {
           console.log(err);
         });
-    }
-
-    confirmPayment = () => {
-        fetch("/auth/adminConfirmPayment", {
-          method: 'GET'
-        }).then(function(response) {
-          console.log(response);
-        }).then(function(data) {
-          console.log(data);
-        }).catch(function(err) {
-          console.log(err);
-        });
-        window.location.reload();
     }
 
     render() {
@@ -69,7 +54,6 @@ class TempData extends React.Component {
                         <TableHead>
                             <TableRow>
                                 <TableCell>ID</TableCell>
-                                <TableCell className="headerFont" align="right">Period</TableCell>
                                 <TableCell className="headerFont" align="right">Name</TableCell>
                                 <TableCell className="headerFont" align="right">Email</TableCell>
                                 <TableCell className="headerFont" align="right">Phone</TableCell>
@@ -83,7 +67,6 @@ class TempData extends React.Component {
                                 <TableCell component="th" scope="row" className="cellFont">
                                     {row.id}
                                 </TableCell>
-                                <TableCell className="cellFont" align="right">{row.period}</TableCell>
                                 <TableCell className="cellFont" align="right">{row.name}</TableCell>
                                 <TableCell className="cellFont" align="right">{row.email}</TableCell>
                                 <TableCell className="cellFont" align="right">{row.phone}</TableCell>
@@ -93,11 +76,6 @@ class TempData extends React.Component {
                             ))}
                         </TableBody>
                     </Table>
-                    <div align="center">
-                        <Button className="temp-data-blueButton" color="primary" variant="contained" onClick={this.confirmPayment}>
-                          CONFIRM PAYMENT
-                        </Button>
-                    </div>
                     </div>
                 </Paper>
             </React.Fragment>

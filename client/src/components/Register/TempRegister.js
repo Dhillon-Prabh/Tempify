@@ -211,7 +211,7 @@ class Register extends React.Component {
       dentalsw: this.state.dentalsw
     }
     var self = this;
-    fetch("/auth/tempRegister", {
+    fetch("http://localhost:3001/tempRegister", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -40,7 +40,7 @@ class History extends Component {
         var data = {
             userId: userId,
         }
-        fetch("/auth/getRecords", {
+        fetch("http://localhost:3001/getRecords", {
             method: 'POST',
             headers: {
               'Authorization': 'Bearer ' + this.props.token,

@@ -42,7 +42,7 @@ class Dashboard extends Component {
 
     componentDidMount(){
 
-      fetch("/auth/dentalProfile", {
+      fetch("http://localhost:3001/dentalProfile", {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + this.props.token,

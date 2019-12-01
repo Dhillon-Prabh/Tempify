@@ -4,13 +4,14 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import "./App.css";
 import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
-import DashBoard from "../Dashboard/Dashboard"
-import OfficeCard from "../ProfileCard/OfficeProfileCard"
-import BookNow from "../BookNow/BookNow"
-import DentailProfile from "../Profile/DentalProfile"
-import TempSchedule from "../Schedule/scheduleForTemp"
-import ProfileCard from "../ProfileCard/ProfileCard";
-import Pricing from "../Policy/Pricing";
+
+//
+//
+// This is the root of what we send to the root div at index.html
+// The entire app is wrapped in BrowserRouter which is the react router
+// to control the navigation and the caching of the websites
+//
+//
 
 class App extends Component {
   render() {
@@ -29,6 +30,7 @@ class App extends Component {
   }
 }
 
+// Takes user back to the top of the page when navigation links are clicked
 function ScrollToTop() {
   const { pathname } = useLocation();
 

@@ -4,6 +4,14 @@ import { Link, Route } from "react-router-dom";
 import TermsAndConditions from '../Terms/TermsAndConditions';
 import { Typography } from "@material-ui/core";
 
+//
+//
+// This component nests the footer components together
+// This includes the policies
+//
+//
+
+// CSS styles for the footer component
 const useStyles = makeStyles(theme => ({
   outerContainer: {
     width: "100%",
@@ -29,11 +37,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+// Returns 3 nests component as 1 component
 export default function() {
   const classes = useStyles();
   return (
     <div className={classes.outerContainer}>
       <div className={classes.container}>
+        {/* Attacks the links to react router */}
         <Typography className={classes.footerContainers} component={Link} to="/pricing">Pricing</Typography>
         <Typography className={classes.footerContainers} component={Link} to="/privacy">Privacy Policy</Typography>
         <Typography className={classes.footerContainers} component={Link} to="/termsAndConditions">Terms and Conditions</Typography>

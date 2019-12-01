@@ -3,9 +3,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { library } from "@fortawesome/fontawesome-svg-core";
-
 library.add(fab);
 
+//
+//
+// This component displays information for Tempify's social media information
+//
+//
+
+// CSS styling for the component
 const useStyles = makeStyles(theme => ({
   contactContainer: {
     width: "45%",
@@ -98,16 +104,19 @@ export default function() {
         Reach out to us and we'll respond as soon as we can.
       </div>
       <div className={classes.socialMedia}>
+            {/* Hold button and link to Tempify's twitter page */}
         <a href="https://twitter.com/Tempify_co">
           <div className={classes.twitterLabel}>
           <FontAwesomeIcon icon={['fab', 'twitter']} size="2x"/>
           </div>
         </a>
+              {/* Hold button and link to Tempify's facebook page */}
         <a href="https://www.facebook.com/tempify">
           <div className={classes.facebookLabel}>
           <FontAwesomeIcon icon={['fab', 'facebook-f']} size="2x"/>
           </div>
         </a>
+              {/* Hold button and link to Tempify's instagram page */}
         <a href="https://www.instagram.com/tempify.co/">
           <div className={classes.instagramLabel}>
           <FontAwesomeIcon icon={['fab', 'instagram']} size="2x"/>

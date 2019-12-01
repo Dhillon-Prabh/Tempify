@@ -3,6 +3,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import bannerImage from "../../images/original.jpg";
 import Modal from '../Modal/Modal';
 
+//
+//
+// This is the banner component on the landing page
+// It nests 2 modal register and login buttons
+//
+//
+
 const useStyles = makeStyles(theme => ({
   container: {
     width: "100%",

@@ -54,7 +54,7 @@ class Navbar extends Component{
       return;
     }
 
-=
+
     const token = localStorage.getItem('token');
     const expiryDate = localStorage.getItem('expiryDate');
     const userType = localStorage.getItem('userType');

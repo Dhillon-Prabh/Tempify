@@ -75,12 +75,15 @@ export default class Calendar extends React.Component {
         for (var i = 0; i < posted.length; i++) {
           var title = posted[i].time;
           var date = posted[i].date;
+
+          console.log("before", date);
           date = format(parseISO(date), 'yyyy-MM-dd');
           date.toLocaleString("en-US", {timeZone: "Canada/Vancouver"})
           var backgroundColor = "orange";
           var row = {};
           row.title = title;
           row.date = date;
+          console.log("after row.date", row.date);
           row.backgroundColor = backgroundColor;
           dataEvents.push(row);
         }

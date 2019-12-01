@@ -3,6 +3,10 @@ import red from '@material-ui/core/colors/red';
 import Checkbox from '@material-ui/core/Checkbox';
 import { ValidatorComponent } from 'react-material-ui-form-validator';
  
+/**
+ * Component used in the forms to check if "I agree" is checked
+ * @author Prabhdeep Singh
+ */
 const red300 = red['500'];
  
 const style = {
@@ -12,6 +16,10 @@ const style = {
 
 };
  
+/**
+ * This class will show the error when checkbox is left empty upon submission
+ * @author Prabhdeep Singh
+ */
 class CheckboxValidatorElement extends ValidatorComponent {
  
     render() {

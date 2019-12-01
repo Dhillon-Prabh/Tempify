@@ -1,6 +1,10 @@
 import React from 'react';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 
+/**
+ * @author Prabhdeep Singh
+ * @param props 
+ */
 
 function MyApp(props) {
   const { enqueueSnackbar } = useSnackbar();

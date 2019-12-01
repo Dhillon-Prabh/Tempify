@@ -1,20 +1,22 @@
 import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import ok from "../../images/user.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import "./ProfileCard.css";
-
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import TimeInputField from "../Schedule/timeInputField";
 
+/**
+ * Profile card for the temps with the office information
+ * @author Prabhdeep Singh
+ */
+
+/**
+ * styles for this component
+ * @param theme 
+ */
 const styles = theme => ({
   card: {
     maxWidth: 310,
@@ -66,6 +68,9 @@ class ProfileCard extends Component {
       }
   }
   
+  /**
+   * Fetches the information for the office to show on the card
+   */
   componentDidMount(){
       var self = this;
       var data = {

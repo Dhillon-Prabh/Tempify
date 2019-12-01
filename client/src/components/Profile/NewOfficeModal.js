@@ -9,6 +9,11 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import './OfficeModal.css'
 
+/**
+ * Modal for adding new temps
+ * @author Prabhdeep Singh 
+ * @param theme 
+ */
 const useStyles = theme => ({
   textField: {
     width: '100%',

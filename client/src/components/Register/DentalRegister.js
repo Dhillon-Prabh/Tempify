@@ -14,6 +14,11 @@ import TermsAndConditions from '../Terms/TermsAndConditions';
 import SuccessAlert from '../Alert/SuccessAlert';
 import FailAlert from '../Alert/FailAlert';
 
+/**
+ * This is where the offices register themselves. 
+ * @author Prabhdeep Singh 
+ */
+
 const useStyles = theme => ({
   textField: {
     width: '100%',

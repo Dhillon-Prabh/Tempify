@@ -4,6 +4,18 @@ import "./ProfileCard.css";
 import { withStyles } from "@material-ui/core/styles";
 import PaymentButton from "../Payment/PayButton";
 
+/**
+ * Profile card for the offices which shows the temp information
+ * @author Prabhdeep Singh
+ * @param theme 
+ * @version 1
+ */
+
+/**
+ * Styles being used by this commponent
+ * @param theme 
+ * @version 1
+ */
 const styles = theme => ({
   outerContainer: {
     marginTop: "50px",
@@ -145,6 +157,12 @@ const styles = theme => ({
   }
 });
 
+/**
+ * ProfileCard component class to show the temp information to the offices. 
+ * This is where the offices pay the temps
+ * @author Prabhdeep Singh
+ * @version 1
+ */
 class ProfileCard extends Component {
   constructor(props) {
     super(props);
@@ -162,6 +180,9 @@ class ProfileCard extends Component {
     }
   }
 
+  /**
+   * Fetches the information for the card.
+   */
   componentDidMount() {
     var self = this;
     var data = {

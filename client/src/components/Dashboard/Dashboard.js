@@ -13,9 +13,18 @@ import ListItemText from '@material-ui/core/ListItemText';
 import BookNow from '../BookNow/BookNow';
 import History from '../History/History';
 import Schedule from '../Schedule/scheduleForOffice';
-
 import "./main.scss";
 
+/**
+ * This is the main dashboard component for the temps.
+ * @author Prabhdeep Singh
+ * @param props 
+ */
+
+ /**
+  * Home icon generator for the breadcrums
+  * @param props 
+  */
 function HomeIcon(props) {
     return (
       <SvgIcon {...props}>
@@ -24,13 +33,17 @@ function HomeIcon(props) {
     );
 }
 
+/**
+ * Dashboard component class for the offices
+ * The state of this component determines which of the three dashboard components to show to the user
+ * @author Prabhdeep Singh 
+ */
 class Dashboard extends Component {
     constructor(props) {
         super(props);
     
         this.state = {
-          user: '',
-          bookNow: true,
+          bookNow: true, //bookNow is the default component when user navigates to the dashboard
           schedule: false,
           history: false,
         }
@@ -40,25 +53,9 @@ class Dashboard extends Component {
         this.navigateHistory = this.navigateHistory.bind(this);
     }
 
-    componentDidMount(){
-
-      fetch("http://localhost:3001/dentalProfile", {
-        method: 'GET',
-        headers: {
-          'Authorization': 'Bearer ' + this.props.token,
-        },
-      }).then(res => {
-        return res.json();
-      }).then(result => {     
-
-        this.setState({
-          user: result[0].dentist_name
-        });
-      }).catch(function(err) {
-        console.log(err);
-      });
-    }
-
+    /**
+     * navigates to bookNow
+     */
     navigateBookNow() {
         this.setState({
           bookNow: true,
@@ -67,6 +64,9 @@ class Dashboard extends Component {
         })
     }
     
+    /**
+     * navigates to schedule
+     */
     navigateSchedule() {
     this.setState({
         bookNow: false,
@@ -75,6 +75,9 @@ class Dashboard extends Component {
     })
     }
     
+    /**
+     * navigates to history
+     */
     navigateHistory() {
     this.setState({
         bookNow: false,

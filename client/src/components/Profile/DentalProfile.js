@@ -89,6 +89,9 @@ const options = {
   viewColumns: false,
 };
 
+/**
+ * 
+ */
 class Profile extends React.Component {
   constructor(props) {
     super(props);

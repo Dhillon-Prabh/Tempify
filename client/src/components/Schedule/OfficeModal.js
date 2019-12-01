@@ -27,9 +27,6 @@ export default function TransitionsModal(props) {
     token: props.token,
   });
 
-  console.log(values.token);
-
-
   const handleOpen = () => {
     setOpen(true);
   };

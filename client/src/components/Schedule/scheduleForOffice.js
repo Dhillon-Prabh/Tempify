@@ -7,8 +7,6 @@ import OfficeProfileCard from "../ProfileCard/OfficeProfileCard";
 import OfficeModal from "./OfficeModal"
 import { format } from "date-fns";
 import parseISO from "date-fns/parseISO";
-
-import moment from 'moment'
 import 'moment-timezone';
 
 import "./main.scss";
@@ -70,8 +68,6 @@ export default class Calendar extends React.Component {
             row.borderColor = "rgba(0, 76, 76, 0.0)";
             row.id = id;
             row.disablePay = false;
-
-
             dataEvents.push(row);
           }
         }

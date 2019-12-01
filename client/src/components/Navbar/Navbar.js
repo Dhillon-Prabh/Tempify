@@ -168,7 +168,7 @@ class Navbar extends Component{
             
       if(this.state.isAuth && this.state.userType === "temp"){
         this.props.history.push("/tempdashboard");
-      } else  {
+      } else if(this.state.isAuth && this.state.userType === "office") {
         this.props.history.push("/dashboard");
       }
 

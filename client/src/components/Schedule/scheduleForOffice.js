@@ -80,12 +80,11 @@ export default class Calendar extends React.Component {
           var date = posted[i].date;
           // date = format(parseISO(date), 'yyyy-MM-dd');
           // date.toLocaleString("en-US", {timeZone: "Canada/Vancouver"})
-          moment.utc(date).tz('America/Vancouver').format('YYYY-MM-DD');
+          // moment.utc(date).tz('America/Vancouver').format('YYYY-MM-DD');
           var backgroundColor = "orange";
           var row = {};
           row.title = title;
           row.date = date;
-          // row.date = moment(date).format('YYYY-MM-DD');
           console.log(moment(date).format("YYYY-MM-DD HH:mm:ss"))
           console.log(moment.utc(row.date).format("YYYY-MM-DD HH:mm:ss"))
 

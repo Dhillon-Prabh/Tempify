@@ -81,6 +81,10 @@ class TempDashboard extends Component {
     this.navigateRecords = this.navigateRecords.bind(this);
   }
 
+  componentDidMount(){
+    console.log(this.props.token);
+  }
+
   navigatePending() {
     this.setState({
       pending: true,

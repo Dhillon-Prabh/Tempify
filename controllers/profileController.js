@@ -29,7 +29,6 @@ exports.tempUpdateProfile = (req, res, next) => {
   
   const user = req.body;
   const token = req.decodedToken;
-  console.log("Inside tempUpdateProfile");
   db((err, con) => {
     if(err){
       console.log(err);
@@ -95,7 +94,6 @@ exports.dentalProfile = (req, res, next) => {
 
   const user = req.body;
   const token = req.decodedToken;
-  console.log("Inside dentalProfile");
   db((err, con) => {
     if(err){
       console.log(err);
@@ -121,8 +119,6 @@ exports.dentalProfile = (req, res, next) => {
 exports.dentalUpdateProfile = (req, res, next) => {
   
   const user = req.body;
-  const token = req.decodedToken;
-  console.log("Inside dentalUpdateProfile");
   db((err, con) => {
     if(err){
       console.log(err);

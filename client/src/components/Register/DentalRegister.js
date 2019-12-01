@@ -11,6 +11,8 @@ import './Register.css'
 import CheckboxValidatorElement from '../CheckboxValidatorElement/CheckboxValidatorElement';
 import ContactSection from '../Contact/ContactSection';
 import TermsAndConditions from '../Terms/TermsAndConditions';
+import SuccessAlert from '../Alert/SuccessAlert';
+import FailAlert from '../Alert/FailAlert';
 
 const useStyles = theme => ({
   textField: {
@@ -73,6 +75,8 @@ class Register extends React.Component {
       province: '',
       postalCode: '',
       parking: parking[0].value,
+      setSuccessOpen: false,
+      setFailOpen: false,
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -85,7 +89,6 @@ class Register extends React.Component {
       return true;
     });
     ValidatorForm.addValidationRule('isTruthy', value => value);
-
   }
 
   componentWillUnmount() {
@@ -110,8 +113,8 @@ class Register extends React.Component {
         postalCode: this.state.postalCode,
         parking: this.state.parking,
     }
-
-    fetch("http://localhost:3001/dentalRegister", {
+    var self = this;
+    fetch("/auth/dentalRegister", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -119,12 +122,21 @@ class Register extends React.Component {
       body: JSON.stringify(data)
     }).then(function(response) {
       console.log(response);
+      if (response.status == 401) {
+        self.setState({ setFailOpen: true });
+      } else {
+        self.setState({ setSuccessOpen: true });
+      }
+      console.log("STATUS" , response.status == 401);
     }).then(function(data) {
       console.log(data);
     }).catch(function(err) {
         console.log(err);
     });
-    this.props.history.push("/");
+    setTimeout(() =>{
+      this.setState({ setFailOpen: false, setSuccessOpen: false });
+      this.props.history.push("/");
+    }, 2000);
   }
 
   handleChange = (e) => {
@@ -609,6 +621,8 @@ class Register extends React.Component {
             </Grid>
           </ValidatorForm>
         </div>
+        {this.state.setSuccessOpen ? <SuccessAlert type="register" /> : null}
+        {this.state.setFailOpen ? <FailAlert type="register" /> : null}
         <ContactSection/>
       </React.Fragment>
     )

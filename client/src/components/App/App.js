@@ -10,6 +10,7 @@ import BookNow from "../BookNow/BookNow"
 import DentailProfile from "../Profile/DentalProfile"
 import TempSchedule from "../Schedule/scheduleForTemp"
 import ProfileCard from "../ProfileCard/ProfileCard";
+import Pricing from "../Policy/Pricing";
 
 class App extends Component {
   render() {

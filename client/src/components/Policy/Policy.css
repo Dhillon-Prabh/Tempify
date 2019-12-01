@@ -16,9 +16,19 @@
 }
 
 .border {
-    border-bottom: 2px solid rgb(207, 205, 205);
+    /* border-bottom: 2px solid rgb(207, 205, 205); */
 }
 
-.bold{
+.bold {
     font-weight: bold !important;
+}
+
+.surchargeContainer {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    border: solid;
+    padding: 15px;
+    width: 300px;
+    margin: 20px auto 60px;
 }

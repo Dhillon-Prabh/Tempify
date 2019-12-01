@@ -14,6 +14,7 @@ const TermsContent = (props) => {
 const TermsHeader = () => {
   return (
     <React.Fragment>
+      <br /> <br />
       <Typography align="center" display="block" variant="h4" className="Terms-Header">
         TERMS & CONDITIONS
       </Typography>

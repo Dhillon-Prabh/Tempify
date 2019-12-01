@@ -27,7 +27,7 @@ export default class Calendar extends React.Component {
       role: localStorage.getItem("role")
     }
 
-    fetch("http://localhost:3001/getEvents", {
+    fetch("/auth/getEvents", {
       method: 'PUT',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,
@@ -54,6 +54,12 @@ export default class Calendar extends React.Component {
           row.fontWeight = "800";
           row.displayHours = true;
           row.id = id;
+
+          var thisDate = new Date(row.date);
+          var curDate = new Date();
+          if (curDate < thisDate) {
+            row.displayHours = false;
+          }
 
           dataEvents.push(row)
         } else if(data[i].temp_status == "COMPLETE" && data[i].dental_status == "POSTED") {

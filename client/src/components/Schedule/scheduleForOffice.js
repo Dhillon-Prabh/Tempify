@@ -26,7 +26,7 @@ export default class Calendar extends React.Component {
       role: localStorage.getItem("role")
     }
 
-    fetch("http://localhost:3001/getEventsOffice", {
+    fetch("/auth/getEventsOffice", {
       method: 'PUT',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,
@@ -69,6 +69,7 @@ export default class Calendar extends React.Component {
             row.borderColor = "rgba(0, 76, 76, 0.0)";
             row.id = id;
             row.disablePay = false;
+
 
             dataEvents.push(row);
           }

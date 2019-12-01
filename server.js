@@ -51,6 +51,6 @@ app.get('*', (req, res) => {
 
 // *************************************************************** //
 
-app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
+app.listen(process.env.PORT || 3001, () => {
+  console.log(`listening on port 3001`);
 })

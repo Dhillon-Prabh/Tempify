@@ -52,7 +52,7 @@ class BasicTextFields extends React.Component {
       hours: parseInt(this.state.hour) + minutes,
     }
     var self = this;
-    fetch("http://localhost:3001/addTime", {
+    fetch("/auth/addTime", {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,

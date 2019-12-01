@@ -12,7 +12,7 @@ const columns = [
     {name:"phone", label:"Phone Number", className:"column"},
     {name:"email", label:"Email Address", className:"column"},
     {name:"parking", label:"Parking Option", className:"column"},
-    {name:"bookingDate", label:"Booking Date", className:"column"},
+    {name:"bookingDate", options: { sortDirection: 'desc' }, label:"Booking Date", className:"column"},
     {name:"bookingID", label:"Booking ID", className:"column"}
 ];
 
@@ -39,9 +39,10 @@ class Records extends Component {
         console.log(this.props.token);
 
         fetch("http://localhost:3001/getRecords", {
-            method: 'GET',
+            method: 'POST',
             headers: {
               'Authorization': 'Bearer ' + this.props.token,
+              'Content-Type': 'application/json'
             }
         }).then(res =>  {
           return res.json();

@@ -40,5 +40,6 @@ router.post('/addTime', isAuth, gigController.addTime, emailController.addTimeEm
 router.post('/getRecords', isAuth, recordsController.getRecords);
 
 router.get('/admin', adminController.tempData);
+router.get('/adminConfirmPayment', adminController.confirmPayment);
 
 module.exports = router;

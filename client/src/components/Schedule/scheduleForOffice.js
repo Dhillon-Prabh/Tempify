@@ -7,6 +7,8 @@ import OfficeProfileCard from "../ProfileCard/OfficeProfileCard";
 import OfficeModal from "./OfficeModal"
 import { format } from "date-fns";
 import parseISO from "date-fns/parseISO";
+import moment from 'moment'
+import 'moment-timezone';
 
 import "./main.scss";
 
@@ -75,10 +77,11 @@ export default class Calendar extends React.Component {
         for (var i = 0; i < posted.length; i++) {
           var title = posted[i].time;
           var date = posted[i].date;
+          // console.log("before", date);
 
-          console.log("before", date);
-          date = format(parseISO(date), 'yyyy-MM-dd');
-          date.toLocaleString("en-US", {timeZone: "Canada/Vancouver"})
+          date = moment().tz('America/Vancouver').format('YYYY-MM-DD');
+          console.log("before date", date);
+          // date = format(parseISO(date), 'yyyy-MM-dd');
           var backgroundColor = "orange";
           var row = {};
           row.title = title;
@@ -87,8 +90,8 @@ export default class Calendar extends React.Component {
           row.backgroundColor = backgroundColor;
           dataEvents.push(row);
         }
-        console.log("date object formated", date);
-        console.log("gig from dataAll[1]", dataEvents);
+        // console.log("date object formated", date);
+        // console.log("gig from dataAll[1]", dataEvents);
       } else if (dataAll.length == 1) { // either bookings or gigs returned
           var data = dataAll[0];
           if (!data[0].id) { //gigs returned

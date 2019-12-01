@@ -114,7 +114,7 @@ class Register extends React.Component {
         parking: this.state.parking,
     }
     var self = this;
-    fetch("/auth/dentalRegister", {
+    fetch("http://localhost:3001/dentalRegister", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

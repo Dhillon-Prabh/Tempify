@@ -12,7 +12,6 @@ class Payment extends React.Component {
   };
  
   async componentDidMount() {
-    // Get a client token for authorization from your server
 
     await fetch("/auth/payment", {
       headers: {

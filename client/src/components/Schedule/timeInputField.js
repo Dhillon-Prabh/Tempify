@@ -42,7 +42,6 @@ class BasicTextFields extends React.Component {
 
   submitForm(e) {
     e.preventDefault();
-    console.log("sending hours");
     var minutes = this.state.minutes;
     minutes = parseInt(minutes) / 60;
     console.log(minutes);

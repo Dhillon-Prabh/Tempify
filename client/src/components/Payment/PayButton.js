@@ -62,6 +62,7 @@ class PayButton extends Component{
 
   handleClickClose = () => {
     this.setState({
+      setPayOpen: false,
       setSuccessOpen: false,
       setFailOpen: false
     });

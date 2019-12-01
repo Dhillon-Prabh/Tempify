@@ -80,11 +80,14 @@ export default class Calendar extends React.Component {
           // console.log("before", date);
 
           date = moment().tz('America/Vancouver').format('YYYY-MM-DD');
-          console.log("before date", date);
+          // console.log("before date", date);
           // date = format(parseISO(date), 'yyyy-MM-dd');
           var backgroundColor = "orange";
           var row = {};
           row.title = title;
+
+          moment.utc(date, 'YYYY-MM-DD').unix();
+          console.log("date right before row.date", date);
           row.date = date;
           console.log("after row.date", row.date);
           row.backgroundColor = backgroundColor;

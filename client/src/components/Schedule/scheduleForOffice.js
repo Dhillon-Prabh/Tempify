@@ -78,22 +78,13 @@ export default class Calendar extends React.Component {
         for (var i = 0; i < posted.length; i++) {
           var title = posted[i].time;
           var date = posted[i].date;
-          // date = format(parseISO(date), 'yyyy-MM-dd');
-          // date.toLocaleString("en-US", {timeZone: "Canada/Vancouver"})
-          // moment.utc(date).tz('America/Vancouver').format('YYYY-MM-DD');
           var backgroundColor = "orange";
           var row = {};
           row.title = title;
           row.date = date;
-          console.log(moment(date).format("YYYY-MM-DD HH:mm:ss"))
-          console.log(moment.utc(row.date).format("YYYY-MM-DD HH:mm:ss"))
-
-          // 1000 * 60 * 60 * 24
-
           row.backgroundColor = backgroundColor;
           dataEvents.push(row);
         }
-        console.log(dataEvents);
       } else if (dataAll.length == 1) { // either bookings or gigs returned
           var data = dataAll[0];
           if (!data[0].id) { //gigs returned

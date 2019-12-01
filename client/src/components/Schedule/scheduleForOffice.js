@@ -85,7 +85,7 @@ export default class Calendar extends React.Component {
           var row = {};
           row.title = title;
           row.date = date;
-          moment.utc(row.date).tz('America/Vancouver').format('YYYY-MM-DD');
+          row.date = moment.utc(row.date).tz('America/Vancouver').format('YYYY-MM-DD');
           console.log(row.date);
           row.backgroundColor = backgroundColor;
           dataEvents.push(row);
@@ -105,9 +105,6 @@ export default class Calendar extends React.Component {
               row.backgroundColor = backgroundColor;
               dataEvents.push(row);
             }
-
-            console.log("gig from if dataAll.length == 1", date);
-
       
           } else { // bookings returned
             for (var i = 0; i < data.length; i++) {

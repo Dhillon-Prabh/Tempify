@@ -9,7 +9,7 @@ import "./JobPosting.css";
 
 const columns = [
   { name: "office", label: "Dental Office", className: "column" },
-  { name: "details", label: "Details", className: "column" },
+  { name: "details", options: { sortDirection: 'desc' },  label: "Details", className: "column" },
   { name: "address", label: "Office Address", className: "column" },
   { name: "action", label: "Action", className: "column" }
 ];
@@ -84,7 +84,7 @@ class JobPosting extends React.Component {
           for (var i = 0; i < result.length; i++) {
               result[i].date = format(parseISO(result[i].date), 'yyyy-MM-dd');
               var office = result[i].office_name;
-              var details = result[i].designation + "\n" + result[i].date + "\n" + result[i].time;
+              var details = result[i].date + "\n" + result[i].designation + "\n" + result[i].time;
               var address = result[i].unit_number + ", " + result[i].street_number + " " + result[i].street_name + ", " 
                             + result[i].city + "\n" + "Parking: " + result[i].parking_options
               var action = <Button className="select" onClick={self.handleClick.bind(self,[result[i]])}>Select</Button>;

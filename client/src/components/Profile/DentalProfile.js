@@ -203,9 +203,9 @@ class Profile extends React.Component {
     })
       .then(function(response) {
         if (response.status == 401) {
-          self.setState({ setFailOpen: true });
+          this.setState({ setFailOpen: true });
         } else {
-          self.setState({ setSuccessOpen: true });
+          this.setState({ setSuccessOpen: true });
         }
         console.log(response);
       })

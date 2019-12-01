@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import { format } from "date-fns";
 import parseISO from "date-fns/parseISO";
 import SuccessAlert from "../Alert/SuccessAlert";
+import FailAlert from "../Alert/FailAlert";
 import "./JobPosting.css";
 
 const columns = [
@@ -27,7 +28,8 @@ class JobPosting extends React.Component {
         this.state = {
             data: [],
             username: '',
-            success: false
+            setSuccessOpen: false,
+            setFailOpen: false
         }
     }
 
@@ -49,12 +51,16 @@ class JobPosting extends React.Component {
         body: JSON.stringify(data)
         }).then(function(response) {
             // console.log(response);
+            if (response.status == 401) {
+              self.setState({ setFailOpen: true });
+              self.props.history.push("/tempdashboard");
+            }
             return response;
         }).then(function(data) {
             // console.log(data);
             if (data.status == 300) {
                 console.log("Success");
-                self.setState({success: true});
+                self.setState({setSuccessOpen: true});
                 self.props.history.push("/tempdashboard");
             }
         }).catch(function(err) {
@@ -108,7 +114,8 @@ class JobPosting extends React.Component {
             columns={columns}
             data={this.state.data}
           />
-          {this.state.success ? <SuccessAlert type="acceptGig" /> : null}
+          {this.state.setSuccessOpen ? <SuccessAlert type="acceptGig" /> : null}
+          {this.state.setFailOpen ? <FailAlert type="acceptGig" /> : null}
         </div>
       </React.Fragment>
     );

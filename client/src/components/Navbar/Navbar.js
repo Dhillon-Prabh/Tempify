@@ -34,7 +34,8 @@ class Navbar extends Component{
       groupId: -1,
       loginError: false,
       loginSuccess: false,
-      token: null
+      token: null,
+      setRegisterSuccess: false
     };
 
     this.loginHandler = this.loginHandler.bind(this);

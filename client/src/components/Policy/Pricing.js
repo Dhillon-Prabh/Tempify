@@ -2,6 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import "./Policy.css";
 import { Grid } from "@material-ui/core";
+import ContactSection from "../Contact/ContactSection";
 
 const PolicyContent = props => {
   return (
@@ -65,6 +66,7 @@ const Policy = () => {
         <PolicyContent content="Take advantage of our introductory pricing.*" />
       </Grid>
       <div className="surchargeContainer"> 15% SURCHARGE</div>
+      <ContactSection/>
     </React.Fragment>
   );
 };

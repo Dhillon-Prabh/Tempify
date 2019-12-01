@@ -89,7 +89,6 @@ class Register extends React.Component {
       return true;
     });
     ValidatorForm.addValidationRule('isTruthy', value => value);
-
   }
 
   componentWillUnmount() {

@@ -15,7 +15,7 @@ import SuccessAlert from '../Alert/SuccessAlert';
 // Sets the columns of information to be displayed
 const columns = [
     {name:"name", label:"Name", className:"column"},
-    {name:"status", label:"Status", className:"column"},
+    {name:"date", options: { sortDirection: 'desc' }, label:"Date", className:"column"},
     {name:"practice", label:"Practice", className:"column"},
     {name:"software", label:"Software", className:"column"},
     {name:"experience", label:"Experience", className:"column"},
@@ -73,10 +73,11 @@ class History extends Component {
               let city = result[i].city;
               let expectedRate = "$" + result[i].expected_rate;
               let bookingID = result[i].reference_number;
+              let date = result[i].dates
 
               let row = [];
               row.push(tempName);
-              row.push(status);
+              row.push(date);
               row.push(practice);
               row.push(software);
               row.push(experience);

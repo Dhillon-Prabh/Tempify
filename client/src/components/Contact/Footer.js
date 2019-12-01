@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   footerContainers: {
     marginLeft: "10px",
     marginRight: "10px",
-    textDecoration: "none"
+    textDecoration: "none", 
   },
   copyrightMessage: {
     color: "gray"
@@ -45,7 +45,9 @@ export default function() {
       <div className={classes.container}>
         {/* Attacks the links to react router */}
         <Typography className={classes.footerContainers} component={Link} to="/pricing">Pricing</Typography>
+        |
         <Typography className={classes.footerContainers} component={Link} to="/privacy">Privacy Policy</Typography>
+        |
         <Typography className={classes.footerContainers} component={Link} to="/termsAndConditions">Terms and Conditions</Typography>
       </div>
       <div className={classes.copyrightMessage}>

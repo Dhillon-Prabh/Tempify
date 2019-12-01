@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import './Policy.css'
 import { Grid } from '@material-ui/core';
+import ContactSection from '../Contact/ContactSection';
 
 
 const PolicyContent = (props) => {
@@ -15,6 +16,7 @@ const PolicyContent = (props) => {
 const Policy = () => {
     return (
         <React.Fragment>
+            <br /> <br/>
             <Typography align="center" display="block" variant="h4" className="PolicyHeader">
                 PRIVACY POLICY
             </Typography>
@@ -133,6 +135,7 @@ const Policy = () => {
                     If you have any concerns or questions please email us at <a href='info.tempify@gmail.com'>info.tempify@gmail.com</a>
                 </Typography>
             </Grid>
+            <ContactSection/>
         </React.Fragment>
     );
 }

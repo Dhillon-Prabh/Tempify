@@ -85,9 +85,9 @@ export default class Calendar extends React.Component {
           var row = {};
           row.title = title;
           row.date = date;
-          row.date = moment.utc(row.date).tz('America/Vancouver').format('YYYY-MM-DD');
-          console.log(moment(new Date()).format("YYYY-MM-DD HH:mm:ss"))
-          console.log(moment.utc(new Date()).format("YYYY-MM-DD HH:mm:ss"))
+          // row.date = moment(date).format('YYYY-MM-DD');
+          console.log(moment(date).format("YYYY-MM-DD HH:mm:ss"))
+          console.log(moment.utc(row.date).format("YYYY-MM-DD HH:mm:ss"))
 
           // 1000 * 60 * 60 * 24
 

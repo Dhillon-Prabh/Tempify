@@ -86,6 +86,7 @@ export default class Calendar extends React.Component {
           row.title = title;
           row.date = date;
           moment.utc(row.date).tz('America/Vancouver').format('YYYY-MM-DD');
+          console.log(row.date);
           row.backgroundColor = backgroundColor;
           dataEvents.push(row);
         }
@@ -137,7 +138,6 @@ export default class Calendar extends React.Component {
                 row.borderColor = "rgba(0, 76, 76, 0.0)";
                 row.id = id;
                 row.disablePay = false;
-    
                 dataEvents.push(row);
               }
             }

@@ -71,6 +71,7 @@ export default class Calendar extends React.Component {
             row.id = id;
             row.disablePay = false;
 
+
             dataEvents.push(row);
           }
         }

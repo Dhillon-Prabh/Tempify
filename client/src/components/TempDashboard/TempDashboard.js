@@ -81,6 +81,28 @@ class TempDashboard extends Component {
     this.navigateRecords = this.navigateRecords.bind(this);
   }
 
+<<<<<<< HEAD
+=======
+  componentDidMount(){
+    
+    fetch("http://localhost:3001/tempProfile", {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + this.props.token,
+      },
+    }).then(res => {
+      return res.json();
+    }).then(result => {     
+
+      this.setState({
+        user: result[0].temp_name,
+        schedule: true
+      });
+    }).catch(function(err) {
+      console.log(err);
+    });
+  }
+>>>>>>> 725b523e3d5407abb4306438b435cef22c58ff08
   navigatePending() {
     this.setState({
       pending: true,

@@ -3,6 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
 import {Redirect} from 'react-router-dom';
+import SuccessAlert from '../Alert/SuccessAlert';
+import FailAlert from "../Alert/FailAlert";
 
 const useStyles = theme => ({
   root: {
@@ -27,7 +29,9 @@ class BasicTextFields extends React.Component {
     this.state = {
       bookingId: this.props.bookingId,
       hour: '0',
-      minutes: '0'
+      minutes: '0',
+      setSuccessOpen: false,
+      setFailOpen: false
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -47,6 +51,7 @@ class BasicTextFields extends React.Component {
       bookingId: this.state.bookingId,
       hours: parseInt(this.state.hour) + minutes,
     }
+    var self = this;
     fetch("/auth/addTime", {
       method: 'POST',
       headers: {
@@ -57,14 +62,22 @@ class BasicTextFields extends React.Component {
     }).then(function(response) {
       console.log(response);
       if (response.status == 200) {
-        window.location.reload();
+        self.setState({ setSuccessOpen: true });
+      } else {
+        self.setState({ setFailOpen: true });
       }
     }).then(function(data) {
       console.log(data);
     }).catch(function(err) {
         console.log(err);
     });
-    return <Redirect to='/tempdashboard' />
+    setTimeout(() =>{
+      this.setState({
+        setFailOpen: false,
+        setSuccessOpen: false
+      });
+      window.location.reload();
+    }, 2000);
   }
 
   render() { 
@@ -76,6 +89,8 @@ class BasicTextFields extends React.Component {
         <Button variant="contained" color="primary" className={classes.button} type="submit">
           Request Payment
         </Button>
+        {this.state.setSuccessOpen ? <SuccessAlert type="addTime" /> : null}
+        {this.state.setFailOpen ? <FailAlert type="addTime" /> : null}
       </form>
     );
   }

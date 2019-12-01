@@ -82,7 +82,7 @@ export default function TextFields() {
   };
 
   function sendMessageContactUs() {
-    fetch("/email", {
+    fetch("/auth/email", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

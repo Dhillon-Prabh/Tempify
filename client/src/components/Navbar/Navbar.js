@@ -20,6 +20,9 @@ import TempDashboard from '../TempDashboard/TempDashboard';
 import SuccessAlert from '../Alert/SuccessAlert';
 import Admin from '../Admin/TempData';
 import TermsAndConditions from '../Terms/TermsAndConditions';
+import Pricing from '../Policy/Pricing';
+import Privacy from '../Policy/Policy'
+
 
 class Navbar extends Component{
 
@@ -34,7 +37,8 @@ class Navbar extends Component{
       groupId: -1,
       loginError: false,
       loginSuccess: false,
-      token: null
+      token: null,
+      setRegisterSuccess: false
     };
 
     this.loginHandler = this.loginHandler.bind(this);
@@ -387,6 +391,8 @@ class Navbar extends Component{
           />
         )}
       />
+      <Route path="/pricing" component={Pricing} />
+      <Route path="/privacy" component={Privacy} />
     </Switch>
     );
 

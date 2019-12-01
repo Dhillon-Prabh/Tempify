@@ -55,6 +55,12 @@ export default class Calendar extends React.Component {
           row.displayHours = true;
           row.id = id;
 
+          var thisDate = new Date(row.date);
+          var curDate = new Date();
+          if (curDate < thisDate) {
+            row.displayHours = false;
+          }
+
           dataEvents.push(row)
         } else if(data[i].temp_status == "COMPLETE" && data[i].dental_status == "POSTED") {
           var title = data[i].office_name;

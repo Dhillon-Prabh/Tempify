@@ -2,7 +2,7 @@ const db = require('../database/database');
 const {check, validationResult} = require('express-validator/check');
 
 exports.postGig = [
-  check('date').isAfter('2019-11-24').withMessage("Date should be in the future"),
+  check('date').isAfter(new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + (new Date().getDate() - 1)).withMessage("Date should be in the future"),
   check('time').custom(value =>{
       var times = value.split("-");
       var fromTime = parseInt(times[0]);
@@ -72,21 +72,42 @@ exports.postGig = [
 ]
 
 exports.jobPosting = (req, res, next) => {
+  console.log(req.decodedToken.userId);
   db((err, con) => {
     if(err){
       console.log(err);
       throw err;
     }
-    var query = "SELECT g.id, g.dentist_id, d.office_name, g.designation, g.date, g.time, d.street_number, d.street_name, d.unit_number, d.city, d.parking_options " +
-     "FROM gigs g JOIN dentists d on g.dentist_id = d.id WHERE g.status LIKE 'POSTED';";
-    con.query(query, (err, result, fields) => {
-      if(!result.length) {
-        res.status(401).send({ error : "There are no job postings to fetch",});
-        con.release();
-      } else {
-        res.status(200).json(result);
-        con.release();
-      }
+    var query = 'SELECT designation FROM temps WHERE user_id = ?;';
+      values=[req.decodedToken.userId];
+      con.query(query, values, (err, result, fields) => {
+        if(!err) {
+          console.log(result);
+          var designations = Array.from(JSON.parse(result[0].designation));
+          console.log(designations);
+          var query = "SELECT g.id, g.dentist_id, d.office_name, g.designation, g.date, g.time, d.street_number, d.street_name, d.unit_number, d.city, d.parking_options " +
+            "FROM gigs g JOIN dentists d on g.dentist_id = d.id WHERE g.status LIKE 'POSTED' AND g.designation IN (?);";
+          var values = [designations];
+          con.query(query, values, (err, result, fields) => {
+            if (!err) {
+              if(!result.length) {
+                res.status(401).send({ error : "There are no job postings to fetch",});
+                con.release();
+              } else {
+                res.status(200).json(result);
+                con.release();
+              }
+            } else {
+              console.log(err);
+              res.status(401).send({ error : "There are no job postings to fetch",});
+              con.release();
+            }
+          });
+        } else {
+          console.log(err);
+          res.status(401).send('Error Occurred');
+          con.release();
+        }
     });
   })
 }
@@ -160,7 +181,7 @@ exports.gigCardOffice = (req, res, next) => {
     }
     
     var userQuery = 'SELECT t.temp_name, t.experience, t.expected_rate, t.type_of_practice, ' +
-    't.dental_software, b.reference_number FROM temps t JOIN bookings b ON t.id = b.temp_id WHERE b.id = ? LIMIT 1';
+    't.dental_software, b.reference_number, b.temp_hours FROM temps t JOIN bookings b ON t.id = b.temp_id WHERE b.id = ? LIMIT 1';
     values=[booking.bookingId];
     con.query(userQuery, values, (err, result, fields) => {
       if (!err) {
@@ -200,10 +221,10 @@ exports.addTime = (req, res, next) => {
 
           var amount = parseInt(result[0].temp_wage) * booking.hours;
           amount = parseFloat(amount.toFixed(2));
-          var gst = amount * 0.05;
-          gst = parseFloat(gst.toFixed(2));
           var service_fee = amount *0.15;
           service_fee = parseFloat(service_fee.toFixed(2));
+          var gst = service_fee * 0.05;
+          gst = parseFloat(gst.toFixed(2));
           var total = amount + gst + service_fee;
           total = parseFloat(total.toFixed(2));
           valuesB=["COMPLETE", result[0].is_from_gig, "COMPLETE", booking.hours, service_fee, gst, total, booking.bookingId];

@@ -33,8 +33,23 @@ exports.gigPostedEmail = async (req, res, next) => {
                 if (err) {
                 throw err;
                 }
+                var designation;
+                switch (job.designation) {
+                    case "Assistant" :
+                        designation = " AND is_assistant = 1;";
+                        break;
+                    case "Registered Dental Hygienist" :
+                        designation = " AND is_hygienist = 1;";
+                        break;
+                    case "Receptionist" : 
+                        designation = " AND is_receptionist = 1;";
+                        break;
+                    default:
+                        break;
+                }
             
-                var query = "SELECT email FROM `temps` WHERE `is_approved` = 1";
+                var query = "SELECT email FROM `temps` WHERE `is_approved` = 1" + designation;
+                console.log(query);
                 con.query(query, (err, result, fields) => {
                     if (!result.length) {
                         return res.status(401).send({

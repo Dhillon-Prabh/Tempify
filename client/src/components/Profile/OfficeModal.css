@@ -12,6 +12,7 @@
 }
 
 .dental-profile-modal-profile {
+  transform: translateX(19rem) !important;
   display: inline-flex;
   margin: 1rem !important;
   padding: 6px 16px;

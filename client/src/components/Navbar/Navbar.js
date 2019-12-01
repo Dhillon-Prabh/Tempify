@@ -49,8 +49,6 @@ class Navbar extends Component{
 
   componentDidMount() {
 
-    this.logoutHandler();
-
 
     if (!sessionStorage.getItem('logged')) {
       this.logoutHandler();

@@ -9,6 +9,7 @@ import './Profile.css'
 import NewOfficeModal from './NewOfficeModal'
 import MUIDatatable from "mui-datatables";
 import SuccessAlert from "../Alert/SuccessAlert";
+import FailAlert from '../Alert/FailAlert';
 
 const useStyles = theme => ({
   textField: {
@@ -108,7 +109,8 @@ class Profile extends React.Component {
       postalCode: '',
       parking: parking[0].value,
       data: [],
-      success: false,
+      setSuccessOpen: false,
+      setFailOpen: false,
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -191,7 +193,7 @@ class Profile extends React.Component {
       postalCode: this.state.postalCode,
       parking: this.state.parking
     };
-
+    var self = this;
     fetch("http://localhost:3001/dentalUpdateProfile", {
       method: "POST",
       headers: {
@@ -201,6 +203,11 @@ class Profile extends React.Component {
       body: JSON.stringify(data)
     })
       .then(function(response) {
+        if (response.status == 401) {
+          self.setState({ setFailOpen: true });
+        } else {
+          self.setState({ setSuccessOpen: true });
+        }
         console.log(response);
       })
       .then(function(data) {
@@ -209,9 +216,9 @@ class Profile extends React.Component {
       .catch(function(err) {
         console.log(err);
       });
-      this.setState({setSuccessOpen: true});
       setTimeout(() =>{
         this.setState({
+          setFailOpen: false,
           setSuccessOpen: false
         })
       }, 2000);
@@ -606,6 +613,7 @@ class Profile extends React.Component {
           </Grid>
         </ValidatorForm>
         {this.state.setSuccessOpen ? <SuccessAlert type="profileUpdate" /> : null}
+        {this.state.setFailOpen ? <FailAlert type="profileUpdate" /> : null}
       </div>
     );
   }

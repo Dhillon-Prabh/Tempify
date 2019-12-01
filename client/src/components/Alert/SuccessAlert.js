@@ -1,6 +1,5 @@
 import React from 'react';
 import { SnackbarProvider, useSnackbar } from 'notistack';
-import './SuccessAlert.css'
 
 //
 //
@@ -31,6 +30,19 @@ function MyApp(props) {
         break;
       case 'profileUpdate':
         enqueueSnackbar('Profile updated successfully!', {variant, autoHideDuration});
+        break;
+      case 'paymentSuccess':
+        enqueueSnackbar('Payment Success! Thank you.', { variant, autoHideDuration });
+        break;
+      case 'registerOffice':
+        enqueueSnackbar('Account registered successfully! Please login to continue.', { variant, autoHideDuration });
+        break;
+      case 'registerTemp':
+        enqueueSnackbar('Account registered successfully! An email will be sent shortly with more details.', { variant, autoHideDuration });
+        break;
+      case 'addTime':
+        enqueueSnackbar('Your work hours have been submitted! An email has been sent to the dental office.', { variant, autoHideDuration });
+        break;
       default:
         break;
     }

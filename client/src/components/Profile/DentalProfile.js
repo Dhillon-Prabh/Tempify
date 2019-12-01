@@ -599,19 +599,18 @@ class Profile extends React.Component {
                 ))}
               </TextValidator>
             </Grid>
-
             <Grid item xs={12} direction="row" align="center">
               <Button className="blueButton" color="primary" variant="contained" type="submit">
                 UPDATE DETAILS
               </Button>
-              <NewOfficeModal className="dental-profile-modal-blueButton"
-                idType="blueButton"
-                name="ADD NEW OFFICE"
-                groupId={this.state.groupId}
-                token={this.props.token}/>
             </Grid>
           </Grid>
         </ValidatorForm>
+        <NewOfficeModal className="dental-profile-modal-blueButton"
+          idType="blueButton"
+          name="ADD NEW OFFICE"
+          groupId={this.state.groupId}
+          token={this.props.token}/>
         {this.state.setSuccessOpen ? <SuccessAlert type="profileUpdate" /> : null}
         {this.state.setFailOpen ? <FailAlert type="profileUpdate" /> : null}
       </div>

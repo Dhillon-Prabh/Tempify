@@ -72,7 +72,6 @@ exports.postGig = [
 ]
 
 exports.jobPosting = (req, res, next) => {
-  console.log(req.decodedToken.userId);
   db((err, con) => {
     if(err){
       console.log(err);
@@ -82,9 +81,7 @@ exports.jobPosting = (req, res, next) => {
       values=[req.decodedToken.userId];
       con.query(query, values, (err, result, fields) => {
         if(!err) {
-          console.log(result);
           var designations = Array.from(JSON.parse(result[0].designation));
-          console.log(designations);
           var query = "SELECT g.id, g.dentist_id, d.office_name, g.designation, g.date, g.time, d.street_number, d.street_name, d.unit_number, d.city, d.parking_options " +
             "FROM gigs g JOIN dentists d on g.dentist_id = d.id WHERE g.status LIKE 'POSTED' AND g.designation IN (?);";
           var values = [designations];
@@ -171,7 +168,6 @@ exports.gigCard = (req, res, next) => {
 }
 
 exports.gigCardOffice = (req, res, next) => {
-  console.log("gigcardoffice");
   const booking = req.body;
 
   db((err, con) => {
@@ -201,9 +197,7 @@ exports.gigCardOffice = (req, res, next) => {
 
 
 exports.addTime = (req, res, next) => {
-  console.log("addTime");
   const booking = req.body;
-  console.log(booking);
   db((err, con) => {
     if(err){
       console.log(err);

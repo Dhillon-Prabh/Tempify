@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 
-// let dbconfig = require(__dirname + '/../config/db-config-multi.json');
-let dbconfig = require(__dirname + '/../config/db-config-cleardb.json');
+let dbconfig = require(__dirname + '/../config/db-config-multi.json');
+// let dbconfig = require(__dirname + '/../config/db-config-cleardb.json');
 
 
 var pool  = mysql.createPool(dbconfig);

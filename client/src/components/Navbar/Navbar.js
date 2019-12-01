@@ -55,7 +55,6 @@ class Navbar extends Component{
       return;
     }
 
-
     const token = localStorage.getItem('token');
     const expiryDate = localStorage.getItem('expiryDate');
     const userType = localStorage.getItem('userType');
@@ -401,9 +400,6 @@ class Navbar extends Component{
       const userId = localStorage.getItem('userId');
       const officeId = localStorage.getItem('officeId');
       const groupId = localStorage.getItem('groupId');
-      console.log("Navbar - userId: " + userId);
-      console.log("Navbar - officeId: " + officeId);
-      console.log("Navbar - groupId: " + groupId);
 
       routes = (
         <Switch>

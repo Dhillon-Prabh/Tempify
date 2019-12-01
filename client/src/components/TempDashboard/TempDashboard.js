@@ -16,55 +16,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Pending from '../Pending/Pending';
 import Records from '../Records/Records';
 
-const styles = theme => ({
-  
-  submit: {
-    backgroundColor: "#00bfff",
-    display: 'block',
-    height: '4em',
-    '&:hover': {
-      background: "#404040",
-    },
-    '&:focused': {
-      background: "#404040",
-    }
-  },
-  option: {
-    paddingTop: '5rem',
-  },
-  activeButton: {
-    display: 'block',
-    height: '4em',
-    backgroundColor: "#404040",
-    color: 'white',
-    '&:hover': {
-      background: "#404040",
-    },
-  },
-  label: {
-    '&$focused': {
-      color: '#00bfff'
-    },
-  },
-  focused: {
-    background: "#404040",
-  },
-  outlinedInput: {
-    '&$focused $notchedOutline': {
-      border: '1px solid #00bfff'
-    },
-  },
-  notchedOutline: {},
-});
-
-function HomeIcon(props) {
-  return (
-    <SvgIcon {...props}>
-      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-    </SvgIcon>
-  );
-}
-
 class TempDashboard extends Component {
   constructor(props) {
     super(props);
@@ -79,9 +30,6 @@ class TempDashboard extends Component {
     this.navigatePending = this.navigatePending.bind(this);
     this.navigateSchedule = this.navigateSchedule.bind(this);
     this.navigateRecords = this.navigateRecords.bind(this);
-  }
-
-  componentDidMount(){
   }
 
   navigatePending() {
@@ -109,7 +57,6 @@ class TempDashboard extends Component {
 
   render(){
 
-    const { classes } = this.props;
     return(
       <div>
           <Grid container direction="row" justify="center" alignItems="center" className="options">
@@ -150,4 +97,4 @@ class TempDashboard extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(TempDashboard);
+export default TempDashboard;

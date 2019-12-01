@@ -6,31 +6,53 @@
     </div>
     <div style='clear:both;'></div>
     <div style='background: #EEE; font-family: verdana; font-size: 13px; color: #333; padding: 15px; line-height: 25px; border-top: 1px solid #B6B6B6; border-bottom: 1px solid #6fd4e3;'>
-        <p>Great news, </p>
-        <p>The gig you posted has been filled by a temp!</p>
-        <p>Please find details of Temp below:</p>
+        <p>Hi there,<p>
+        <p>Thanks again for signing up with Tempify.
+        </p>
+        <p>In order for us to proceed with your account registration we require some additional information for our database.
+        </p>
+        <p>At Tempify we take the trouble out of handling employment paperwork from Dental Offices. In order to do this, we require a few of your employment credentials:
+        </p>
+        <ul>
+            <li>Social Security Number
+
+            </li>
+            <li>
+                Date of Birth
+
+            </li>
+            <li>
+                Direct Deposit information and
+
+            </li>
+            <li>
+                Current Address
+            </li>
+        </ul>
+        <p>Benefits of providing this information include receiving your paycheques biweekly directly from Tempify. You will no longer have wait weeks to collect your  paycheques from every office you have worked at.
+        </p>
+        <p>Additionally, you will receive one T4 from Tempify at the end of the year, rather than collecting multiple T4’s from all the offices you worked at throughout the year. Keeping all your records in one place saving you time and trouble for tax season.
+        </p>
+        <p>Lastly, Revenue Canada requires that any employee who has not already filled the TD1 form (Federal and Provincial) to do so. A link to these forms have been added below, please complete and send these forms back to us so we may adjust your income tax accordingly.
+        </p>
+        <p>
+            <a href="https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/E/pbg/tf/td1/td1-04-17e.pdf">https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/E/pbg/tf/td1/td1-04-17e.pdf
+
+            </a>
+            (Federal)
+            <br>
+            <a href="https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/E/pbg/tf/td1bc/td1bc-17e.pdf">
+                https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/E/pbg/tf/td1bc/td1bc-17e.pdf
+            </a>
+            (Provincial)
+
+        </p>
+        <p>
+            Come join us as we revolutionize the dental temping industry.
+
+        </p>
         <p></p>
-
-
-        <p><b><u>Temp Details</u></b></p>
-        <p>Name : {{temp_name}}</p>
-        <p>Email : {{email}}</p>
-        <p>Designation : {{designation}}</p>
-        <p>Experience : {{experience}}</p>
-
-        <p>Dental Software : {{dental_software}}</p>
-
-        <p>TypeOfPractice : {{type_of_practice}}<p>
-        <p>City : {{city}}<p>
-        <p>Expected Rate : {{expected_rate}}<p>
-
-        <p><b><u>Booking Details</u></b></p>
-        <p>Booked Dates : {{timings}}</p>
-        <p></p>
-        <p>Please login to <a href="tempify.co/login?source=office">www.tempify.co</a> for more details</p>
-
-        <p></p>
-        <p>Thank you!<p>
+        <p>Thanks!<p>
         <p>The Tempify Team<p>
     </div>
     <table width="100%" border="0" style="border-collapse:collapse;border-spacing:0">
@@ -54,12 +76,13 @@
         </tbody></table>
 
 
+    @if(isset($to))
         <div style='width: 100%; text-align: center'>
 
             <div style='background: #EEE; font-family: verdana; font-size: 13px; color: #333; padding: 15px; line-height: 25px; border-top: 1px solid #B6B6B6; border-bottom: 1px solid #6fd4e3;'>
                 <p>
-                    This email was sent to {{to}}, because your email preferences are set to receive  Tempify updates. Click to
-                    <a href="http://tempify.co/emailPreferences?q={{to}}"> unsubscribe</a>
+                    This email was sent to {{$to}}, because your email preferences are set to receive  Tempify updates. Click to
+                    <a href="http://tempify.co/emailPreferences?q={{base64_encode(base64_encode(base64_encode($to)))}}"> unsubscribe</a>
                     .
                 </p>
                 <p>
@@ -69,4 +92,5 @@
                 </p>
             </div>
         </div>
+    @endif
 </div>

@@ -122,7 +122,7 @@ class Profile extends React.Component {
       groupId: this.state.groupId,
     }
     
-    fetch("http://localhost:3001/dentalProfile", {
+    fetch("/auth/dentalProfile", {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,
@@ -194,7 +194,7 @@ class Profile extends React.Component {
       parking: this.state.parking
     };
     var self = this;
-    fetch("http://localhost:3001/dentalUpdateProfile", {
+    fetch("/auth/dentalUpdateProfile", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + this.props.token,
@@ -599,19 +599,18 @@ class Profile extends React.Component {
                 ))}
               </TextValidator>
             </Grid>
-
             <Grid item xs={12} direction="row" align="center">
               <Button className="blueButton" color="primary" variant="contained" type="submit">
                 UPDATE DETAILS
               </Button>
-              <NewOfficeModal className="dental-profile-modal-blueButton"
-                idType="blueButton"
-                name="ADD NEW OFFICE"
-                groupId={this.state.groupId}
-                token={this.props.token}/>
             </Grid>
           </Grid>
         </ValidatorForm>
+        <NewOfficeModal className="dental-profile-modal-blueButton"
+          idType="blueButton"
+          name="ADD NEW OFFICE"
+          groupId={this.state.groupId}
+          token={this.props.token}/>
         {this.state.setSuccessOpen ? <SuccessAlert type="profileUpdate" /> : null}
         {this.state.setFailOpen ? <FailAlert type="profileUpdate" /> : null}
       </div>

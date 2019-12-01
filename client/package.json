@@ -32,7 +32,7 @@
     "react-material-ui-datatable": "^2.0.0-alpha.30",
     "react-material-ui-form-validator": "^2.0.9",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.1.2",
+    "react-scripts": "3.0.0",
     "style-loader": "^1.0.0"
   },
   "scripts": {
@@ -56,9 +56,9 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3001/",
   "devDependencies": {
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0"
-  }
+  },
+  "proxy": "http://localhost:3001/"
 }

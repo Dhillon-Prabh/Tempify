@@ -89,7 +89,6 @@ class Register extends React.Component {
       return true;
     });
     ValidatorForm.addValidationRule('isTruthy', value => value);
-
   }
 
   componentWillUnmount() {
@@ -115,7 +114,7 @@ class Register extends React.Component {
         parking: this.state.parking,
     }
     var self = this;
-    fetch("http://localhost:3001/dentalRegister", {
+    fetch("/auth/dentalRegister", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

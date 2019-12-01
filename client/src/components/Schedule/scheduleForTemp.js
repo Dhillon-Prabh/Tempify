@@ -20,7 +20,6 @@ export default class Calendar extends React.Component {
 }
   componentDidMount() {  
     
-    console.log(this.props.token);
     let self = this;
     var data = {
       userId: localStorage.getItem("userId"),

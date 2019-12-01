@@ -93,7 +93,6 @@ exports.tempUpdateProfile = (req, res, next) => {
 exports.dentalProfile = (req, res, next) => {
 
   const user = req.body;
-  const token = req.decodedToken;
   db((err, con) => {
     if(err){
       console.log(err);

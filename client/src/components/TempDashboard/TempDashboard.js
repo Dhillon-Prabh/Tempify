@@ -82,7 +82,6 @@ class TempDashboard extends Component {
   }
 
   componentDidMount(){
-    console.log(this.props.token);
   }
 
   navigatePending() {

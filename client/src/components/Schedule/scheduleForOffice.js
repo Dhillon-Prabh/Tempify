@@ -9,8 +9,6 @@ import { format } from "date-fns";
 import parseISO from "date-fns/parseISO";
 
 import "./main.scss";
-import { red } from "@material-ui/core/colors";
-import { textAlign } from "@material-ui/system";
 
 export default class Calendar extends React.Component {
   constructor(props) {
@@ -36,10 +34,8 @@ export default class Calendar extends React.Component {
       },
       body: JSON.stringify(data)
     }).then(function(response) {
-      // console.log(response);
       return response.json();
     }).then(function(dataAll) {
-      console.log("dataALL",dataAll);
       var dataEvents = [];
       if (dataAll.length == 2) { //we get bookings and gigs
         var data = dataAll[0]; // these are bookings
@@ -76,43 +72,38 @@ export default class Calendar extends React.Component {
           }
         }
         var posted = dataAll[1]; //these are gigs
-
-        console.log(posted);
         for (var i = 0; i < posted.length; i++) {
           var title = posted[i].time;
-          console.log("before", posted[i].date);
           var date = posted[i].date;
           date = format(parseISO(date), 'yyyy-MM-dd');
+          date.toLocaleString("en-US", {timeZone: "Canada/Vancouver"})
           var backgroundColor = "orange";
           var row = {};
           row.title = title;
           row.date = date;
           row.backgroundColor = backgroundColor;
-          console.log("Row date", row.date);
           dataEvents.push(row);
-
         }
-
-        console.log("dataEVENTS", dataEvents);
-
+        console.log("date object formated", date);
+        console.log("gig from dataAll[1]", dataEvents);
       } else if (dataAll.length == 1) { // either bookings or gigs returned
           var data = dataAll[0];
-          // console.log("Only one returned data", data);
           if (!data[0].id) { //gigs returned
             for (var i = 0; i < data.length; i++) {
               var title = data[i].time;
-              console.log("Before date", data[i].date);
               var date = data[i].date;
-              console.log("AFTER date", date);
               date = format(parseISO(date), 'yyyy-MM-dd');
               var backgroundColor = "orange";
               var row = {};
               row.title = title;
               row.date = date;
               row.backgroundColor = backgroundColor;
-    
               dataEvents.push(row);
             }
+
+            console.log("gig from if dataAll.length == 1", date);
+
+      
           } else { // bookings returned
             for (var i = 0; i < data.length; i++) {
               if(data[i].temp_status == "ACCEPTED" && data[i].dental_status == "POSTED") {
@@ -148,7 +139,6 @@ export default class Calendar extends React.Component {
             }
           }
       }
-      // console.log(dataEvents);
       self.setState({events: dataEvents});
     }).catch(function(err) {
       console.log(err);

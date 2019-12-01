@@ -1,36 +1,25 @@
 <div style='width: 95%; background: none #FFF; border: 3px solid #6fd4e3;'>
     <div style='width: 100%;'>
-        <a href='tempify.co/' style='display: block; width: 153px;  margin: 0 auto; ' target='_blank' alt='Tempify' title='Dental Temping Simplified'>
+        <a href='http://23.239.7.243/' style='display: block; width: 153px;  margin: 0 auto; ' target='_blank' alt='Tempify' title='Dental Temping Simplified'>
             <img src='http://23.239.7.243/images/Tempify_resized.png' alt='Logo' style="width: 100%;margin-top: 0px;" />
         </a>
     </div>
     <div style='clear:both;'></div>
     <div style='background: #EEE; font-family: verdana; font-size: 13px; color: #333; padding: 15px; line-height: 25px; border-top: 1px solid #B6B6B6; border-bottom: 1px solid #6fd4e3;'>
-        <p>Hi there, </p>
-        <p>New gig has been by posted!</p>
-        <p>Please find details below:</p>
+        <p>Hi there,</p>
+        <p>Unfortunately, the Dental office has cancelled this booking. Please log-in and adjust your availability.</p>
         <p></p>
-
-
         <p><b><u>Office Details</u></b></p>
-        <p>Office Name : {{office_name}}</p>
-        <p>Dentist name : {{dentist_name}}</p>
-        <p>Address :{{address}} </p>
-        <p> {{city_state}}</p>
-
-        <p><b><u>Gig Details</u></b></p>
-        <p>Dates : {{dates}}</p>
-        <p>Designation : {{designation}}</p>
-        <p>Parking option: {{parking}}</p>
-        <p></p>
-        <p>Please login to <a href="tempify.co/">www.tempify.co</a> for more details</p>
-
+        <p>Office Name : {{$data['officeName']}}<p>
+        <p>Office Address :{{$data['officeAddress']}}<p>
+        <p>Contact Number : {{$data['phoneNumber']}}<p>
+        <p>Email Id : {{$data['email']}}<p>
+        <p><b><u>Booking Details</u></b></p>
+        <p>Booked Dates : {{$data['bookedDatesToPrintInEmail']}}</p>
         <p></p>
         <p>Thank you!<p>
         <p>The Tempify Team<p>
     </div>
-
-
     <table width="100%" border="0" style="border-collapse:collapse;border-spacing:0">
         <tbody><tr>
             <td style="margin:0;color:#999999;font-size:14px;line-height:20px;font-family:Arial,Helvetica,sans-serif;font-style:normal;font-weight:normal;text-align:center">Spread words about Tempify</td>
@@ -49,7 +38,25 @@
                 </a>
             </td>
         </tr>
-        </tbody>
-    </table>
+        </tbody></table>
 
+
+    @if(isset($to))
+        <div style='width: 100%; text-align: center'>
+
+            <div style='background: #EEE; font-family: verdana; font-size: 13px; color: #333; padding: 15px; line-height: 25px; border-top: 1px solid #B6B6B6; border-bottom: 1px solid #6fd4e3;'>
+                <p>
+                    This email was sent to {{$to}}, because your email preferences are set to receive  Tempify updates. Click to
+                    <a href="http://tempify.co/emailPreferences?q={{base64_encode(base64_encode(base64_encode($to)))}}"> unsubscribe</a>
+                    .
+                </p>
+                <p>
+                    This email was sent by Tempify.
+                    <br>
+                    All rights reserved. Copyright 2018 Temify
+                </p>
+            </div>
+        </div>
+    @endif
 </div>
+

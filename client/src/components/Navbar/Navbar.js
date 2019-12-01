@@ -49,17 +49,20 @@ class Navbar extends Component{
 
   componentDidMount() {
 
-    // this.logoutHandler();
     if (!sessionStorage.getItem('logged')) {
       this.logoutHandler();
       return;
     }
 
-
+=
     const token = localStorage.getItem('token');
     const expiryDate = localStorage.getItem('expiryDate');
     const userType = localStorage.getItem('userType');
     const userRole = localStorage.getItem('userRole');
+
+    console.log(token);
+
+
     if(!token || !expiryDate) {
       this.props.history.push("/");
       return; 

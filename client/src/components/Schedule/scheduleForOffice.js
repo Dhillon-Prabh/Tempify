@@ -93,8 +93,6 @@ export default class Calendar extends React.Component {
           row.backgroundColor = backgroundColor;
           dataEvents.push(row);
         }
-        // console.log("date object formated", date);
-        // console.log("gig from dataAll[1]", dataEvents);
       } else if (dataAll.length == 1) { // either bookings or gigs returned
           var data = dataAll[0];
           if (!data[0].id) { //gigs returned

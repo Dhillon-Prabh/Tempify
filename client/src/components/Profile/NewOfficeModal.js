@@ -128,7 +128,7 @@ class NewOfficeModal extends React.Component {
       groupId: this.state.groupId,
     }
 
-    fetch("http://localhost:3001/dentalInsertProfile", {
+    fetch("/auth/dentalInsertProfile", {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,

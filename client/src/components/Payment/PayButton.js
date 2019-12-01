@@ -30,7 +30,7 @@ class PayButton extends Component{
 
   async componentDidMount() {
     var data = {gigId: this.state.gigId};
-    await fetch("http://localhost:3001/getGigDetails", {
+    await fetch("/auth/getGigDetails", {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,

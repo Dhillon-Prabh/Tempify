@@ -38,7 +38,7 @@ class Records extends Component {
 
         console.log(this.props.token);
 
-        fetch("http://localhost:3001/getRecords", {
+        fetch("/auth/getRecords", {
             method: 'POST',
             headers: {
               'Authorization': 'Bearer ' + this.props.token,

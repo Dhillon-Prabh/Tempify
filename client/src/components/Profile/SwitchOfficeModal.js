@@ -125,7 +125,7 @@ class SwitchOfficeModal extends React.Component {
     }
     
     console.log(data);
-    fetch("http://localhost:3001/dentalGroupProfile", {
+    fetch("/auth/dentalGroupProfile", {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,
@@ -133,7 +133,6 @@ class SwitchOfficeModal extends React.Component {
       },
       body: JSON.stringify(data)
     }).then(res =>  {
-      console.log("fetch dentalGroupProfile");
       console.log(res.json());
       return res.json();
     }).then(result => {

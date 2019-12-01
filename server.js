@@ -37,11 +37,9 @@ app.use('/', routes);
 //   res.sendfile(path.join(__dirname = '/../client/build/index.html'));
 // })
 
-<<<<<<< HEAD:server.js
 app.use('/auth', routes);
 
 if (process.env.NODE_ENV === 'production') {
-  // app.use(express.static('client/build'));
   app.use(express.static(path.join(__dirname, './client/build')));
 }
 
@@ -50,8 +48,6 @@ app.get('*', (req, res) => {
 })
 
 
-=======
->>>>>>> 725b523e3d5407abb4306438b435cef22c58ff08:server/server.js
 // *************************************************************** //
 
 app.listen(PORT, () => {

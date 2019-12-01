@@ -116,13 +116,12 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    console.log("mounting again");
     let currentComponent = this;
     var data = {
       groupId: this.state.groupId,
     }
     
-    fetch("http://localhost:3001/dentalProfile", {
+    fetch("/auth/dentalProfile", {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,
@@ -194,7 +193,7 @@ class Profile extends React.Component {
       parking: this.state.parking
     };
     var self = this;
-    fetch("http://localhost:3001/dentalUpdateProfile", {
+    fetch("/auth/dentalUpdateProfile", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + this.props.token,

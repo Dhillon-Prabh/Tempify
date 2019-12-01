@@ -4,7 +4,7 @@ const db = require('../database/database');
 exports.tempProfile = (req, res, next) => {
 
   const token = req.decodedToken;
-  console.log("Inside tempProfile");
+  console.log(req.decodedToken);
   db((err, con) => {
     if(err){
       console.log(err);

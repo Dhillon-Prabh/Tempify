@@ -1,7 +1,6 @@
 const db = require('../database/database');
 
 exports.tempData = (req, res, next) => {
-    console.log("Inside tempData");
     db((err, con) => {
         if(err){
             console.log(err);
@@ -27,7 +26,6 @@ exports.tempData = (req, res, next) => {
 
 
 exports.confirmPayment = (req, res, next) => {
-    console.log("Inside confirmPayment");
     db((err, con) => {
         if(err){
             console.log(err);
@@ -50,7 +48,6 @@ exports.confirmPayment = (req, res, next) => {
                 + '((SELECT DATE_ADD(MAX(p.start_date), INTERVAL 14 DAY) FROM payroll p), 0, SYSDATE(), SYSDATE());';
               con.query(insertPeriodQuery, (err, result, fields) => {
                 if(!err) {
-                  console.log("no error proceeding to success");
                   res.status(300).send({ message: "success" });
                   con.release();
                 } else {

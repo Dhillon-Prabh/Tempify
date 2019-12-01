@@ -72,7 +72,7 @@ class ProfileCard extends Component {
           bookingId: this.state.bookingId
       }
       console.log("BookingID", data.bookingId);
-      fetch("/auth/gigCard", {
+      fetch("http://localhost:3001/gigCard", {
         method: 'PUT',
         headers: {
           'Authorization': 'Bearer ' + this.props.token,

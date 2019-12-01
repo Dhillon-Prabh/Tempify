@@ -83,7 +83,7 @@ class TempDashboard extends Component {
 
   componentDidMount(){
     
-    fetch("/auth/tempProfile", {
+    fetch("http://localhost:3001/tempProfile", {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,

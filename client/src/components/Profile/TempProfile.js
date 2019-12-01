@@ -176,7 +176,7 @@ class Profile extends React.Component {
   componentDidMount() {
     let currentComponent = this;
     
-    fetch("/auth/tempProfile", {
+    fetch("http://localhost:3001/tempProfile", {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + this.props.token,
@@ -221,7 +221,7 @@ class Profile extends React.Component {
       phone: this.state.phone,
     }
     var self = this;
-    fetch("/auth/tempUpdateProfile", {
+    fetch("http://localhost:3001/tempUpdateProfile", {
       method: 'POST',
       headers: {
         Authorization: 'Bearer ' + this.props.token,

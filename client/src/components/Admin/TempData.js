@@ -1,20 +1,3 @@
-import React from "react";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import "./TempData.css";
-
-<<<<<<< HEAD
-//
-//
-// This is the admin page
-// It is used only by the admin to display information about the temps
-//
-//
-=======
 import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -25,7 +8,6 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
 import './TempData.css';
->>>>>>> 725b523e3d5407abb4306438b435cef22c58ff08
 
 class TempData extends React.Component {
   constructor(props) {
@@ -34,104 +16,6 @@ class TempData extends React.Component {
       data: []
     };
   }
-
-<<<<<<< HEAD
-  createRow(id, name, email, phone, license_number, payment) {
-    return { id, name, email, phone, license_number, payment };
-  }
-
-  // Runs when the component mounts
-  // Sets the state from GET request to database
-  componentDidMount() {
-    var rows = [];
-    fetch("http://localhost:3001/admin", {
-      method: "GET"
-    })
-      .then(res => {
-        return res.json();
-      })
-      .then(result => {
-        for (var i = 0; i < result.length; i++) {
-          var id = result[i].temp_id;
-          var name = result[i].temp_name;
-          var email = result[i].email;
-          var phone = result[i].phone;
-          var license_number = result[i].license_number;
-          var payment = result[i].payment;
-          rows.push(
-            this.createRow(id, name, email, phone, license_number, payment)
-          );
-        }
-        this.setState({ data: rows });
-      })
-      .catch(function(err) {});
-  }
-
-  //Returns the component of temp data as a table
-  render() {
-    return (
-      <React.Fragment>
-        <Paper>
-          <div className="tableWrapper">
-            <Table stickyHeader size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>ID</TableCell>
-                  <TableCell className="headerFont" align="right">
-                    Name
-                  </TableCell>
-                  <TableCell className="headerFont" align="right">
-                    Email
-                  </TableCell>
-                  <TableCell className="headerFont" align="right">
-                    Phone
-                  </TableCell>
-                  <TableCell className="headerFont" align="right">
-                    License Number
-                  </TableCell>
-                  <TableCell className="headerFont" align="right">
-                    Payment Required
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {this.state.data.map(row => (
-                  <TableRow key={row.id}>
-                    <TableCell component="th" scope="row" className="cellFont">
-                      {row.id}
-                    </TableCell>
-                    <TableCell className="cellFont" align="right">
-                      {row.name}
-                    </TableCell>
-                    <TableCell className="cellFont" align="right">
-                      {row.email}
-                    </TableCell>
-                    <TableCell className="cellFont" align="right">
-                      {row.phone}
-                    </TableCell>
-                    <TableCell className="cellFont" align="right">
-                      {row.license_number}
-                    </TableCell>
-                    <TableCell className="cellFont" align="right">
-                      {row.payment}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </Paper>
-      </React.Fragment>
-    );
-  }
-=======
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: []
-        }
-    }
-
     createRow(id, period, name, email, phone, license_number, payment) {
         return {id, period, name, email, phone, license_number, payment};
     }
@@ -216,7 +100,6 @@ class TempData extends React.Component {
             </React.Fragment>
         );
     }
->>>>>>> 725b523e3d5407abb4306438b435cef22c58ff08
 }
 
 export default TempData;

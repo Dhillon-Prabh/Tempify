@@ -15,6 +15,7 @@ const PolicyContent = (props) => {
 const Policy = () => {
     return (
         <React.Fragment>
+            <br /> <br/>
             <Typography align="center" display="block" variant="h4" className="PolicyHeader">
                 PRIVACY POLICY
             </Typography>

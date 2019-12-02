@@ -7,6 +7,14 @@ import SuccessAlert from "../Alert/SuccessAlert";
 import FailAlert from "../Alert/FailAlert";
 import "./JobPosting.css";
 
+/**
+ * A snackbar is displayed when a job posting has been successfully accepted or 
+ * failed to accept.
+ * 
+ * @author John Ham
+ * @version 1.0
+ */
+
 const columns = [
   { name: "office", label: "Dental Office", className: "column" },
   { name: "details", options: { sortDirection: 'asc' },  label: "Details", className: "column" },

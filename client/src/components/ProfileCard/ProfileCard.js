@@ -15,6 +15,11 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import TimeInputField from "../Schedule/timeInputField";
 
+/**
+ * @author John Ham
+ * @version 1.0
+ */
+
 const styles = theme => ({
   card: {
     maxWidth: 310,

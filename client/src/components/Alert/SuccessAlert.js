@@ -1,10 +1,19 @@
 import React from 'react';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 
+/**
+ * Displays a success snackbar in the bottom left corner. 
+ * Snackbar is displayed for two seconds.
+ * Purpose of the snackbar should be passed in the component as a type.
+ * 
+ * @author John Ham
+ * @version 1.0
+ */
 
 function MyApp(props) {
   const { enqueueSnackbar } = useSnackbar();
 
+  // Changes the text displayed in the snackbar based on the type.
   const showAlert = (variant, autoHideDuration) => {
     switch (props.type) {
       case 'login':
@@ -26,13 +35,17 @@ function MyApp(props) {
         enqueueSnackbar('Payment Success! Thank you.', { variant, autoHideDuration });
         break;
       case 'registerOffice':
-        enqueueSnackbar('Account registered successfully! Please login to continue.', { variant, autoHideDuration });
+        enqueueSnackbar('Account registered successfully! Please login to '
+            + 'continue.', { variant, autoHideDuration });
         break;
       case 'registerTemp':
-        enqueueSnackbar('Account registered successfully! An email will be sent shortly with more details.', { variant, autoHideDuration });
+        enqueueSnackbar('Account registered successfully! '
+            + 'An email will be sent shortly with more details.', 
+              { variant, autoHideDuration });
         break;
       case 'addTime':
-        enqueueSnackbar('Your work hours have been submitted! An email has been sent to the dental office.', { variant, autoHideDuration });
+        enqueueSnackbar('Your work hours have been submitted! An email has '
+            + 'been sent to the dental office.', { variant, autoHideDuration });
         break;
       default:
         break;
@@ -47,7 +60,6 @@ function MyApp(props) {
 }
 
 export default function IntegrationNotistack(props) {
-
   return (
     <SnackbarProvider preventDuplicate={true}>
       <MyApp type={props.type}/>

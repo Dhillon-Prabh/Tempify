@@ -1,6 +1,11 @@
 const db = require('../database/database');
 const {check, validationResult} = require('express-validator/check');
 
+/**
+ * @author John Ham
+ * @version 1.0
+ */
+
 exports.postGig = [
   check('date').isAfter(new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + (new Date().getDate() - 1)).withMessage("Date should be in the future"),
   check('time').custom(value =>{

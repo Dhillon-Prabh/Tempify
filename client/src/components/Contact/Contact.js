@@ -4,6 +4,15 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SuccessAlert from "../Alert/SuccessAlert"
 
+/**
+ * Component for sending message to Tempify in the Contact Us section.
+ * A user can send an email to Tempify by inputting a name, email, and
+ * message.
+ * 
+ * @author John Ham
+ * @version 1.0
+ */
+
 const useStyles = makeStyles(theme => ({
   container: {
     display: "flex",
@@ -71,16 +80,19 @@ const useStyles = makeStyles(theme => ({
 export default function TextFields() {
   const classes = useStyles();
   const [values, setValues] = React.useState({
-    cuName: "",
-    cuEmail: "",
-    cuMessage: "",
-    setSuccessOpen: false
+    cuName: "",            // Value of name field
+    cuEmail: "",           // Value of email field
+    cuMessage: "",         // Value of message field
+    setSuccessOpen: false  // Whether snackbar is shown
   });
 
+  // Updates state when input fields receive input
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
   };
 
+  // Sends a request to the server with data needed to send an email.
+  // Input fields are cleared after clicking the Send Message button
   function sendMessageContactUs() {
     fetch("http://localhost:3001/email", {
       method: 'POST',
@@ -99,7 +111,6 @@ export default function TextFields() {
       cuMessage: "",
       setSuccessOpen: true
     });
-    
     setTimeout(() =>{
       setValues({
         setSuccessOpen: false

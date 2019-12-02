@@ -7,7 +7,7 @@ exports.getEvents = (req, res, next) => {
       console.log(err);
       throw err;
     }
-    if (user.role == 2) { //role for temps is 2
+    if (user.role == 2) { 
         var query = 'SELECT id FROM temps WHERE user_id = ?;';
         values=[user.userId];
         con.query(query, values, (err, result, fields) => {

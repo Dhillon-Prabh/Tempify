@@ -15,7 +15,6 @@ const styles = theme => ({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    // backgroundColor: "rgb(248,248,248)",
     outline: "none",
     lineHeight: "1.25",
     fontFamily: "arial"
@@ -148,7 +147,6 @@ const styles = theme => ({
 class ProfileCard extends Component {
   constructor(props) {
     super(props);
-    console.log("DisablePay", this.props.disablePay);
     this.state = {
       bookingId : this.props.bookingId,
       disablePay: this.props.disablePay,
@@ -167,7 +165,6 @@ class ProfileCard extends Component {
     var data = {
       bookingId: this.state.bookingId
     };
-    console.log("BookingID", data.bookingId);
     fetch("http://localhost:3001/gigCardOffice", {
       method: "PUT",
       headers: {
@@ -189,10 +186,8 @@ class ProfileCard extends Component {
           bookingRef: " " + result[0].reference_number,
           temp_hours: result[0].temp_hours
         });
-        console.log(result);
       })
       .catch(function(err) {
-        console.log(err);
       });
   }
 
@@ -203,7 +198,7 @@ class ProfileCard extends Component {
       <div className={classes.outerContainer}>
         <div className={classes.container}>
           <div className={classes.imageContainer}>
-            <img className={classes.image} src={ok} alt="profile image" />
+            <img className={classes.image} src={ok} alt="profile" />
           </div>
           <div className={classes.nameContainer}>{this.state.tempName}</div>
           <div className={classes.outerStatusContainer}>

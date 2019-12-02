@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import './Pending.css'
 
 class Pending extends Component {
-  constructor(props) {
-    super(props);
-  }
+
   render(){
     return (
       <div className="Pending-container">

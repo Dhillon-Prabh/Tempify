@@ -4,7 +4,6 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import OfficeProfileCard from "../ProfileCard/OfficeProfileCard";
-import PaymentButton from "../Payment/PayButton";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -26,9 +25,6 @@ export default function TransitionsModal(props) {
   const [values, setValues] = React.useState({
     token: props.token,
   });
-
-  console.log(values.token);
-
 
   const handleOpen = () => {
     setOpen(true);

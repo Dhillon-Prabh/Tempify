@@ -16,7 +16,6 @@ import Divider from "@material-ui/core/Divider";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { format } from "date-fns";
 import SuccessAlert from "../Alert/SuccessAlert";
-
 import "./main.scss";
 
 const useStyles = theme => ({
@@ -86,7 +85,6 @@ class PostGig extends React.Component {
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -118,26 +116,22 @@ class PostGig extends React.Component {
       body: JSON.stringify(data)
     })
       .then(function(response) {
-        if (response.status == 422) {
-          console.log("validation error");
-        } else if (response.status == 300) {
+        if (response.status === 422) {
+        } else if (response.status === 300) {
           self.setState({ success: true });
         }
         return response.json();
       })
       .then(function(data) {
         for (var i = 0; i < data.length; i++) {
-          if (data[i].param == "date") {
-            console.log("date error");
+          if (data[i].param === "date") {
             self.setState({ dateError: true });
-          } else if (data[i].param == "time") {
+          } else if (data[i].param === "time") {
             self.setState({ timeError: true });
           }
         }
-        console.log(data);
       })
       .catch(function(err) {
-        console.log(err);
       });
   };
 

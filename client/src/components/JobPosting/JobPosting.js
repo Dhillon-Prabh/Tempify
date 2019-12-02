@@ -41,7 +41,6 @@ class JobPosting extends React.Component {
             gigId: acceptData[0].id,
             acceptData: acceptData[0]
           }
-        // console.log(data); 
         fetch("http://localhost:3001/acceptGig", {
         method: 'POST',
         headers: {
@@ -50,21 +49,18 @@ class JobPosting extends React.Component {
         },
         body: JSON.stringify(data)
         }).then(function(response) {
-            // console.log(response);
-            if (response.status == 401) {
+            if (response.status === 401) {
               self.setState({ setFailOpen: true });
               self.props.history.push("/tempdashboard");
             }
             return response;
         }).then(function(data) {
-            // console.log(data);
-            if (data.status == 300) {
-                console.log("Success");
+            if (data.status === 300) {
                 self.setState({setSuccessOpen: true});
                 self.props.history.push("/tempdashboard");
             }
         }).catch(function(err) {
-            console.log(err);
+
         });
         this.forceUpdate();
     }
@@ -79,7 +75,6 @@ class JobPosting extends React.Component {
         }).then(res =>  {
           return res.json();
         }).then(result => {
-        //   console.log(result);
           var resultData = [];
           for (var i = 0; i < result.length; i++) {
               result[i].date = format(parseISO(result[i].date), 'yyyy-MM-dd');
@@ -97,9 +92,7 @@ class JobPosting extends React.Component {
               resultData.push(row);
           }
           self.setState({data: resultData});
-        //   console.log(result);
         }).catch(function(err) {
-          console.log(err);
         });
   }
 

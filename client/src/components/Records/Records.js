@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
 import MUIDatatable from "mui-datatables";
-import Button from '@material-ui/core/Button'
-import {format} from 'date-fns';
-import parseISO from 'date-fns/parseISO';
 import SuccessAlert from '../Alert/SuccessAlert';
-// import './JobPosting.css'
 
 const columns = [
     {name:"office", label:"Dental Office", className:"column"},
@@ -70,7 +66,6 @@ class Records extends Component {
         }
           this.setState({data: resultData});
         }).catch(function(err) {
-          console.log(err);
         });
     }
     render() {

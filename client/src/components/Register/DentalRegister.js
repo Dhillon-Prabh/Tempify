@@ -17,8 +17,13 @@ import FailAlert from '../Alert/FailAlert';
 /**
  * This is where the offices register themselves. 
  * @author Prabhdeep Singh 
+ * @version 1
  */
 
+/**
+ * styles used by this component
+ * @param theme 
+ */
 const useStyles = theme => ({
   textField: {
     width: '100%',
@@ -48,6 +53,9 @@ const useStyles = theme => ({
   },
 });
 
+/**
+ * parking options 
+ */
 const parking = [
   {
     value: 'yes',
@@ -86,6 +94,9 @@ class Register extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  /**
+   * extra validations for this component
+   */
   componentDidMount() {
     ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
       if(value !== this.state.password) {
@@ -101,6 +112,9 @@ class Register extends React.Component {
     ValidatorForm.removeValidationRule('isTruthy');
   }
 
+  /**
+   * goes to the backend and adds new user after server side validation.
+   */
   submitForm = (event) => {
     event.preventDefault();
 
@@ -144,10 +158,16 @@ class Register extends React.Component {
     }, 2000);
   }
 
+  /**
+   * handles state change here
+   */
   handleChange = (e) => {
     this.setState({[e.target.name]: e.target.value});
   }
 
+  /**
+   * handlles checkbox click event
+   */
   handleCheckboxChange = (e) => {
     this.setState({accept: e.target.checked})
   }

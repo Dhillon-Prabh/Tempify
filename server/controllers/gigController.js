@@ -1,7 +1,13 @@
 const db = require('../database/database');
 const {check, validationResult} = require('express-validator/check');
 
+/**
+ * posting a gig. This is used by the office to post a job.
+ * @author : Prabhdeep Singh
+ * @version : 1
+ */
 exports.postGig = [
+  //validation performed before entering the new job
   check('date').isAfter(new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + (new Date().getDate() - 1)).withMessage("Date should be in the future"),
   check('time').custom(value =>{
       var times = value.split("-");
@@ -27,12 +33,12 @@ exports.postGig = [
           throw err;
         }
         return new Promise(function (resolve, reject) {
-            var query = 'SELECT id FROM dentists WHERE user_id = ?;';
+            var query = 'SELECT id FROM dentists WHERE user_id = ?;'; //grabs id from dentists to use in the next query
             values=[job.userId];
             con.query(query, values, (err, result, fields) => {
             if(!err) {
               var query = 'INSERT INTO gigs(created_at, updated_at, dentist_id, date, time, designation,' +
-              'status) VALUES (?, ?, ?, ?, ?, ?, ?);';
+              'status) VALUES (?, ?, ?, ?, ?, ?, ?);'; //inserts into gigs the new job
               values=[new Date(), new Date(), result[0].id, job.date, job.time, job.designation, 'POSTED'];
                 con.query(query, values, (err, result, fields) => {
                   if(!err) {
@@ -47,7 +53,7 @@ exports.postGig = [
             });
         })
         .then(function(result) {
-          var query = 'UPDATE gigs SET reference_number = ? WHERE id = ?;';
+          var query = 'UPDATE gigs SET reference_number = ? WHERE id = ?;'; 
           values=['GIG' + result.insertId, result.insertId];
             con.query(query, values, (err, result, fields) => {
               if(!err) {
@@ -71,14 +77,18 @@ exports.postGig = [
   }
 ]
 
+/**
+ * fetches all the job postings relevant to this user.
+ * @author Prabhdeep Singh
+ * @version 1
+ */
 exports.jobPosting = (req, res, next) => {
-  console.log(req.decodedToken.userId);
   db((err, con) => {
     if(err){
       console.log(err);
       throw err;
     }
-    var query = 'SELECT designation FROM temps WHERE user_id = ?;';
+    var query = 'SELECT designation FROM temps WHERE user_id = ?;'; // what designation jobs to show
       values=[req.decodedToken.userId];
       con.query(query, values, (err, result, fields) => {
         if(!err) {
@@ -112,6 +122,11 @@ exports.jobPosting = (req, res, next) => {
   })
 }
 
+/**
+ * accepts a gig for the user from the job postings.
+ * @author Prabhdeep Singh
+ * @version 1
+ */
 exports.acceptGig = (req, res, next) => {
   var value = req.body;
   db((err, con) => {
@@ -119,7 +134,7 @@ exports.acceptGig = (req, res, next) => {
       console.log(err);
       throw err;
     }
-    var query = 'SELECT id, expected_rate FROM temps WHERE user_id = ?;';
+    var query = 'SELECT id, expected_rate FROM temps WHERE user_id = ?;'; //temp_id and expected rate required for the next query
         values=[req.decodedToken.userId];
         con.query(query, values, (err, result, fields) => {
         if(!err) {
@@ -145,6 +160,11 @@ exports.acceptGig = (req, res, next) => {
   next();
 }
 
+/**
+ * grabs office information to show on the schedule card modal for the temps.
+ * @author Prabhdeep Singh
+ * @version 1
+ */
 exports.gigCard = (req, res, next) => {
 
   const booking = req.body;
@@ -170,8 +190,12 @@ exports.gigCard = (req, res, next) => {
   })
 }
 
+/**
+ * grabs temp information to show on the schedule card modal for the offices.
+ * @author Prabhdeep Singh
+ * @version 1
+*/
 exports.gigCardOffice = (req, res, next) => {
-  console.log("gigcardoffice");
   const booking = req.body;
 
   db((err, con) => {
@@ -199,9 +223,13 @@ exports.gigCardOffice = (req, res, next) => {
   })
 }
 
+/**
+ * entering hours for the jobs completed by the temps
+ * @author Prabhdeep Singh
+ * @version 1
+ */
 
 exports.addTime = (req, res, next) => {
-  console.log("addTime");
   const booking = req.body;
   console.log(booking);
   db((err, con) => {
@@ -209,7 +237,7 @@ exports.addTime = (req, res, next) => {
       console.log(err);
       throw err;
     }
-    var query = 'SELECT temp_wage, is_from_gig FROM bookings WHERE id = ?';
+    var query = 'SELECT temp_wage, is_from_gig FROM bookings WHERE id = ?'; //selects wage, agn gig id for this booking
         values=[booking.bookingId];
         con.query(query, values, (err, result, fields) => {
         if(!err) { 
@@ -219,6 +247,7 @@ exports.addTime = (req, res, next) => {
             return res.status(404).send({error: "booking hours is null"});
           }
 
+          //adds up the total to be inserted in the database
           var amount = parseInt(result[0].temp_wage) * booking.hours;
           amount = parseFloat(amount.toFixed(2));
           var service_fee = amount *0.15;
@@ -227,6 +256,7 @@ exports.addTime = (req, res, next) => {
           gst = parseFloat(gst.toFixed(2));
           var total = amount + gst + service_fee;
           total = parseFloat(total.toFixed(2));
+
           valuesB=["COMPLETE", result[0].is_from_gig, "COMPLETE", booking.hours, service_fee, gst, total, booking.bookingId];
           con.query(userQuery, valuesB, (err, result, fields) => {
             if (!err) {

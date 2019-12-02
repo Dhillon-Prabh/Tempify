@@ -1,14 +1,10 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import ProfileCard from "../ProfileCard/ProfileCard";
 import Modal from "./modal"
-
 import "./main.scss";
-import { red } from "@material-ui/core/colors";
-import { textAlign } from "@material-ui/system";
+
 
 export default class Calendar extends React.Component {
   constructor(props) {

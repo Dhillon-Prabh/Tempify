@@ -11,10 +11,7 @@ exports.postGig = [
           throw new Error('Ending time cannot be less than starting time');
       }
       return true;
-  }), 
-  (req, res, next) => {
-
-
+  }), (req, res, next) => {
     const errors = validationResult(req);
     
     if (!errors.isEmpty()) {
@@ -72,7 +69,7 @@ exports.postGig = [
 ]
 
 exports.jobPosting = (req, res, next) => {
-  console.log(req.decodedToken.userId);
+  
   db((err, con) => {
     if(err){
       console.log(err);

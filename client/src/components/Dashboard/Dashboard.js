@@ -55,7 +55,6 @@ class Dashboard extends Component {
           user: result[0].dentist_name
         });
       }).catch(function(err) {
-        console.log(err);
       });
     }
 

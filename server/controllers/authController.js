@@ -1,8 +1,13 @@
 const db = require('../database/database');
 const jwt = require('jsonwebtoken');
 
+/**
+ * Login controller. Validates and authenticate the user. 
+ * Passes jwt to client if user passes authentication.
+ * @author Joe Fong
+ * @version 1.0 
+ */
 exports.postLogin = (req, res, next) => {
-
   const email = req.body.email;
   const password = req.body.password;
   db((err, con) => {
@@ -17,12 +22,11 @@ exports.postLogin = (req, res, next) => {
         return res.status(401).send({
           error: "error message",
         });
-      } else if(result[0].role == 1) {
+      } else if(result[0].role === 1) {
         var userQuery = 'SELECT id, group_id FROM dentists WHERE user_id = ? LIMIT 1;';
         values=[result[0].id];
         con.query(userQuery, values, (err, row, fields) => {
           if(!err) {
-            console.log("no error proceeding to resolve");
             let loadedUser = result[0];
             let office = row[0];
             const token = jwt.sign(
@@ -50,7 +54,6 @@ exports.postLogin = (req, res, next) => {
               )
             con.release();
           } else {
-            console.log("error fetching office id");
             con.release();
           }
         });
@@ -83,22 +86,23 @@ exports.postLogin = (req, res, next) => {
     })
   })
 }
-exports.getTempDashboardInformation = (req, res, next) => {
-  const user = req.decodedToken;
-  db((err, con) => {
-    if(err){
-      throw err;
-    }
+
+// exports.getTempDashboardInformation = (req, res, next) => {
+//   const user = req.decodedToken;
+//   db((err, con) => {
+//     if(err){
+//       throw err;
+//     }
   
-    var userQuery = 'SELECT temp_name, experience, expected_rate, city, designation, type_of_practice, ' +
-      'dental_software, imagename, phone FROM temps WHERE user_id = ? LIMIT 1';
-    values=[user.userId];
-    con.query(userQuery, values, (err, result, fields) => {
-      if(!result.length) {
-        return res.status(401).send({ error : "error message",});
-      } else {
-        return res.status(200).json(result);
-      }
-    });
-  })
-}
+//     var userQuery = 'SELECT temp_name, experience, expected_rate, city, designation, type_of_practice, ' +
+//       'dental_software, imagename, phone FROM temps WHERE user_id = ? LIMIT 1';
+//     values=[user.userId];
+//     con.query(userQuery, values, (err, result, fields) => {
+//       if(!result.length) {
+//         return res.status(401).send({ error : "error message",});
+//       } else {
+//         return res.status(200).json(result);
+//       }
+//     });
+//   })
+// }

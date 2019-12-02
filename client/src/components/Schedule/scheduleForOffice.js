@@ -5,6 +5,12 @@ import interactionPlugin from "@fullcalendar/interaction";
 import OfficeModal from "./OfficeModal"
 import "./main.scss";
 
+/**
+ * This is the schedule for offices. Here they can see posted, accepted and payment requried jobs
+ * @author Oscar Au
+ * @author Prabhdeep Singh
+ * @version 1
+ */
 export default class Calendar extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +19,11 @@ export default class Calendar extends React.Component {
       events: [],
       token: this.props.token
     }
-}
+  }
+
+  /**
+   * This is where we fetch all the events to show the offices
+   */
   componentDidMount() {
     let self = this;
     var data = {
@@ -32,9 +42,9 @@ export default class Calendar extends React.Component {
       return response.json();
     }).then(function(dataAll) {
       var dataEvents = [];
-      if (dataAll.length === 2) { 
+      if (dataAll.length === 2) { //both bookings and gigs returned
         var data = dataAll[0]; 
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < data.length; i++) { //bookings
           if(data[i].temp_status === "ACCEPTED" && data[i].dental_status === "POSTED") {
             var title = data[i].temp_name;
             var date = data[i].dates;

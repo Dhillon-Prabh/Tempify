@@ -6,7 +6,9 @@ import SuccessAlert from '../Alert/SuccessAlert';
 import FailAlert from "../Alert/FailAlert";
 
 /**
- * @author John Ham
+ * This is the component used in the modal for temps to enter hours for a completed job
+ * @author Oscar Au 
+ * @author Prabhdeep Singh John Ham
  * @version 1.0
  */
 

@@ -5,7 +5,12 @@ import interactionPlugin from "@fullcalendar/interaction";
 import Modal from "./modal"
 import "./main.scss";
 
-
+/**
+ * This is the schedule for temps. Here they can see accepted and completed-unpaid jobs
+ * @author Oscar Au
+ * @author Prabhdeep Singh
+ * @version 1
+ */
 export default class Calendar extends React.Component {
   constructor(props) {
     super(props);
@@ -13,9 +18,12 @@ export default class Calendar extends React.Component {
     this.state = {
       events: []
     }
-}
+  }
+
+  /**
+   * this is where we grab all the events to show.
+   */
   componentDidMount() {  
-    
     let self = this;
     var data = {
       userId: localStorage.getItem("userId"),
@@ -34,7 +42,7 @@ export default class Calendar extends React.Component {
     }).then(function(data) {
       var dataEvents = [];
       for (var i = 0; i < data.length; i++) {
-        if(data[i].temp_status === "ACCEPTED" && data[i].dental_status === "POSTED") {
+        if(data[i].temp_status === "ACCEPTED" && data[i].dental_status === "POSTED") { //Show in green
           var title = data[i].office_name;
           var date = data[i].dates;
           var id = data[i].id;
@@ -55,7 +63,7 @@ export default class Calendar extends React.Component {
           }
 
           dataEvents.push(row)
-        } else if(data[i].temp_status === "COMPLETE" && data[i].dental_status === "POSTED") {
+        } else if(data[i].temp_status === "COMPLETE" && data[i].dental_status === "POSTED") { //show in red
           title = data[i].office_name;
           date = data[i].dates;
           var backgroundColor = "red";

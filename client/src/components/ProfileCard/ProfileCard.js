@@ -10,7 +10,9 @@ import TimeInputField from "../Schedule/timeInputField";
 
 /**
  * Profile card for the temps with the office information
+ * @author John Ham
  * @author Prabhdeep Singh
+ * @version 1
  */
 
 /**

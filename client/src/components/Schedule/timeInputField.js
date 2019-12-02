@@ -6,6 +6,11 @@ import {Redirect} from 'react-router-dom';
 import SuccessAlert from '../Alert/SuccessAlert';
 import FailAlert from "../Alert/FailAlert";
 
+/**
+ * @author John Ham
+ * @version 1.0
+ */
+
 const useStyles = theme => ({
   root: {
     '& > *': {

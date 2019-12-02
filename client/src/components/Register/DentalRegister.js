@@ -17,13 +17,15 @@ import FailAlert from '../Alert/FailAlert';
 /**
  * This is where the offices register themselves. 
  * @author Prabhdeep Singh 
- * @version 1
+ * @author John Ham
+ * @version 1.0
  */
 
 /**
  * styles used by this component
  * @param theme 
  */
+
 const useStyles = theme => ({
   textField: {
     width: '100%',

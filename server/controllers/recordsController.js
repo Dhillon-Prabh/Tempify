@@ -1,5 +1,11 @@
 const db = require('../database/database');
 
+/**
+ * 
+ * @author John Ham
+ * @version 1.0
+ */
+
 exports.getRecords = (req, res, next) => {
   db((err, con) => {
     if(err){

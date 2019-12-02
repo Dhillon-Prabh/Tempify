@@ -10,11 +10,17 @@ import "./JobPosting.css";
 /**
  * This component shows the temps all the job postings and they can select the one they want.
  * @author Prabhdeep Singh
+ * A snackbar is displayed when a job posting has been successfully accepted or 
+ * failed to accept.
+ * 
+ * @author John Ham
+ * @version 1.0
  */
 
 /**
 * Columns for the datatable of job postings
 */
+
 const columns = [
   { name: "office", label: "Dental Office", className: "column" },
   { name: "details", options: { sortDirection: 'asc' },  label: "Details", className: "column" },

@@ -4,7 +4,8 @@ const {check, validationResult} = require('express-validator/check');
 /**
  * posting a gig. This is used by the office to post a job.
  * @author : Prabhdeep Singh
- * @version : 1
+ * @author John Ham
+ * @version 1.0
  */
 exports.postGig = [
   //validation performed before entering the new job

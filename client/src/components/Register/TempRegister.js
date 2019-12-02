@@ -22,7 +22,8 @@ import FailAlert from '../Alert/FailAlert';
 /**
  * component used by the temps to signup
  * @author Prabhdeep Singh
- * @version 1
+ * @author John Ham
+ * @version 1.0
  */
 
 /**

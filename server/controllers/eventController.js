@@ -28,14 +28,14 @@ exports.getEvents = (req, res, next) => {
                 res.status(200).json(result);
                 con.release();
             }
-        });
+          });
         } else {
             res.status(401).send({error : "error Message",});
             con.release();
         }
-        });
+      });
     }
-  })
+  });
 }
 
 /**

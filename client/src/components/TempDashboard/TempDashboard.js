@@ -131,11 +131,6 @@ class TempDashboard extends Component {
           <Grid container direction="row" justify="center" alignItems="center" className="options">
           <div className="tempDateboardOuterContainer">
             <Grid item xs={2}>
-              {/* <Grid item xs={12}>
-                <div className = "tempdashboard-username">
-                  Hi, {this.state.user}!
-                </div>
-              </Grid>  */}
               <Breadcrumbs aria-label="breadcrumb">
                   <Link to="/tempdashboard" style={{textDecoration:'none', color: 'inherit'}}>
                   <ListItem button>

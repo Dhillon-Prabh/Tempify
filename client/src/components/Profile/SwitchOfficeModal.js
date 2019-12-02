@@ -2,7 +2,6 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,6 +9,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import MUIDatatable from "mui-datatables";
 import './OfficeModal.css'
 
+/**
+ * Styling for the material UI components. 
+ * @param {const} theme 
+ */
 const useStyles = theme => ({
   textField: {
     width: '100%',
@@ -55,12 +58,17 @@ const options = {
   column: false,
 };
 
+/**
+ * Modal component for showing different offices in the profile
+ * for users to switch to. 
+ * @author Ho Joo Lee
+ * @version 1.0 
+ */
 class SwitchOfficeModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       userId: this.props.userId,
-      //officeId: this.props.officeId,
       data: [],
       setOpen: false,
       open: false,
@@ -73,51 +81,27 @@ class SwitchOfficeModal extends React.Component {
     this.handleClickClose = this.handleClickClose.bind(this);
   }
 
+  /**
+   * Opens the modal
+   */
   handleClickOpen = () => {
     this.setState({
       setOpen: true
     });
   };
 
+  /**
+   * Closes the modal
+   */
   handleClickClose = () => {
     this.setState({
       setOpen: false
     });
   };
 
-  handleClick(acceptData) {
-      console.log("handleClick");
-    // var self = this;
-    // const userId = localStorage.getItem('userId');
-    // var data = {
-    //   userId: userId,
-    //   gigId: acceptData[0].id,
-    //   acceptData: acceptData[0]
-    // }
-
-    // console.log(data); 
-    // fetch("http://localhost:3001/acceptGig", {
-    //   method: 'POST',
-    //   headers: {
-    //       'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(data)
-    // }).then(function(response) {
-    //   console.log(response);
-    //   return response;
-    // }).then(function(data) {
-    //   console.log(data);
-    //   if (data.status == 300) {
-    //       console.log("Success");
-    //       self.setState({success: true});
-    //       self.props.history.push("/tempdashboard");
-    //   }
-    // }).catch(function(err) {
-    //     console.log(err);
-    // });
-    // this.forceUpdate();
-  }
-
+  /**
+   * Mounts the component, and fetches the inital data. 
+   */
   componentDidMount() {
     let currentComponent = this;
     var data = {
@@ -159,38 +143,17 @@ class SwitchOfficeModal extends React.Component {
     });
   }
 
-  componentWillUnmount() {
-  }
-
-//   submitModalForm = () => {
-//     console.log("inside dental modal submit");
-    
-//     var data = {
-//       userId: this.props.userId,
-//       officeId: this.props.officeId,
-//     }
-
-//     console.log(data);
-//     fetch("http://localhost:3001/dentalGroupProfile", {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify(data)
-//     }).then(function(response) {
-//       console.log(response);
-//     }).then(function(data) {
-//       console.log(data);
-//     }).catch(function(err) {
-//       console.log(err);
-//     });
-//     this.setState({setOpen: false});
-//   }
-
+  /**
+   * Handles changes to the text inputs
+   */
   handleChange = (e) => {
     this.setState({[e.target.name]: e.target.value});
   }
 
+  /**
+   * Renders a blue button, transparent button, or typography depending on args passed. 
+   * @param {param} param 
+   */
   renderButton(param) {
     switch(param) {
       case 'blueButton':

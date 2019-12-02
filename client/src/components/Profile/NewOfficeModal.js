@@ -9,11 +9,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import './OfficeModal.css'
 
-/**
- * Modal for adding new temps
- * @author Prabhdeep Singh 
- * @param theme 
- */
 const useStyles = theme => ({
   textField: {
     width: '100%',
@@ -43,6 +38,9 @@ const useStyles = theme => ({
   },
 });
 
+/**
+ * Array of json for parking options. 
+ */
 const parking = [
   {
     value: 'yes',
@@ -58,6 +56,13 @@ const parking = [
   },
 ];
 
+/**
+ * Modal that will open when 'office' wants  to add a 
+ * new office to their profile. 
+ * @author Ho Joo Lee 
+ * @author Prabhdeep Singh 
+ * @version 1.0 
+ */
 class NewOfficeModal extends React.Component {
   constructor(props) {
     super(props);
@@ -85,18 +90,27 @@ class NewOfficeModal extends React.Component {
     this.handleClickClose = this.handleClickClose.bind(this);
   }
 
+  /**
+   * Handles opening the modal 
+   */
   handleClickOpen = () => {
     this.setState({
       setOpen: true
     });
   };
 
+  /**
+   * Handles closing the modal
+   */
   handleClickClose = () => {
     this.setState({
       setOpen: false
     });
   };
 
+  /**
+   * Mounts the component, and adds validators to the text inputs. 
+   */
   componentDidMount() {
     ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
       if(value !== this.state.password) {
@@ -107,11 +121,17 @@ class NewOfficeModal extends React.Component {
     ValidatorForm.addValidationRule('isTruthy', value => value);
   }
 
+  /**
+   * Unmounts the component, and removes the validators to the text inputs. 
+   */
   componentWillUnmount() {
     ValidatorForm.removeValidationRule('isPasswordMatch');
     ValidatorForm.removeValidationRule('isTruthy');
   }
 
+  /**
+   * Handles submission of the form. 
+   */
   submitModalForm = event => {
     console.log("inside submitModalform");
     event.preventDefault();
@@ -141,20 +161,25 @@ class NewOfficeModal extends React.Component {
       },
       body: JSON.stringify(data)
     }).then(function(response) {
-      console.log(response);
     }).then(function(data) {
-      console.log(data);
     }).catch(function(err) {
-      console.log(err);
     });
     this.setState({setOpen: false});
     window.location.reload();
   }
 
+  /**
+   * Handles any changes to the text inputs, and changes the state 
+   * of the corresponding state. 
+   */
   handleChange = (e) => {
     this.setState({[e.target.name]: e.target.value});
   }
 
+  /**
+   * Renders a blue button, transparent button, or typography depending on args passed. 
+   * @param {param} param 
+   */
   renderButton(param) {
     switch(param) {
       case 'blueButton':

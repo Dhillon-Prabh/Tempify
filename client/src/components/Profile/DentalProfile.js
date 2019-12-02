@@ -10,6 +10,10 @@ import MUIDatatable from "mui-datatables";
 import SuccessAlert from "../Alert/SuccessAlert";
 import FailAlert from '../Alert/FailAlert';
 
+/**
+ * Styling for the material UI components. 
+ * @param {const} theme 
+ */
 const useStyles = theme => ({
   textField: {
     width: "100%",
@@ -71,6 +75,9 @@ const parking = [
   },
 ];
 
+/**
+ * Columns for the  material UI data table. 
+ */
 const columns = [
   {name:"name", label:"Name", className:"column"},
   {name:"officeEmail", label:"Email", className:"column"},
@@ -78,6 +85,9 @@ const columns = [
   {name:"action", label:"Action", className:"column"}
 ];
 
+/**
+ * Options config for the material UI data table. 
+ */
 const options = {
   selectableRows: false,
   search: false,
@@ -90,7 +100,10 @@ const options = {
 };
 
 /**
- * 
+ * Dental profile component. Allows 'offices' to see their profile
+ * and make updates to any of the fields they want to. 
+ * @author Ho Joo Lee 
+ * @version 1.0 
  */
 class Profile extends React.Component {
   constructor(props) {
@@ -117,6 +130,11 @@ class Profile extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  /**
+   * Renders the initial state of the component. 
+   * Fetches from backend to get the profile information for the 
+   * office/user currently logged in. 
+   */
   componentDidMount() {
     let currentComponent = this;
     var data = {
@@ -170,11 +188,18 @@ class Profile extends React.Component {
     });
   }
 
+  /**
+   * Removes validators on unmount of component. 
+   */
   componentWillUnmount() {
     ValidatorForm.removeValidationRule("isPasswordMatch");
     ValidatorForm.removeValidationRule("isTruthy");
   }
 
+  /**
+   * Handles the form submission and makes a POST 
+   * req to the backend to update the data. 
+   */
   submitForm = event => {
     event.preventDefault();
 
@@ -220,10 +245,17 @@ class Profile extends React.Component {
       }, 2000);
   };
 
+  /**
+   * Handles changes to the text input fields. 
+   */
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  /**
+   * Handles the click event. 
+   * @param {event} acceptData 
+   */
   handleClick(acceptData) {
     var id = acceptData[0].user_id;
     
@@ -357,6 +389,11 @@ class Profile extends React.Component {
                   }
                 }}
               />
+
+
+
+
+
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
@@ -367,6 +404,9 @@ class Profile extends React.Component {
                 label="Street Number"
                 className={classes.textField}
                 margin="normal"
+
+
+
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.streetNo}

@@ -14,6 +14,10 @@ import SuccessAlert from '../Alert/SuccessAlert';
 import FailAlert from '../Alert/FailAlert';
 import './Profile.css';
 
+/**
+ * Styling for the material UI components. 
+ * @param {const} theme 
+ */
 const useStyles = theme => ({
   textField: {
     width: '100%',
@@ -153,6 +157,11 @@ const dentalsw = [
   },
 ];
 
+/**
+ * Profile component for the temps. 
+ * @author Ho Joo Lee
+ * @version 1.0 
+ */
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -173,6 +182,9 @@ class Profile extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  /**
+   * Mounts the component and fetches the initial data. 
+   */
   componentDidMount() {
     let currentComponent = this;
     
@@ -200,11 +212,17 @@ class Profile extends React.Component {
     });
   }
 
+  /**
+   * Unmounts the components and removes validators to the text inputs. 
+   */
   componentWillUnmount() {
     ValidatorForm.removeValidationRule('isPasswordMatch');
     ValidatorForm.removeValidationRule('isTruthy');
   }
 
+  /**
+   * Handles the form submission. 
+   */
   submitForm = (event) => {
     event.preventDefault();
 
@@ -234,11 +252,8 @@ class Profile extends React.Component {
       } else {
         self.setState({ setSuccessOpen: true });
       }
-      console.log(response);
     }).then(function(data) {
-      console.log(data);
     }).catch(function(err) {
-      console.log(err);
     });
     setTimeout(() =>{
       this.setState({
@@ -248,10 +263,16 @@ class Profile extends React.Component {
     }, 2000);
   }
 
+  /**
+   * Handles changes to the text inputs.
+   */
   handleChange = (e) => {
     this.setState({[e.target.name]: e.target.value});
   }
 
+  /**
+   * Handles state of the checkbox. 
+   */
   handleCheckboxChange = (e) => {
     this.setState({accept: e.target.checked})
   }

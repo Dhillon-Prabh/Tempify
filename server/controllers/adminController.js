@@ -6,11 +6,12 @@ const db = require('../database/database');
  * incorporated into the existing admin page of Tempify. 
  * 
  * @author John Ham
+ * @author Hoo Joo Lee
  * @version 1.0
  */
 
 /**
- * Sends data about the temp payments to the client
+ * Sends data about the temp payments to the client.
  * 
  * @param req incoming request
  * @param res response sent back to client
@@ -39,6 +40,14 @@ exports.tempData = (req, res, next) => {
     });
 }
 
+/**
+ * Sets the current payment period status to paid and returns information about the
+ * next payment period.
+ * 
+ * @param req incoming request
+ * @param res response sent back to client
+ * @param next used if another serverside controller is called
+ */
 exports.confirmPayment = (req, res, next) => {
     db((err, con) => {
         if(err){

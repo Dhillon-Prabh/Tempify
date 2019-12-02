@@ -17,6 +17,7 @@ import './TempData.css';
  * payment has been confirmed
  * 
  * @author John Ham
+ * @author Ho Joo Lee
  * @version 1.0
  */
 class TempData extends React.Component {
@@ -66,6 +67,9 @@ class TempData extends React.Component {
         });
     }
 
+    /**
+     * Refreshes admin page to display next payment period.
+     */
     confirmPayment = () => {
         fetch("http://localhost:3001/adminConfirmPayment", {
           method: 'GET'

@@ -2,17 +2,6 @@ import React, {Component} from 'react';
 import MUIDatatable from "mui-datatables";
 import SuccessAlert from '../Alert/SuccessAlert';
 
-/**
- * @author John Ham
- * @version 1.0
- */
-
-//
-//
-// This component displays information for completed gigs for the offices
-//
-//
-
 // Sets the columns of information to be displayed
 const columns = [
     {name:"name", label:"Name", className:"column"},
@@ -38,6 +27,7 @@ const options = {
   * History component to view all 'completed' bookings/gigs 
   * for the offices. 
   * @author Joe Fong 
+  * @author John Ham
   * @version 1.0 
   */
 class History extends Component {

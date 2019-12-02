@@ -9,10 +9,10 @@ import "./JobPosting.css";
 
 /**
  * This component shows the temps all the job postings and they can select the one they want.
- * @author Prabhdeep Singh
  * A snackbar is displayed when a job posting has been successfully accepted or 
  * failed to accept.
  * 
+ * @author Prabhdeep Singh
  * @author John Ham
  * @version 1.0
  */
@@ -39,10 +39,6 @@ const options = {
   filter: false
 };
 
-/**
- * JobPostings class component for showing/accepting jobs.
- * @author Prabhdeep Singh
- */
 class JobPosting extends React.Component {
     constructor(props) {
         super(props);

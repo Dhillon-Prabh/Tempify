@@ -10,7 +10,7 @@ const db = require('../database/database');
  * prevent sending emails to the wrong recipient.
  * 
  * @author John Ham
- * @version 1.6
+ * @version 1.0
  */
 
 /**

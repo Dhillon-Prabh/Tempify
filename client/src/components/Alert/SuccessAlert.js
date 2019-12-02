@@ -5,7 +5,9 @@ import { SnackbarProvider, useSnackbar } from 'notistack';
  * Displays a success snackbar in the bottom left corner. 
  * Snackbar is displayed for two seconds.
  * Purpose of the snackbar should be passed in the component as a type.
- * @authors Joeco Fong Prabhdeep Singh John Ham
+ * @author Joeco Fong
+ * @author Prabhdeep Singh
+ * @author John Ham
  * @version 1.0
  */
 

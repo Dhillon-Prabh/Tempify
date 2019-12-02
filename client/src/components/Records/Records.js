@@ -4,7 +4,11 @@ import Button from '@material-ui/core/Button'
 import {format} from 'date-fns';
 import parseISO from 'date-fns/parseISO';
 import SuccessAlert from '../Alert/SuccessAlert';
-// import './JobPosting.css'
+
+/** 
+ * @author John Ham
+ * @version 1.0
+ */
 
 const columns = [
     {name:"office", label:"Dental Office", className:"column"},

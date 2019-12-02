@@ -14,6 +14,11 @@ import TermsAndConditions from '../Terms/TermsAndConditions';
 import SuccessAlert from '../Alert/SuccessAlert';
 import FailAlert from '../Alert/FailAlert';
 
+/**
+ * @author John Ham
+ * @version 1.0
+ */
+
 const useStyles = theme => ({
   textField: {
     width: '100%',

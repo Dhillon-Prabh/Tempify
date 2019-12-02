@@ -5,6 +5,15 @@ import Policy from '../Policy/Policy'
 
 import './Cookie.css'
 
+/**
+ * Component for the cookie bar. 
+ * Cookie bar is displayed at the bottom of the window.
+ * User can click the accept button or scroll the window to make the 
+ * bar disappear.
+ * 
+ * @author John Ham
+ * @version 1.0
+ */
 
 const styles = {
   link: {

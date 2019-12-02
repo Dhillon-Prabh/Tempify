@@ -12,9 +12,8 @@ const columns = [
     {name:"phone", label:"Phone Number", className:"column"},
     {name:"email", label:"Email Address", className:"column"},
     {name:"parking", label:"Parking Option", className:"column"},
-    {name:"bookingDate", label:"Booking Date", className:"column"},
-    {name:"bookingID", label:"Booking ID", className:"column"},
-    {name:"status", label:"Status", className:"column"}
+    {name:"bookingDate", options: { sortDirection: 'desc' }, label:"Booking Date", className:"column"},
+    {name:"bookingID", label:"Booking ID", className:"column"}
 ];
 
 const options = {
@@ -40,9 +39,10 @@ class Records extends Component {
         console.log(this.props.token);
 
         fetch("http://localhost:3001/getRecords", {
-            method: 'GET',
+            method: 'POST',
             headers: {
               'Authorization': 'Bearer ' + this.props.token,
+              'Content-Type': 'application/json'
             }
         }).then(res =>  {
           return res.json();
@@ -57,7 +57,6 @@ class Records extends Component {
               let parkingOption = result[i].parking_options;
               let bookingDate = result[i].dates;
               let bookingID = result[i].reference_number;
-              let status = result[i].temp_status; 
 
               let row = [];
               row.push(office);
@@ -67,7 +66,6 @@ class Records extends Component {
               row.push(parkingOption);
               row.push(bookingDate);
               row.push(bookingID);
-              row.push(status);
               resultData.push(row);
         }
           this.setState({data: resultData});

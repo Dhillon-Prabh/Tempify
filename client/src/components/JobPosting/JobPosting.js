@@ -17,7 +17,7 @@ import "./JobPosting.css";
 */
 const columns = [
   { name: "office", label: "Dental Office", className: "column" },
-  { name: "details", options: { sortDirection: 'desc' },  label: "Details", className: "column" },
+  { name: "details", options: { sortDirection: 'asc' },  label: "Details", className: "column" },
   { name: "address", label: "Office Address", className: "column" },
   { name: "action", label: "Action", className: "column" }
 ];

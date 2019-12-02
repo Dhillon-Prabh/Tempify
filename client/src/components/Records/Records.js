@@ -20,6 +20,12 @@ const options = {
     filter: false,
  };
 
+ /**
+  * Records component to show all completed bookings/gigs for the 
+  * temps. 
+  * @author Joe Fong 
+  * @version 1.0
+  */
 class Records extends Component {
     constructor(props) {
         super(props);
@@ -30,9 +36,11 @@ class Records extends Component {
         }
     }
 
+    /**
+     * Initial render of the component. Calls for all the data
+     * from the backend to be loaded and rendered onto the component right away.
+     */
     componentDidMount() {
-
-        console.log(this.props.token);
 
         fetch("http://localhost:3001/getRecords", {
             method: 'POST',

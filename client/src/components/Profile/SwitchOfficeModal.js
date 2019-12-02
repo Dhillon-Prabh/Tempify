@@ -133,7 +133,6 @@ class SwitchOfficeModal extends React.Component {
       },
       body: JSON.stringify(data)
     }).then(res =>  {
-      console.log("fetch dentalGroupProfile");
       console.log(res.json());
       return res.json();
     }).then(result => {

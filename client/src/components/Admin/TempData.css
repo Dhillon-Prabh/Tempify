@@ -11,3 +11,10 @@
 .cellFont {
     font-size: 11pt !important;
 }
+
+.temp-data-blueButton {
+    width: 250px;
+    height: 44px !important;
+    background-color: #00bfff !important;
+    margin: 1rem !important;
+}

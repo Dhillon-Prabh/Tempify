@@ -4,7 +4,7 @@ const db = require('../database/database');
 exports.tempProfile = (req, res, next) => {
 
   const token = req.decodedToken;
-  console.log("Inside tempProfile");
+  console.log(req.decodedToken);
   db((err, con) => {
     if(err){
       console.log(err);
@@ -29,7 +29,6 @@ exports.tempUpdateProfile = (req, res, next) => {
   
   const user = req.body;
   const token = req.decodedToken;
-  console.log("Inside tempUpdateProfile");
   db((err, con) => {
     if(err){
       console.log(err);
@@ -94,8 +93,6 @@ exports.tempUpdateProfile = (req, res, next) => {
 exports.dentalProfile = (req, res, next) => {
 
   const user = req.body;
-  const token = req.decodedToken;
-  console.log("Inside dentalProfile");
   db((err, con) => {
     if(err){
       console.log(err);
@@ -107,7 +104,6 @@ exports.dentalProfile = (req, res, next) => {
       'WHERE group_id = ?;';
     values=[Number(user.groupId)];
     con.query(dentalQuery, values, (err, result, fields) => {
-      console.log("dental groupId: " + user.groupId);
       if(!result.length) {
         return res.status(401).send({ error : "error message",});
       } else {
@@ -121,8 +117,6 @@ exports.dentalProfile = (req, res, next) => {
 exports.dentalUpdateProfile = (req, res, next) => {
   
   const user = req.body;
-  const token = req.decodedToken;
-  console.log("Inside dentalUpdateProfile");
   db((err, con) => {
     if(err){
       console.log(err);
@@ -136,7 +130,6 @@ exports.dentalUpdateProfile = (req, res, next) => {
         user.unit, user.city, user.province, user.postalCode, user.parking, Number(user.userId)];
       con.query(dentalQuery, values, (err, result, fields) => {
         if(!err) {
-          console.log("no error proceeding to resolve");
           resolve(result);
         } else {
           reject(err);
@@ -148,7 +141,6 @@ exports.dentalUpdateProfile = (req, res, next) => {
       valuesTemp=[user.name, new Date(), Number(user.userId)];
         con.query(userQuery, valuesTemp, (err, result, fields) => {
           if(!err) {
-            console.log("no error proceeding to success");
             res.status(300).send({ message: "success" });
             con.release();
           } else {
@@ -169,8 +161,6 @@ exports.dentalUpdateProfile = (req, res, next) => {
 exports.dentalInsertProfile = (req, res, next) => {
 
   const user = req.body;
-  console.log("Inside dentalInsertProfile");
-  console.log(user);
   db((err, con) => {
     if (err) {
       console.log(err);

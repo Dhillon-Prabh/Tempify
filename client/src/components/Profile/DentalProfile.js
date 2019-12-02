@@ -9,6 +9,7 @@ import './Profile.css'
 import NewOfficeModal from './NewOfficeModal'
 import MUIDatatable from "mui-datatables";
 import SuccessAlert from "../Alert/SuccessAlert";
+import FailAlert from '../Alert/FailAlert';
 
 const useStyles = theme => ({
   textField: {
@@ -108,13 +109,13 @@ class Profile extends React.Component {
       postalCode: '',
       parking: parking[0].value,
       data: [],
-      success: false,
+      setSuccessOpen: false,
+      setFailOpen: false,
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    console.log("mounting again");
     let currentComponent = this;
     var data = {
       groupId: this.state.groupId,
@@ -192,7 +193,7 @@ class Profile extends React.Component {
       parking: this.state.parking
     };
 
-    fetch("/dentalUpdateProfile", {
+    fetch("/auth/dentalUpdateProfile", {
       method: 'POST',
       headers: {
         Authorization: "Bearer " + this.props.token,
@@ -201,6 +202,11 @@ class Profile extends React.Component {
       body: JSON.stringify(data)
     })
       .then(function(response) {
+        if (response.status == 401) {
+          this.setState({ setFailOpen: true });
+        } else {
+          this.setState({ setSuccessOpen: true });
+        }
         console.log(response);
       })
       .then(function(data) {
@@ -209,9 +215,9 @@ class Profile extends React.Component {
       .catch(function(err) {
         console.log(err);
       });
-      this.setState({setSuccessOpen: true});
       setTimeout(() =>{
         this.setState({
+          setFailOpen: false,
           setSuccessOpen: false
         })
       }, 2000);
@@ -238,10 +244,12 @@ class Profile extends React.Component {
     const { classes } = this.props;
     return (
       <div className="profile">
+    
         <ValidatorForm ref="form" onSubmit={e => this.submitForm(e)}>
           <div className={classes.dentalProfileTitleContainer}>
             <div className={classes.dentalProfileTitle}>MY PROFILE</div>
           </div>
+
 
           <MUIDatatable 
             className="dental-profile-datatable"
@@ -250,7 +258,6 @@ class Profile extends React.Component {
             options={options}
             data={this.state.data}
           />
-
           <Grid container spacing={6} className="container1">
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
@@ -591,20 +598,22 @@ class Profile extends React.Component {
                 ))}
               </TextValidator>
             </Grid>
-
             <Grid item xs={12} direction="row" align="center">
               <Button className="blueButton" color="primary" variant="contained" type="submit">
                 UPDATE DETAILS
               </Button>
-              <NewOfficeModal className="dental-profile-modal-blueButton"
-                idType="blueButton"
-                name="ADD NEW OFFICE"
-                groupId={this.state.groupId}
-                token={this.props.token}/>
-            </Grid>
+              </Grid>
           </Grid>
         </ValidatorForm>
-        {this.state.setSuccessOpen ? <SuccessAlert type="profileUpdate" /> : null}
+        <div align="center">
+          <NewOfficeModal className="dental-profile-modal-blueButton"
+            idType="blueButton"
+            name="ADD NEW OFFICE"
+            groupId={this.state.groupId}
+            token={this.props.token}/>
+          {this.state.setSuccessOpen ? <SuccessAlert type="profileUpdate" /> : null}
+          {this.state.setFailOpen ? <FailAlert type="profileUpdate" /> : null}
+        </div>
       </div>
     );
   }

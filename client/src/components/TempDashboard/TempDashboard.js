@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Schedule from '../Schedule/scheduleForTemp';
 import {Link} from 'react-router-dom';
 import './TempDashboard.css'
-
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import ListItem from '@material-ui/core/ListItem';
@@ -15,55 +14,6 @@ import { Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Pending from '../Pending/Pending';
 import Records from '../Records/Records';
-
-const styles = theme => ({
-  
-  submit: {
-    backgroundColor: "#00bfff",
-    display: 'block',
-    height: '4em',
-    '&:hover': {
-      background: "#404040",
-    },
-    '&:focused': {
-      background: "#404040",
-    }
-  },
-  option: {
-    paddingTop: '5rem',
-  },
-  activeButton: {
-    display: 'block',
-    height: '4em',
-    backgroundColor: "#404040",
-    color: 'white',
-    '&:hover': {
-      background: "#404040",
-    },
-  },
-  label: {
-    '&$focused': {
-      color: '#00bfff'
-    },
-  },
-  focused: {
-    background: "#404040",
-  },
-  outlinedInput: {
-    '&$focused $notchedOutline': {
-      border: '1px solid #00bfff'
-    },
-  },
-  notchedOutline: {},
-});
-
-function HomeIcon(props) {
-  return (
-    <SvgIcon {...props}>
-      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-    </SvgIcon>
-  );
-}
 
 class TempDashboard extends Component {
   constructor(props) {
@@ -81,25 +31,8 @@ class TempDashboard extends Component {
     this.navigateRecords = this.navigateRecords.bind(this);
   }
 
-  componentDidMount(){
-    
-    fetch("/auth/tempProfile", {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + this.props.token,
-      },
-    }).then(res => {
-      return res.json();
-    }).then(result => {     
+  
 
-      this.setState({
-        user: result[0].temp_name,
-        schedule: true
-      });
-    }).catch(function(err) {
-      console.log(err);
-    });
-  }
   navigatePending() {
     this.setState({
       pending: true,
@@ -125,17 +58,11 @@ class TempDashboard extends Component {
 
   render(){
 
-    const { classes } = this.props;
     return(
       <div>
           <Grid container direction="row" justify="center" alignItems="center" className="options">
           <div className="tempDateboardOuterContainer">
             <Grid item xs={2}>
-              {/* <Grid item xs={12}>
-                <div className = "tempdashboard-username">
-                  Hi, {this.state.user}!
-                </div>
-              </Grid>  */}
               <Breadcrumbs aria-label="breadcrumb">
                   <Link to="/tempdashboard" style={{textDecoration:'none', color: 'inherit'}}>
                   <ListItem button>
@@ -171,4 +98,4 @@ class TempDashboard extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(TempDashboard);
+export default TempDashboard;

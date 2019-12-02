@@ -28,7 +28,6 @@ router.post('/dentalProfile', isAuth, profileController.dentalProfile);
 router.post('/dentalUpdateProfile', isAuth, profileController.dentalUpdateProfile);
 router.post('/dentalInsertProfile', isAuth, profileController.dentalInsertProfile);
 
-router.get('/tempDashboard', isAuth, authController.getTempDashboardInformation);
 router.post('/postGig', isAuth, gigController.postGig, emailController.gigPostedEmail);
 router.get('/jobPosting', isAuth, gigController.jobPosting);
 router.put('/gigCard', isAuth, gigController.gigCard);
@@ -40,5 +39,6 @@ router.post('/addTime', isAuth, gigController.addTime, emailController.addTimeEm
 router.post('/getRecords', isAuth, recordsController.getRecords);
 
 router.get('/admin', adminController.tempData);
+router.get('/adminConfirmPayment', adminController.confirmPayment);
 
 module.exports = router;

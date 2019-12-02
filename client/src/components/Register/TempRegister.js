@@ -16,6 +16,8 @@ import './Register.css';
 import CheckboxValidatorElement from '../CheckboxValidatorElement/CheckboxValidatorElement';
 import ContactSection from '../Contact/ContactSection';
 import TermsAndConditions from '../Terms/TermsAndConditions';
+import SuccessAlert from '../Alert/SuccessAlert';
+import FailAlert from '../Alert/FailAlert';
 
 const useStyles = theme => ({
   textField: {
@@ -172,6 +174,8 @@ class Register extends React.Component {
       practice: practice[0].value,
       dentalsw: [],
       accept: false,
+      setSuccessOpen: false,
+      setFailOpen: false,
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -206,6 +210,7 @@ class Register extends React.Component {
       practice: this.state.practice,
       dentalsw: this.state.dentalsw
     }
+    var self = this;
     fetch("/auth/tempRegister", {
       method: 'POST',
       headers: {
@@ -216,13 +221,21 @@ class Register extends React.Component {
       if (response.status === 401) {
         console.log("this user already exists");
       }
+      if (response.status === 401) {
+        self.setState({ setFailOpen: true });
+      } else {
+        self.setState({ setSuccessOpen: true });
+      }
       console.log(response);
     }).then(function(data) {
       console.log(data);
     }).catch(function(err) {
       console.log(err);
     });
-    this.props.history.push("/");
+    setTimeout(() =>{
+      this.setState({ setFailOpen: false, setSuccessOpen: false });
+      this.props.history.push("/");
+    }, 2000);
   }
 
   handleChange = (e) => {
@@ -662,6 +675,8 @@ class Register extends React.Component {
             </Grid>
           </ValidatorForm>
         </div>
+        {this.state.setSuccessOpen ? <SuccessAlert type="registerTemp" /> : null}
+        {this.state.setFailOpen ? <FailAlert type="register" /> : null}
         <ContactSection/>
       </React.Fragment>
     )

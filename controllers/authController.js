@@ -83,22 +83,3 @@ exports.postLogin = (req, res, next) => {
     })
   })
 }
-exports.getTempDashboardInformation = (req, res, next) => {
-  const user = req.decodedToken;
-  db((err, con) => {
-    if(err){
-      throw err;
-    }
-  
-    var userQuery = 'SELECT temp_name, experience, expected_rate, city, designation, type_of_practice, ' +
-      'dental_software, imagename, phone FROM temps WHERE user_id = ? LIMIT 1';
-    values=[user.userId];
-    con.query(userQuery, values, (err, result, fields) => {
-      if(!result.length) {
-        return res.status(401).send({ error : "error message",});
-      } else {
-        return res.status(200).json(result);
-      }
-    });
-  })
-}

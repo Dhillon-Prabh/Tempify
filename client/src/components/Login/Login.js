@@ -9,7 +9,11 @@ import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import './Login.css';
 import PasswordModal from '../PasswordModal/PasswordModal'
 import ContactSection from '../Contact/ContactSection'
-
+/**
+ * Provides styling for materialUI components
+ * @author Joe Fong 
+ * @param {*} theme 
+ */
 const styles = theme => ({
   '@global': {
     body: {
@@ -58,7 +62,7 @@ const styles = theme => ({
 
 });
 
-class LoginTemp extends Component {
+class Login extends Component {
 
   constructor(props){
     super(props);
@@ -240,4 +244,4 @@ class LoginTemp extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(LoginTemp);
+export default withStyles(styles, { withTheme: true })(Login);

@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import MUIDatatable from "mui-datatables";
-import Button from '@material-ui/core/Button'
-import {format} from 'date-fns';
-import parseISO from 'date-fns/parseISO';
 import SuccessAlert from '../Alert/SuccessAlert';
 // import './JobPosting.css'
 
@@ -12,9 +9,8 @@ const columns = [
     {name:"phone", label:"Phone Number", className:"column"},
     {name:"email", label:"Email Address", className:"column"},
     {name:"parking", label:"Parking Option", className:"column"},
-    {name:"bookingDate", label:"Booking Date", className:"column"},
-    {name:"bookingID", label:"Booking ID", className:"column"},
-    {name:"status", label:"Status", className:"column"}
+    {name:"bookingDate", options: { sortDirection: 'desc' }, label:"Booking Date", className:"column"},
+    {name:"bookingID", label:"Booking ID", className:"column"}
 ];
 
 const options = {
@@ -36,14 +32,17 @@ class Records extends Component {
     }
 
     componentDidMount() {
-
-        console.log(this.props.token);
-
+        var userId = localStorage.getItem('userId');
+        var data = {
+            userId: userId,
+        }
         fetch("/auth/getRecords", {
-            method: 'GET',
+            method: 'POST',
             headers: {
               'Authorization': 'Bearer ' + this.props.token,
-            }
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         }).then(res =>  {
           return res.json();
         }).then(result => {
@@ -57,7 +56,6 @@ class Records extends Component {
               let parkingOption = result[i].parking_options;
               let bookingDate = result[i].dates;
               let bookingID = result[i].reference_number;
-              let status = result[i].temp_status; 
 
               let row = [];
               row.push(office);
@@ -67,7 +65,6 @@ class Records extends Component {
               row.push(parkingOption);
               row.push(bookingDate);
               row.push(bookingID);
-              row.push(status);
               resultData.push(row);
         }
           this.setState({data: resultData});

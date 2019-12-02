@@ -23,6 +23,8 @@
     "install": "^0.13.0",
     "material-ui-icons": "^1.0.0-beta.36",
     "material-ui-image": "^3.2.2",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.27",
     "mui-datatables": "^2.13.1",
     "notistack": "^0.9.6",
     "npm": "^6.13.1",
@@ -31,6 +33,7 @@
     "react-dom": "^16.9.0",
     "react-material-ui-datatable": "^2.0.0-alpha.30",
     "react-material-ui-form-validator": "^2.0.9",
+    "react-moment": "^0.9.6",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.0.0",
     "style-loader": "^1.0.0"

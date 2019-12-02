@@ -20,6 +20,9 @@ import TempDashboard from '../TempDashboard/TempDashboard';
 import SuccessAlert from '../Alert/SuccessAlert';
 import Admin from '../Admin/TempData';
 import TermsAndConditions from '../Terms/TermsAndConditions';
+import Pricing from '../Policy/Pricing';
+import Privacy from '../Policy/Policy'
+
 
 class Navbar extends Component{
 
@@ -34,7 +37,8 @@ class Navbar extends Component{
       groupId: -1,
       loginError: false,
       loginSuccess: false,
-      token: null
+      token: null,
+      setRegisterSuccess: false
     };
 
     this.loginHandler = this.loginHandler.bind(this);
@@ -45,18 +49,17 @@ class Navbar extends Component{
 
   componentDidMount() {
 
-    // this.logoutHandler();
 
     if (!sessionStorage.getItem('logged')) {
       this.logoutHandler();
       return;
     }
 
-
     const token = localStorage.getItem('token');
     const expiryDate = localStorage.getItem('expiryDate');
     const userType = localStorage.getItem('userType');
     const userRole = localStorage.getItem('userRole');
+
     if(!token || !expiryDate) {
       this.props.history.push("/");
       return; 
@@ -73,7 +76,6 @@ class Navbar extends Component{
     const groupId = localStorage.getItem('groupId');
 
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
-    console.log(remainingMilliseconds);
   
       this.setState({
         isAuth: true,
@@ -166,7 +168,7 @@ class Navbar extends Component{
             
       if(this.state.isAuth && this.state.userType === "temp"){
         this.props.history.push("/tempdashboard");
-      } else  {
+      } else if(this.state.isAuth && this.state.userType === "office") {
         this.props.history.push("/dashboard");
       }
 
@@ -250,7 +252,7 @@ class Navbar extends Component{
             onClick={()=>{this.setState({drawer:false})}}
             onKeyDown={()=>{this.setState({drawer:false})}}>
             
-            { this.state.role === -1 && (
+            { this.state.role === -1 && !this.state.isAuth && (
               <List className = "list">
                 <ListItem key = {1} button divider className="nav-item item-height"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}> Home </ListItem>
@@ -287,7 +289,7 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}> Profile </ListItem>
                 <ListItem key = {3} button divider className="nav-item item-height"> Dashboard </ListItem>
                 <ListItem key = {4} button divider className="nav-item item-height"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}> Job Postings </ListItem>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempJobPosting'}> Job Postings </ListItem>
                 <ListItem key = {6} button divider className="nav-item item-height" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Logout </ListItem>
                 <ListItem key = {7} button divider className="nav-item item-height" 
@@ -309,7 +311,7 @@ class Navbar extends Component{
             <Link to="/home" className="logo-container">
               <img src={logo} className="logo" alt="logo"/>
             </Link>
-            { this.state.role === -1 && (
+            { this.state.role === -1 && !this.state.isAuth && (
               <React.Fragment>
                 <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
@@ -343,11 +345,11 @@ class Navbar extends Component{
                 <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/home'}>Home</Typography>
                 <Typography variant = "body1" className = "padding nav-item"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempprofile'}>Profile</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempWorkerProfile'}>Profile</Typography>
                 <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempdashboard'}>Dashboard</Typography>
                 <Typography variant = "body1" className = "padding nav-item"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}>Job Postings</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempJobPosting'}>Job Postings</Typography>
                 <Typography variant = "body1" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'} onClick ={this.logoutHandler}>Logout</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
@@ -389,6 +391,8 @@ class Navbar extends Component{
           />
         )}
       />
+      <Route path="/pricing" component={Pricing} />
+      <Route path="/privacy" component={Privacy} />
     </Switch>
     );
 
@@ -396,9 +400,6 @@ class Navbar extends Component{
       const userId = localStorage.getItem('userId');
       const officeId = localStorage.getItem('officeId');
       const groupId = localStorage.getItem('groupId');
-      console.log("Navbar - userId: " + userId);
-      console.log("Navbar - officeId: " + officeId);
-      console.log("Navbar - groupId: " + groupId);
 
       routes = (
         <Switch>
@@ -416,7 +417,7 @@ class Navbar extends Component{
             )}
           />
           <Route
-            path="/tempprofile"
+            path="/tempWorkerProfile"
             render= {props => (
               <TempProfile
                 {...props}
@@ -444,7 +445,7 @@ class Navbar extends Component{
             )}
           />
           <Route
-            path="/jobPosting"
+            path="/tempJobPosting"
             render= {props => (
               <JobPosting
                 {...props}

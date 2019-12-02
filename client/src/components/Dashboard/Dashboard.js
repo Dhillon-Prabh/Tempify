@@ -40,25 +40,6 @@ class Dashboard extends Component {
         this.navigateHistory = this.navigateHistory.bind(this);
     }
 
-    componentDidMount(){
-
-      fetch("/auth/dentalProfile", {
-        method: 'GET',
-        headers: {
-          'Authorization': 'Bearer ' + this.props.token,
-        },
-      }).then(res => {
-        return res.json();
-      }).then(result => {     
-
-        this.setState({
-          user: result[0].dentist_name
-        });
-      }).catch(function(err) {
-        console.log(err);
-      });
-    }
-
     navigateBookNow() {
         this.setState({
           bookNow: true,

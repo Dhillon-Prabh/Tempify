@@ -10,8 +10,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import SuccessAlert from '../Alert/SuccessAlert'
-import './Profile.css'
+import SuccessAlert from '../Alert/SuccessAlert';
+import FailAlert from '../Alert/FailAlert';
+import './Profile.css';
 
 const useStyles = theme => ({
   textField: {
@@ -166,13 +167,13 @@ class Profile extends React.Component {
       dentalsw: [],
       imageName: '',
       phone: '',
-      setSuccessOpen: false
+      setSuccessOpen: false,
+      setFailOpen: false
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    let currentComponent = this;
     
     fetch("/auth/tempProfile", {
       method: 'GET',
@@ -182,7 +183,7 @@ class Profile extends React.Component {
     }).then(res => {
       return res.json();
     }).then(result => {     
-      currentComponent.setState({
+      this.setState({
         name: result[0].temp_name,
         experience: result[0].experience,
         expectedRate: result[0].expected_rate,
@@ -218,8 +219,7 @@ class Profile extends React.Component {
       imageName: this.state.imageName,
       phone: this.state.phone,
     }
-
-    fetch("/auth/tempUpdateProfile", {
+=    fetch("/auth/tempUpdateProfile", {
       method: 'POST',
       headers: {
         Authorization: 'Bearer ' + this.props.token,
@@ -227,15 +227,20 @@ class Profile extends React.Component {
       },
       body: JSON.stringify(data)
     }).then(function(response) {
+      if (response.status == 401) {
+        this.setState({ setFailOpen: true });
+      } else {
+        this.setState({ setSuccessOpen: true });
+      }
       console.log(response);
     }).then(function(data) {
       console.log(data);
     }).catch(function(err) {
       console.log(err);
     });
-    this.setState({setSuccessOpen: true});
     setTimeout(() =>{
       this.setState({
+        setFailOpen: false,
         setSuccessOpen: false
       })
     }, 2000);
@@ -550,6 +555,7 @@ class Profile extends React.Component {
           </Grid>
         </ValidatorForm>
         {this.state.setSuccessOpen ? <SuccessAlert type="profileUpdate" /> : null}
+        {this.state.setFailOpen ? <FailAlert type="profileUpdate" /> : null}
       </div>
     )
   }

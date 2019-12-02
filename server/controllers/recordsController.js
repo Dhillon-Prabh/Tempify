@@ -1,5 +1,12 @@
 const db = require('../database/database');
 
+/**
+ * Controller to handle client requests for all 'completed' bookings and gigs. 
+ * Will direct the data to either temp or office depending on the user that 
+ * made the request. 
+ * @author Joe Fong 
+ * @version 1.0 
+ */
 exports.getRecords = (req, res, next) => {
   db((err, con) => {
     if(err){

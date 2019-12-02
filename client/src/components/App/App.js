@@ -22,6 +22,7 @@ class App extends Component {
   }
 }
 
+// Takes user back to the top of the page when navigation links are clicked
 function ScrollToTop() {
   const { pathname } = useLocation();
 

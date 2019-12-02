@@ -22,8 +22,9 @@ import Pricing from '../Policy/Pricing';
 import Privacy from '../Policy/Policy'
 
 /**
- * Navbar component. Used as a root component where all routing occurs to other components. 
- * @author Prabh Singh
+ * Navbar component for user to navigate different pages.
+ * This also functions as the router and all the paths are handled here
+ * @author Prabhdeep Singh
  * @author Joe Fong 
  * @version 1.0
  */
@@ -35,7 +36,7 @@ class Navbar extends Component{
       drawerActivate:false, 
       drawer:false,
       isAuth: false, 
-      role: -1,
+      role: -1, // this role is used to switch the version of the navbar to show depending on the type of the user
       officeId: -1,
       groupId: -1,
       loginError: false,
@@ -390,7 +391,10 @@ class Navbar extends Component{
     )
   }
 
-  render(){    
+  render(){   
+    /**
+     * all the routes are handled here
+     */ 
     let routes = (
       <Switch>
       <Route path='/admin' exact component={Admin}/>
@@ -424,7 +428,7 @@ class Navbar extends Component{
     </Switch>
     );
 
-    if(this.state.isAuth) {
+    if(this.state.isAuth) { // these routes are only valid when the user is logged in
       const userId = localStorage.getItem('userId');
       const officeId = localStorage.getItem('officeId');
       const groupId = localStorage.getItem('groupId');

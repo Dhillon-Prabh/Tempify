@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 import MUIDatatable from "mui-datatables";
 import SuccessAlert from '../Alert/SuccessAlert';
 
+/** 
+ * @author John Ham
+ * @version 1.0
+ */
+
 const columns = [
     {name:"office", label:"Dental Office", className:"column"},
     {name:"address", label:"Office Address", className:"column"},

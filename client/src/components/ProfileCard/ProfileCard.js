@@ -8,6 +8,17 @@ import CardContent from "@material-ui/core/CardContent";
 import { withStyles } from "@material-ui/core/styles";
 import TimeInputField from "../Schedule/timeInputField";
 
+/**
+ * Profile card for the temps with the office information
+ * @author John Ham
+ * @author Prabhdeep Singh
+ * @version 1
+ */
+
+/**
+ * styles for this component
+ * @param theme 
+ */
 const styles = theme => ({
   card: {
     maxWidth: 310,
@@ -58,6 +69,9 @@ class ProfileCard extends Component {
       }
   }
   
+  /**
+   * Fetches the information for the office to show on the card
+   */
   componentDidMount(){
       var self = this;
       var data = {

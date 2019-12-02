@@ -2,6 +2,18 @@ import React, {Component} from 'react';
 import MUIDatatable from "mui-datatables";
 import SuccessAlert from '../Alert/SuccessAlert';
 
+/**
+ * @author John Ham
+ * @version 1.0
+ */
+
+//
+//
+// This component displays information for completed gigs for the offices
+//
+//
+
+// Sets the columns of information to be displayed
 const columns = [
     {name:"name", label:"Name", className:"column"},
     {name:"date", options: { sortDirection: 'desc' }, label:"Date", className:"column"},
@@ -13,6 +25,7 @@ const columns = [
     {name:"bookingID", label:"Booking ID", className:"column"},
 ];
 
+// Sets the state of columns to be displayed
 const options = {
     selectableRows: false,
     search: true,
@@ -42,10 +55,12 @@ class History extends Component {
      * from the backend to be loaded and rendered onto the component right away.
      */
     componentDidMount() {
+            // Uses local storage id to makee query to database
         var userId = localStorage.getItem('userId');
         var data = {
             userId: userId,
         }
+        // POST request to database for populate table
         fetch("http://localhost:3001/getRecords", {
             method: 'POST',
             headers: {
@@ -84,6 +99,7 @@ class History extends Component {
         });
     }
     render() {
+        // Returns the history component which displays the information
         return (
             <React.Fragment>
                 <MUIDatatable 

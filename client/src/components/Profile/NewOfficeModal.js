@@ -9,10 +9,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import './OfficeModal.css'
 
-/**
- * Styling for the material UI components. 
- * @param {const} theme 
- */
 const useStyles = theme => ({
   textField: {
     width: '100%',
@@ -64,6 +60,7 @@ const parking = [
  * Modal that will open when 'office' wants  to add a 
  * new office to their profile. 
  * @author Ho Joo Lee 
+ * @author Prabhdeep Singh 
  * @version 1.0 
  */
 class NewOfficeModal extends React.Component {

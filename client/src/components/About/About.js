@@ -4,6 +4,16 @@ import './About.css'
 import { Grid } from '@material-ui/core';
 import ContactSection from '../Contact/ContactSection'
 
+/**
+ * This is the about component which is used in the home.
+ * @author Prabhdeep Singh
+ */
+
+
+/**
+ * Contents for the about component
+ * @param props content props 
+ */
 const AboutContent = (props) => {
     return (
         <Typography align="left" display="block" variant="body1" className="AboutContent">
@@ -12,6 +22,9 @@ const AboutContent = (props) => {
     );
 }
 
+/**
+ * About page component which uses the Aboutcontent components
+ */
 const AboutHeader = () => {
     return (
         <React.Fragment>

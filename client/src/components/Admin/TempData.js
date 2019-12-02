@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,8 +9,17 @@ import Button from '@material-ui/core/Button';
 
 import './TempData.css';
 
+/**
+ * Component for displaying temp payment information. 
+ * Each temp displays the amount needed to be paid in biweekly periods.
+ * Clicking the Confirm Payment button confirms that the payment has been made
+ * for the current time period. Payment information will not be updated before
+ * payment has been confirmed
+ * 
+ * @author John Ham
+ * @version 1.0
+ */
 class TempData extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -19,18 +27,29 @@ class TempData extends React.Component {
         }
     }
 
+    /**
+     * Creates a row for the admin payment table.
+     * 
+     * @param id temp id
+     * @param period time period
+     * @param name temp name
+     * @param email temp email
+     * @param phone temp phone number
+     * @param license_number temp license number
+     * @param payment payment amount
+     */
     createRow(id, period, name, email, phone, license_number, payment) {
         return {id, period, name, email, phone, license_number, payment};
     }
 
     componentDidMount() {
         var rows = [];
+        // gets necessary data from the database.
         fetch("http://localhost:3001/admin", {
             method: 'GET'
         }).then(res =>  {
             return res.json();
         }).then(result => {
-            console.log(result);
             for (var i = 0; i < result.length; i++) {
                 var id = result[i].temp_id;
                 var period = result[i].period;

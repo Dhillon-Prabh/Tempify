@@ -1,16 +1,19 @@
 const db = require('../database/database');
 const jwt = require('jsonwebtoken');
 
-
+/**
+ * registers a new temp
+ * @author Prabhdeep Singh
+ * @version 1
+ */
 exports.tempRegister = (req, res, next) => {
   const user = req.body;
-  console.log("Inside tempRegister");
   db((err, con) => {
     if (err) {
       throw err;
     }
     return new Promise(function (resolve, reject) {
-      var validate = 'SELECT id FROM users WHERE email = ?';
+      var validate = 'SELECT id FROM users WHERE email = ?'; // checks if this email already exists or not
       con.query(validate, [user.email], (err, result, fields) => {
         if (result.length > 0) {
           reject(401);
@@ -19,7 +22,7 @@ exports.tempRegister = (req, res, next) => {
             'server_response, role, current_login_time, last_login_time, status, unsubscribe_from_emails, ' +
             'unsubscribe_modules) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
           values = [user.name, user.email, user.password, null, new Date(), new Date(), null, 2, null, null, 1, 0, null];
-          con.query(userQuery, values, (err, result, fields) => {
+          con.query(userQuery, values, (err, result, fields) => { //adds a new user
             if (!err) {
               console.log("no error proceeding to resolve");
               resolve(result);
@@ -52,7 +55,7 @@ exports.tempRegister = (req, res, next) => {
       dentalsw += ']';
       valuesTemp = [user.practice, null, user.email, user.expectedRate, user.license, user.name, role, assistant,
         hygienist, receptionist, user.experience, 0, dentalsw, user.city, result.insertId, new Date(), new Date()];
-      con.query(tempQuery, valuesTemp, (err, result, fields) => {
+      con.query(tempQuery, valuesTemp, (err, result, fields) => { //adds a new temp
         if (!err) {
           console.log("no error proceeding to success");
           res.status(300).send({
@@ -79,17 +82,19 @@ exports.tempRegister = (req, res, next) => {
   next();
 }
 
+/**
+ * registers a new office
+ */
 exports.dentalRegister = (req, res, next) => {
 
   const user = req.body;
-  console.log("Inside dentalRegister");
   db((err, con) => {
     if (err) {
       console.log(err);
       throw err;
     }
     return new Promise(function (resolve, reject) {
-      var validate = 'SELECT id FROM users WHERE email = ?';
+      var validate = 'SELECT id FROM users WHERE email = ?'; //checks if this email already exists 
       con.query(validate, [user.email], (err, result, fields) => {
         if (result.length > 0) {
           reject(401);
@@ -98,7 +103,7 @@ exports.dentalRegister = (req, res, next) => {
             'server_response, role, current_login_time, last_login_time, status, ' +
             'unsubscribe_from_emails, unsubscribe_modules) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
           values=[user.name, user.email, user.password, null, new Date(), new Date(), null, 1, null, null, 1, 0, null];
-          con.query(userQuery, values, (err, result, fields) => {
+          con.query(userQuery, values, (err, result, fields) => { //adds new user
             if(!err) {
               console.log("no error proceeding to resolve");
               resolve(result);
@@ -116,7 +121,7 @@ exports.dentalRegister = (req, res, next) => {
         'group_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT max(d.group_id) + 1 FROM dentists d));';
       values=[new Date(), new Date(), result.insertId, user.phone, user.email, user.officeName, user.name,
         user.streetNo, user.streetName, user.unit, user.city, user.province, user.postalCode, user.parking];
-      con.query(dentalQuery, values, (err, result, fields) => {
+      con.query(dentalQuery, values, (err, result, fields) => { //adds new office
         if(!err) {
           console.log("no error proceeding to success");
           res.status(300).send({

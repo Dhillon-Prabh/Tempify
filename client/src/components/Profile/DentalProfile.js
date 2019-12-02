@@ -389,6 +389,11 @@ class Profile extends React.Component {
                   }
                 }}
               />
+
+
+
+
+
             </Grid>
             <Grid item xs={12} sm={6} className="container2">
               <TextValidator
@@ -399,6 +404,9 @@ class Profile extends React.Component {
                 label="Street Number"
                 className={classes.textField}
                 margin="normal"
+
+
+
                 variant="outlined"
                 defaultValue="none"
                 value={this.state.streetNo}

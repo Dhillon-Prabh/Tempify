@@ -19,6 +19,17 @@ import TermsAndConditions from '../Terms/TermsAndConditions';
 import SuccessAlert from '../Alert/SuccessAlert';
 import FailAlert from '../Alert/FailAlert';
 
+/**
+ * component used by the temps to signup
+ * @author Prabhdeep Singh
+ * @author John Ham
+ * @version 1.0
+ */
+
+/**
+ * styles used by this component
+ * @param theme 
+ */
 const useStyles = theme => ({
   textField: {
     width: '100%',
@@ -62,6 +73,9 @@ const useStyles = theme => ({
   },
 });
 
+/**
+ * city options
+ */
 const city = [
   {
     value: 'Vancouver',
@@ -97,6 +111,9 @@ const city = [
   },
 ];
 
+/**
+ * role options. Multiple can be selected.
+ */
 const role = [
   {
     value: 'Assistant',
@@ -112,6 +129,9 @@ const role = [
   },
 ];
 
+/**
+ * practice options
+ */
 const practice = [
   {
     value: 'General',
@@ -135,6 +155,9 @@ const practice = [
   },
 ];
 
+/**
+ * dental software options
+ */
 const dentalsw = [
   {
     value: 'Dentrix',
@@ -180,6 +203,9 @@ class Register extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  /**
+   * extra validations
+   */
   componentDidMount() {
     ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
       if(value !== this.state.password) {
@@ -195,6 +221,9 @@ class Register extends React.Component {
     ValidatorForm.removeValidationRule('isTruthy');
   }
 
+  /**
+   * goes to the backend and adds a new temp if successfull.
+   */
   submitForm = (event) => {
     event.preventDefault();
 
@@ -238,10 +267,16 @@ class Register extends React.Component {
     }, 2000);
   }
 
+  /**
+   * handles state change
+   */
   handleChange = (e) => {
     this.setState({[e.target.name]: e.target.value});
   }
 
+  /**
+   * handles checkbox click
+   */
   handleCheckboxChange = (e) => {
     this.setState({accept: e.target.checked})
   }

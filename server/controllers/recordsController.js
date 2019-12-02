@@ -5,6 +5,7 @@ const db = require('../database/database');
  * Will direct the data to either temp or office depending on the user that 
  * made the request. 
  * @author Joe Fong 
+ * @author John Ham
  * @version 1.0 
  */
 exports.getRecords = (req, res, next) => {

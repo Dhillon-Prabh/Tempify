@@ -4,6 +4,15 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SuccessAlert from "../Alert/SuccessAlert"
 
+/**
+ * Component for sending message to Tempify in the Contact Us section.
+ * A user can send an email to Tempify by inputting a name, email, and
+ * message.
+ * @author Oscar Au
+ * @author John Ham
+ * @version 1.0
+ */
+
 const useStyles = makeStyles(theme => ({
   container: {
     display: "flex",
@@ -68,19 +77,31 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
 export default function TextFields() {
   const classes = useStyles();
+
+
+  /**
+   * Sets the initial state of the form to empty
+   */
   const [values, setValues] = React.useState({
-    cuName: "",
-    cuEmail: "",
-    cuMessage: "",
-    setSuccessOpen: false
+    cuName: "",            // Value of name field
+    cuEmail: "",           // Value of email field
+    cuMessage: "",         // Value of message field
+    setSuccessOpen: false  // Whether snackbar is shown
   });
 
+  /**
+   * Update the states after form submit
+   */
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
   };
 
+  /**
+   * POST request for sending information to the database
+   */
   function sendMessageContactUs() {
     fetch("http://localhost:3001/email", {
       method: 'POST',
@@ -99,7 +120,6 @@ export default function TextFields() {
       cuMessage: "",
       setSuccessOpen: true
     });
-    
     setTimeout(() =>{
       setValues({
         setSuccessOpen: false
@@ -110,6 +130,7 @@ export default function TextFields() {
   return (
     <form className={classes.container} noValidate autoComplete="off">
       <div className={classes.nameEmailContainer}>
+      {/* Input field for contact name */}
         <TextField
           id="outlined-name"
           className={classes.contactName}
@@ -119,6 +140,7 @@ export default function TextFields() {
           value={values.cuName}
           onChange={handleChange('cuName')}
         />
+        {/* Input field for contact email */}
         <TextField
           id="standard-name"
           className={classes.contactEmail}
@@ -130,6 +152,7 @@ export default function TextFields() {
         />
       </div>
       <div className={classes.messageContaienr}>
+      {/* Input field for contact message */}
         <TextField
           multiline={true}
           rows="5"
@@ -143,10 +166,12 @@ export default function TextFields() {
         />
       </div>
       <div className={classes.buttonContainer}>
+      {/* Button to submit email */}
         <Button variant="contained" className={classes.button} onClick={sendMessageContactUs}>
           Send Message
         </Button>
       </div>
+      {/* Sends success alert if send message is successful */}
       {values.setSuccessOpen ? <SuccessAlert type="contact" /> : null}
     </form>
   );

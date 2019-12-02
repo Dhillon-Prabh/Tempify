@@ -1,6 +1,5 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -90,6 +89,9 @@ const options = {
   viewColumns: false,
 };
 
+/**
+ * 
+ */
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -116,7 +118,6 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    console.log("mounting again");
     let currentComponent = this;
     var data = {
       groupId: this.state.groupId,
@@ -165,9 +166,7 @@ class Profile extends React.Component {
         resultData.push(row);        
       }
       currentComponent.setState({data: resultData});
-      console.log(result);
     }).catch(function(err) {
-      console.log(err);
     });
   }
 
@@ -208,13 +207,10 @@ class Profile extends React.Component {
         } else {
           self.setState({ setSuccessOpen: true });
         }
-        console.log(response);
       })
       .then(function(data) {
-        console.log(data);
       })
       .catch(function(err) {
-        console.log(err);
       });
       setTimeout(() =>{
         this.setState({
@@ -229,14 +225,10 @@ class Profile extends React.Component {
   };
 
   handleClick(acceptData) {
-    console.log("handleClick");
-    let currentComponent = this;
     var id = acceptData[0].user_id;
-    console.log("id: " + id);
     
     if (localStorage.getItem('userId') != id) {
       localStorage.setItem('userId', id);
-      console.log("userId updated");
     }
     window.location.reload();
   }

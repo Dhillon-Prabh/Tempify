@@ -4,6 +4,18 @@ import SocialMedia from "./SocialMedia";
 import { makeStyles } from "@material-ui/core/styles";
 import Footer from "./Footer";
 
+/**
+ * 
+ * This is the contact us form to send e-mails
+ * Nests 2 components - social media component and contact us form
+ * @author Oscar Au
+ * @version 1.22
+ * 
+ */
+
+/**
+ * CSS styling for the contact us section component
+ */
 const useStyles = makeStyles(theme => ({
   contactContainer: {
     width: "100%",
@@ -13,6 +25,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+/**
+ * Returns the contact us component and the social media component
+ */
 export default function() {
   const classes = useStyles();
 

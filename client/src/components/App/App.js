@@ -4,13 +4,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import "./App.css";
 import Navbar from "../Navbar/Navbar";
 import Cookie from "../Cookie/Cookie";
-import DashBoard from "../Dashboard/Dashboard"
-import OfficeCard from "../ProfileCard/OfficeProfileCard"
-import BookNow from "../BookNow/BookNow"
-import DentailProfile from "../Profile/DentalProfile"
-import TempSchedule from "../Schedule/scheduleForTemp"
-import ProfileCard from "../ProfileCard/ProfileCard";
-import Pricing from "../Policy/Pricing";
 
 class App extends Component {
   render() {
@@ -29,6 +22,7 @@ class App extends Component {
   }
 }
 
+// Takes user back to the top of the page when navigation links are clicked
 function ScrollToTop() {
   const { pathname } = useLocation();
 

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Schedule from '../Schedule/scheduleForTemp';
 import {Link} from 'react-router-dom';
 import './TempDashboard.css'
-
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import ListItem from '@material-ui/core/ListItem';
@@ -16,6 +15,10 @@ import { withStyles } from '@material-ui/core/styles';
 import Pending from '../Pending/Pending';
 import Records from '../Records/Records';
 
+/**
+ * Creates the styling for the materialUI component.
+ * @param theme 
+ */
 const styles = theme => ({
   
   submit: {
@@ -57,14 +60,12 @@ const styles = theme => ({
   notchedOutline: {},
 });
 
-function HomeIcon(props) {
-  return (
-    <SvgIcon {...props}>
-      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-    </SvgIcon>
-  );
-}
-
+/**
+ * Temp dashboard component. This is the main dashboard for 
+ * temps once logged in to the application. 
+ * @author Joe Fong
+ * @version 1.0 
+ */
 class TempDashboard extends Component {
   constructor(props) {
     super(props);
@@ -81,8 +82,10 @@ class TempDashboard extends Component {
     this.navigateRecords = this.navigateRecords.bind(this);
   }
 
+  /**
+   * Initial fetch of the logged in users profile information. 
+   */
   componentDidMount(){
-    
     fetch("http://localhost:3001/tempProfile", {
       method: 'GET',
       headers: {
@@ -97,7 +100,6 @@ class TempDashboard extends Component {
         schedule: true
       });
     }).catch(function(err) {
-      console.log(err);
     });
   }
   navigatePending() {
@@ -131,11 +133,6 @@ class TempDashboard extends Component {
           <Grid container direction="row" justify="center" alignItems="center" className="options">
           <div className="tempDateboardOuterContainer">
             <Grid item xs={2}>
-              {/* <Grid item xs={12}>
-                <div className = "tempdashboard-username">
-                  Hi, {this.state.user}!
-                </div>
-              </Grid>  */}
               <Breadcrumbs aria-label="breadcrumb">
                   <Link to="/tempdashboard" style={{textDecoration:'none', color: 'inherit'}}>
                   <ListItem button>

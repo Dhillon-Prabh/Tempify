@@ -8,12 +8,18 @@ import FailAlert from "../Alert/FailAlert";
 import "./JobPosting.css";
 
 /**
+ * This component shows the temps all the job postings and they can select the one they want.
+ * @author Prabhdeep Singh
  * A snackbar is displayed when a job posting has been successfully accepted or 
  * failed to accept.
  * 
  * @author John Ham
  * @version 1.0
  */
+
+/**
+* Columns for the datatable of job postings
+*/
 
 const columns = [
   { name: "office", label: "Dental Office", className: "column" },
@@ -22,6 +28,9 @@ const columns = [
   { name: "action", label: "Action", className: "column" }
 ];
 
+/**
+ * Options that edit the datatable
+ */
 const options = {
   selectableRows: false,
   search: true,
@@ -30,6 +39,10 @@ const options = {
   filter: false
 };
 
+/**
+ * JobPostings class component for showing/accepting jobs.
+ * @author Prabhdeep Singh
+ */
 class JobPosting extends React.Component {
     constructor(props) {
         super(props);
@@ -41,15 +54,18 @@ class JobPosting extends React.Component {
         }
     }
 
+    /**
+     * This is where the selection of a job is handled
+     * @param acceptData the data associated with the job that was accepted
+     */
     handleClick(acceptData) {
         var self = this;
-        const userId = localStorage.getItem('userId');
+        const userId = localStorage.getItem('userId'); //grabs from the localstorage
         var data = {
             userId: userId,
             gigId: acceptData[0].id,
             acceptData: acceptData[0]
           }
-        // console.log(data); 
         fetch("http://localhost:3001/acceptGig", {
         method: 'POST',
         headers: {
@@ -58,25 +74,27 @@ class JobPosting extends React.Component {
         },
         body: JSON.stringify(data)
         }).then(function(response) {
-            // console.log(response);
-            if (response.status == 401) {
+            if (response.status == 401) { //error
               self.setState({ setFailOpen: true });
               self.props.history.push("/tempdashboard");
             }
             return response;
         }).then(function(data) {
-            // console.log(data);
-            if (data.status == 300) {
+            if (data.status == 300) { //success
                 console.log("Success");
                 self.setState({setSuccessOpen: true});
                 self.props.history.push("/tempdashboard");
             }
         }).catch(function(err) {
-            console.log(err);
+
         });
         this.forceUpdate();
     }
 
+    /**
+     * fetches the job postings to show.
+     * These job postings are unique for the role.
+     */
     componentDidMount() {
         var self = this;
         fetch("http://localhost:3001/jobPosting", {
@@ -87,7 +105,6 @@ class JobPosting extends React.Component {
         }).then(res =>  {
           return res.json();
         }).then(result => {
-        //   console.log(result);
           var resultData = [];
           for (var i = 0; i < result.length; i++) {
               result[i].date = format(parseISO(result[i].date), 'yyyy-MM-dd');
@@ -96,7 +113,7 @@ class JobPosting extends React.Component {
               var address = result[i].unit_number + ", " + result[i].street_number + " " + result[i].street_name + ", " 
                             + result[i].city + "\n" + "Parking: " + result[i].parking_options
               var action = <Button className="select" onClick={self.handleClick.bind(self,[result[i]])}>Select</Button>;
-              var row = [];
+              var row = []; // each row in the datatable
               row.push(office);
               row.push(details);
               row.push(address);
@@ -104,10 +121,8 @@ class JobPosting extends React.Component {
 
               resultData.push(row);
           }
-          self.setState({data: resultData});
-        //   console.log(result);
+          self.setState({data: resultData}); // set the datatable to use this array
         }).catch(function(err) {
-          console.log(err);
         });
   }
 

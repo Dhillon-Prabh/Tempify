@@ -9,7 +9,10 @@ import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import './Login.css';
 import PasswordModal from '../PasswordModal/PasswordModal'
 import ContactSection from '../Contact/ContactSection'
-
+/**
+ * Provides styling to material ui component. 
+ * @param {} theme 
+ */
 const styles = theme => ({
   '@global': {
     body: {
@@ -58,7 +61,12 @@ const styles = theme => ({
 
 });
 
-class LoginTemp extends Component {
+/**
+ * Login component. Handles login for office and temps. 
+ * @author Joe Fong
+ * @version 1.0
+ */
+class Login extends Component {
 
   constructor(props){
     super(props);
@@ -74,8 +82,11 @@ class LoginTemp extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  /**
+   * Handles the initial state of the component. Remembers
+   * the last input of the user, if the remember me checkbox is checked. 
+   */
   componentDidMount() {
-
     const switched = localStorage.getItem("rememberMe");
     
     if(switched) {
@@ -101,6 +112,10 @@ class LoginTemp extends Component {
     }
   }
 
+  /**
+   * Handles the state of the checkbox boolean. 
+   * If checked, the state is true, and false otherwise. 
+   */
   handleChange = (event) => {
     this.setState({
       switched: !this.state.switched
@@ -117,6 +132,10 @@ class LoginTemp extends Component {
     }
   }
 
+  /**
+   * Handles the submission of the inputs. 
+   * @param {event} e 
+   */
   handleSubmit(e) {
 
     if(!this.state.switched) {
@@ -132,6 +151,10 @@ class LoginTemp extends Component {
     }
   }
 
+  /**
+   * Listens to changes in text inputs. 
+   * @param {event} e 
+   */
   updateInputValue(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -240,4 +263,4 @@ class LoginTemp extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(LoginTemp);
+export default withStyles(styles, { withTheme: true })(Login);

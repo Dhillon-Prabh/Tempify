@@ -5,6 +5,13 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import ProfileCard from "../ProfileCard/ProfileCard"
 
+/**
+ * This is the modal that pops up when temps click on an event in the schedule
+ * @author Oscar Au
+ * @author Prabhdeep Singh
+ * @version 1
+ */
+
 const useStyles = makeStyles(theme => ({
   modal: {
     display: 'flex',

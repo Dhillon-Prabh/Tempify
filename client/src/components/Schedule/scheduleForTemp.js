@@ -1,15 +1,16 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import ProfileCard from "../ProfileCard/ProfileCard";
 import Modal from "./modal"
-
 import "./main.scss";
-import { red } from "@material-ui/core/colors";
-import { textAlign } from "@material-ui/system";
 
+/**
+ * This is the schedule for temps. Here they can see accepted and completed-unpaid jobs
+ * @author Oscar Au
+ * @author Prabhdeep Singh
+ * @version 1
+ */
 export default class Calendar extends React.Component {
   constructor(props) {
     super(props);
@@ -17,31 +18,34 @@ export default class Calendar extends React.Component {
     this.state = {
       events: []
     }
-}
+  }
+
+  /**
+   * this is where we grab all the events to show.
+   */
   componentDidMount() {  
-    
-    console.log(this.props.token);
     let self = this;
     var data = {
       userId: localStorage.getItem("userId"),
       role: localStorage.getItem("role")
-    }
+    };
 
+    /**
+     * Gets the data for the schedule
+     */
     fetch("http://localhost:3001/getEvents", {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Authorization': 'Bearer ' + this.props.token,
-        'Content-Type': 'application/json'
+        Authorization: "Bearer " + this.props.token,
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     }).then(function(response) {
-      console.log(response);
       return response.json();
     }).then(function(data) {
-      console.log(data);
       var dataEvents = [];
       for (var i = 0; i < data.length; i++) {
-        if(data[i].temp_status == "ACCEPTED" && data[i].dental_status == "POSTED") {
+        if(data[i].temp_status === "ACCEPTED" && data[i].dental_status === "POSTED") { //Show in green
           var title = data[i].office_name;
           var date = data[i].dates;
           var id = data[i].id;
@@ -55,19 +59,36 @@ export default class Calendar extends React.Component {
           row.displayHours = true;
           row.id = id;
 
-          var thisDate = new Date(row.date);
-          var curDate = new Date();
-          if (curDate < thisDate) {
+            var thisDate = new Date(row.date);
+            var curDate = new Date();
+            if (curDate < thisDate) {
+              row.displayHours = false;
+            }
+            dataEvents.push(row);
+          } else if (
+            data[i].temp_status == "COMPLETE" &&
+            data[i].dental_status == "POSTED"
+          ) {
+            var title = data[i].office_name;
+            var date = data[i].dates;
+            var backgroundColor = "red";
+            var id = data[i].id;
+            var row = {};
+            row.title = title;
+            row.date = date;
+            row.backgroundColor = backgroundColor;
+            row.textColor = "white";
+            row.borderColor = "rgba(0, 76, 76, 0.0)";
             row.displayHours = false;
-          }
+            row.id = id;
 
           dataEvents.push(row)
-        } else if(data[i].temp_status == "COMPLETE" && data[i].dental_status == "POSTED") {
-          var title = data[i].office_name;
-          var date = data[i].dates;
+        } else if(data[i].temp_status === "COMPLETE" && data[i].dental_status === "POSTED") { //show in red
+          title = data[i].office_name;
+          date = data[i].dates;
           var backgroundColor = "red";
-          var id = data[i].id;
-          var row = {};
+          id = data[i].id;
+          row = {};
           row.title = title;
           row.date = date;
           row.backgroundColor = backgroundColor;
@@ -80,33 +101,36 @@ export default class Calendar extends React.Component {
           
         }
       }
-      console.log(dataEvents);
       self.setState({events: dataEvents});
     }).catch(function(err) {
-      console.log(err);
     });
   }
-  
-  state = { render: false, bookingId: '', displayHours: false };
+
+  state = { render: false, bookingId: "", displayHours: false };
 
   render() {
     const { render } = this.state;
 
     const eventClick = (info) => {
-      console.log(info.event.id);
       this.setState({
         render: !render,
         bookingId: info.event.id,
-        displayHours: info.event.extendedProps.displayHours,
+        displayHours: info.event.extendedProps.displayHours
       });
     };
 
-    const setStateFromModal = (renderState) => {
+    /**
+     * Function as prop to pass to child to close modal
+     */
+    const setStateFromModal = renderState => {
       this.setState({
         render: renderState
-      })
-    }
+      });
+    };
 
+    /**
+     * Returns the calendar component which nests a modal for on click functions
+     */
     return (
       <div className="outerContainer">
         <div class="container">
@@ -128,8 +152,15 @@ export default class Calendar extends React.Component {
           />
         </div>
         <div className="profileContainer">
-            {render ? <Modal token = {this.props.token} bookingId={this.state.bookingId} displayHours={this.state.displayHours} renderState={setStateFromModal}/> : null}
-          </div>
+          {render ? (
+            <Modal
+              token={this.props.token}
+              bookingId={this.state.bookingId}
+              displayHours={this.state.displayHours}
+              renderState={setStateFromModal}
+            />
+          ) : null}
+        </div>
       </div>
     );
   }

@@ -2,7 +2,6 @@ import React from 'react';
 import CookieBanner from 'react-cookie-banner';
 import { Link, Route, Switch} from "react-router-dom";
 import Policy from '../Policy/Policy'
-
 import './Cookie.css'
 
 /**
@@ -15,6 +14,7 @@ import './Cookie.css'
  * @version 1.0
  */
 
+// CSS style for the cookie component
 const styles = {
   link: {
     textDecoration: 'none',
@@ -29,10 +29,12 @@ const styles = {
   },
 }
 
+// Returns the Cookie component
 class Cookie extends React.Component {
   render() {
     return(
       <div>
+        {/* Cookie component  */}
         <CookieBanner
           styles={styles}
           message="Tempify uses cookies to ensure you get better experience on our website. Feel free to review our "
@@ -42,6 +44,7 @@ class Cookie extends React.Component {
           cookie="user-has-accepted-cookies"
           className="cookie">
         </CookieBanner>
+        {/* React router path to link to privacy policy of how cookie is used */}
         <Switch>
           <Route path='/policy' component={Policy}/>
         </Switch>

@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import MUIDatatable from "mui-datatables";
-import Button from '@material-ui/core/Button'
-import {format} from 'date-fns';
-import parseISO from 'date-fns/parseISO';
 import SuccessAlert from '../Alert/SuccessAlert';
 
 /**
@@ -10,6 +7,13 @@ import SuccessAlert from '../Alert/SuccessAlert';
  * @version 1.0
  */
 
+//
+//
+// This component displays information for completed gigs for the offices
+//
+//
+
+// Sets the columns of information to be displayed
 const columns = [
     {name:"name", label:"Name", className:"column"},
     {name:"date", options: { sortDirection: 'desc' }, label:"Date", className:"column"},
@@ -21,6 +25,7 @@ const columns = [
     {name:"bookingID", label:"Booking ID", className:"column"},
 ];
 
+// Sets the state of columns to be displayed
 const options = {
     selectableRows: false,
     search: true,
@@ -29,6 +34,12 @@ const options = {
     filter: false,
  };
 
+ /**
+  * History component to view all 'completed' bookings/gigs 
+  * for the offices. 
+  * @author Joe Fong 
+  * @version 1.0 
+  */
 class History extends Component {
     constructor(props) {
         super(props);
@@ -39,11 +50,17 @@ class History extends Component {
         }
     }
 
+    /**
+     * Initial render of the component. Calls for all the data
+     * from the backend to be loaded and rendered onto the component right away.
+     */
     componentDidMount() {
+            // Uses local storage id to makee query to database
         var userId = localStorage.getItem('userId');
         var data = {
             userId: userId,
         }
+        // POST request to database for populate table
         fetch("http://localhost:3001/getRecords", {
             method: 'POST',
             headers: {
@@ -58,7 +75,6 @@ class History extends Component {
           var resultData = [];
           for (let i = 0; i < result.length; i++) {
               let tempName = result[i].temp_name;
-              let status = result[i].temp_status;
               let practice = result[i].type_of_practice;
               let software = Array.from(JSON.parse(result[i].dental_software) + ' ');
               let experience = result[i].experience;
@@ -80,10 +96,10 @@ class History extends Component {
         }
           this.setState({data: resultData});
         }).catch(function(err) {
-          console.log(err);
         });
     }
     render() {
+        // Returns the history component which displays the information
         return (
             <React.Fragment>
                 <MUIDatatable 

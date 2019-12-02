@@ -3,12 +3,15 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import {Link} from 'react-router-dom';
-import {
- Typography
-} from '@material-ui/core';
-
+import { Typography} from '@material-ui/core';
 import './Modal.css';
 
+/**
+ * Modal component that renders a blue or transparent button 
+ * which will open a dialog component. 
+ * @author Joe Fong 
+ * @version 1.0
+ */
 class Modal extends Component{
 
   constructor(props) {
@@ -23,20 +26,29 @@ class Modal extends Component{
     this.handleClickClose = this.handleClickClose.bind(this);
   }
 
+  /**
+   * Opens the modal 
+   */
   handleClickOpen = () => {
     this.setState({
       setOpen: true
     });
   };
 
+  /**
+   * Closes the modal 
+   */
   handleClickClose = () => {
     this.setState({
       setOpen: false
     });
   };
 
+  /**
+   * Renders a blue button, transparent button, or typography depending on args passed. 
+   * @param {param} param 
+   */
   renderButton(param) {
-
     switch(param) {
       case 'blueButton':
         return (
@@ -67,15 +79,13 @@ class Modal extends Component{
   }
     
   render() {
-
     return (
       <div >
         {this.renderButton(this.props.idType)}
         <Dialog
           open={this.state.setOpen}
           keepMounted
-          onClose={this.handleClickClose}
-        >
+          onClose={this.handleClickClose}>
           <DialogContent className = "modal-container">
             <div> 
               <p className= "modal-title"> Welcome To Tempify</p>

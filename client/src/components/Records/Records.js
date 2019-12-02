@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import MUIDatatable from "mui-datatables";
-import Button from '@material-ui/core/Button'
-import {format} from 'date-fns';
-import parseISO from 'date-fns/parseISO';
 import SuccessAlert from '../Alert/SuccessAlert';
 
 /** 
@@ -28,6 +25,12 @@ const options = {
     filter: false,
  };
 
+ /**
+  * Records component to show all completed bookings/gigs for the 
+  * temps. 
+  * @author Joe Fong 
+  * @version 1.0
+  */
 class Records extends Component {
     constructor(props) {
         super(props);
@@ -38,9 +41,11 @@ class Records extends Component {
         }
     }
 
+    /**
+     * Initial render of the component. Calls for all the data
+     * from the backend to be loaded and rendered onto the component right away.
+     */
     componentDidMount() {
-
-        console.log(this.props.token);
 
         fetch("http://localhost:3001/getRecords", {
             method: 'POST',
@@ -74,7 +79,6 @@ class Records extends Component {
         }
           this.setState({data: resultData});
         }).catch(function(err) {
-          console.log(err);
         });
     }
     render() {

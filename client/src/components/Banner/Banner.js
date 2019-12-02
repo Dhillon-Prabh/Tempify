@@ -3,6 +3,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import bannerImage from "../../images/original.jpg";
 import Modal from '../Modal/Modal';
 
+/**
+ *
+ * This is the component for temp's hour input to request payment
+ *
+ * @author Oscar Au
+ * @version 1.2
+ *
+ */
+
+  /**
+ * CSS styling for the component
+ */
 const useStyles = makeStyles(theme => ({
   container: {
     width: "100%",
@@ -47,6 +59,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+ /**
+ * Returns the component which hold the banner and 2 modal component
+ */
 export default function() {
   const classes = useStyles();
   return (

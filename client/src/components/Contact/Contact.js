@@ -4,13 +4,18 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SuccessAlert from "../Alert/SuccessAlert"
 
-//
-//
-// This is the contact us form to send e-mails
-//
-//
+/**
+ * 
+ * This is the contact us form to send e-mails
+ * @author John Ham
+ * @author Oscar Au
+ * @version 1.22
+ * 
+ */
 
-// CSS to style the contact us form
+/**
+ * CSS styling for the contact us component
+ */
 const useStyles = makeStyles(theme => ({
   container: {
     display: "flex",
@@ -79,7 +84,10 @@ const useStyles = makeStyles(theme => ({
 export default function TextFields() {
   const classes = useStyles();
 
-    // Sets the states of the form to empty
+
+  /**
+   * Sets the initial state of the form to empty
+   */
   const [values, setValues] = React.useState({
     cuName: "",
     cuEmail: "",
@@ -87,12 +95,16 @@ export default function TextFields() {
     setSuccessOpen: false
   });
 
-  // Update the state of the contact us form
+  /**
+   * Update the states after form submit
+   */
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
   };
 
-  // POST request to send information for email
+  /**
+   * POST request for sending information to the database
+   */
   function sendMessageContactUs() {
     fetch("http://localhost:3001/email", {
       method: 'POST',

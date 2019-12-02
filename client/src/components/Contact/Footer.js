@@ -4,14 +4,19 @@ import { Link, Route } from "react-router-dom";
 import TermsAndConditions from '../Terms/TermsAndConditions';
 import { Typography } from "@material-ui/core";
 
-//
-//
-// This component nests the footer components together
-// This includes the policies
-//
-//
+/**
+ * 
+ * This is the contact us form to send e-mails
+ * Nests 2 components - social media component and contact us form
+ * @author Prabhdeep Singh
+ * @author Oscar Au
+ * @version 1.22
+ * 
+ */
 
-// CSS styles for the footer component
+/**
+ * CSS styling for the contact us component
+ */
 const useStyles = makeStyles(theme => ({
   outerContainer: {
     width: "100%",
@@ -37,7 +42,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// Returns 3 nests component as 1 component
+/**
+ * Returns 3 components wrapped in a div container
+ * 3 Components are linked via react router
+ */
 export default function() {
   const classes = useStyles();
   return (

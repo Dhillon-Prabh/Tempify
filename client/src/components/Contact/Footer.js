@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link, Route } from "react-router-dom";
-import TermsAndConditions from '../Terms/TermsAndConditions';
+import { Link} from "react-router-dom";
 import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({

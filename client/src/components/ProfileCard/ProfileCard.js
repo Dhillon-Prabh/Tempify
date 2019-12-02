@@ -53,7 +53,6 @@ const styles = theme => ({
 class ProfileCard extends Component {
   constructor(props) {
       super(props);
-      console.log("displayHours:" , this.props.displayHours);
       this.state = {
           bookingId : this.props.bookingId,
           displayHours : this.props.displayHours,
@@ -78,7 +77,6 @@ class ProfileCard extends Component {
       var data = {
           bookingId: this.state.bookingId
       }
-      console.log("BookingID", data.bookingId);
       fetch("http://localhost:3001/gigCard", {
         method: 'PUT',
         headers: {
@@ -99,9 +97,7 @@ class ProfileCard extends Component {
             date: result[0].dates + " " + result[0].timings,
             bookingRef: result[0].reference_number
         })
-        console.log(result);
       }).catch(function(err) {
-        console.log(err);
       });
   }
 
@@ -112,7 +108,7 @@ class ProfileCard extends Component {
       <div className={classes.container}>
         <Card className={classes.card}>
           <div className={classes.imageContainer}>
-            <img className={classes.image} src={ok} alt="profile image" />
+            <img className={classes.image} src={ok} alt="profile" />
           </div>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">

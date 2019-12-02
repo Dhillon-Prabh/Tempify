@@ -18,10 +18,7 @@ exports.postGig = [
           throw new Error('Ending time cannot be less than starting time');
       }
       return true;
-  }), 
-  (req, res, next) => {
-
-
+  }), (req, res, next) => {
     const errors = validationResult(req);
     
     if (!errors.isEmpty()) {

@@ -86,7 +86,7 @@ class JobPosting extends React.Component {
                 self.props.history.push("/tempdashboard");
             }
         }).catch(function(err) {
-            console.log(err);
+
         });
         this.forceUpdate();
     }
@@ -123,7 +123,6 @@ class JobPosting extends React.Component {
           }
           self.setState({data: resultData}); // set the datatable to use this array
         }).catch(function(err) {
-          console.log(err);
         });
   }
 

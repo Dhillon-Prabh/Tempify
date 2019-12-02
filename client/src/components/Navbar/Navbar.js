@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
-  AppBar, Toolbar, Typography, List, ListItem, Grid, SwipeableDrawer
-} from '@material-ui/core';
+import {AppBar, Toolbar, Typography, List, ListItem, Grid, SwipeableDrawer} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import './Navbar.css';
 import logo from '../../images/Tempify_resized.png';
@@ -27,6 +25,8 @@ import Privacy from '../Policy/Policy'
  * Navbar component for user to navigate different pages.
  * This also functions as the router and all the paths are handled here
  * @author Prabhdeep Singh
+ * @author Joe Fong 
+ * @version 1.0
  */
 class Navbar extends Component{
 
@@ -51,7 +51,15 @@ class Navbar extends Component{
     this.scrollToBottom = this.scrollToBottom.bind(this);
   }
 
+  /**
+   * Initializes the state of the component. Checks if user is authenticated or 
+   * still auth'd and in the current session. If not, the user will be logged out. 
+   * 
+   * If user is logged in, will check if user is temp or office and redirect them to the 
+   * correct dashboard. 
+   */
   componentDidMount() {
+    // this.logoutHandler();
     if (!sessionStorage.getItem('logged')) {
       this.logoutHandler();
       return;
@@ -75,9 +83,7 @@ class Navbar extends Component{
     const userId = localStorage.getItem('userId');
     const officeId = localStorage.getItem('officeId');
     const groupId = localStorage.getItem('groupId');
-
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime(); 
-    console.log(remainingMilliseconds);
   
       this.setState({
         isAuth: true,
@@ -97,6 +103,10 @@ class Navbar extends Component{
       this.setAutoLogout(remainingMilliseconds);
 
   }
+
+  /**
+   * Renders the navbar responsively depending on width of window. 
+   */
   componentWillMount(){
     if(window.innerWidth <= 900){
       this.setState({drawerActivate:true});
@@ -113,6 +123,10 @@ class Navbar extends Component{
 
   }
 
+  /**
+   * Login handler for the app, will make a POST request 
+   * to backend to auth and validate user input. 
+   */
   loginHandler = (event, authData) => {
     event.preventDefault();
     fetch("http://localhost:3001/login", {
@@ -195,6 +209,10 @@ class Navbar extends Component{
     });
   };
 
+  /**
+   * Logout handler. Logs the user out of the application. Sets the state back to 
+   * a default state. Removes all user details from localStorage and sessionStorage. 
+   */
   logoutHandler() {
     this.setState({
       isAuth: false, 
@@ -215,17 +233,24 @@ class Navbar extends Component{
 
   }
 
+  /**
+   * Automatic Logout handler for app. Will logout the user after 1h. 
+   * @param {*} milliseconds 
+   */
   setAutoLogout(milliseconds) {
     setTimeout(() => {
       this.logoutHandler();
     }, milliseconds);
   };
   
+  /**
+   * Scrolls to the bottom of the webpage. Used to direct users to contact-us component. 
+   */
   scrollToBottom(){
     window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
   }
 
-  //Small Screens
+  //Renders the navbar for small screens. 
   createDrawer(){
     return (
       <div>
@@ -304,7 +329,9 @@ class Navbar extends Component{
     );
   }
 
-  //Larger Screens
+  /**
+   * Renders the navbar for larger screens. 
+   */
   destroyDrawer(){
     return (
       <div>

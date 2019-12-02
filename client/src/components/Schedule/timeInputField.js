@@ -2,7 +2,6 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
-import {Redirect} from 'react-router-dom';
 import SuccessAlert from '../Alert/SuccessAlert';
 import FailAlert from "../Alert/FailAlert";
 
@@ -47,11 +46,8 @@ class BasicTextFields extends React.Component {
 
   submitForm(e) {
     e.preventDefault();
-    console.log("sending hours");
     var minutes = this.state.minutes;
     minutes = parseInt(minutes) / 60;
-    console.log(minutes);
-    console.log(this.state.hour);
     var data = {
       bookingId: this.state.bookingId,
       hours: parseInt(this.state.hour) + minutes,
@@ -65,16 +61,13 @@ class BasicTextFields extends React.Component {
       },
       body: JSON.stringify(data)
     }).then(function(response) {
-      console.log(response);
-      if (response.status == 200) {
+      if (response.status === 200) {
         self.setState({ setSuccessOpen: true });
       } else {
         self.setState({ setFailOpen: true });
       }
     }).then(function(data) {
-      console.log(data);
     }).catch(function(err) {
-        console.log(err);
     });
     setTimeout(() =>{
       this.setState({

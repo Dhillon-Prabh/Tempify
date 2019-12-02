@@ -1,14 +1,10 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import ProfileCard from "../ProfileCard/ProfileCard";
 import Modal from "./modal"
-
 import "./main.scss";
-import { red } from "@material-ui/core/colors";
-import { textAlign } from "@material-ui/system";
+
 
 export default class Calendar extends React.Component {
   constructor(props) {
@@ -20,7 +16,6 @@ export default class Calendar extends React.Component {
 }
   componentDidMount() {  
     
-    console.log(this.props.token);
     let self = this;
     var data = {
       userId: localStorage.getItem("userId"),
@@ -35,13 +30,11 @@ export default class Calendar extends React.Component {
       },
       body: JSON.stringify(data)
     }).then(function(response) {
-      console.log(response);
       return response.json();
     }).then(function(data) {
-      console.log(data);
       var dataEvents = [];
       for (var i = 0; i < data.length; i++) {
-        if(data[i].temp_status == "ACCEPTED" && data[i].dental_status == "POSTED") {
+        if(data[i].temp_status === "ACCEPTED" && data[i].dental_status === "POSTED") {
           var title = data[i].office_name;
           var date = data[i].dates;
           var id = data[i].id;
@@ -62,12 +55,12 @@ export default class Calendar extends React.Component {
           }
 
           dataEvents.push(row)
-        } else if(data[i].temp_status == "COMPLETE" && data[i].dental_status == "POSTED") {
-          var title = data[i].office_name;
-          var date = data[i].dates;
+        } else if(data[i].temp_status === "COMPLETE" && data[i].dental_status === "POSTED") {
+          title = data[i].office_name;
+          date = data[i].dates;
           var backgroundColor = "red";
-          var id = data[i].id;
-          var row = {};
+          id = data[i].id;
+          row = {};
           row.title = title;
           row.date = date;
           row.backgroundColor = backgroundColor;
@@ -80,10 +73,8 @@ export default class Calendar extends React.Component {
           
         }
       }
-      console.log(dataEvents);
       self.setState({events: dataEvents});
     }).catch(function(err) {
-      console.log(err);
     });
   }
   
@@ -93,7 +84,6 @@ export default class Calendar extends React.Component {
     const { render } = this.state;
 
     const eventClick = (info) => {
-      console.log(info.event.id);
       this.setState({
         render: !render,
         bookingId: info.event.id,

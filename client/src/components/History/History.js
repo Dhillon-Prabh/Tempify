@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import MUIDatatable from "mui-datatables";
-import Button from '@material-ui/core/Button'
-import {format} from 'date-fns';
-import parseISO from 'date-fns/parseISO';
 import SuccessAlert from '../Alert/SuccessAlert';
 
 /**
@@ -58,7 +55,6 @@ class History extends Component {
           var resultData = [];
           for (let i = 0; i < result.length; i++) {
               let tempName = result[i].temp_name;
-              let status = result[i].temp_status;
               let practice = result[i].type_of_practice;
               let software = Array.from(JSON.parse(result[i].dental_software) + ' ');
               let experience = result[i].experience;
@@ -80,7 +76,6 @@ class History extends Component {
         }
           this.setState({data: resultData});
         }).catch(function(err) {
-          console.log(err);
         });
     }
     render() {

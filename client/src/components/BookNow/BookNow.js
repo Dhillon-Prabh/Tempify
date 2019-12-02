@@ -147,7 +147,6 @@ class PostGig extends React.Component {
     })
       .then(function(response) {
         if (response.status == 422) {
-          console.log("validation error");
         } else if (response.status == 300) { // no error
           self.setState({ success: true });
         }
@@ -162,10 +161,8 @@ class PostGig extends React.Component {
             self.setState({ timeError: true }); // sets the time filed error
           }
         }
-        console.log(data);
       })
       .catch(function(err) {
-        console.log(err);
       });
   };
 

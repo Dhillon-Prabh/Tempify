@@ -60,6 +60,12 @@ const styles = theme => ({
   notchedOutline: {},
 });
 
+/**
+ * Temp dashboard component. This is the main dashboard for 
+ * temps once logged in to the application. 
+ * @author Joe Fong
+ * @version 1.0 
+ */
 class TempDashboard extends Component {
   constructor(props) {
     super(props);
@@ -76,8 +82,10 @@ class TempDashboard extends Component {
     this.navigateRecords = this.navigateRecords.bind(this);
   }
 
+  /**
+   * Initial fetch of the logged in users profile information. 
+   */
   componentDidMount(){
-    
     fetch("http://localhost:3001/tempProfile", {
       method: 'GET',
       headers: {

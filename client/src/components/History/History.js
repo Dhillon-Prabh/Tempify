@@ -26,6 +26,12 @@ const options = {
     filter: false,
  };
 
+ /**
+  * History component to view all 'completed' bookings/gigs 
+  * for the offices. 
+  * @author Joe Fong 
+  * @version 1.0 
+  */
 class History extends Component {
     constructor(props) {
         super(props);
@@ -36,6 +42,10 @@ class History extends Component {
         }
     }
 
+    /**
+     * Initial render of the component. Calls for all the data
+     * from the backend to be loaded and rendered onto the component right away.
+     */
     componentDidMount() {
         var userId = localStorage.getItem('userId');
         var data = {

@@ -39,7 +39,6 @@ exports.tempData = (req, res, next) => {
     });
 }
 
-
 exports.confirmPayment = (req, res, next) => {
     db((err, con) => {
         if(err){

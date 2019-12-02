@@ -221,7 +221,7 @@ class Register extends React.Component {
       if (response.status === 401) {
         console.log("this user already exists");
       }
-      if (response.status == 401) {
+      if (response.status === 401) {
         self.setState({ setFailOpen: true });
       } else {
         self.setState({ setSuccessOpen: true });

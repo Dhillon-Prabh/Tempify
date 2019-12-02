@@ -75,7 +75,9 @@ class BasicTextFields extends React.Component {
         setFailOpen: false,
         setSuccessOpen: false
       });
-      window.location.reload();
+      // window.location.reload();
+      this.props.history.push('/tempdashboard');
+
     }, 2000);
   }
 

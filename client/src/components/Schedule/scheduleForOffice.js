@@ -1,9 +1,7 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import OfficeProfileCard from "../ProfileCard/OfficeProfileCard";
 import OfficeModal from "./OfficeModal"
 import { format } from "date-fns";
 import parseISO from "date-fns/parseISO";
@@ -38,8 +36,8 @@ export default class Calendar extends React.Component {
       return response.json();
     }).then(function(dataAll) {
       var dataEvents = [];
-      if (dataAll.length == 2) { //we get bookings and gigs
-        var data = dataAll[0]; // these are bookings
+      if (dataAll.length == 2) { 
+        var data = dataAll[0]; 
         for (var i = 0; i < data.length; i++) {
           if(data[i].temp_status == "ACCEPTED" && data[i].dental_status == "POSTED") {
             var title = data[i].temp_name;
@@ -143,7 +141,6 @@ export default class Calendar extends React.Component {
     const { render } = this.state;
 
     const eventClick = (info) => {
-      // console.log("BookingID", info.event.id);
       if (info.event.id !== '') {
         this.setState({
           render: !render,

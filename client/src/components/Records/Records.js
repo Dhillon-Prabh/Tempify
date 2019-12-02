@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import MUIDatatable from "mui-datatables";
-import Button from '@material-ui/core/Button'
-import {format} from 'date-fns';
-import parseISO from 'date-fns/parseISO';
 import SuccessAlert from '../Alert/SuccessAlert';
 // import './JobPosting.css'
 
@@ -35,15 +32,17 @@ class Records extends Component {
     }
 
     componentDidMount() {
-
-        console.log(this.props.token);
-
+        var userId = localStorage.getItem('userId');
+        var data = {
+            userId: userId,
+        }
         fetch("/auth/getRecords", {
             method: 'POST',
             headers: {
               'Authorization': 'Bearer ' + this.props.token,
               'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify(data)
         }).then(res =>  {
           return res.json();
         }).then(result => {

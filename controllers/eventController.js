@@ -7,7 +7,7 @@ exports.getEvents = (req, res, next) => {
       console.log(err);
       throw err;
     }
-    if (user.role == 2) { //role for temps is 2
+    if (user.role == 2) { 
         var query = 'SELECT id FROM temps WHERE user_id = ?;';
         values=[user.userId];
         con.query(query, values, (err, result, fields) => {
@@ -42,7 +42,7 @@ exports.getEventsOffice = (req, res, next) => {
       console.log(err);
       throw err;
     }
-    if (user.role == 1) { //role for offices is 1
+    if (user.role == 1) { 
         var events = [];
         var query = 'SELECT id FROM dentists WHERE user_id = ?;';
         values=[user.userId];

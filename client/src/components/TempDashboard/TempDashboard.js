@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Schedule from '../Schedule/scheduleForTemp';
 import {Link} from 'react-router-dom';
 import './TempDashboard.css'
-
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import ListItem from '@material-ui/core/ListItem';
@@ -31,6 +30,8 @@ class TempDashboard extends Component {
     this.navigateSchedule = this.navigateSchedule.bind(this);
     this.navigateRecords = this.navigateRecords.bind(this);
   }
+
+  
 
   navigatePending() {
     this.setState({

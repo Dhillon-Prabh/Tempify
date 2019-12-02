@@ -4,6 +4,18 @@ import "./Policy.css";
 import { Grid } from "@material-ui/core";
 import ContactSection from "../Contact/ContactSection";
 
+/**
+ *
+ * This is the component for temp's hour input to request payment
+ *
+ * @author Oscar Au
+ * @version 1.2
+ *
+ */
+
+ /**
+ * CSS styling for the component
+ */
 const PolicyContent = props => {
   return (
     <Typography
@@ -17,11 +29,14 @@ const PolicyContent = props => {
   );
 };
 
+/**
+ * Returns the component which nests static pricing information
+ */
 const Policy = () => {
   return (
     <React.Fragment>
-        <br />
-        <br />
+      <br />
+      <br />
       <Typography
         align="center"
         display="block"
@@ -48,7 +63,7 @@ const Policy = () => {
           className="PolicyHeader"
         >
           HOW IT WORKS
-        </Typography> 
+        </Typography>
         <br />
         <PolicyContent content="After a Dental Professional has completed their day's work, simply go online and follow the payment process found in the schedule tab." />
         <PolicyContent content="Navigate to the date the Dental Professional worked, click on their name and a “payment” button will appear." />
@@ -62,11 +77,11 @@ const Policy = () => {
         >
           SERVICE FEES
         </Typography>
-         <br />
+        <br />
         <PolicyContent content="Take advantage of our introductory pricing.*" />
       </Grid>
       <div className="surchargeContainer"> 15% SURCHARGE</div>
-      <ContactSection/>
+      <ContactSection />
     </React.Fragment>
   );
 };

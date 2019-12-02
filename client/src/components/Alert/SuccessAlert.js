@@ -5,7 +5,7 @@ import { SnackbarProvider, useSnackbar } from 'notistack';
  * Displays a success snackbar in the bottom left corner. 
  * Snackbar is displayed for two seconds.
  * Purpose of the snackbar should be passed in the component as a type.
- * @authors Prabhdeep Singh John Ham
+ * @authors Joeco Fong Prabhdeep Singh John Ham
  * @version 1.0
  */
 
@@ -14,6 +14,8 @@ function MyApp(props) {
 
   // Changes the text displayed in the snackbar based on the type.
   const showAlert = (variant, autoHideDuration) => {
+
+    // Conditions for displaying success alert
     switch (props.type) {
       case 'login':
         enqueueSnackbar('Succesful login!', { variant, autoHideDuration });
@@ -58,6 +60,7 @@ function MyApp(props) {
   );
 }
 
+// Component to be nexted into other components that requires success alert functino
 export default function IntegrationNotistack(props) {
   return (
     <SnackbarProvider preventDuplicate={true}>

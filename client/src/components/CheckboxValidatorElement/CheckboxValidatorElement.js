@@ -38,11 +38,13 @@ class CheckboxValidatorElement extends ValidatorComponent {
  
     errorText() {
         const { isValid } = this.state;
- 
+        
+        // Does nothing if checkbox is checked
         if (isValid) {
             return null;
         }
  
+        // Shows error message if checkbox is not checked
         return (
             <div style={style}>
                 {this.getErrorMessage()}

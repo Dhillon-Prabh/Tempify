@@ -5,15 +5,17 @@ import { withStyles } from "@material-ui/core/styles";
 import PaymentButton from "../Payment/PayButton";
 
 /**
- * Profile card for the offices which shows the temp information
- * @author Prabhdeep Singh
- * @version 1
+ *
+ * This is the component for temp's hour input to request payment
+ *
+ * @author Prabdeep Singh
+ * @author Oscar Au
+ * @version 1.2
+ *
  */
 
 /**
- * Styles being used by this commponent
- * @param theme 
- * @version 1
+ * CSS styling for the component
  */
 const styles = theme => ({
   outerContainer: {
@@ -83,7 +85,7 @@ const styles = theme => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "25px",
+    marginTop: "25px"
   },
   statusLeft: {
     fontSize: "16px",
@@ -156,29 +158,26 @@ const styles = theme => ({
 });
 
 /**
- * ProfileCard component class to show the temp information to the offices. 
- * This is where the offices pay the temps
- * @author Prabhdeep Singh
- * @version 1
+ * Sets the inital state of the component
  */
 class ProfileCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookingId : this.props.bookingId,
+      bookingId: this.props.bookingId,
       disablePay: this.props.disablePay,
-      tempName: '',
-      practice: '',
-      software: '',
-      experience: '',
-      rate: '',
-      bookingRef: '',
+      tempName: "",
+      practice: "",
+      software: "",
+      experience: "",
+      rate: "",
+      bookingRef: "",
       temp_hours: 0
-    }
+    };
   }
 
   /**
-   * Fetches the information for the card.
+   * Fetches information upon page load and update state
    */
   componentDidMount() {
     var self = this;
@@ -188,8 +187,8 @@ class ProfileCard extends Component {
     fetch("http://localhost:3001/gigCardOffice", {
       method: "PUT",
       headers: {
-        'Authorization': 'Bearer ' + this.props.token,
-        'Content-Type': 'application/json'
+        Authorization: "Bearer " + this.props.token,
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     })
@@ -211,6 +210,9 @@ class ProfileCard extends Component {
       });
   }
 
+  /**
+   * Returns the component which holds temp information
+   */
   render() {
     const { classes } = this.props;
 
@@ -232,12 +234,12 @@ class ProfileCard extends Component {
             </div>
             <div className={classes.statusContainer}>
               <div className={classes.statusLeft}>Experience :</div>
-              <div className={classes.statusRight}>
-                {this.state.experience}
-              </div>
+              <div className={classes.statusRight}>{this.state.experience}</div>
             </div>
             <div className={classes.statusContainer}>
-              <div className={classes.statusLeft}>Temp's Total Work in Hours :</div>
+              <div className={classes.statusLeft}>
+                Temp's Total Work in Hours :
+              </div>
               <div className={classes.statusRight}>
                 {this.state.temp_hours} Hours
               </div>
@@ -248,15 +250,24 @@ class ProfileCard extends Component {
               {/* <div className={classes.locationImage}></div>
               <div className={classes.location}>Location</div> */}
             </div>
-            <div className={classes.rate}>Temp's Wage : ${this.state.rate} / Hour</div>
+            <div className={classes.rate}>
+              Temp's Wage : ${this.state.rate} / Hour
+            </div>
           </div>
           <div className={classes.bookingContainer}>
-            <div className={classes.bookingIDTitle}>Booking ID : {this.state.bookingRef}</div>
+            <div className={classes.bookingIDTitle}>
+              Booking ID : {this.state.bookingRef}
+            </div>
             {/* <div className={classes.bookingID}>{this.state.bookingRef}</div> */}
           </div>
           <div className={classes.paymentButtonContainer}>
-            {this.state.disablePay ? null : <PaymentButton token = {this.props.token} gigId={this.state.bookingId} />}
-        </div>
+            {this.state.disablePay ? null : (
+              <PaymentButton
+                token={this.props.token}
+                gigId={this.state.bookingId}
+              />
+            )}
+          </div>
         </div>
       </div>
     );

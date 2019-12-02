@@ -42,6 +42,7 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
     
+        // bookNow state is true as the active view displayed
         this.state = {
           bookNow: true, //bookNow is the default component when user navigates to the dashboard
           schedule: false,
@@ -86,11 +87,13 @@ class Dashboard extends Component {
     })
     }
 
+    // Returns the component which nests the 3 views of the dashboard
     render() {
         return(
             <React.Fragment>
                 <Grid container direction="row" justify="center" alignItems="center" className="options">
                 <div className="tempDateboardOuterContainer">
+                {/* Displays bread crumb information - as home dashboard */}
                     <Grid item xs={2}>
                         <Breadcrumbs aria-label="breadcrumb">
                             <Link to="/dashboard" style={{textDecoration:'none', color: 'inherit'}}>
@@ -104,6 +107,7 @@ class Dashboard extends Component {
                             <Typography color="textPrimary">dashboard</Typography>
                         </Breadcrumbs>
                     </Grid> 
+                    {/* The dashboard component - holds 3 button to navigate between different views */}
                     <Grid item xs={6}>
                     <div className="dashboardContainer">
                         <ButtonGroup className="buttons" size="large" aria-label="small contained button group" >
@@ -115,6 +119,7 @@ class Dashboard extends Component {
                     </Grid>
                     </div>
                 </Grid>
+                {/* Shows the view of which button is clicked - active - true */}
                 {this.state.bookNow ? <BookNow token = {this.props.token}/> : null }
                 {this.state.schedule ? <Schedule token = {this.props.token}/> : null }
                 {this.state.history ? <History token = {this.props.token}/> : null }

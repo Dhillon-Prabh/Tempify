@@ -7,6 +7,13 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles } from "@material-ui/core/styles";
 
+//
+//
+// This is the button component used for temp registration and logging in
+//
+//
+
+// CSS for styling the button
 const useStyles = makeStyles(theme => ({
   buttonRight: {
     backgroundColor: "white",
@@ -74,16 +81,19 @@ const ClearButton = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
+  // Sets the modal state to true to open it
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  // Sets the modal state to false to close it
   const handleClose = () => {
     setOpen(false);
   };
 
   return (
     <div>
+      {/* Button to press to launch modal */}
       <Button
         className={classes.buttonRight}
         color="primary"
@@ -92,6 +102,7 @@ const ClearButton = () => {
       >
         Become a Temp
       </Button>
+      {/* Modal which nests 2 buttons for signing up and logging in */}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -101,6 +112,7 @@ const ClearButton = () => {
       >
         <div className={classes.modalContainer}>
           <DialogTitle id="alert-dialog-title">Welcome to Tempify</DialogTitle>
+          {/* Login button for existing temp to log in */}
           <div className={classes.btnContainer}>
             <Button
               className={classes.loginBtn}
@@ -109,6 +121,7 @@ const ClearButton = () => {
             >
               Login
             </Button>
+            {/* Register button for new temp to sign up */}
             <Button
               className={classes.registerBtn}
               onClick={handleClose}

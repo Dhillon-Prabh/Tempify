@@ -128,15 +128,18 @@ class PostGig extends React.Component {
       dateError: false,
       timeError: false
     });
+    // prevents page from automatic reloading after form submission
     event.preventDefault();
     // grabs userId from localStorage. Using token won't work because the office can change the profile on profile section.
     const userId = localStorage.getItem("userId");
+    // prepares the data to be POST to database
     var data = {
       date: format(this.state.date, "yyyy-MM-dd"),
       time: this.state.fromTime + " - " + this.state.toTime,
       designation: this.state.designation,
       userId: userId
     };
+    //makes a POST request to submit input informatoin to database
     fetch("http://localhost:3001/postGig", {
       method: "POST",
       headers: {
@@ -145,6 +148,7 @@ class PostGig extends React.Component {
       },
       body: JSON.stringify(data)
     })
+    // callbacks to check if result of POST request
       .then(function(response) {
         if (response.status == 422) {
         } else if (response.status == 300) { // no error
@@ -166,10 +170,12 @@ class PostGig extends React.Component {
       });
   };
 
+  // returns the compoenent for office to post a gig
   render() {
     const classes = this.props.withStyles; // style classes
     return (
       <React.Fragment>
+        {/* Container to hold Post a Gig */}
         <Typography
           variant="h6"
           align="center"
@@ -189,6 +195,7 @@ class PostGig extends React.Component {
             >
               <Grid item xs={12} md={2} width="80%">
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                {/* Date picker to control user input */}
                   <KeyboardDatePicker
                     className="inputBox"
                     name="date"
@@ -208,6 +215,7 @@ class PostGig extends React.Component {
                 </MuiPickersUtilsProvider>
               </Grid>
               <Grid item xs={12} md={1}>
+              {/* Validator for time input */}
                 <TextValidator
                   label="From"
                   type="time"
@@ -226,6 +234,7 @@ class PostGig extends React.Component {
                 />
               </Grid>
               <Grid item xs={12} md={1}>
+              {/* Validator for time input */}
                 <TextValidator
                   label="To"
                   type="time"
@@ -244,6 +253,7 @@ class PostGig extends React.Component {
                 />
               </Grid>
               <Grid item xs={12} md={2}>
+              {/* Validator for input for temp designation */}
                 <TextValidator
                   required
                   fullWidth
@@ -273,6 +283,7 @@ class PostGig extends React.Component {
                   }}
                 >
                   {designations.map(option => (
+                    // Dropdown options for temp designation
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -308,18 +319,24 @@ const FindFit = () => {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
+  // Update state of date
   const handleDateChange = date => {
     setValues(oldValues => ({
       ...oldValues,
       date: date
     }));
   };
+
+  // Update state of designation
   const handleChange = (event, index, value) => {
     setValues(oldValues => ({
       ...oldValues,
       designation: value
     }));
   };
+
+  // component that lets the office finds a specific temp to work with
+  // this component is currently not in use
   return (
     <React.Fragment>
       <Typography variant="h6" align="center" display="block" className="title">
@@ -335,6 +352,7 @@ const FindFit = () => {
         >
           <Grid item xs={12} md={3}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            {/* Date picker to control user input */}
               <KeyboardDatePicker
                 disableToolbar
                 variant="inline"
@@ -352,6 +370,7 @@ const FindFit = () => {
             </MuiPickersUtilsProvider>
           </Grid>
           <Grid item xs={12} md={3}>
+          {/* Form input options to control user input */}
             <FormControl variant="outlined" className="inputBox">
               <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
                 Designation
@@ -389,6 +408,7 @@ class BookNow extends React.Component {
     
   }
 
+  // Return the post gig component 
   render() {
     return (
       <React.Fragment>

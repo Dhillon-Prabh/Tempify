@@ -17,7 +17,7 @@ import Records from '../Records/Records';
 
 /**
  * Creates the styling for the materialUI component.
- * @param {*} theme 
+ * @param theme 
  */
 const styles = theme => ({
   

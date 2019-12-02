@@ -1,7 +1,8 @@
 const db = require('../database/database');
 
 /**
- * 
+ * gets all the jobs that are completed and paid for.
+ * @author Joe Fong
  * @author John Ham
  * @version 1.0
  */

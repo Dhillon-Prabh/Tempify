@@ -7,7 +7,6 @@ import PaymentButton from "../Payment/PayButton";
 /**
  * Profile card for the offices which shows the temp information
  * @author Prabhdeep Singh
- * @param theme 
  * @version 1
  */
 

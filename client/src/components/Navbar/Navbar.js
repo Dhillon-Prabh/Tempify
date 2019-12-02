@@ -289,7 +289,7 @@ class Navbar extends Component{
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/profile'}> Profile </ListItem>
                 <ListItem key = {3} button divider className="nav-item item-height"> Dashboard </ListItem>
                 <ListItem key = {4} button divider className="nav-item item-height"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}> Job Postings </ListItem>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempjobPosting'}> Job Postings </ListItem>
                 <ListItem key = {6} button divider className="nav-item item-height" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/'}> Logout </ListItem>
                 <ListItem key = {7} button divider className="nav-item item-height" 
@@ -349,7 +349,7 @@ class Navbar extends Component{
                 <Typography variant = "body1" className = "padding nav-item"
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempdashboard'}>Dashboard</Typography>
                 <Typography variant = "body1" className = "padding nav-item"
-                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/jobPosting'}>Job Postings</Typography>
+                  activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/tempjobPosting'}>Job Postings</Typography>
                 <Typography variant = "body1" className = "nav-item" 
                   activeStyle={{ color: '#53bed5' }} component={NavLink} to={'/login'} onClick ={this.logoutHandler}>Logout</Typography>
                 <Typography variant = "subheading" className = "padding nav-item"
@@ -445,7 +445,7 @@ class Navbar extends Component{
             )}
           />
           <Route
-            path="/jobPosting"
+            path="/tempjobPosting"
             render= {props => (
               <JobPosting
                 {...props}

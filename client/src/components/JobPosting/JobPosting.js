@@ -41,7 +41,6 @@ class JobPosting extends React.Component {
             gigId: acceptData[0].id,
             acceptData: acceptData[0]
           }
-        // console.log(data); 
         fetch("/auth/acceptGig", {
         method: 'POST',
         headers: {

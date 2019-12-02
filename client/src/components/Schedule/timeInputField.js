@@ -10,7 +10,8 @@ import FailAlert from "../Alert/FailAlert";
  * This is the component for temp's hour input to request payment
  *
  * @author Prabdeep Singh
- * @author Oscar Au John Ham
+ * @author Oscar Au 
+ * @author John Ham
  * @version 1.2
  *
  */

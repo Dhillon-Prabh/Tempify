@@ -61,6 +61,7 @@ const parking = [
  * new office to their profile. 
  * @author Ho Joo Lee 
  * @author Prabhdeep Singh 
+ * @author John Ham
  * @version 1.0 
  */
 class NewOfficeModal extends React.Component {

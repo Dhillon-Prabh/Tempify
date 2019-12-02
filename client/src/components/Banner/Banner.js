@@ -4,8 +4,7 @@ import bannerImage from "../../images/original.jpg";
 import Modal from '../Modal/Modal';
 
 /**
- *
- * This is the component for temp's hour input to request payment
+ * Component for banner on the Home component.
  *
  * @author Oscar Au
  * @version 1.2

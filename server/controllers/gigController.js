@@ -3,7 +3,7 @@ const {check, validationResult} = require('express-validator/check');
 
 /**
  * posting a gig. This is used by the office to post a job.
- * @author : Prabhdeep Singh
+ * @author Prabhdeep Singh
  * @author John Ham
  * @version 1.0
  */

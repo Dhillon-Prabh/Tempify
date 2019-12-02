@@ -4,6 +4,13 @@ import './TermsAndConditions.css'
 import { Grid } from '@material-ui/core';
 import ContactSection from '../Contact/ContactSection'
 
+/**
+ * Component for the Terms and Conditions page.
+ * 
+ * @author Ho Joo Lee
+ * @version 1.0
+ */
+
 const TermsContent = (props) => {
   return (
     <Typography align="left" display="block" variant="body1" className="Terms-Content">

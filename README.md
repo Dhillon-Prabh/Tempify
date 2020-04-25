@@ -1,3 +1,5 @@
 # Tempify
-Repository for 3900
-5 members
+
+First prototype for a platform to connect dental offices and temps
+
+visit: https://tempify-v2.herokuapp.com/
